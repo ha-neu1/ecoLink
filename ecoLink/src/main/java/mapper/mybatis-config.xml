@@ -2,5 +2,16 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+<typeAliases>
+	<typeAlias type="dto.BoardDTO" alias="boardDto"/>
+	<typeAlias type="dto.BannerDTO" alias="bannerDto"/>
+	<typeAlias type="dto.BoardCommentDTO" alias="boardCommentDto"/>
+	<typeAlias type="dto.BoatdLikeDTO" alias="boardLikeDto"/>
+	<typeAlias type="dto.BrandCommentDTO" alias="brandCommentDto"/>
+	<typeAlias type="dto.EnterpriseBookmarkDTO" alias="enterpriseBookmarkDto"/>
+	<typeAlias type="dto.EnterpriseDetailDTO" alias="enterpriseDetailDto"/>
+	<typeAlias type="dto.EnterpriseDTO" alias="enterpriseDto"/>
+	<typeAlias type="dto.FileDTO" alias="fileDto"/>
+	<typeAlias type="dto.MemberDTO" alias="memberDto"/>
+</typeAliases>
 </configuration>
