@@ -6,7 +6,7 @@
 	<typeAlias type="dto.BoardDTO" alias="boardDto"/>
 	<typeAlias type="dto.BannerDTO" alias="bannerDto"/>
 	<typeAlias type="dto.BoardCommentDTO" alias="boardCommentDto"/>
-	<typeAlias type="dto.BoatdLikeDTO" alias="boardLikeDto"/>
+	<typeAlias type="dto.BoardLikeDTO" alias="boardLikeDto"/>
 	<typeAlias type="dto.BrandCommentDTO" alias="brandCommentDto"/>
 	<typeAlias type="dto.EnterpriseBookmarkDTO" alias="enterpriseBookmarkDto"/>
 	<typeAlias type="dto.EnterpriseDetailDTO" alias="enterpriseDetailDto"/>
