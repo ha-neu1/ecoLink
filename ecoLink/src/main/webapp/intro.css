@@ -1,0 +1,60 @@
+@charset "UTF-8";
+#intro_contents{
+    max-width: 1300px;
+    margin: 0 auto ;
+    color: #222;
+}
+
+.intro_title{
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 40px;
+}
+
+.intro_title_text{
+    text-align: center;
+    width: 50%;
+    margin: 0 auto 30px;
+    line-height: 28px;
+    color: #212529;
+}
+.intro_detail{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.intro_detail img{
+    width: 650px;
+    height: 400px;   
+}
+.intro_detail_text{
+    width: 600px;
+    line-height: 28px;
+    color: #212529;
+    
+}
+.intro_goodpoint{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.goodpoint_title{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.goodpoint_text{
+    width: 600px;
+    
+    line-height: 28px;
+    color: #212529;
+}
+
+.intro_goodpoint img{
+    width: 750px;
+    height: 400px;
+}
