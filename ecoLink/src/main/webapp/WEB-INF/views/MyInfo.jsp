@@ -22,7 +22,10 @@
 	<div>
 		<div>
 		<table id='myinfo'>
-<%-- 			<tr><td>아이디</td><td>${}</td></tr> --%>
+<%-- 			<tr>
+				<td>아이디</td>
+				<td>${}</td>
+				</tr> --%>
 <%-- 			<tr><td>비밀번호</td><td>${}</td></tr> --%>
 <%-- 			<tr><td>이름</td><td>${}</td></tr> --%>
 <%-- 			<tr><td>닉네임</td><td>${}</td></tr> --%>

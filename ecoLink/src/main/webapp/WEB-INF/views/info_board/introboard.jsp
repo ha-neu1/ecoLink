@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/intro.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
         </div>
         <div class="intro_detail">
             <p class="img">
-                <img src="img/upcycle.jpg">
+                <img src="images/upcycle.jpg">
             </p>
             <div class="intro_detail_text">
                 <p class="detail_text">
@@ -35,7 +36,7 @@
                 </p>
             </div>
                 <p class="img">
-                    <img src="img/upcycleex.jpg">
+                    <img src="images/upcycleex.jpg">
                 </p>
             
         </div>
