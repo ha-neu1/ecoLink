@@ -16,7 +16,6 @@ ul, li {
 }
 
 .navbar {
-	max-width: 1400px; /*최대넓이*/
 	display: flex; /* 박스 가로로 */
 	justify-content: space-between; /*박스 사이에 빈공간*/
 	margin: 0 auto; /*위아래 간격 0, 좌우간격 자동*/
