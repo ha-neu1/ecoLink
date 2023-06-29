@@ -8,6 +8,6 @@ public class IntroController {
 	
 	@RequestMapping("/introboard")
 	public String introboard() {
-		return "introboard";
+		return "info_board/introboard";
 	}
 }
