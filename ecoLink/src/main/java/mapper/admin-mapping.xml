@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AdminDAO">
+
+<select id="getRegEnterConfirm" resultType="int">
+	select count(*) from enterprise_detail where entdConfirm = false;
+</select>
+
+<select id="getAllRegUser" resultType="int">
+	select count(*) from member where memType = "normal" or memType = "enter";
+</select>
+
+<select id="getSomeBoardList" resultType="boarddto">
+	select * from board order by boardId desc limit 50;
+</select>
+
+<select id="getNewsBoardList" resultType="boarddto">
+	select * from board where boardType ="news" order by boardId desc;
+</select>
+
+<select id="getShareBoardList" resultType="boarddto">
+	select * from board where boardType ="share" order by boardId desc;
+</select>
+
+<select id="getReviewBoardList" resultType="boarddto">
+	select * from board where boardType ="review" order by boardId desc;
+</select>
+
+<select id="getTipsBoardList" resultType="boarddto">
+	select * from board where boardType ="tip" order by boardId desc;
+</select>
+
+<select id="getUnConfirmedEnterList" resultType="adminDto">
+	select e.entCrn, m.memNick, e.entPhone, m.memId, m.memEmail, m.memRegtime, ed.entdConfirm 
+	from member as m
+	join enterprise as e on e.memId = m.memId 
+	join enterprise_detail as ed on e.entCrn = ed.entCrn
+	where ed.entdConfirm = false;
+</select>
+
+<select id="getConfirmedEnterList" resultType="adminDto">
+	select e.entCrn, m.memNick, e.entPhone, m.memId, m.memEmail, m.memRegtime, ed.entdConfirm 
+	from member as m
+	join enterprise as e on e.memId = m.memId 
+	join enterprise_detail as ed on e.entCrn = ed.entCrn
+	where ed.entdConfirm = true;
+</select>
+
+</mapper>
+
+
+
+
+
+
