@@ -1,4 +1,19 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'NanumSquareNeo';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot');
+    src: url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot?#iefix') format('embedded-opentype'),
+         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff2') format('woff2'),
+         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff') format('woff'),
+         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.ttf') format("truetype");
+    font-display: swap;
+} 
+* {
+	font-family: 'NanumSquareNeo';
+}
+
 .info_title{
     display: flex;
     justify-content: center;
@@ -18,6 +33,15 @@
     margin: 0 auto;
     justify-content: space-between;
 }
+.writingform{
+	 display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
 
 
 .post_container{
@@ -51,4 +75,16 @@
 .post_contents{
     color: #363636;
     font-size: 16px;
+}
+.pagination{
+	    text-align: center;
+		margin-top: 50px;
+		
+}
+.pagenumber{
+	margin-right: calc( 10px/2 );
+	margin-left: calc( 10px/2 );
+	text-decoration: none;
+	color: #9E9E9E;
+	font-size: 20px;
 }
