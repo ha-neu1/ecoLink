@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,10 @@
         </div>
         <div class="info_search">
             <form action="#">
+	            <select class="search_form">
+	                <option value="seartch_tit">제목</option>
+	                <option value="seartch_content">내용</option>
+	            </select>
                 <input type="search" class="searchbar">
                 <button type="submit" class="searchbtn">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -27,29 +32,53 @@
             </form>
         </div>    
     </div>
+    <div class="writingform">
+    	<a href="infoboardwrite"><input type="button" value="글쓰기" ></a>
+    </div>
+    <c:forEach items="${boardList }" var="dto">
     <div class="post_container ">
         <div class="post_image_wrap">
             <a class="post_link" href="#"> <div class="post_image"> <img src="images/kimbab.jpg"></div></a>
         </div>
         <div class="post_text">
-            <h3 class="post_tit"><a href="#"> 제목제목제목제목제목제목제목제목제목제목제목제목제목제목 </a></h3>
+            <h3 class="post_tit"><a href="#"> 	${dto.boardTitle } </a></h3>
             <div class="post_date_wrap">
-                <span class="post_date"> 2023-06-28</span>
+                <span class="post_date"> ${dto.boardRegtime }</span>
             </div>
             <div class="post_contents">
                 <p>
-                    내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.
+                    ${dto.boardContents }
                 </p>
             </div>
         </div>
 
     </div>
+    </c:forEach>
+    
+<div class="pagination">
+<%
+	int totalBoard = (Integer)request.getAttribute("totalBoard");
+	int totalPage = 0;
+	if(totalBoard % 5 == 0){
+		totalPage = totalBoard / 5;
+	}
+	else{
+		totalPage = totalBoard / 5 + 1;
+	}
+	for(int i= 1; i <= totalPage; i++){
+		%>
+		
+		<a class="pagenumber" href="infoboardlist?page=<%=i%>"><%=i %></a>
+		
+<% 	}
+%>
+</div>
 
 
 
 
 
-    </div>
+ 
 
 </body>
 </html>
