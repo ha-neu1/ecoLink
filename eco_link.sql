@@ -42,45 +42,34 @@ default,
 );
 
 -- 기업회원
-CREATE TABLE `enterprise` (
-	`entCrn`	VARCHAR(20)	NOT NULL PRIMARY KEY,
-	`entPhone`	VARCHAR(50)	NOT NULL,
-	`memId`	VARCHAR(36)	NOT NULL,
-    foreign key(`memId`) references `member`(`memId`)
+CREATE TABLE enterprise (
+    entCrn    VARCHAR(20)    NOT NULL PRIMARY KEY,
+    entPhone    VARCHAR(50)    NOT NULL,
+    memId    VARCHAR(36)    NOT NULL,
+    entdMainPic    VARCHAR(255)    NULL,
+    entdShort    VARCHAR(255)    NULL,
+    entdURL    VARCHAR(255)    NULL,
+    entdIntro    VARCHAR(1000)    NULL,
+    entdIntroPic    VARCHAR(255)    NULL,
+    entdPic1    VARCHAR(255)    NOT NULL,
+    entdPic2    VARCHAR(255)    NULL,
+    entdPic3    VARCHAR(255)    NULL,
+    entdExplain1    VARCHAR(500)    NOT NULL,
+    entdExplain2    VARCHAR(500)    NULL,
+    entdExplain3    VARCHAR(500)    NULL,
+    entdConfirm    boolean    NOT NULL,
+    foreign key(memId) references member(memId)
 );
 
 select * from enterprise;
 
 INSERT INTO enterprise values(
 '110-00-10101',
-'02-333-3333',
-'enter'
-);
-
--- 기업상세정보
-CREATE TABLE `enterprise_detail` (
-	`entdMainPic`	VARCHAR(255)	NULL,
-	`entdShort`	VARCHAR(255)	NULL,
-	`entdURL`	VARCHAR(255)	NULL,
-	`entdIntro`	VARCHAR(1000)	NULL,
-	`entdIntroPic`	VARCHAR(255)	NULL,
-	`entdPic1`	VARCHAR(255)	NOT NULL,
-	`entdPic2`	VARCHAR(255)	NULL,
-	`entdPic3`	VARCHAR(255)	NULL,
-	`entdExplain1`	VARCHAR(500)	NOT NULL,
-	`entdExplain2`	VARCHAR(500)	NULL,
-	`entdExplain3`	VARCHAR(500)	NULL,
-	`entCrn`	VARCHAR(20)	NOT NULL,
-	`entdConfirm`	boolean	NOT NULL,
-    foreign key(`entCrn`) references `enterprise`(`entCrn`)
-);
-
-select * from enterprise_detail;
-
-INSERT INTO enterprise_detail values(
+'02-555-3555',
+'enter2',
 'mainpic.jpg',
 '짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다.',
-'http://www.temp.com',
+'http://www.temp.com/',
 '긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.긴 설명입니다.',
 'intropic.jpg',
 'entdPic1.jpg',
@@ -89,7 +78,6 @@ INSERT INTO enterprise_detail values(
 'entdExplain1',
 'entdExplain2',
 'entdExplain3',
-'110-00-10101',
 true
 );
 
