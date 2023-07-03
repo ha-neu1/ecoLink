@@ -1,0 +1,99 @@
+@charset "UTF-8";
+@import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css");
+
+* { font-family: 'NanumSquareNeo'; }
+
+aside {
+	width: 110px;
+	text-align:center;
+}
+
+aside p{
+	margin: 5px;
+	/* border-bottom: 1px solid #b2b2b2; */
+	font-size: 12px;
+}
+
+aside p:hover{
+	margin: 5px;
+	/* border-bottom: 1px solid #b2b2b2; */
+	font-size: 12px;
+	color: #00d084;
+}
+
+article {
+	border: 1px solid lightgrey;
+	margin: 50px auto;
+	padding : 20px;
+	width: 450px;
+	height: 600px;
+}
+
+article h2{
+	text-align: left;
+	margin: 30px 20px 0px 25px;
+}
+
+article h6{
+	text-align: left;
+	margin: 10px 20px 50px 25px;
+}
+
+article p{
+	text-align: left;
+	font-size: 10px;
+	margin: 10px 20px 50px 25px;
+}
+
+.formindiv {
+	margin : 15px auto;
+	width : 400px;
+}
+
+.formindiv>p {
+	font-size : 12px;
+	line-height : 12px;
+	margin:5px 0px;
+}
+
+input {
+	border: 1px solid lightgrey;
+	height: 25px;
+	padding: 5px 10px;
+	width: 378px;
+}
+
+#emailinner {
+	display:inline-block;
+	justify-content:space-between;
+	align-items: center;
+}
+
+#emailinner > input[type='text']{
+	width: 100px;
+}
+
+select {
+	border: 1px solid lightgrey;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 5px 10px;
+	width: 125px;
+	height: 37px;
+}
+
+#UserUpdateButton {
+	background-color: #00d084;
+	border: 1px solid #00d084;
+	color: white;
+	padding: 10px 40px;
+	width:400px;
+	height: 40px;
+	margin-top:15px;
+}
+
+#UserUpdateButton:hover {
+	background-color: white;
+	border: 1px solid #00d084;
+	color: #00d084;
+}
