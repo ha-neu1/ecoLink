@@ -33,13 +33,12 @@ ul, li {
 
 .navbarMenu {
 	display: flex; /*세로로 되어 있는 것을 가로로 변경*/
-	font-size: 25px;
+	font-size: 25px; /*글씨크기*/
 }
 
 .navbarMenu li {
 	display: flex; /*내부요소 수직 정렬 하기위해 사용*/
 	align-items: center; /*박스들 수직 가운데 정렬*/
-	transition: all 0.15s;
 }
 
 .navbarMenu a {
@@ -51,22 +50,23 @@ ul, li {
 .navbarSub {
 	display: none; /* 드롭다운 메뉴 초기에는 숨김 */
 	position: absolute; /* 절대 위치 지정 */
-	font-size: 20px;
+	font-size: 20px;/*글씨크기*/
 	background-color: #ffffff;
-	width: 163px;
+	width: 163px;/*너비 조절*/
 	text-align: center;
 	border: 2px solid #00d084;
 	border-top: 0px;
-	top: 88px;
+	top: 88px;/*윗쪽 공간을 줘 위치 조절*/
 }
 
+/* 마우스 호버 시 드롭다운 메뉴 표시 */
 .navbarMenu li:hover .navbarSub {
-	display: block; /* 마우스 호버 시 드롭다운 메뉴 표시 */
+	display: block;
 }
 
 .navbarSub a {
 	display: block;
-		padding: 10px;
+	padding: 10px;
 }
 
 .navbarSub a:hover {

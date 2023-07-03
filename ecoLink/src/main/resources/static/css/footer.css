@@ -1,2 +1,53 @@
 @charset "UTF-8";
 
+/*초기화*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none; /*밑줄 없애기*/
+	color: inherit; /*색변화x*/
+}
+
+ul, li {
+	list-style: none; /*구분점 없애기*/
+}
+
+footer {
+	background-color: gray;
+	margin-top: 25px;
+	padding: 30px 0px; /*위아래 공간*/
+	text-align: center;
+}
+
+.fooIcon {
+	border-bottom: 2px solid #00d084; /*밑줄*/
+	padding-bottom: 25px; /*아이콘과 밑줄 사이 공간*/
+}
+
+.fooIcon ul {
+	display: flex; /*가로 정렬하기 위해 사용*/
+	justify-content: center; /*가운데 정렬*/
+}
+
+.fooIcon li {
+	margin-right: 50px; /*아이콘 사이 공간*/
+}
+
+.fooIcon img {
+	width: 50px; /*아이콘 크기*/
+}
+
+.fooIcon li:last-child {/*마지막 아이콘*/
+	margin-right: 0; /* 마진 제거 */
+}
+
+.fooLogo img {
+	width: 300px;/*아이콘 크기 조절*/
+}
+
+.copyright {
+	margin-top: 20px;
+}

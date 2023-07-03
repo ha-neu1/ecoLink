@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+/*초기화*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none; /*밑줄 없애기*/
+	color: inherit; /*색변화x*/
+}
+
+ul, li {
+	list-style: none; /*구분점 없애기*/
+}
+
+.banner {
+
+}
+
+.banner img {
+	width: 100%;
+	height: 100%;
+}

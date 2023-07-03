@@ -8,6 +8,6 @@ public class MainController {
 	
 	@RequestMapping("/main")
     public String mainPage() {
-        return "footer"; // jsp 파일의 이름
+        return "main"; // jsp 파일의 이름
     }
 }
