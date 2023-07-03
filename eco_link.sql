@@ -66,7 +66,7 @@ select * from enterprise;
 INSERT INTO enterprise values(
 '110-00-10101',
 '02-555-3555',
-'enter2',
+'enter',
 'mainpic.jpg',
 '짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다. 짧은 설명입니다.',
 'http://www.temp.com/',
