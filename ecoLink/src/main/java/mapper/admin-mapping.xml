@@ -4,7 +4,7 @@
 <mapper namespace="dao.AdminDAO">
 
 <select id="getRegEnterConfirm" resultType="int">
-	select count(*) from enterprise_detail where entdConfirm = false;
+	select count(*) from enterprise where entdConfirm = false;
 </select>
 
 <select id="getAllRegUser" resultType="int">
@@ -32,19 +32,17 @@
 </select>
 
 <select id="getUnConfirmedEnterList" resultType="adminDto">
-	select e.entCrn, m.memNick, e.entPhone, m.memId, m.memEmail, m.memRegtime, ed.entdConfirm 
+	select e.entCrn, m.memNick, e.entPhone, m.memId, m.memEmail, m.memRegtime, e.entdConfirm 
 	from member as m
-	join enterprise as e on e.memId = m.memId 
-	join enterprise_detail as ed on e.entCrn = ed.entCrn
-	where ed.entdConfirm = false;
+	join enterprise as e on e.memId = m.memId
+	where e.entdConfirm = false;
 </select>
 
 <select id="getConfirmedEnterList" resultType="adminDto">
-	select e.entCrn, m.memNick, e.entPhone, m.memId, m.memEmail, m.memRegtime, ed.entdConfirm 
+	select e.entCrn, m.memNick, e.entPhone, m.memId, m.memEmail, m.memRegtime, e.entdConfirm 
 	from member as m
-	join enterprise as e on e.memId = m.memId 
-	join enterprise_detail as ed on e.entCrn = ed.entCrn
-	where ed.entdConfirm = true;
+	join enterprise as e on e.memId = m.memId
+	where e.entdConfirm = true;
 </select>
 
 </mapper>
