@@ -1,0 +1,122 @@
+        #header {
+            border: solid red;
+            text-align: center;
+            padding: 70px;
+        }
+
+        .page_name {
+            margin-right: auto;
+        }
+
+        .board_area {
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .board_title {
+            display: flex;
+            padding-top: 30px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 25px;
+        }
+
+        .post_list {
+            width: 100%;
+            font-size: 13px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        .hr_bold {
+            border: 1px solid black;
+        }
+
+        .hr_light {
+            border-top: 1px solid darkgray;
+            border-bottom: 0px;
+        }
+
+        table {
+            margin-bottom: 5px;
+        }
+
+        input[type="button"] {
+            border: 1px solid darkgray;
+            background-color: transparent;
+            padding: 3px 7px;
+            margin-left: 3px;
+        }
+
+        input[type="button"]:hover {
+            text-decoration: underline;
+        }
+
+        .post_list th{
+            border-bottom: 1px solid black;
+            padding-bottom: 10px;
+        }
+
+        .post_list td{
+            border-bottom: 1px solid;
+            padding: 10px;
+        }
+
+        td a {
+            text-decoration: none;
+            color: black;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        .post_list_name {
+            width: 600px;
+            padding-left: 50px !important;
+            text-align: left;
+        }
+
+        .post_area{
+            box-sizing: border-box;
+            border: solid 1px darkgray;
+            width: 100%;
+            font-size: 17px;
+            padding: 7px;
+            margin-bottom: 10px;
+            font-family: sans-serif;
+        }
+
+        .page_number {
+            text-align: center;
+        }
+
+        .page_number a {
+            text-decoration: none;
+            display: inline-block;
+            border: solid 1px darkgray;
+            color: darkgray;
+            width: 30px;
+            line-height: 30px;
+        }
+
+        #post_writer {
+            min-height: 500px;
+            resize: none;
+        }
+
+        .post_name {
+            padding-top: 18px;
+            font-size: 20px;
+        }
+
+        .post_info {
+            padding-bottom: 15px;
+            font-size: 12px;
+            color: darkgray;
+        }
+
+        .post_content {
+            min-height: 500px;
+        }
