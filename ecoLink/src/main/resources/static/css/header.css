@@ -33,7 +33,7 @@ ul, li {
 
 .navbarMenu {
 	display: flex; /*세로로 되어 있는 것을 가로로 변경*/
-	font-size: 25px; /*글씨크기*/
+	font-size: 16px; /*글씨크기*/
 }
 
 .navbarMenu li {
