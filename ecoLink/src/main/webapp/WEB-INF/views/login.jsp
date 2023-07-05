@@ -6,14 +6,33 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/login.css">
-<script src="resources/js/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" href="css/common.css">
+<script src="/js/jquery-3.6.4.min.js"></script>
+<script>
+//아이디 저장 체크박스
+window.addEventListener("DOMContentLoaded", function() {
+  var checkbox = document.getElementById("member_check_save_id0");
+  var backgroundUrlOff = "/images/icon_input_checkbox_off.svg";
+  var backgroundUrlOn = "/images/icon_input_checkbox_on.svg";
+
+  checkbox.addEventListener("change", function() {
+    if (checkbox.checked) {
+      checkbox.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+      // 아이디 정보를 저장하는 로직 추가
+    } else {
+      checkbox.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+      // 저장된 아이디 정보를 제거하는 로직 추가
+    }
+  });
+});
+</script>
 </head>
 <body>
 <div id="container">
 <div id="header">
             <div class="logo">
                 <a href="/">
-                    <img src="resources/static/images/logo1.png" alt="" class="max">
+                    <img src="/images/logo1.png" alt="" class="max">
                 </a>
             </div>
 </div>
@@ -52,8 +71,8 @@
                                 </table>
                                 <div>
                                     <ul class="find">
-                                        <li><a href="/memberjoin">회원가입</a></li>
-                                        <li><a href="/findpwform">아이디</a>/<a href="/findpwform">비밀번호 </a>찾기</li>
+                                        <li><a href="/join">회원가입</a></li>
+                                        <li><a href="/findId">아이디</a>/<a href="/findPw">비밀번호 </a>찾기</li>
                                     </ul>
                                 </div>
                             </div>
