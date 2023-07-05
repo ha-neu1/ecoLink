@@ -8,7 +8,9 @@
  <link rel="stylesheet" href="css/infoboard.css">
 <title>Insert title here</title>
 <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
+<%@ include file="header.jsp" %>
 </head>
+
 <body>
 
     <div class="info_title">NEWS</div>

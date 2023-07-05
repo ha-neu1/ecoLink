@@ -1,0 +1,46 @@
+@charset "UTF-8";
+.head_wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 800px;
+    height: 60px;
+    margin: 0 auto;   
+}
+.left_wrap{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.date_views{
+    display: flex;
+    flex-direction: row;
+}
+.user_image{
+    font-size: 30px;
+    padding: 10px;
+}
+.nickname{
+    font-size: 15px;
+}
+.date_views{
+    font-size: 12px;
+}
+.date{
+    padding-right: 5px;
+}
+.right_wrap{
+    display: flex;
+    justify-content:flex-end; 
+}
+.post_image{
+    display: flex;
+    flex-direction: column;
+    align-items: center  
+   
+}
+.post_image img{
+    width: 800px;
+    height: 500px;
+}

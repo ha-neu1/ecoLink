@@ -22,6 +22,12 @@ public class IntroController {
 	public String introboard() {
 		return "introboard";
 	}
+	
+	@RequestMapping("/infopostdetail")
+	public String infopostdetail() {
+		return "infopostdetail";
+	}
+	
 
 	@RequestMapping("/infoboardlist")
 	public ModelAndView infoboardlist(@RequestParam(value = "page", required = false, defaultValue = "1")int page) {
