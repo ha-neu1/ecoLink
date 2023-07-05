@@ -1,0 +1,43 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+#container {
+	margin-top: 9rem;
+}
+table tr input[type="radio"] {
+    top: 0.25rem;
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+    margin-right: 0.7rem;
+    position: relative;
+    background: url(/images/icon_input_radio_off.svg) no-repeat center;
+    background-size: 100%;
+}
+table tr.radio label {
+    color: #000;
+    margin-right: 1.5rem;
+}
+/*휴대폰*/
+table tr.mobile td {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 4.8rem;
+}
+table tr.mobile td [name^="mobile"]:first-child {
+    margin-left: 0;
+    border-radius: 1rem;
+}
+table tr.mobile td [name^="mobile"] {
+    margin: 0 0.5rem;
+    flex-grow: 1;
+    flex-basis: 25%;
+}
+.input-btn-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}

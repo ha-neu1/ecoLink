@@ -1,0 +1,86 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+.row > * {
+	padding-top: 20rem;
+	padding-bottom: 20rem;
+}
+/*도움말*/
+table:not(.ui-datepicker-calendar) .help {
+    font-size: 1.2rem;
+    color: #999;
+    background: url(/images/icon_table_help.svg) no-repeat 0 0.4rem;
+    background-size: 1.1rem 1.1rem;
+    padding-left: 1.6rem;
+    margin-top: 0.8rem;
+    width: 100%;
+}
+/*비밀번호*/
+table:not(.ui-datepicker-calendar) td .eTooltip {
+    width: 100%;
+}
+.xans-member-join .eTooltip {
+    position: relative;
+    display: inline-block;
+}
+.xans-member-join .ec-base-tooltip.typeUpper {
+    left: 2rem;
+    bottom: 2rem;
+    width: calc(100% - 4rem);
+}
+/*비밀번호 입력 조건 박스*/
+.ec-base-tooltip.typeUpper {
+    top: auto;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+}
+.ec-base-tooltip {
+    display: none;
+    z-index: 2;
+    position: absolute;
+    top: 24px;
+    padding: 15px;
+    border: 1px solid #565960;
+    background: #fff;
+    box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+}
+.ec-base-tooltip .txtWarn {
+    color: #f65b54;
+}
+strong {
+    font-weight: normal;
+}
+.ec-base-tooltip .btnClose {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+}
+img {
+    border: none;
+    vertical-align: top;
+}
+/*휴대폰*/
+table tr.mobile td {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 4.8rem;
+}
+table tr.mobile td [name^="mobile"]:first-child {
+    margin-left: 0;
+    border-radius: 1rem;
+}
+table tr.mobile td [name^="mobile"] {
+    margin: 0 0.5rem;
+    flex-grow: 1;
+    flex-basis: 25%;
+}
+.input-btn-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
