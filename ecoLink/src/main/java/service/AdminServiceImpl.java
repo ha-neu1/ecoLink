@@ -1,15 +1,15 @@
-package dao;
+package service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dao.AdminDAO;
 import dto.AdminDTO;
 import dto.BannerDTO;
 import dto.BoardDTO;
 import dto.MemberDTO;
-import service.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
