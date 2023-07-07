@@ -9,6 +9,75 @@
 <link rel="stylesheet" href="css/common.css">
 <script src="/js/jquery-3.6.4.min.js"></script>
 <script>
+$(document).ready(function() {
+    const joinBox = document.getElementById("join_Box");
+    const joinBtn = document.getElementById("join_btn");
+    const join_type = document.getElementById("searchType");
+    const join_id = document.getElementById("memberId");
+    const join_pw = document.getElementById("memberPw");
+    const join_pw_confirm = document.getElementById("memberPw_confirm");
+    const join_name = document.getElementById("memberName");
+    const join_mobile1 = document.getElementById("mobile1");
+    const join_mobile2 = document.getElementById("mobile2");
+    const join_mobile3 = document.getElementById("mobile3");
+    const join_email = document.getElementById("memberEmail");
+
+    join_type.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+            join_id.focus();
+        }
+    });
+    join_id.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+            join_pw.focus();
+        }
+    });
+    join_pw.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+            join_pw_confirm.focus();
+        }
+    });
+    join_pw_confirm.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+            join_name.focus();
+        }
+    });
+    join_name.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+            join_mobile1.focus();
+        }
+    });
+    join_mobile1.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+            join_mobile2.focus();
+        }
+    });
+    join_mobile2.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+        	join_mobile3.focus();
+        }
+    });
+    join_mobile3.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+        	join_email.focus();
+        }
+    });
+    join_email.addEventListener("keydown", function(event) {
+        if (event.keyCode == 13) {
+        	event.preventDefault(); 
+            joinBtn.click(); 
+        }
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	var inputElement = document.getElementById("passwd");
 	var tooltipElement = document.querySelector(".ec-base-tooltip");
@@ -56,9 +125,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
                                 <table class="type-full">
                                     <tbody>
                                         <tr>
+                                            <th>회원유형</th>
+                                            <td>
+                                                <p class="member">
+                                                    <select id="searchType" name="searchType" >
+                                                        <option value="indi" selected="selected">개인회원</option>
+                                                        <option value="buis">기업회원</option>
+                                                    </select>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th scope="row">아이디*</th>
                                             <td>
-                                                <input id="member_id" name="member_id" class="inputTypeText" placeholder="" value="" type="text">
+                                                <input id="memberId" name="memberId" class="inputTypeText" placeholder="" value="" type="text">
                                                 <span id="idMsg"></span>
                                                 <p class="help">(영문 소문자/숫자, 4~16자)</p>
                                             </td>
@@ -67,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                                             <th scope="row">비밀번호*</th>
                                             <td>
                                                 <div class="eTooltip">
-                                                    <input id="passwd" name="passwd" autocomplete="off" maxlength="16" 0="disabled" value="" type="password">
+                                                    <input id="memberPw" name="memberPw" autocomplete="off" maxlength="16" 0="disabled" value="" type="password">
                                                     <div class="ec-base-tooltip typeUpper">
                                                         <div class="content">
                                                             <strong class="txtWarn">※ 비밀번호 입력 조건</strong>
@@ -91,14 +171,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
                                         <tr>
                                             <th scope="row">비밀번호 확인*</th>
                                             <td>
-                                                <input id="user_passwd_confirm" name="user_passwd_confirm" autocomplete="off" maxlength="16" 0="disabled" value="" type="password">
+                                                <input id="memberPw_confirm" name="memberPw_confirm" autocomplete="off" maxlength="16" 0="disabled" value="" type="password">
                                                 <span id="pwConfirmMsg"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" id="nameTitle">이름*</th>
                                             <td>
-                                                <input id="name" name="name" class="ec-member-name" placeholder="" maxlength="30" value="" type="text">
+                                                <input id="memberName" name="memberName" class="ec-member-name" placeholder="" maxlength="30" value="" type="text">
                                                 <p class="help">14세 미만 사용자는 법정대리인 동의가 필요합니다.</p>
                                             </td>
                                         </tr>
@@ -122,14 +202,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
                                         <tr>
                                             <th scope="row">이메일*</th>
                                             <td>
-                                                <input id="email1" name="email1" value="" type="text">
+                                                <input id="memberEmail" name="memEmail" value="" type="text">
                                                 <span id="emailMsg"></span>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="ec-base-button">
+                            <div id="join_btn" class="ec-base-button">
                                 <a href="#none" class="btnSubmitFix sizeM btn-primary full btn" onclick="memberJoinAction()">회원가입</a>
                             </div>
                         </form>

@@ -9,6 +9,42 @@
 <link rel="stylesheet" href="css/common.css">
 <script src="/js/jquery-3.6.4.min.js"></script>
 <script>
+$(document).ready(function(){
+	const loginForm = document.getElementById("login_form");	
+	const loginBtn = document.getElementById("login_submit_btn");
+	const loginId = document.getElementById("login_form_id");
+	const loginPassword= document.getElementById("login_form_password");
+	//const loginErrorMsg ="아이디 또는 비밀번호를 잘못입력했습니다. 다시확인해주세요. ";
+	/* const loginLink= "http://localhost:8081/team_running/team1.html"; */
+	
+	$("#login_submit_btn").on('click', function(event){
+		    //서브밋 우선 막기.
+		 	event.preventDefault();
+
+			//아이디, 비번에 빈칸 입력시 경고창. + 둘 다 입력시 submit
+		    if (loginId.value.trim() === "" || loginPassword.value.trim() === "") {
+		      alert("빈칸을 입력해주세요"); 
+		    } else {
+		      loginForm.submit(); 
+		    }
+		});//loginBtn click
+
+	  //엔터로 다음칸 가기 : (순서) 아이디-> pw-> 로그인버튼
+	  loginId.addEventListener("keydown", function(event) {
+	    if (event.keyCode === 13) {
+	      event.preventDefault(); 
+	      loginPassword.focus();
+	    }
+	  });//keydown
+
+	  loginPassword.addEventListener("keydown", function(event) {
+	    if (event.keyCode === 13) {
+	      event.preventDefault(); 
+	      loginBtn.click(); 
+	    }
+	    });//keydown
+});//ready end
+
 //아이디 저장 체크박스
 window.addEventListener("DOMContentLoaded", function() {
   var checkbox = document.getElementById("member_check_save_id0");
@@ -48,11 +84,11 @@ window.addEventListener("DOMContentLoaded", function() {
                                     <tbody>
                                         <tr>
                                             <th>아이디</th>
-                                            <td><input id="memId" name="memId" class="inputTypeText" placeholder="" value="" type="text"></td>
+                                            <td><input id="login_form_id" name="login_form_id" class="inputTypeText" placeholder="" value="" type="text"></td>
                                         </tr>
                                         <tr>
                                             <th>비밀번호</th>
-                                            <td><input id="memPw" name="memPw" autocomplete="off" value="" type="password"></td>
+                                            <td><input id="login_form_password" name="login_form_password" autocomplete="off" value="" type="password"></td>
                                         </tr>
                                         <tr class="checkbox">
                                             <td class="id-pw-td">
