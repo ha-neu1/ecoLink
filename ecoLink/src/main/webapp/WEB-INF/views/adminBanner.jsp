@@ -17,67 +17,58 @@
         <link rel="shortcut icon" href="#">
     </head>
     <body class="sb-nav-fixed">
-    	<%@ include file="/WEB-INF/views/adminNav.jsp" %>
+        <%@ include file="/WEB-INF/views/adminNav.jsp" %>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">${title}</h1>
+                        <h1 class="mt-4">배너 관리</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active"></li>
                         </ol>
                         <div class="card mb-4">
-                            <div class="card-header">
+                        	<div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 ${tabletitle}
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                               <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>사업자등록번호</th>
-                                            <th>기업명</th>
-                                            <th>대표연락처</th>
-                                            <th>아이디</th>
-                                            <th>이메일</th>
-                                            <th>가입신청일</th>
-                                            <th>선택</th>
+                                            <th>배너ID</th>
+                                            <th>이미지</th>
+                                            <th>업로더</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>사업자등록번호</th>
-                                            <th>기업명</th>
-                                            <th>대표연락처</th>
-                                            <th>아이디</th>
-                                            <th>이메일</th>
-                                            <th>가입신청일</th>
-                                            <th>선택</th>
+                                            <th>배너ID</th>
+                                            <th>이미지</th>
+                                            <th>업로더</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach items="${boardlist}" var="dto">
+                                    	<c:forEach items="${bannerlist}" var="dto">
                                     		<tr>
-                                            	<td>${dto.entCrn}</td>
-                                            	<td><a href="">${dto.memNick}</a></td>
-                                            	<td>${dto.entPhone}</td>
+                                            	<td>${dto.bannerId}</td>
+                                            	<td>${dto.bannerPic}</a></td>
                                             	<td>${dto.memId}</td>
-                                            	<td>${dto.memEmail}</td>
-                                            	<td>${dto.memRegtime}</td>
-                                            	<td>
-                                            		<c:choose>
-                                            			<c:when test="${dto.entdConfirm == 'false'}">
-                                            				<button>가입허가</button>&nbsp;<button>가입거부</button>
-                                            			</c:when>
-                                            			<c:otherwise>
-                                            				${dto.entdConfirm}
-                                            			</c:otherwise>
-                                            		</c:choose>
-                                            	</td>
                                         	</tr>
                                     	</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="card mb-4">
+                        <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                배너 추가하기
+                            </div>
+                        <div class="card-body">
+                        	<form action="">
+                        	<input type="file" id="bannerpic" value="이미지 첨부" />
+                        	<input type="submit" value="추가" />
+                        	</form>
+                        </div>
                         </div>
                     </div>
                 </main>

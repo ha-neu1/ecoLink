@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dto.AdminDTO;
+import dto.BannerDTO;
 import dto.BoardDTO;
+import dto.MemberDTO;
 import service.AdminService;
 
 @Service
@@ -58,6 +60,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<AdminDTO> getConfirmedEnterList() {
 		return dao.getConfirmedEnterList();
+	}
+
+	@Override
+	public List<BannerDTO> getAllBanner() {
+		return dao.getAllBanner();
+	}
+
+	@Override
+	public List<MemberDTO> getAllNormalMember() {
+		return dao.getAllNormalMember();
 	}
 	
 	

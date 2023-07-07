@@ -45,6 +45,14 @@
 	where e.entdConfirm = true;
 </select>
 
+<select id="getAllBanner" resultType="bannerDto">
+	select * from banner;
+</select>
+
+<select id="getAllNormalMember" resultType="memberDto">
+	select memId, memNick, memEmail, memType, memRegtime, memName from member where memType = "normal";
+</select>
+
 </mapper>
 
 

@@ -3,7 +3,9 @@ package service;
 import java.util.List;
 
 import dto.AdminDTO;
+import dto.BannerDTO;
 import dto.BoardDTO;
+import dto.MemberDTO;
 
 public interface AdminService {
 	public int getRegEnterConfirm();
@@ -15,4 +17,6 @@ public interface AdminService {
 	public List<BoardDTO> getTipsBoardList();
 	public List<AdminDTO> getUnConfirmedEnterList();
 	public List<AdminDTO> getConfirmedEnterList();
+	public List<BannerDTO> getAllBanner();
+	public List<MemberDTO> getAllNormalMember();
 }
