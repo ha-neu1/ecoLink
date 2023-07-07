@@ -17,13 +17,22 @@
             <div class="page_name"><strong>공지사항</strong></div>
             <input type="button" onclick="location.href='/boardCreate'" value="글쓰기">
         </div>
-        <hr class="hr_bold">
+        <!-- <hr class="hr_bold">
         <table id="list" class="post_list">
             <th>번호</th>
             <th>제목</th>
             <th>작성일</th>
             <th>조회수</th>
-        </table>
+        </table> -->
+        
+        <hr class="hr_bold">
+        <div id="boardMain" class="boardList">
+        <h3 class="memId">작성자 이름</h3>
+        <h4 class="boardTitle">게시물 제목</h4>
+        <img class="boardImage" src="/images/logo2.png" alt="게시물 이미지">
+        <p class="boardCont">본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.</p>
+        </div>
+        
         <br>
         <br>
         <div class="page_number">
