@@ -7,27 +7,32 @@
 <title>회원 정보</title>
 <link rel="stylesheet" href="css/MyInfo.css">
 </head>
-<script src="resources/js/jquery-3.6.4.min.js"></script>
+<script src="js/jquery-3.6.4.min.js"></script>
 <script>
+$(document).ready(function() {
+	
+});
+
 $(document).ready(function(){
 	$("#updateUser").on('click',function(){
-		location.href = "#"		
+		location.href = "/myInfo"		
 	});
 </script>
 <body>
 <%@ include file="header.jsp" %>
 <aside id="sidebar">
-	<div>
-		<p>MY 정보</p>
-		<p>브랜드 북마크</p>
-		<p>좋아요한 글</p>
-		<p>내가 쓴 글</p>
+	<div id='menus'>
+	<ul id='menusList'>
+		<li class='menuItem' id='mItem1' value='menuDiv1'>MY 정보</li>
+		<li class='menuItem' id='mItem2' value='menuDiv2'>브랜드 북마크</li>
+		<li class='menuItem' id='mItem3' value='menuDiv3'>좋아요한 글</li>
+		<li class='menuItem' id='mItem4' value='menuDiv4'>내가 쓴 글</li>
+	</ul>	
 	</div>
 </aside>
-	
+	<div class="containers">
 <article>
-	<div class>
-		<div>
+		<div class='menuDivs' id='menuDiv1'>
 		<h2>MY 정보</h2>
 		<table id='myinfo'>
  			<tr>
@@ -36,7 +41,7 @@ $(document).ready(function(){
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td>password</td>
+				<td>********</td>
 			</tr>
 			<tr>
 				<td>이름</td>
@@ -55,13 +60,13 @@ $(document).ready(function(){
 				<td>email</td>
 			</tr>
 			<tr>
-				<td><button type="button" id="updateUser"><a href="/updateUser">개인정보 수정</a></button>
+				<td><button type="button" id="updateUser"><a href="/updateMyInfo">개인정보 수정</a></button>
 				<button id="deleteUser">회원 탈퇴</button></td>
 			</tr>
 		</table>
 		</div>
 		
-		<div>
+		<div class='menuDivs' id='menuDiv2'>
 			<h2>브랜드 북마크</h2>
 			<div class='container'>
 			<span class='likebrand'>
@@ -72,7 +77,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 		
-		<div>
+		<div class='menuDivs' id='menuDiv3'>
 			<h2>좋아요한 글</h2>
 			<div class="board_list">
                <div class="top">
@@ -90,7 +95,7 @@ $(document).ready(function(){
              </div>
 		</div>
 		
-		<div>
+		<div class='menuDivs' id='menuDiv4'>
 		<h2>내가 쓴 글</h2>
 			<div class="board_list2">
                <div class="top">
@@ -105,8 +110,8 @@ $(document).ready(function(){
                </div>
              </div>
 		</div>
-	</div>
 </article>
+</div>
 <%-- <%@ include file="footer.jsp" %> --%>
 </body>
 </html>

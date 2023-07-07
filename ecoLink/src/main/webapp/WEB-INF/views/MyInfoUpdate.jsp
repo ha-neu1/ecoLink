@@ -7,25 +7,28 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/MyInfoUpdate.css">
 </head>
-<script src="resources/js/jquery-3.6.4.min.js"></script>
+<script src="js/jquery-3.6.4.min.js"></script>
 <body>
 <%@ include file="header.jsp" %>
 <aside id="sidebar">
-	<div>
-		<p>MY 정보</p>
-		<p>브랜드 북마크</p>
-		<p>좋아요한 글</p>
-		<p>내가 쓴 글</p>
+	<div id='menus'>
+	<ul id='menusList'>
+		<li class='menuItem' id='mItem1' value=''>MY 정보</li>
+		<li class='menuItem' id='mItem2' value=''>브랜드 북마크</li>
+		<li class='menuItem' id='mItem3' value=''>좋아요한 글</li>
+		<li class='menuItem' id='mItem4' value=''>내가 쓴 글</li>
+	</ul>	
 	</div>
 </aside>
+<div class="containers">
 <article>
 		<form name="signUpForm">
 		<h2>개인정보 수정</h2>
 		<p>고객님의 닉네임과 연락처 등 개인정보를 수정하실 수 있습니다.</p>
 			<div class='formindiv'>
-				<p>아이디(수정불가)</p>
+				<p>아이디</p>
 				<div id=id_div>
-					<input type="text" name="userid" id="userid" value="아이디" maxlength="16" readonly>
+					<input type="text" name="userid" id="userid" value="아이디" maxlength="16" disabled>
 				</div>
 			</div>
 
@@ -35,8 +38,8 @@
 			</div>
 
 			<div class='formindiv'>
-				<p>이름(수정불가)</p>
-				<input type="text" name="name" id="name" value="이름" readonly>
+				<p>이름</p>
+				<input type="text" name="name" id="name" value="이름" disabled>
 			</div>
 
 			<div class='formindiv'>
@@ -50,8 +53,8 @@
 			</div>
 
 			<div class='formindiv'>
-				<p>이메일(수정불가)</p>
-				<input type="tel" name="email" id="email" value="이메일" readonly>
+				<p>E-mail</p>
+				<input type="tel" name="email" id="email" value="이메일" disabled>
 			</div>
 
 			<div class='formindiv'>
@@ -60,5 +63,6 @@
 
 		</form>
 	</article>
+</div>
 </body>
 </html>
