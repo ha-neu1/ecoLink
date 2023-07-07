@@ -20,4 +20,9 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	public List<BoardDTO> boardList(int[] limit) {
 		 return dao.boardList(limit);
 	}
-}
+	
+	//@Override
+	//public List<BoardDTO> boardListViews(int[] limit){
+	//	return dao.boardListViews(limit);
+	}
+//}

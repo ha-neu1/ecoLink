@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/intro.css">
 <title>Insert title here</title>
+<%@ include file="header.jsp" %>
 </head>
 <body>
     <section id="intro_contents">

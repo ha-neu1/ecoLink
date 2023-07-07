@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,7 +31,7 @@ public class IntroController {
 	
 
 	@RequestMapping("/infoboardlist")
-	public ModelAndView infoboardlist(@RequestParam(value = "page", required = false, defaultValue = "1")int page) {
+	public ModelAndView infoboardlist(@RequestParam(value = "page", required = false, defaultValue = "1")int page){
 		int totalBoard = service.getTotalBoard();
 		
 		int limitcount = 5;
@@ -39,7 +40,11 @@ public class IntroController {
 		limit[0] = limitindex;
 		limit[1] = limitcount;
 		
+		// if 데이터가 recent면
 		List<BoardDTO> list = service.boardList(limit);
+		
+		// else if 데이터가 views면
+		// List<BoardDTO> list = service.boardListViews(limit);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("totalBoard", totalBoard);
@@ -48,6 +53,8 @@ public class IntroController {
 		mv.setViewName("infoarticle");
 		return mv;
 	}
+	
+	
 	@RequestMapping("/infowriting")
 	public String infowriting() {
 		return "infowritingform";

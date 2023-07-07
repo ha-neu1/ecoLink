@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/infopostdetail.css">
 <title>Insert title here</title>
 <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
+<%@ include file="header.jsp" %>
 </head>
 <body>
 	<div class="head_wrap">
@@ -24,6 +25,10 @@
             <div class="like"> <i class="fa-regular fa-heart"></i>2</div>
         </div>
     </div>
-    <div class="post_image"> <img src="img/kimbab.jpg"> </div>
+    <div class="post_image"> <img src="images/kimbab.jpg"> </div>
+    <div class="post_tit">제목제목제목제목제목제목제목제목제목제목제목제목</div>
+    <div class="post_contents">내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</div>
+    <div class="post_comment_header">댓글</div>
+    <div class="post_comment"><input type="text" placeholder="댓글을 입력해 주세요." class="comment"> <button disabled="disabled" class="commentbtn">등록</button></div>
 </body>
 </html>

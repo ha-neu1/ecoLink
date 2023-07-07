@@ -8,6 +8,7 @@
 <script src="/js/jquery-3.6.4.min.js"></script>
 <script type="text/javascript" src="smarteditor/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
+<%@ include file="header.jsp" %>
 </head>
 <body>
 	<h3>게시판</h3>
@@ -37,6 +38,7 @@ smartEditor = function() {
 $(document).ready(function() {
     smartEditor()
 })
+
 /* 버튼 클릭 이벤트 */
 submitPost = function() {
 

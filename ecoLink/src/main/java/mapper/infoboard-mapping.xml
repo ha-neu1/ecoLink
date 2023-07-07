@@ -13,4 +13,12 @@
 		#{num}
 	</foreach>
 </select>
+
+<select id="boardListViews" resultType="boardDto" parameterType="int">
+	select * from board order by boardViewCount desc limit
+	<foreach collection="array" item="num" separator=",">
+		#{num}
+	</foreach>
+</select>
+ 
 </mapper>
