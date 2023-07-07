@@ -16,10 +16,37 @@ ul, li {
 }
 
 .banner {
-
+	margin-top: 1px;
 }
 
 .banner img {
 	width: 100%;
 	height: 100%;
+}
+
+.mainIcon ul {
+	display: flex; /*가로 정렬하기 위해 사용*/
+	flex-wrap: wrap;
+	align-content: center;
+	justify-content: center; /*가운데 정렬*/
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: 90px;
+	border-top: 2px solid #00d084;
+	border-bottom: 2px solid #00d084;
+}
+
+.mainIcon li {
+	margin: 10px; /*아이콘 사이 공간*/
+}
+
+.mainIcon img {
+	padding: 10px;
+	transition: transform 0.3s;
+	border-radius: 10px;
+}
+
+.mainIcon img:hover {
+	border: 2px solid #00d084;
+	transform: scale(1.2);
 }
