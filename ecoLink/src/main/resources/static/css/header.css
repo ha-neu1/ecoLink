@@ -44,17 +44,18 @@ ul, li {
 .navbarMenu a {
 	display: flex; /*설정 안하면 인라인 블록상태라 width가 안먹힘*/
 	justify-content: center; /*요소 가로 가운데 정렬*/
-	width: 165px; /*가로 길이 통일 시키기 위해 사용*/
+	width: 150px; /*가로 길이 통일 시키기 위해 사용*/
 }
 
 .navbarSub {
 	display: none; /* 드롭다운 메뉴 초기에는 숨김 */
 	position: absolute; /* 절대 위치 지정 */
-	font-size: 20px;/*글씨크기*/
+	font-size: 15px;/*글씨크기*/
 	background-color: #ffffff;
-	width: 163px;/*너비 조절*/
+	width: 148px;/*너비 조절*/
 	text-align: center;
 	border: 2px solid #00d084;
+	border-radius : 0px 0px 10px 10px;
 	border-top: 0px;
 	top: 88px;/*윗쪽 공간을 줘 위치 조절*/
 }
@@ -71,11 +72,13 @@ ul, li {
 
 .navbarSub a:hover {
 	background-color: #e4fff5;
+	border-radius : 10px 10px 10px 10px;
 }
 
 .navbarProfile {
 	display: flex; /*세로로 되어 있는 것을 가로로 변경*/
 	align-items: center; /*박스들 수직 가운데 정렬*/
+	font-size: 15px;/*글씨크기*/
 }
 
 .navbarProfile li {
