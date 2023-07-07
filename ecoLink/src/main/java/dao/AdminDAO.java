@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import dto.AdminDTO;
+import dto.BannerDTO;
 import dto.BoardDTO;
+import dto.MemberDTO;
 
 @Repository
 @Mapper
@@ -20,4 +22,6 @@ public interface AdminDAO {
 	public List<BoardDTO> getTipsBoardList();
 	public List<AdminDTO> getUnConfirmedEnterList();
 	public List<AdminDTO> getConfirmedEnterList();
+	public List<BannerDTO> getAllBanner();
+	public List<MemberDTO> getAllNormalMember();
 }

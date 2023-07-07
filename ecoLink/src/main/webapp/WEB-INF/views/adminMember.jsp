@@ -34,45 +34,30 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>사업자등록번호</th>
-                                            <th>기업명</th>
-                                            <th>대표연락처</th>
-                                            <th>아이디</th>
+                                            <th>회원 ID</th>
+                                            <th>이름</th>
                                             <th>이메일</th>
-                                            <th>가입신청일</th>
-                                            <th>선택</th>
+                                            <th>닉네임</th>
+                                            <th>가입일</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>사업자등록번호</th>
-                                            <th>기업명</th>
-                                            <th>대표연락처</th>
-                                            <th>아이디</th>
+                                            <th>회원 ID</th>
+                                            <th>이름</th>
                                             <th>이메일</th>
-                                            <th>가입신청일</th>
-                                            <th>선택</th>
+                                            <th>닉네임</th>
+                                            <th>가입일</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach items="${boardlist}" var="dto">
+                                    	<c:forEach items="${memberlist}" var="dto">
                                     		<tr>
-                                            	<td>${dto.entCrn}</td>
-                                            	<td><a href="">${dto.memNick}</a></td>
-                                            	<td>${dto.entPhone}</td>
-                                            	<td>${dto.memId}</td>
+                                            	<td><a href="">${dto.memId}</a></td>
+                                            	<td>${dto.memName}</td>
                                             	<td>${dto.memEmail}</td>
+                                            	<td>${dto.memNick}</td>
                                             	<td>${dto.memRegtime}</td>
-                                            	<td>
-                                            		<c:choose>
-                                            			<c:when test="${dto.entdConfirm == 'false'}">
-                                            				<button>가입허가</button>&nbsp;<button>가입거부</button>
-                                            			</c:when>
-                                            			<c:otherwise>
-                                            				${dto.entdConfirm}
-                                            			</c:otherwise>
-                                            		</c:choose>
-                                            	</td>
                                         	</tr>
                                     	</c:forEach>
                                     </tbody>
