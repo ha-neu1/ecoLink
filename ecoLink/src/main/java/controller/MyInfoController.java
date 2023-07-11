@@ -14,7 +14,7 @@ import service.MyInfoService;
 
 @Controller
 public class MyInfoController {
-	//@Autowired
+	@Autowired
 	MyInfoService service;
 	
 	//유저 정보 조회
@@ -24,26 +24,26 @@ public class MyInfoController {
     }
 	
 	//유저 정보 수정
-	@RequestMapping("/updateMyInfo")
-    public String updateUser() {
-        return "MyInfoUpdate";
-    }
+//	@RequestMapping("/updateMyInfo")
+//    public String updateUser() {
+//        return "MyInfoUpdate";
+//    }
 	
-//	@GetMapping("/updateMyInfo")
-//	public ModelAndView myInfoupdate(HttpSession session) {
-//		MemberDTO loginuser = service.getUser((String) session.getAttribute("memId"));
-//		
-//		ModelAndView mv = new ModelAndView();
-//		mv.addObject("loginUser", loginuser);
-//		mv.setViewName("MyInfoUpdate");
-//		return mv;
-//	}
-//	
-//	@PostMapping("/updateMyInfo")
-//	public @ResponseBody String myInfoupdatesql(MemberDTO dto) {
-//		service.memberUpdate(dto);
-//		return "";
-//	}
+	@GetMapping("/updateMyInfo")
+	public ModelAndView myInfoupdate(HttpSession session) {
+		MemberDTO loginuser = service.getUser((String) session.getAttribute("memId"));
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("loginUser", loginuser);
+		mv.setViewName("MyInfoUpdate");
+		return mv;
+	}
+	
+	@PostMapping("/updateMyInfo")
+	public @ResponseBody String myInfoupdatesql(MemberDTO dto) {
+		service.memberUpdate(dto);
+		return "";
+	}
 	
 	
 	//유저 삭제
@@ -53,9 +53,15 @@ public class MyInfoController {
     }
 	
 	//브랜드 북마크 조회
+	//@GetMapping("")
+	//public  {
+		
+	//}
 	
 	//좋아요한 글 조회
+	//@GetMapping("/")
 	
 	//내가 쓴 글 조회
+	//@GetMapping("/")
 
 }

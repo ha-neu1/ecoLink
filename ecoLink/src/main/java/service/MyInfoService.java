@@ -17,5 +17,7 @@ public class MyInfoService {
 		return dao.memberUpdate(dto);
 	}
 	
-	
+	public int deleteMember(String memId) {
+		return dao.deleteMember(memId);
+	}
 }

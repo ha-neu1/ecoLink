@@ -22,4 +22,9 @@ public class MyInfoDAO {
 	public int memberUpdate(MemberDTO dto) {
 		return session.update("MemberUpdate",dto);
 	}
+	
+	public int deleteMember(String memId) {
+		return session.delete("UserDelete",memId);
+	}
+	
 }
