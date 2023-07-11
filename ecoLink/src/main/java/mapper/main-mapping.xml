@@ -4,7 +4,7 @@
 <mapper namespace="dao.MainDAO">
 
     <select id="getBannerPicByBannerId" resultType="String">
-        SELECT *
+        SELECT bannerPic
         FROM banner
         WHERE bannerId = #{bannerId}
     </select>

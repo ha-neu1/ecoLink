@@ -71,6 +71,26 @@ public class AdminServiceImpl implements AdminService {
 	public List<MemberDTO> getAllNormalMember() {
 		return dao.getAllNormalMember();
 	}
+
+	@Override
+	public List<MemberDTO> getAllAdminMember() {
+		return dao.getAllAdminMember();
+	}
+
+	@Override
+	public int addAdminAccount(MemberDTO dto) {
+		return dao.addAdminAccount(dto);
+	}
+
+	@Override
+	public int getSpecificAdminAccount(MemberDTO dto) {
+		return dao.getSpecificAdminAccount(dto);
+	}
+
+	@Override
+	public int deleteAdminAccount(String memId) {
+		return dao.deleteAdminAccount(memId);
+	}
 	
 	
 }

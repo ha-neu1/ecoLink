@@ -7,15 +7,15 @@
 	select count(*) from board
 </select>
 
-<select id="boardList" resultType="boardDto" parameterType="int">
+<select id="boardListRecent" resultType="boardDto" parameterType="int">
 	select * from board order by boardRegtime desc limit
 	<foreach collection="array" item="num" separator=",">
 		#{num}
 	</foreach>
 </select>
 
-<select id="boardListViews" resultType="boardDto" parameterType="int">
-	select * from board order by boardViewCount desc limit
+<select id="boardListView" resultType="boardDto" parameterType="int">
+	select * from board order by boardViewCount desc, boardRegtime DESC limit
 	<foreach collection="array" item="num" separator=",">
 		#{num}
 	</foreach>

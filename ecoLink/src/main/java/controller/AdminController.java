@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,14 +25,20 @@ public class AdminController {
 	@RequestMapping("/admin")
 	public ModelAndView adminMain() {
 		ModelAndView mv = new ModelAndView();
-		int noConfirmedEnter = service.getRegEnterConfirm();
-		int allUserCount = service.getAllRegUser();
-		List<BoardDTO> boardlist = service.getSomeBoardList();
-		mv.addObject("noConfirmedEnter", noConfirmedEnter);
-		mv.addObject("allUserCount", allUserCount);
-		mv.addObject("boardlist", boardlist);
-		mv.setViewName("adminMain");
-		return mv;
+		int a = 1;
+		if (a == 2) {
+			int noConfirmedEnter = service.getRegEnterConfirm();
+			int allUserCount = service.getAllRegUser();
+			List<BoardDTO> boardlist = service.getSomeBoardList();
+			mv.addObject("noConfirmedEnter", noConfirmedEnter);
+			mv.addObject("allUserCount", allUserCount);
+			mv.addObject("boardlist", boardlist);
+			mv.setViewName("adminMain");
+			return mv;
+		} else {
+			mv.setViewName("adminlogin");
+			return mv;
+		}
 	}
 	
 	@RequestMapping("/adminBoardNews")
@@ -120,5 +127,64 @@ public class AdminController {
 		mv.addObject("tabletitle", "일반 회원 리스트");
 		mv.setViewName("adminMember");
 		return mv;
+	}
+	
+	@RequestMapping("/adminAccount")
+	public ModelAndView adminAccount() {
+		ModelAndView mv = new ModelAndView();
+		List<MemberDTO> memberlist = service.getAllAdminMember();
+		mv.addObject("memberlist", memberlist);
+		mv.addObject("title", "관리자");
+		mv.addObject("tabletitle", "관리자 리스트");
+		mv.setViewName("adminMember");
+		return mv;
+	}
+	
+	@RequestMapping("/adminAddaccount")
+	public String adminAddaccount() {
+		return "adminAddaccount";
+	}
+	
+	@RequestMapping("/adminadd")
+	public ModelAndView adminadd(String inputId, String inputName, String inputEmail, String inputPassword) {
+		ModelAndView mv = new ModelAndView();
+		MemberDTO dto = new MemberDTO();
+		dto.setMemId(inputId);
+		dto.setMemNick(inputName);
+		dto.setMemName(inputName);
+		dto.setMemEmail(inputEmail);
+		dto.setMemPw(inputPassword);
+		int valid = service.getSpecificAdminAccount(dto);
+		if (valid == 0) {
+			int result = 0;
+			try {
+				result = service.addAdminAccount(dto);
+			} catch (Exception e) {
+				
+			}
+			if (result == 1) {
+				List<MemberDTO> memberlist = service.getAllAdminMember();
+				mv.addObject("memberlist", memberlist);
+				mv.addObject("title", "관리자");
+				mv.addObject("tabletitle", "관리자 리스트");
+				mv.setViewName("adminMember");
+				return mv;
+			} else {
+				mv.addObject("result", "계정 생성에 실패했습니다. (아이디중복여부, 이메일중복여부 혹은 올바른 양식인지 확인 바랍니다.)");
+				mv.setViewName("adminAddaccount");
+				return mv;
+			}
+		} else {
+			mv.addObject("result", "계정 생성에 실패했습니다. (아이디중복여부, 이메일중복여부 혹은 올바른 양식인지 확인 바랍니다.)");
+			mv.setViewName("adminAddaccount");
+			return mv;
+		}
+		
+	}
+	
+	@RequestMapping("/deleteAccount")
+	public String deleteAccount(String memId) {
+		int result = service.deleteAdminAccount(memId);
+		return "redirect:/adminAccount";
 	}
 }

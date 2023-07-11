@@ -53,6 +53,22 @@
 	select memId, memNick, memEmail, memType, memRegtime, memName from member where memType = "normal";
 </select>
 
+<select id="getAllAdminMember" resultType="memberDto">
+	select * from member where memType = "admin";
+</select>
+
+<select id="getSpecificAdminAccount" parameterType="memberDto" resultType="int">
+	select count(*) from member where memId = #{memId};
+</select>
+
+<insert id="addAdminAccount" parameterType="memberDto">
+	INSERT INTO member values(#{memId},#{memPw},#{memName},#{memEmail},'admin',default,#{memName});
+</insert>
+
+<delete id="deleteAdminAccount" parameterType="String">
+	delete from member where memType = 'admin' and memId = #{memId};
+</delete>
+
 </mapper>
 
 
