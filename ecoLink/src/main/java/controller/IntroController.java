@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class IntroController {
 		return "infopostdetail";
 	}
 	
-
 	@RequestMapping("/infoboardlist")
-	public ModelAndView infoboardlist(@RequestParam(value = "page", required = false, defaultValue = "1")int page){
+	public ModelAndView infoboardlist(@RequestParam(value = "page", required = false, defaultValue = "1")int page,
+			@RequestParam(value = "selectValue", required = false, defaultValue = "recent")String selectValue){
 		int totalBoard = service.getTotalBoard();
 		
 		int limitcount = 5;
@@ -40,20 +41,30 @@ public class IntroController {
 		limit[0] = limitindex;
 		limit[1] = limitcount;
 		
-		// if 데이터가 recent면
-		List<BoardDTO> list = service.boardList(limit);
+		List<BoardDTO> boardList = service.boardListRecent(limit);
 		
-		// else if 데이터가 views면
-		// List<BoardDTO> list = service.boardListViews(limit);
+		if(selectValue.equals("recent")) {
+			boardList = service.boardListRecent(limit);
+		}
+		else if(selectValue.equals("view")) {
+			boardList = service.boardListView(limit);
+		}
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("totalBoard", totalBoard);
-		mv.addObject("boardList", list);
+		//mv.addObject("boardListRecent", listRecent);
+		//mv.addObject("boardListView", listView);
+		mv.addObject("boardList", boardList);
 		
 		mv.setViewName("infoarticle");
 		return mv;
 	}
 	
+	/*
+	 * @RequestMapping("/infoboardsearch") public ModelAndView
+	 * infoboardsearch(@RequestParam(value="item", required = false, defaultValue =
+	 * "all")
+	 */
 	
 	@RequestMapping("/infowriting")
 	public String infowriting() {

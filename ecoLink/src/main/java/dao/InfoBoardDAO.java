@@ -12,5 +12,6 @@ import dto.BoardDTO;
 public interface InfoBoardDAO {
 	
 	public int getTotalBoard();
-	public List<BoardDTO> boardList(int[] limit);
+	public List<BoardDTO> boardListRecent(int[] limit);
+	public List<BoardDTO> boardListView(int[] limit);
 }
