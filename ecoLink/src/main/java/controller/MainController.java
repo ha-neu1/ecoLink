@@ -11,11 +11,6 @@ import service.MainService;
 @Controller
 public class MainController {
 
-	@RequestMapping("/")
-	public String mainPage() {
-		return "main"; // jsp 파일의 이름
-	}
-
 	private final MainService mainService;
 
 	@Autowired

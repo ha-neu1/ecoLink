@@ -20,15 +20,14 @@
 			<li><a href="#"><img alt="정보" src="images/community.png"></a></li>
 		</ul>
 	</div>
-	<div class="statistics">
-	통계
-	</div>
+	
+	<div class="statistics">통계</div>
+	
 	<div class="mainPromo">
 	브랜드홍보
 	</div>
-	<div class="mainReview">
-	후기
-	</div>
+	
+	<div class="mainReview">후기</div>
 	<%@ include file="footer.jsp"%>
 </body>
 </html>
