@@ -19,4 +19,8 @@ public interface AdminService {
 	public List<AdminDTO> getConfirmedEnterList();
 	public List<BannerDTO> getAllBanner();
 	public List<MemberDTO> getAllNormalMember();
+	public List<MemberDTO> getAllAdminMember();
+	public int addAdminAccount(MemberDTO dto);
+	public int getSpecificAdminAccount(MemberDTO dto);
+	public int deleteAdminAccount(String memId);
 }

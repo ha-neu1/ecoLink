@@ -73,6 +73,16 @@
                                             <a class="nav-link" href="/adminMember">회원 리스트</a>
                                         </nav>
                                     </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAdmin" aria-expanded="false" aria-controls="pagesCollapseAdmin">
+                                        관리자
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAdmin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="/adminAccount">관리자 리스트</a>
+                                            <a class="nav-link" href="/adminAddaccount">관리자 계정 생성</a>
+                                        </nav>
+                                    </div>
                                 </nav>
                             </div>
                             
