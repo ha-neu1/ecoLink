@@ -17,12 +17,12 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		return dao.getTotalBoard();
 	}
 	@Override
-	public List<BoardDTO> boardList(int[] limit) {
-		 return dao.boardList(limit);
+	public List<BoardDTO> boardListRecent(int[] limit) {
+		 return dao.boardListRecent(limit);
 	}
 	
-	//@Override
-	//public List<BoardDTO> boardListViews(int[] limit){
-	//	return dao.boardListViews(limit);
+	@Override
+	public List<BoardDTO> boardListView(int[] limit){
+		return dao.boardListView(limit);
 	}
-//}
+}
