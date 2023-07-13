@@ -8,6 +8,29 @@
 <link rel="stylesheet" href="css/MyInfoUpdate.css">
 </head>
 <script src="js/jquery-3.6.4.min.js"></script>
+<script>
+/* $(document).ready(function(){
+	$("#UserUpdateButton").on('click',function(){
+		$.ajax({
+			url:'updateuser',
+			data: {
+				'userid':"${loginUser.memId}",
+				'pw':$("#pw").val(),
+				'phone':$("#phone").val(),
+				'email':$("#email").val()
+			},
+			type:'post',
+			success:function(res){
+				alert("회원정보 수정이 완료되었습니다.");
+				location.href = "/myInfo"
+			},
+			error:function(request,status,e){
+				alert("코드="+request.status+"\n메시지="+request.responseText+"\nerror="+e);
+			}
+		}); //ajax
+	});
+}); */
+</script>
 <body>
 <%@ include file="header.jsp" %>
 <aside id="sidebar">
@@ -58,7 +81,7 @@
 			</div>
 
 			<div class='formindiv'>
-				<button type="button" id="UserUpdateButton">나의정보 수정</button>
+				<button type="button" id="UserUpdateButton">수정하기</button>
 			</div>
 
 		</form>

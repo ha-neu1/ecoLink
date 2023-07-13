@@ -6,6 +6,7 @@
 	<select id="getUserlogin" parameterType="String" resultType="memberDTO">
 		select * from user where memId=#{memId};
 	</select>
+	
 	<update id="MemberUpdate" parameterType="memberDto">
 		UPDATE member SET memPw=#{memPw}, memNick=#{memNick} WHERE memId=#{memId};
 	</update>
