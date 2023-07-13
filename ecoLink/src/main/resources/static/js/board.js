@@ -1,39 +1,70 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
+  var addButton = document.getElementById('addButton');
+  addButton.addEventListener('click', function() {
+    var boardMain = document.querySelector('.boardMain');
 
-    const postJson = localStorage.getItem("post");
+    // 새로운 게시물을 생성하는 요소들을 생성
+    var newBoardList = document.createElement('div');
+    newBoardList.classList.add('boardList');
 
-    let postInfo = JSON.parse(postJson);
+    var newMemId = document.createElement('h3');
+    newMemId.classList.add('memId');
+    newMemId.textContent = '새로운 작성자 이름';
 
-    if (postInfo == null) {
-        postInfo = [];
-    }
+    var newBoardTitle = document.createElement('h4');
+    newBoardTitle.classList.add('boardTitle');
+    newBoardTitle.textContent = '새로운 게시물 제목';
 
-/*    for(let i = 0; i < postInfo.length; i++) {
-        let listArea= document.getElementById("list");
-        let postList = document.createElement("tr")
-    
-        postList.innerHTML = '<td>' + (i + 1) + '</td>'
-        + '<td class="post_list_name"><a href="/boardRead?id=' + i + '">' + postInfo[i].post_name + '</a></td>'
-        + '<td>' + postInfo[i].postDate + '</td>'
-        + '<td>' + postInfo[i].viewCnt + '</td>';
-    
-        listArea.appendChild(postList);
-        console.log(i);
-    }*/
-    
-    
-    for(let i = 0; i < postInfo.length; i++) {
-        let listArea= document.getElementById("list");
-        let postList = document.createElement("tr")
-    
-        postList.innerHTML = '<div id="boardMain" class="boardList">'
-			+ '<h3 class="memId">작성자 이름</h3>'
-			+ '<h4 class="boardTitle">게시물 제목</h4>'
-			+ '<img class="boardImage" src="/images/logo2.png" alt="게시물 이미지">'
-			+ '<p class="boardCont">본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.</p>'
-			+ '</div>';
-    
-        listArea.appendChild(postList);
-        console.log(i);
-    }
+    var newLikeButton = document.createElement('span');
+    newLikeButton.classList.add('likeButton');
+    newLikeButton.addEventListener('click', function() {
+      if (newLikeButton.classList.contains('liked')) {
+        unlikePost(postId, function() {
+          newLikeButton.classList.remove('liked');
+        });
+      } else {
+        likePost(postId, function() {
+          newLikeButton.classList.add('liked');
+        });
+      }
+    });
+
+    var newBoardImage = document.createElement('img');
+    newBoardImage.classList.add('boardImage');
+    newBoardImage.setAttribute('src', '/images/logo2.png');
+    newBoardImage.setAttribute('alt', '게시물 이미지');
+
+    var newBoardCont = document.createElement('p');
+    newBoardCont.classList.add('boardCont');
+    newBoardCont.textContent = '새로운 게시물 내용입니다. 새로운 게시물 내용입니다.';
+
+    // 생성한 요소들을 새로운 게시물 요소에 추가
+    newBoardList.appendChild(newMemId);
+    newBoardList.appendChild(newBoardTitle);
+    newBoardList.appendChild(newLikeButton);
+    newBoardList.appendChild(newBoardImage);
+    newBoardList.appendChild(newBoardCont);
+
+    // 새로운 게시물 요소를 게시판 메인에 추가
+    boardMain.appendChild(newBoardList);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const prevLink = document.querySelector('.prev');
+  const nextLink = document.querySelector('.next');
+  const pageLinks = document.querySelectorAll('.page');
+
+  function goToPage(e) {
+    e.preventDefault();
+    const selectedPage = this.innerText;
+    // TODO: 선택된 페이지로 이동하는 로직
+    console.log('Go to page:', selectedPage);
+  }
+
+  prevLink.addEventListener('click', goToPage);
+  nextLink.addEventListener('click', goToPage);
+  pageLinks.forEach(function(link) {
+    link.addEventListener('click', goToPage);
+  });
 });
