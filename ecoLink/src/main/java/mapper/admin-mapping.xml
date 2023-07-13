@@ -69,6 +69,10 @@
 	delete from member where memType = 'admin' and memId = #{memId};
 </delete>
 
+<select id="adminLogin" parameterType="memberDto" resultType="memberDto">
+	select * from member where memType = 'admin' and memId = #{memId} and memPw = #{memPw};
+</select>
+
 </mapper>
 
 

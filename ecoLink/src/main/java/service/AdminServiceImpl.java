@@ -91,6 +91,11 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteAdminAccount(String memId) {
 		return dao.deleteAdminAccount(memId);
 	}
+
+	@Override
+	public MemberDTO adminLogin(MemberDTO memberDTO) {
+		return dao.adminLogin(memberDTO);
+	}
 	
 	
 }
