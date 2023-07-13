@@ -1,8 +1,32 @@
 package service;
 
-import org.springframework.stereotype.Service;
+import dto.MemberDTO;
 
-@Service 
 public interface MemberService {
+	// 회원 정보 조회
+	MemberDTO oneMember(String id);
 	
+	//회원가입
+	void addMember(MemberDTO member);
+	
+    //id중복여부
+    public int isMemberIdExist(String inputId);
+    
+    //email중복여부
+    public int isMemberEmailExist(String inputEmail);
+    	
+	
+    /*
+    // id 중복 여부 확인
+    boolean isMemberIdExist(String memberId);
+    
+    // email 중복 여부 확인
+    boolean isMemberEmailExist(String memberEmail);
+    
+    // 회원가입
+    void saveMemberInfo(MemberDTO memberDto);
+    
+    // nick 카운트
+    int isNickExists(String inputNick);
+    */
 }
