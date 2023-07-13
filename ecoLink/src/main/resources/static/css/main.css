@@ -52,3 +52,52 @@ ul, li {
 }
 
 /* 카드리스트 */
+.mainPromo {
+	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
+	min-width: 1300px;
+	text-align: center;
+}
+
+div.card {
+	background: white;
+	display: inline-block;
+	margin: 8px;
+	max-width: 300px;
+	position: relative;
+	text-align: left;
+	width: 300px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	z-index: 1;
+}
+
+.card__image {
+	max-width: 300px;
+	object-fit: cover; /* 비율을 유지하면서 이미지를 표시 */
+}
+
+.card__image-holder {
+	background: rgba(0, 0, 0, 0.1);
+	height: 0;
+	padding-bottom: 75%;
+}
+
+div.card-title {
+	background: white;
+	padding: 6px 15px 10px;
+	position: relative;
+}
+
+h2 {
+	font-size: 24px;
+	font-weight: 700;
+	letter-spacing: -0.05em;
+	margin: 0;
+	padding: 0;
+}
+
+small {
+	display: block;
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: -0.025em;
+}
