@@ -2,23 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.InfoBoardDAO">
-  
-<select id="getTotalBoard" resultType="int" >
-	select count(*) from board
-</select>
 
-<select id="boardListRecent" resultType="boardDto" parameterType="int">
-	select * from board order by boardRegtime desc limit
-	<foreach collection="array" item="num" separator=",">
-		#{num}
-	</foreach>
-</select>
+	<select id="getTotalBoard" resultType="int">
+		select count(*) from board
+	</select>
 
-<select id="boardListView" resultType="boardDto" parameterType="int">
-	select * from board order by boardViewCount desc, boardRegtime DESC limit
-	<foreach collection="array" item="num" separator=",">
-		#{num}
-	</foreach>
-</select>
- 
+	<select id="boardListRecent" resultType="boardDto"
+		parameterType="int">
+		select * from board order by boardRegtime desc limit
+		<foreach collection="array" item="num" separator=",">
+			#{num}
+		</foreach>
+	</select>
+
+	<select id="boardListView" resultType="boardDto"
+		parameterType="int">
+		select * from board order by boardViewCount desc, boardRegtime DESC
+		limit
+		<foreach collection="array" item="num" separator=",">
+			#{num}
+		</foreach>
+	</select>
+	<select id="searchList" parameterType="hashmap"
+		resultType="boarddto">
+		select * from board where
+		<choose>
+			<when test="colname == null">
+				boardTitle like #{colvalue} or boardContents like
+				#{colvalue}
+			</when>
+			<otherwise>
+				${colname} like #{colvalue}
+			</otherwise>
+		</choose>
+		order by boardRegtime desc
+		limit #{limitindex}, #{limitcount}
+	</select>
+
+	<select id="getSearchBoard" parameterType="hashmap"
+		resultType="int">
+		select count(*) from board where
+		<choose>
+			<when test="colname == null">
+				boardTitle like #{colvalue} or boardContents like
+				#{colvalue}
+			</when>
+			<otherwise>
+				${colname} like #{colvalue}
+			</otherwise>
+		</choose>
+		order by boardRegtime desc
+	</select>
+
+
 </mapper>

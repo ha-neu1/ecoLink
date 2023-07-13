@@ -13,7 +13,18 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <%@ include file="header.jsp"%>
 </head>
+<script>
+    function submitForm() {
+        var selectElement = document.getElementById("search_form");
+        var selectedValue = selectElement.options[selectElement.selectedIndex].value;
 
+        var inputValue = document.getElementsByName("word")[0].value;
+
+        var form = document.getElementById("search_form");
+        var pageUrl = "infoboardsearch?page=1&item=" + selectedValue + "&word=" + inputValue;
+        form.action = pageUrl;
+    }
+</script>
 <body>
 	<div class="info_title">NEWS</div>
 	<div class="info_cata">
@@ -26,13 +37,13 @@
 		</div>
 		
 		<div class="info_search">
-			<form action="infoboardsearch">
-				<select class="search_form" name="item" onchange="OptionValue(this.value);">
-					<option value="seartch_all"<c:if test="${param.selectValue == 'seartch_all'}">selected="selected"</c:if>>모두</option>
-					<option value="boardTitle"<c:if test="${param.selectValue == 'boardTitle'}">selected="selected"</c:if>>제목</option>
-					<option value="boardContents"<c:if test="${param.selectValue == 'boardContents'}">selected="selected"</c:if>>내용</option>
+			<form id="search_form" onsubmit="submitForm(); return false;">
+				<select class="search_form" name="item">
+					<option value="seartch_all"<% if ("search_all".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>모두</option>
+					<option value="boardTitle"<% if ("boardTitle".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>제목</option>
+					<option value="boardContents" <% if ("boardContents".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>내용</option>
 				</select> <input type="search" class="searchbar" name="word">
-				<button type="submit" class="searchbtn">
+				<button type="submit" class="searchbtn" id="searchbtn">
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</form>
@@ -68,28 +79,27 @@
 		
 	
 	
+<%
+    int totalBoard = (Integer) request.getAttribute("totalBoard");
+    int totalPage = 0;
 
-	<div class="pagination">
-		<%
-		int totalBoard = (Integer) request.getAttribute("totalBoard");
-		int totalPage = 0;
+    if (totalBoard % 5 == 0) {
+        totalPage = totalBoard / 5;
+    } else {
+        totalPage = totalBoard / 5 + 1;
+    }
+%>
 
-		if (totalBoard % 5 == 0) {
-			totalPage = totalBoard / 5;
-		} else {
-			totalPage = totalBoard / 5 + 1;
-		}
-
-		for (int i = 1; i <= totalPage; i++) {
-		%>
-
-		<a class="pagenumber" href="infoboardlist?page=<%=i%>&selectValue=${param.selectValue}"><%=i%></a>
-
-		<%
-		}
-		%>
-	</div>
-
+<div class="pagination">
+    <%-- 페이지 링크 생성 --%>
+    <% for (int i = 1; i <= totalPage; i++) { %>
+        <%-- 페이지 URL 생성 --%>
+        <% String selectedValue = request.getParameter("item"); %>
+        <% String inputValue = request.getParameter("word"); %>
+        <% String pageUrl = "infoboardsearch?page=" + i + "&item=" + selectedValue + "&word=" + inputValue; %>
+        <a class="pagenumber" href="<%= pageUrl %>"><%= i %></a>
+    <% } %>
+</div>
 
 
 

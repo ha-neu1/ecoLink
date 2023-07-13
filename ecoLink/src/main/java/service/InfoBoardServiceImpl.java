@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,13 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	public List<BoardDTO> boardListView(int[] limit){
 		return dao.boardListView(limit);
 	}
+	@Override
+	public List<BoardDTO> searchList(HashMap map) {
+		return dao.searchList(map);
+	}
+	@Override
+	public int getSearchBoard(HashMap map) {
+		return dao.getSearchBoard(map);
+	}
+	
 }
