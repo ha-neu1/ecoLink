@@ -20,13 +20,59 @@
 			<li><a href="#"><img alt="정보" src="images/community.png"></a></li>
 		</ul>
 	</div>
-	
+
 	<div class="statistics">통계</div>
-	
+
 	<div class="mainPromo">
-	브랜드홍보
+		<div class="card">
+			<div class="card__image-holder">
+				<img class="card__image"
+					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
+			</div>
+			<div class="card-title">
+				<h2>
+					Card title <small>Image from unsplash.com</small>
+				</h2>
+			</div>
+		</div>
+		
+		<div class="card">
+			<div class="card__image-holder">
+				<img class="card__image"
+					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
+			</div>
+			<div class="card-title">
+				<h2>
+					Card title <small>Image from unsplash.com</small>
+				</h2>
+			</div>
+		</div>
+		
+		<div class="card">
+			<div class="card__image-holder">
+				<img class="card__image"
+					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
+			</div>
+			<div class="card-title">
+				<h2>
+					Card title <small>Image from unsplash.com</small>
+				</h2>
+			</div>
+		</div>
+		
+		<div class="card">
+			<div class="card__image-holder">
+				<img class="card__image"
+					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
+			</div>
+			<div class="card-title">
+				<h2>
+					Card title <small>Image from unsplash.com</small>
+				</h2>
+			</div>
+		</div>
 	</div>
-	
+
 	<div class="mainReview">후기</div>
 	<%@ include file="footer.jsp"%>
 </body>
