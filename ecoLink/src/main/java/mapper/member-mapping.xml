@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.MemberDAO">
-	<!-- <insert id="addMember" parameterType="memberDto">
-		/*회원가입*/
-		INSERT INTO tb_member
-		(	 memId
-			,memPws
-			,memNick
-			,memEmail
-			,memType
-			,memRegtime
-			,memName
-		)VALUES (
-			  #{memberId}
-			 ,#{memberPw}
-			 ,#{memberNick}
-			 ,#{memberEmail}
-			 ,#{memberType}
-			 ,CURDATE()
-			 ,#{memberName}
-		);
-	</insert> -->
+<mapper namespace="member">
+
+<!-- 회원 정보 조회 -->
+<select id="oneMember" resultType="dto.MemberDTO" parameterType="String"> 
+select * from member where memId=#{memId}
+</select>
+
+<!-- 회원가입 -->
+<insert id="addMember" parameterType="dto.MemberDTO">
+    insert into member (memId, memPw, memNick, memEmail, memType, memRegtime, memName)
+    values (#{memId}, #{memPw}, #{memNick}, #{memEmail}, #{serchType}, #{now()}, #{memName})
+</insert>
+
+<!-- id 중복 여부 -->
+<select id="isMemberIdExist" resultType="int" parameterType="String">
+	select count(*) from member where memId = #{inputId}
+</select>
+
+<!-- email 중복 여부 -->
+<select id="isMemberEmailExist" resultType="int" parameterType="String">
+	select count(*) from member where memEmail = #{inputEmail}
+</select>
+
+<!-- memType에 해당하는 회원 수 조회 / nick 카운트 -->
+<select id="getMemberCountByType" resultType="int" parameterType="String">
+    select count(*) from member where memType = #{memType}
+</select>
+
 </mapper>
-
-
-
-
-
-

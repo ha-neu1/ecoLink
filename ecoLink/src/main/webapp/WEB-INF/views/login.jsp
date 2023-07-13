@@ -12,8 +12,8 @@
 $(document).ready(function(){
 	const loginForm = document.getElementById("login_form");	
 	const loginBtn = document.getElementById("login_submit_btn");
-	const loginId = document.getElementById("login_form_id");
-	const loginPassword= document.getElementById("login_form_password");
+	const loginId = document.getElementById("memId");
+	const loginPassword= document.getElementById("memPw");
 	//const loginErrorMsg ="아이디 또는 비밀번호를 잘못입력했습니다. 다시확인해주세요. ";
 	/* const loginLink= "http://localhost:8081/team_running/team1.html"; */
 	
@@ -50,17 +50,30 @@ window.addEventListener("DOMContentLoaded", function() {
   var checkbox = document.getElementById("member_check_save_id0");
   var backgroundUrlOff = "/images/icon_input_checkbox_off.svg";
   var backgroundUrlOn = "/images/icon_input_checkbox_on.svg";
+  var inputId = document.getElementById("memId");
 
   checkbox.addEventListener("change", function() {
     if (checkbox.checked) {
       checkbox.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-      // 아이디 정보를 저장하는 로직 추가
+      // 아이디 정보를 저장
+      var savedId = inputId.value;
+      localStorage.setItem("savedId", savedId);
     } else {
       checkbox.style.backgroundImage = "url(" + backgroundUrlOff + ")";
-      // 저장된 아이디 정보를 제거하는 로직 추가
+      // 저장된 아이디 정보를 제거
+      localStorage.removeItem("savedId");
     }
   });
+
+  // 페이지 로드 시 저장된 아이디 정보가 있으면 입력란에 설정
+  var savedId = localStorage.getItem("savedId");
+  if (savedId) {
+    inputId.value = savedId;
+    checkbox.checked = true;
+    checkbox.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+  }
 });
+
 </script>
 </head>
 <body>
@@ -77,18 +90,18 @@ window.addEventListener("DOMContentLoaded", function() {
         <div class="container-mypage">
             <div class="row">
                 <div class="col-lg-4">
-                    <form id="login_form" name="" action="login" method="post">
+                    <form id="login_form" name="" action="/login" method="post">
                         <div class="xans-element- xans-member xans-member-login ec-base-box typeThin">
                             <div class="login">
                                 <table class="type-full">
                                     <tbody>
                                         <tr>
                                             <th>아이디</th>
-                                            <td><input id="login_form_id" name="login_form_id" class="inputTypeText" placeholder="" value="" type="text"></td>
+                                            <td><input id="memId" name="memId" class="inputTypeText" placeholder="" value="" type="text"></td>
                                         </tr>
                                         <tr>
                                             <th>비밀번호</th>
-                                            <td><input id="login_form_password" name="login_form_password" autocomplete="off" value="" type="password"></td>
+                                            <td><input id="memPw" name="memPw" autocomplete="off" value="" type="password"></td>
                                         </tr>
                                         <tr class="checkbox">
                                             <td class="id-pw-td">
@@ -121,4 +134,12 @@ window.addEventListener("DOMContentLoaded", function() {
 </div>
 </div>
 </body>
+<%
+String sessionid = (String) session.getAttribute("sessionid");
+if (sessionid != null && (sessionid.equals("비밀번호가 다릅니다.") || sessionid.equals("가입되지 않은 아이디입니다."))) {
+%>
+<script>
+window.alert("${sessionid}");
+</script>
+<% session.setAttribute("sessionid", null);} %>
 </html>
