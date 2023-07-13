@@ -23,4 +23,5 @@ public interface AdminService {
 	public int addAdminAccount(MemberDTO dto);
 	public int getSpecificAdminAccount(MemberDTO dto);
 	public int deleteAdminAccount(String memId);
+	public MemberDTO adminLogin(MemberDTO memberDTO);
 }

@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script src="../js/jquery-3.6.4.min.js"></script>
+<script>
+function logout() {
+	$.ajax({
+        type : "POST", 
+        url : "/admin/logout",
+        success : function() {
+        	location.href = '/admin';
+        },
+        error : function() {
+        	alert("로그아웃 도중 오류가 발생했습니다.");
+		}
+	});
+}
+</script>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="/admin">ECO LINK ADMIN</a>
@@ -17,7 +33,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">설정</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()">로그아웃</a></li>
                     </ul>
                 </li>
             </ul>
@@ -90,7 +106,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">해당 관리자로 로그인됨:</div>
-                        admin
+                        ${adminUserId}
                     </div>
                 </nav>
             </div>
