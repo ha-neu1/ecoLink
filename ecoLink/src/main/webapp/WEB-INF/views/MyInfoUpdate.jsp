@@ -9,14 +9,13 @@
 </head>
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
-/* $(document).ready(function(){
-	$("#UserUpdateButton").on('click',function(){
+$(document).ready(function(){
+	$("#updateBtn").on('click',function(){
 		$.ajax({
-			url:'updateuser',
+			url:'updateMyInfo',
 			data: {
-				'userid':"${loginUser.memId}",
+				'memId':"${loginUser.memId}",
 				'pw':$("#pw").val(),
-				'phone':$("#phone").val(),
 				'email':$("#email").val()
 			},
 			type:'post',
@@ -29,17 +28,17 @@
 			}
 		}); //ajax
 	});
-}); */
+});
 </script>
 <body>
 <%@ include file="header.jsp" %>
 <aside id="sidebar">
 	<div id='menus'>
 	<ul id='menusList'>
-		<li class='menuItem' id='mItem1' value=''>MY 정보</li>
-		<li class='menuItem' id='mItem2' value=''>브랜드 북마크</li>
-		<li class='menuItem' id='mItem3' value=''>좋아요한 글</li>
-		<li class='menuItem' id='mItem4' value=''>내가 쓴 글</li>
+		<li class='menuItem'><a href="/myInfo">MY 정보</a></li>
+		<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
+		<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
+		<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
 	</ul>	
 	</div>
 </aside>
@@ -51,41 +50,36 @@
 			<div class='formindiv'>
 				<p>아이디</p>
 				<div id=id_div>
-					<input type="text" name="userid" id="userid" value="아이디" maxlength="16" disabled>
+					<input type="text" name="userid" id="userid" value="${loginUser.memId}" maxlength="16" disabled>
 				</div>
 			</div>
 
 			<div class='formindiv'>
 				<p>비밀번호</p>
-				<label><input type="password" name="pw" id="pw" value="비밀번호" maxlength="16"></label>
+				<label><input type="password" name="pw" id="pw" value="${loginUser.memPw}" maxlength="16"></label>
 			</div>
 
 			<div class='formindiv'>
 				<p>이름</p>
-				<input type="text" name="name" id="name" value="이름" disabled>
+				<input type="text" name="name" id="name" value="${loginUser.memName}" disabled>
 			</div>
 
 			<div class='formindiv'>
 				<p>닉네임</p>
-				<input type="text" name="nickname" id="nickname" value="닉네임">
-			</div>
-			
-			<div class='formindiv'>
-				<p>휴대폰번호</p>
-				<input type="tel" name="phone" id="phone" value="전화번호">
+				<input type="text" name="nickname" id="nickname" value="${loginUser.memNick}">
 			</div>
 
 			<div class='formindiv'>
 				<p>E-mail</p>
-				<input type="tel" name="email" id="email" value="이메일" disabled>
+				<input type="tel" name="email" id="email" value="${loginUser.memEmail}" disabled>
 			</div>
 
 			<div class='formindiv'>
-				<button type="button" id="UserUpdateButton">수정하기</button>
+				<button type="button" id="updateBtn">수정하기</button>
 			</div>
-
 		</form>
 	</article>
 </div>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
