@@ -4,7 +4,7 @@
 <mapper namespace="dao.MyInfoDAO">
 
 	<select id="getUserlogin" parameterType="String" resultType="memberDTO">
-		select * from user where memId=#{memId};
+		select * from member where memId=#{memId};
 	</select>
 	
 	<update id="MemberUpdate" parameterType="memberDto">

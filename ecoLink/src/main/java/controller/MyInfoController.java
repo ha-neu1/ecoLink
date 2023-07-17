@@ -18,21 +18,19 @@ public class MyInfoController {
 	MyInfoService service;
 	
 	//유저 정보 조회
-	@RequestMapping("/myInfo")
-    public String myInfo() {
-        return "MyInfo";
+	@GetMapping("/myInfo")
+    public ModelAndView myInfo(HttpSession session) {
+		MemberDTO loginuser = service.getUser((String)session.getAttribute("memId"));
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("loginUser", loginuser);
+		mv.setViewName("MyInfo");
+		return mv;
     }
 	
-	//유저 정보 수정
-//	@RequestMapping("/updateMyInfo")
-//    public String updateUser() {
-//        return "MyInfoUpdate";
-//    }
-	
+	//유저 정보 수정	
 	@GetMapping("/updateMyInfo")
 	public ModelAndView myInfoupdate(HttpSession session) {
-		MemberDTO loginuser = service.getUser((String) session.getAttribute("memId"));
-		
+		MemberDTO loginuser = service.getUser((String)session.getAttribute("memId"));
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("loginUser", loginuser);
 		mv.setViewName("MyInfoUpdate");
@@ -45,23 +43,13 @@ public class MyInfoController {
 		return "";
 	}
 	
-	
 	//유저 삭제
 	@RequestMapping("/deleteMember")
-    public String deleteMember() {
+    public String deleteMember(HttpSession session) {
+		String memId = (String) session.getAttribute("memId");
+		service.deleteMember(memId);
         return "";
     }
 	
-	//브랜드 북마크 조회
-	//@GetMapping("")
-	//public  {
-		
-	//}
-	
-	//좋아요한 글 조회
-	//@GetMapping("/")
-	
-	//내가 쓴 글 조회
-	//@GetMapping("/")
 
 }
