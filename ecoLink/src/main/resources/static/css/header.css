@@ -58,6 +58,7 @@ ul, li {
 	border-radius : 0px 0px 10px 10px;
 	border-top: 0px;
 	top: 88px;/*윗쪽 공간을 줘 위치 조절*/
+	z-index: 10000;
 }
 
 /* 마우스 호버 시 드롭다운 메뉴 표시 */

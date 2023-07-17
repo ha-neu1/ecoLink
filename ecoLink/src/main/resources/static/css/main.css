@@ -15,15 +15,73 @@ ul, li {
 	list-style: none; /*구분점 없애기*/
 }
 
+/*배너 슬라이드*/
 .banner {
+	width: 1900px;
+	position: relative;
+	margin: auto;
 	margin-top: 1px;
 }
 
 .banner img {
 	width: 100%;
-	height: 100%;
+	height: 600px;
 }
 
+/* effect */
+.fade {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1.5s;
+	animation-name: fade;
+	animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+@keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+
+/* Next & previous buttons */
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	padding: 16px;
+	margin-top: -22px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+/*바로가기 아이콘*/
 .mainIcon ul {
 	display: flex; /*가로 정렬하기 위해 사용*/
 	flex-wrap: wrap;
@@ -49,6 +107,34 @@ ul, li {
 .mainIcon img:hover {
 	border: 2px solid #00d084;
 	transform: scale(1.2);
+}
+
+/*통계*/
+.statistics {
+	background-color: #dcfff2;
+}
+
+.statistics ul {
+	display: flex;
+	justify-content: space-evenly;
+	padding: 20px 0px 40px 0px;
+	text-align: center;
+}
+
+.statistics ul div {
+	width: 1px;
+	height: 55px;
+	background: #008252;
+	content: '';
+	margin: 25px 0px auto 0px;
+}
+
+.statistics strong {
+	font-size: 48px;
+}
+
+.statistics span {
+	display: block;
 }
 
 /* 카드리스트 */
@@ -100,4 +186,12 @@ small {
 	font-size: 18px;
 	font-weight: 600;
 	letter-spacing: -0.025em;
+}
+
+/*후기*/
+.boardMain {
+	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
+	min-width: 1300px;
+	text-align: center;
+	place-items: center;
 }

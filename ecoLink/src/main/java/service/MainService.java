@@ -1,5 +1,9 @@
 package service;
 
 public interface MainService {
-	String getBannerPicByBannerId(String bannerId);
+	public String getBannerPicByBannerId(String bannerId);
+
+	public int getMemberCount();
+	public int getEnterCount();
+	public int getBoardCount();
 }

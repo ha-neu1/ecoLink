@@ -18,4 +18,18 @@ public class MainServiceImpl implements MainService {
 	public String getBannerPicByBannerId(String bannerId) {
 		return maindao.getBannerPicByBannerId(bannerId);
 	}
+
+	@Override
+	public int getMemberCount() {
+		return maindao.getMemberCount();
+	}
+
+	@Override
+	public int getEnterCount() {
+		return maindao.getEnterCount();
+	}
+	@Override
+	public int getBoardCount() {
+		return maindao.getBoardCount();
+	}
 }

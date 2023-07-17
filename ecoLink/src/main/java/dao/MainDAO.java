@@ -7,5 +7,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface MainDAO {
-    String getBannerPicByBannerId(@Param("bannerId") String bannerId);
+	public String getBannerPicByBannerId(@Param("bannerId") String bannerId);
+
+	public int getMemberCount();
+	public int getEnterCount();
+	public int getBoardCount();
 }

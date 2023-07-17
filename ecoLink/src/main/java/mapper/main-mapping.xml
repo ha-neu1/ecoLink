@@ -9,4 +9,13 @@
         WHERE bannerId = #{bannerId}
     </select>
 
+	<select id="getMemberCount" resultType="int">
+		SELECT COUNT(*) FROM member
+		</select>
+	<select id="getEnterCount" resultType="int">
+		SELECT COUNT(*) FROM enterprise
+		</select>
+	<select id="getBoardCount" resultType="int">
+		SELECT COUNT(*) FROM board
+		</select>
 </mapper>
