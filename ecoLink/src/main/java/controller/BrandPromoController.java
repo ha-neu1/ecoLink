@@ -12,4 +12,9 @@ public class BrandPromoController {
 		return "brandpromolist";
 	}
 	
+	@RequestMapping("/brandpromodetail")
+	public String brandpromodetail() {
+		return "brandpromodetail";
+	}
+	
 }
