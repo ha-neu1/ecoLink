@@ -1,0 +1,56 @@
+@charset "UTF-8";
+.image_wrap{
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px solid #c5c5c5;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.image_file_zone div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;  
+    width: 600px;
+    height: 400px;
+    font-size: 35px;  
+    
+} 
+
+.image_fileholder{
+    color: #858484;
+    
+    
+}
+.post_tit{
+    width: 600px;
+    padding-bottom: 20px;
+    margin: 0 auto;   
+}
+.post_tit input{
+    width: 600px;
+    height: 30px;
+    border: 1px solid #c5c5c5;
+    border-radius: 15px;
+}
+.post_contents{
+    width: 600px;
+    padding-bottom: 20px;
+    margin: 0 auto;  
+}
+.post_contents textarea{
+    width: 600px;
+    height: 30px;
+    border: 1px solid #c5c5c5;
+    border-radius: 15px;
+}
+
+.post_btn{
+    display: flex;
+    justify-content: end;
+    width: 600px;
+    padding-bottom: 20px;
+    margin: 0 auto;  
+}

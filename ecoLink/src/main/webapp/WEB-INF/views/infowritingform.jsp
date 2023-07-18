@@ -3,66 +3,140 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="/js/jquery-3.6.4.min.js"></script>
-<script type="text/javascript" src="smarteditor/js/HuskyEZCreator.js"
-	charset="utf-8"></script>
-
-<%@ include file="header.jsp" %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/infowritingform.css">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<h3>게시판</h3>
-	<form action="insertStudentInfoForm" method="post">
-		<input type="text" placeholder="제목을 입력하세요" id="title" class="text"
-			>
-		<div id="smarteditor">
-			<textarea name="editorTxt" id="editorTxt" rows="20" cols="10"
-				placeholder="내용을 입력해주세요" class="contents"></textarea>
-		</div>
-		<input type="button" value="글작성하기" onclick="submitPost()" />
-	</form>
-	<script>
-	/* 에디터 설정 */
-let oEditors = [];
-
-smartEditor = function() {
-    console.log("Naver SmartEditor")
-    nhn.husky.EZCreator.createInIFrame({
-        oAppRef: oEditors,
-        elPlaceHolder: "editorTxt",
-        sSkinURI: "smarteditor/SmartEditor2Skin.html",
-        fCreator: "createSEditor2"
-    })
-}
-
-$(document).ready(function() {
-    smartEditor()
-})
-
-/* 버튼 클릭 이벤트 */
-submitPost = function() {
-
-    oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
-    //content Text 가져오기
-    let content = document.getElementById("editorTxt").value;
-    console.log(content);
-    if(content == '<p>&nbsp;</p>') { //비어있는 경우
-        alert("내용을 입력해주세요.")
-        oEditors.getById["editorTxt"].exec("FOCUS")
-        return;
-    } else {
-        let writePost = {
-            title: $("#title")[0].value
-            ,content: content
-        }
-        console.log(writePost);
-    }
+    <form id="post_form" action="#" method="post">
+    <div class="image_wrap">
+         <label for="image_file" class="image_file_zone" id="image_file_zone">
+            <div class="image_fileholder" id="image_fileholder">사진추가</div>
+         </label>
+         <input type="file" id="image_file" class="image_file" multiple="multiple" hidden>
+    </div>
+    <div class="post_tit">
+        <input type="text" class="tit" placeholder="제목을 입력하세요.">
+    </div>
+    <div class="post_contents">
+        <textarea class="contents" placeholder="내용을 입력하세요."></textarea>
+    </div>
+    <div class="post_btn">
+    <button type="submit" id="submit_btn">작성하기</button>
+    </div>  
+    </form>
    
-}
-    
-    
+    <script>
+        (function imageView(image_fileholder, image_file) {
+  var fileHolder = document.getElementById(image_fileholder);
+  var imageFile = document.getElementById(image_file);
+  var sel_files = [];
 
-</script>
+  // 이미지와 체크 박스를 감싸고 있는 div 속성
+  var div_style =
+    'display:inline-block;position:relative;' +
+    'width:600px;height:400px;margin:5px;border:1px solid #00f;z-index:3';
+  // 미리보기 이미지 속성
+  var img_style = 'width:100%;height:100%;z-index:2';
+  // 이미지안에 표시되는 체크박스의 속성
+  var chk_style =
+    'width:30px;height:30px;position:absolute;font-size:24px;' +
+    'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00;z-index:1';
+
+  imageFile.onchange = function (e) {
+    var files = e.target.files;
+    for (var f of files) {
+      imageLoader(f);
+    }
+  };
+
+  // 탐색기에서 드래그앤 드롭 사용
+  fileHolder.addEventListener(
+    'dragenter',
+    function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    false
+  );
+
+  fileHolder.addEventListener(
+    'dragover',
+    function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    false
+  );
+
+  fileHolder.addEventListener(
+    'drop',
+    function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var files = e.dataTransfer.files;
+      for (var f of files) {
+        imageLoader(f);
+      }
+    },
+    false
+  );
+
+  /* 첨부된 이미지를 배열에 넣고 미리보기 */
+  function imageLoader(file) {
+    console.log(file);
+    sel_files.push(file);
+    var reader = new FileReader();
+    reader.onload = function (ee) {
+      let img = document.createElement('img');
+      img.setAttribute('style', img_style);
+      img.src = ee.target.result;
+      if (fileHolder.textContent == '사진추가') {
+        fileHolder.textContent = '';
+      }
+      fileHolder.appendChild(makeDiv(img, file));
+    };
+
+    reader.readAsDataURL(file); // 단일 파일 객체를 읽어오도록 수정
+  }
+
+  /* 첨부된 파일이 있는 경우 checkbox와 함께 fileHolder에 추가할 div를 만들어 반환 */
+  function makeDiv(img, file) {
+    var div = document.createElement('div');
+    div.setAttribute('style', div_style);
+
+    var btn = document.createElement('input');
+    btn.setAttribute('type', 'button');
+    btn.setAttribute('value', 'x');
+    btn.setAttribute('data-del-file', file.name || '');
+    btn.setAttribute('style', chk_style);
+    btn.onclick = function (ev) {
+      ev.preventDefault(); 
+      ev.stopPropagation(); // 이벤트 전파 중지
+      var ele = ev.target;
+      var delFile = ele.dataset.delFile || '';
+      for (var i = 0; i < sel_files.length; i++) {
+        if (delFile == sel_files[i].name) {
+          sel_files.splice(i, 1);
+          break; // 파일 찾았으면 반복문 종료
+        }
+      }
+      var dt = new DataTransfer();
+      for (var i = 0; i < sel_files.length; i++) {
+        dt.items.add(new File([sel_files[i]], sel_files[i].name, { type: sel_files[i].type }));
+      }
+      imageFile.files = dt.files;
+      var p = ele.parentNode;
+      fileHolder.removeChild(p);
+    };
+    div.appendChild(img);
+    div.appendChild(btn);
+    return div;
+  }
+})('image_fileholder', 'image_file');
+
+    </script>
 </body>
 </html>
