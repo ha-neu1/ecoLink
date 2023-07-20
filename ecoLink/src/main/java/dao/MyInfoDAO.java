@@ -19,11 +19,11 @@ public class MyInfoDAO {
 		return session.selectOne("getUserlogin", memId);
 	}
 	
-	public int memberUpdate(MemberDTO dto) {
-		return session.update("MemberUpdate",dto);
+	public int userUpdate(MemberDTO dto) {
+		return session.update("userUpdate",dto);
 	}
 	
-	public int deleteMember(String memId) {
+	public int deleteUser(String memId) {
 		return session.delete("UserDelete",memId);
 	}
 	

@@ -39,7 +39,7 @@ public class MyInfoController {
 	
 	@PostMapping("/updateMyInfo")
 	public @ResponseBody String myInfoupdatesql(MemberDTO dto) {
-		service.memberUpdate(dto);
+		service.userUpdate(dto);
 		return "";
 	}
 	
@@ -47,8 +47,18 @@ public class MyInfoController {
 	@RequestMapping("/deleteMember")
     public String deleteMember(HttpSession session) {
 		String memId = (String) session.getAttribute("memId");
-		service.deleteMember(memId);
+		service.deleteUser(memId);
         return "";
+    }
+	
+	@RequestMapping("/entInfo")
+    public String entinfo() {
+        return "EntInfo";
+    }
+	
+	@RequestMapping("/updateEntInfo")
+    public String updateEntInfo() {
+        return "EntInfoUpdate";
     }
 	
 

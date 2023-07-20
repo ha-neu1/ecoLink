@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 정보</title>
-<link rel="stylesheet" href="css/MyInfo.css">
+<link rel="stylesheet" href="css/EntInfo.css">
 </head>
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
 	$(document).ready(
 			function() {
 				$("#updateUser").on('click', function() {
-					location.href = "/updateMyInfo"
+					location.href = "/updateEntInfo"
 				});
 
 				$("#deleteUser").on(
@@ -46,20 +46,16 @@
 <body>
 	<%@ include file="header.jsp"%>
 	<aside id="sidebar">
-		<div id='menus'>
 			<ul id='menusList'>
-				<!-- <li class='menuItem'><a href="/myInfo">MY 정보</a></li>
-				<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
-				<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
-				<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li> -->
+				<li class='menuItem' id=''><a href="/entInfo">기업 정보</a></li>
+				<li class='menuItem' id=''><a href="#">내 브랜드 조회</a></li>
 			</ul>
-		</div>
 	</aside>
 	<div class="containers">
 		<article>
 			<div class='menuDivs' id='menuDiv1'>
-				<h2>MY 정보</h2>
-				<p>고객님의 닉네임과 비밀번호 등 개인정보를 확인하실 수 있습니다.</p>
+				<h2>기업 정보</h2>
+				<p>고객님이 등록한 기업정보를 확인하실 수 있습니다.</p>
 				<table id='myinfo'>
 					<tr>
 						<td>아이디</td>
@@ -70,20 +66,24 @@
 						<td>********</td>
 					</tr>
 					<tr>
-						<td>이름</td>
+						<td>대표이름</td>
 						<td>${loginUser.memName}</td>
 					</tr>
 					<tr>
-						<td>닉네임</td>
+						<td>브랜드이름</td>
 						<td>${loginUser.memNick}</td>
 					</tr>
 					<tr>
 						<td>E-mail</td>
 						<td>${loginUser.memEmail}</td>
 					</tr>
+					<tr>
+						<td>승인여부</td>
+						<td></td>
+					</tr>
 				</table>
 				<div class="bt_wrap">
-					<button type="button" id="updateUser">개인정보 수정</button>
+					<button type="button" id="updateUser">기업정보 수정</button>
 					<button id="deleteUser">회원 탈퇴</button>
 				</div>
 			</div>

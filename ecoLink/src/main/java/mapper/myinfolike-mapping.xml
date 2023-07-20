@@ -3,5 +3,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.MyInfoLikeDAO">
 
+	<select id="brandBookmark" resultType="dto.EnterpriseBookmarkDTO" parameterType="String">
+        SELECT * FROM enterprise_bookmark where memId=#{memId};
+    </select>
 
 </mapper>
