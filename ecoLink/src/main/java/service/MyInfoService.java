@@ -15,11 +15,11 @@ public class MyInfoService {
 		return dao.getUser(memId);
 	}
 	
-	public int memberUpdate(MemberDTO dto) {
-		return dao.memberUpdate(dto);
+	public int userUpdate(MemberDTO dto) {
+		return dao.userUpdate(dto);
 	}
 	
-	public int deleteMember(String memId) {
-		return dao.deleteMember(memId);
+	public int deleteUser(String memId) {
+		return dao.deleteUser(memId);
 	}
 }
