@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <form id="post_form" action="#" method="post">
+    <form id="post_form" action="infowriting" method="post">
     <div class="image_wrap">
          <label for="image_file" class="image_file_zone" id="image_file_zone">
             <div class="image_fileholder" id="image_fileholder">사진추가</div>
@@ -18,10 +18,10 @@
          <input type="file" id="image_file" class="image_file" multiple="multiple" hidden>
     </div>
     <div class="post_tit">
-        <input type="text" class="tit" placeholder="제목을 입력하세요.">
+        <input type="text" class="tit" name="boardTitle" placeholder="제목을 입력하세요.">
     </div>
     <div class="post_contents">
-        <textarea class="contents" placeholder="내용을 입력하세요."></textarea>
+        <textarea class="contents" name="boardContents" placeholder="내용을 입력하세요."></textarea>
     </div>
     <div class="post_btn">
     <button type="submit" id="submit_btn">작성하기</button>

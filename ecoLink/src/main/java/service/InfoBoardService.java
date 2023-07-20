@@ -3,6 +3,7 @@ package service;
 import java.util.HashMap;
 import java.util.List;
 
+import dto.BoardCommentDTO;
 import dto.BoardDTO;
 
 public interface InfoBoardService {
@@ -15,4 +16,10 @@ public interface InfoBoardService {
 	public List<BoardDTO> searchList(HashMap map);
 
 	public int getSearchBoard(HashMap map);
+	
+	public int insertBoard(BoardDTO dto);
+	
+	public BoardDTO updateViewcountAndGetDetail(int boardId);
+	
+	
 }

@@ -53,7 +53,7 @@
 					</div>
 					<div class="post_text">
 						<h3 class="post_tit">
-							<a href="#"> ${dto.boardTitle } </a>
+							<a href="/infopostdetail?boardId=${dto.boardId}">${dto.boardTitle}</a>
 						</h3>
 						<div class="post_date_wrap">
 							<span class="post_date"> ${dto.boardRegtime }</span>
@@ -69,26 +69,20 @@
 	
 	
 
-	<div class="pagination">
-		<%
-		int totalBoard = (Integer) request.getAttribute("totalBoard");
-		int totalPage = 0;
+<div class="pagination">
+    <%
+    Integer totalBoard = (Integer) request.getAttribute("totalBoard");
+    if (totalBoard != null) {
+        int totalPage = (totalBoard % 5 == 0) ? totalBoard / 5 : totalBoard / 5 + 1;
 
-		if (totalBoard % 5 == 0) {
-			totalPage = totalBoard / 5;
-		} else {
-			totalPage = totalBoard / 5 + 1;
-		}
-
-		for (int i = 1; i <= totalPage; i++) {
-		%>
-
-		<a class="pagenumber" href="infoboardlist?page=<%=i%>&selectValue=${param.selectValue}"><%=i%></a>
-
-		<%
-		}
-		%>
-	</div>
+        for (int i = 1; i <= totalPage; i++) {
+    %>
+    <a class="pagenumber" href="infoboardlist?page=<%=i%>&selectValue=${param.selectValue}"><%=i%></a>
+    <%
+        }
+    }
+    %>
+</div>
 
 
 
