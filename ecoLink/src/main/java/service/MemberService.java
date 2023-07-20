@@ -3,11 +3,15 @@ package service;
 import dto.MemberDTO;
 
 public interface MemberService {
-	// 회원 정보 조회
-	MemberDTO oneMember(String id);
+//	// 회원 정보 조회
+//	MemberDTO oneMember(String id);
 	
-	//회원가입
+	// 회원가입
 	void addMember(MemberDTO member);
+	void addEnterprise(String entCrn, String entPhone);
+	
+	//로그인
+	public MemberDTO login(MemberDTO memberDTO);
 	
     //id중복여부
     public int isMemberIdExist(String inputId);

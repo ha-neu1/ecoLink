@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>비밀번호 찾기</title>
 <link rel="stylesheet" href="css/find.css">
 <link rel="stylesheet" href="css/common.css">
 <script src="resources/js/jquery-3.6.4.min.js"></script>
@@ -68,9 +68,9 @@ window.addEventListener("DOMContentLoaded", function() {
                                             <th>회원유형</th>
                                             <td>
                                                 <p class="member">
-                                                    <select id="searchType" name="searchType" >
-                                                        <option value="indi" selected="selected">개인회원</option>
-                                                        <option value="buis">기업회원</option>
+                                                    <select id="memType" name="memType" >
+                                                        <option id="indi" value="일반회원" selected="selected">일반회원</option>
+                                                        <option id="buis" value="기업회원">기업회원</option>
                                                     </select>
                                                 </p>
                                             </td>

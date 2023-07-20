@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 <link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/common.css">
 <script src="/js/jquery-3.6.4.min.js"></script>
@@ -113,7 +113,8 @@ window.addEventListener("DOMContentLoaded", function() {
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="#none" class="btn-primary full" id="login_submit_btn">로그인</a>
+                                            	<h5 style="color:red">${loginfail}</h5>
+                                                <a href="#" class="btn-primary full" id="login_submit_btn" onclick="return login()">로그인</a>
                                             </td>
                                         </tr>
                                     </tbody>

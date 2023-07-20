@@ -4,14 +4,24 @@
 <mapper namespace="member">
 
 <!-- 회원 정보 조회 -->
-<select id="oneMember" resultType="dto.MemberDTO" parameterType="String"> 
+<select id="oneMember" resultType="memberDto" parameterType="String"> 
 select * from member where memId=#{memId}
 </select>
 
+<!-- 로그인 -->
+<select id="login" parameterType="memberDto" resultType="memberDto">
+	select * from member where memId = #{memId} and memPw = #{memPw};
+</select>
+
 <!-- 회원가입 -->
-<insert id="addMember" parameterType="dto.MemberDTO">
+<insert id="addMember" parameterType="memberDto">
     insert into member (memId, memPw, memNick, memEmail, memType, memRegtime, memName)
     values (#{memId}, #{memPw}, #{memNick}, #{memEmail}, #{serchType}, #{now()}, #{memName})
+</insert>
+
+<insert id="addEnterprise" parameterType="memberDto">
+	insert into enterprise (entCrn, entPhone)
+	values (#{entCrn}, #{entPhone})
 </insert>
 
 <!-- id 중복 여부 -->
