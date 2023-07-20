@@ -1,72 +1,45 @@
-const post_save = document.getElementById("post_save");
+// boardCreate.js
+document.addEventListener("DOMContentLoaded", function () {
+    const createBoardForm = document.getElementById("createBoardForm");
+    const previewImageElement = document.getElementById("preview");
+    const imageInput = document.getElementById("boardImage");
 
-post_save.addEventListener("click", function() {
+    createBoardForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    const post_name = document.getElementById("post_name");
-    const post_cont = document.getElementById("post_cont");
+        const formData = new FormData(createBoardForm);
 
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    let hour = date.getHours();
-    let minute = date.getMinutes();
-    let second = date.getSeconds();
-    let viewCnt = 0;
+        fetch("/createBoard", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
 
-    if(day < 10){
-        day = "0" + day;
+            if (data.success) {
+                window.location.href = "board";
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+
+    function displayPreviewImage() {
+        const file = imageInput.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            previewImageElement.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            // 이미지를 선택하지 않았을 경우 기본 이미지 표시
+            previewImageElement.src = "/images/logo2.png";
+        }
     }
 
-    if(month < 10){
-        month = "0" + month;
-    }
-
-    if(hour < 10){
-        hour = "0" + hour;
-    }
-
-    if(minute < 10){
-        minute = "0" + minute;
-    }
-    
-    if(second < 10){
-        second = "0" + second;
-    }
-
-    let postDate = year + "-" + month + "-" + day;
-    let postTime = hour + ":" + minute + ":" + second;
-
-    if (post_name.value == "") {
-        alert("제목을 입력해주세요.");
-        post_name.focus();
-        return
-    } else if (post_cont.value == "") {
-        alert("내용을 입력해주세요.")
-        post_cont.focus();
-        return
-    } 
-
-    const postJson = localStorage.getItem("post");
-
-    let postInfo = JSON.parse(postJson);
-
-    if (postInfo == null) {
-        postInfo = [];
-    }
-
-    const post = {
-        post_name : post_name.value,
-        post_cont : post_cont.value,
-        postDate : postDate,
-        postTime : postTime,
-        viewCnt : viewCnt
-    }
-
-    postInfo.push(post);
-
-    const newPostJson = JSON.stringify(postInfo);
-    localStorage.setItem("post", newPostJson);
-    
-    location.href='/board';
+    // 이미지 첨부 시 미리보기 기능 적용
+    imageInput.addEventListener("change", displayPreviewImage);
 });

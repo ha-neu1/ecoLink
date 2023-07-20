@@ -225,7 +225,15 @@ INSERT INTO enterprise_bookmark values(
 
 
 
-
+-- 게시물
+INSERT INTO board (boardTitle, boardViewCount, boardContents, memId, boardType)
+VALUES
+('첫 번째 임시 게시물', 0, '첫 번째 임시 게시물의 내용입니다.', 'normal', 'news'),
+('두 번째 임시 게시물', 0, '두 번째 임시 게시물의 내용입니다.', 'normal', 'share'),
+('세 번째 임시 게시물', 0, '세 번째 임시 게시물의 내용입니다.', 'normal', 'review'),
+('네 번째 임시 게시물', 0, '네 번째 임시 게시물의 내용입니다.', 'normal', 'tip'),
+('다섯 번째 임시 게시물', 0, '다섯 번째 임시 게시물의 내용입니다.', 'normal', 'news'),
+('여섯 번째 임시 게시물', 0, '여섯 번째 임시 게시물의 내용입니다.', 'normal', 'share');
 
 
 

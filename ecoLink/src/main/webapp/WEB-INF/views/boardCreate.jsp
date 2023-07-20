@@ -1,30 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항</title>
-    <script src="/js/boardCreate.js" defer type="module"></script>
+    <title>게시물 작성</title>
     <link rel="stylesheet" href="/css/board.css">
-    <script>
-        
-    </script>
 </head>
 <body>
-    <header></header>
+    <jsp:include page="header.jsp" />
+
     <div class="board_area">
-        <div class="board_title">
-            <div class="page_name"><strong>공지사항</strong></div>
-            <input id="post_save" type="button" value="저장">
+         <div class="board_title">
+            <div class="page_name">
+                <strong>게시물 작성</strong>
+            </div>
         </div>
         <hr class="hr_bold">
-        <input id="post_name" class="post_area" type="text" placeholder="제목을 입력해 주세요.">
-        <textarea id="post_cont" class="post_area" id="post_writer" cols="30" rows="10" placeholder="내용을 입력해 주세요."></textarea>
+        <form id="createBoardForm">
+            <div class="input_box">
+                <label for="boardTitle" hidden>제목</label>
+                <input type="text" id="boardTitle" name="boardTitle" class="input_text" placeholder="제목을 입력해주세요">
+            </div>
+            <div class="input_box">
+                <label for="boardImage">이미지 첨부</label>
+                <br>
+                <input type="file" id="boardImage" name="boardImage" onchange="previewImage(event)">
+                <br>
+                <img id="preview" src="/images/logo2.png" alt="미리보기 이미지" class="preview_image">
+            </div>
+            <div class="input_box">
+                <label for="boardContents" hidden>내용</label>
+                <textarea id="boardContents" name="boardContents" class="input_textarea" placeholder="내용을 입력해주세요"></textarea>
+            </div>
+            <div class="input_box">
+                <button type="button" id="submitBoardButton" class="submit_button">작성</button>
+            </div>
+        </form>
     </div>
-    <footer></footer>
+
+    <jsp:include page="footer.jsp" />
+
+    <script src="/js/boardCreate.js" defer type="module"></script>
 </body>
 </html>
-
