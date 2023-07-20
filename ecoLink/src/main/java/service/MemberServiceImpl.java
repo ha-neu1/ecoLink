@@ -13,20 +13,30 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberDAO dao;
     
-	// 회원 정보 조회
+//	// 회원 정보 조회
+//	@Override
+//	public MemberDTO oneMember(String id) {
+//		return dao.oneMember(id);
+//	}
+	
+	//로그인
 	@Override
-	public MemberDTO oneMember(String id) {
-		return dao.oneMember(id);
+	public MemberDTO login(MemberDTO memberDTO) {
+		return dao.login(memberDTO);
 	}
 	
 	// 회원가입
 	public void addMember(MemberDTO member) {
-	    // memNick 카운트
-	    int count = dao.getMemberCountByType(member.getMemType());
-	    String memNick = member.getMemType() + (count + 1);
-	    member.setMemNick(memNick);
+//	    // memNick 카운트
+//	    int count = dao.getMemberCountByType(member.getMemType());
+//	    String memNick = member.getMemType() + (count + 1);
+//	    member.setMemNick(memNick);
 	    dao.addMember(member);
 	}
+	
+	public void addEnterprise(String entCrn, String entPhone) {
+		  dao.addEnterprise(entCrn, entPhone);
+		}
 
     
     //id중복여부

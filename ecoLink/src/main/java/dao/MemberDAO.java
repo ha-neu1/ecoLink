@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,15 +15,25 @@ public class MemberDAO {
     @Autowired
     SqlSession session;
     
-    //회원 정보 조회 - 로그인 시 활용
-	public MemberDTO oneMember(String id) {
-		return session.selectOne("oneMember", id); 
+//    //회원 정보 조회 - 로그인 시 활용
+//	public MemberDTO oneMember(String id) {
+//		return session.selectOne("oneMember", id); 
+//	}
+	
+	//로그인
+	public MemberDTO login(MemberDTO memberDTO) {
+		return session.selectOne("login", memberDTO);
 	}
 	
 	//회원가입
     public void addMember(MemberDTO member) {
         session.insert("addMember", member);
     }
+    
+    public void addEnterprise(String entCrn, String entPhone) {
+    	  session.insert("addEnterprise", Map.of("entCrn", entCrn, "entPhone", entPhone));
+    }
+
     
     // memType에 해당하는 회원 수 조회
     public int getMemberCountByType(String memType) {

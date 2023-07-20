@@ -4,44 +4,43 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이디 찾기</title>
 <link rel="stylesheet" href="css/find.css">
 <link rel="stylesheet" href="css/common.css">
 <script src="resources/js/jquery-3.6.4.min.js"></script>
 <script>
 window.addEventListener("DOMContentLoaded", function() {
-	  var radiobox1 = document.getElementById("check_method1");
-	  var radiobox2 = document.getElementById("check_method2");
-	  var backgroundUrlOff = "/images/icon_input_radio_off.svg";
-	  var backgroundUrlOn = "/images/icon_input_radio_on.svg";
+	var radiobox1 = document.getElementById("check_method1");
+	var radiobox2 = document.getElementById("check_method2");
+	var backgroundUrlOff = "/images/icon_input_radio_off.svg";
+	var backgroundUrlOn = "/images/icon_input_radio_on.svg";
 
-	  // 기본적으로 check_method1의 radio 버튼이 클릭되어 있도록 설정
-	  radiobox1.checked = true;
-	  document.getElementById("email_view").style.display = "";
-	  document.getElementById("mobile_view").style.display = "none";
-	  radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-	  radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+	radiobox1.checked = true;
+	document.getElementById("email_view").style.display = "";
+	document.getElementById("mobile_view").style.display = "none";
+	radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+	radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
 
-	  // check_method1의 radio 버튼 클릭 시 email_view 보이도록 설정
-	  radiobox1.addEventListener("click", function() {
+	// check_method1의 radio 버튼 클릭 시 email_view 보이도록 설정
+	radiobox1.addEventListener("click", function() {
 		// check_method2의 radio 버튼 클릭 해제
 		radiobox2.checked = false;
 		radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
 		radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
 	    document.getElementById("email_view").style.display = "";
 	    document.getElementById("mobile_view").style.display = "none";
-	  });
+  	});
 
-	  // check_method2의 radio 버튼 클릭 시 mobile_view 보이도록 설정
-	  radiobox2.addEventListener("click", function() {
+	// check_method2의 radio 버튼 클릭 시 mobile_view 보이도록 설정
+	radiobox2.addEventListener("click", function() {
 	    // check_method1의 radio 버튼 클릭 해제
 	    radiobox1.checked = false;
 	    radiobox1.style.backgroundImage = "url(" + backgroundUrlOff + ")";
 	    radiobox2.style.backgroundImage = "url(" + backgroundUrlOn + ")";
 	    document.getElementById("mobile_view").style.display = "";
 	    document.getElementById("email_view").style.display = "none";
-	  });
-	});
+  	});
+});
 </script>
 </head>
 <body>
@@ -68,9 +67,9 @@ window.addEventListener("DOMContentLoaded", function() {
                                             <th>회원유형</th>
                                             <td>
                                                 <p class="member">
-                                                    <select id="searchType" name="searchType" >
-                                                        <option value="indi" selected="selected">개인회원</option>
-                                                        <option value="buis">기업회원</option>
+                                                    <select id="memType" name="memType" >
+                                                        <option id="normal" value="일반회원" selected="selected">일반회원</option>
+                                                        <option id="enter" value="기업회원">기업회원</option>
                                                     </select>
                                                 </p>
                                             </td>

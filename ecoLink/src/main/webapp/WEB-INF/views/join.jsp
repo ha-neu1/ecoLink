@@ -4,99 +4,152 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <link rel="stylesheet" href="css/join.css">
 <link rel="stylesheet" href="css/common.css">
 <script src="/js/jquery-3.6.4.min.js"></script>
 <script>
-// 일반회원, 기업회원 입력 구분
 $(document).ready(function() {
-	const join_form = document.getElementById("join_form");	
-    const join_btn = document.getElementById("join_submit_btn");
-    const join_id = document.getElementById("memId");
-    const join_pw = document.getElementById("memPw");
-    const join_pw_confirm = document.getElementById("memPw_confirm");
-    const join_email = document.getElementById("memEmail");
-    const join_name = document.getElementById("memName");
-    
-    // 회원유형 선택 시 처리
-    $(document).on('change', '#searchType', function() {
-        var selected = $(this).val();
-        if (selected === "buis") {
-            $("#entPhone").show();
-            $("#entCrn").show();
-        } else if (selected === "indi") {
-            $("#entPhone").hide();
-            $("#entCrn").hide();
-        }
-    });
-    
-    // memType에 따라 memNick을 설정
-    var count = $("select#searchType option:selected").index() + 1;
-    var memNick = (selected === "enter" ? "기업회원" : "일반회원") + count;
-    $("input#memNick").val(memNick);
+	  const join_form = document.getElementById("join_form");
+	  const join_btn = document.getElementById("join_submit_btn");
+	  const join_id = document.getElementById("memId");
+	  const join_pw = document.getElementById("memPw");
+	  const join_pw_confirm = document.getElementById("memPw_confirm");
+	  const join_email = document.getElementById("memEmail");
+	  const join_name = document.getElementById("memName");
 
-    // memberPw 입력란 클릭 시 이벤트 처리
-    $(document).on('click', '#memPw', function(e) {
-        e.stopPropagation();
-        $(this).next('.ec-base-tooltip').fadeIn(100);
-    });
+	  // memberPw 입력란 클릭 시 이벤트 처리
+	  $(document).on('click', '#memPw', function(e) {
+	    e.stopPropagation();
+	    $(this).next('.ec-base-tooltip').fadeIn(100);
+	  });
 
-    // 다른 곳을 클릭했을 때 이벤트 처리
-    $(document).on('click', function(e) {
-        var target = $(e.target);
-        if (!target.closest('#memPw').length) {
-            $('.ec-base-tooltip').fadeOut(100);
-        }
-    });
-
-    // btnClose 클릭 시 이벤트 처리
-    $(document).on('click', '.btnClose', function(e) {
-        e.preventDefault();
-        $('.ec-base-tooltip').fadeOut(100);
-    });
-    
-    // memberPw_confirm 입력란에서 값 변경 시 이벤트 처리
-    $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
+	  // 다른 곳을 클릭했을 때 이벤트 처리
+	  $(document).on('click', function(e) {
+	    var target = $(e.target);
+	    if (!target.closest('#memPw').length) {
+	      $('.ec-base-tooltip').fadeOut(100);
+	    }
+	  });
+	  
+	 // 비밀번호 일치 여부 확인
+     $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
         var pwConfirmValue = $('#memPw_confirm').val();
         var pwValue = $('#memPw').val();
         if (pwValue !== '' && pwConfirmValue !== '' && pwConfirmValue !== pwValue) {
             alert("비밀번호가 일치하지 않습니다.");
         }
-    });
+     });
 
-    $("#join_submit_btn").on('click', function(event) {
-  	  event.preventDefault();
-  	  // 아이디, 비밀번호, 이메일, 이름에 빈칸 입력 시 경고창 표시
-  	  if (join_id.value.trim() === "" || join_pw.value.trim() === "" || join_pw_confirm.value.trim() === "" || join_email.value.trim() === "" || join_name.value.trim() === "") {
-  	    alert("빈칸을 입력해주세요");
-  	  } else {
-  	    $.ajax({
-  	      url: 'ismemberexist',
-  	      type: 'post',
-  	      data: {
-  	        'inputId': $('#memId').val(),
-  	        'inputEmail': $('#memEmail').val()
-  	      },
-  	      dataType: 'json',
-  	      success: function(response) {
-  	        if ($.trim(response.result) === "ok") {
-  	          join_form.submit();
-  	          alert("가입이 완료되었습니다.");
-  	        } else if ($.trim(response.result) === "one_id") {
-  	          alert("이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
-  	        } else if ($.trim(response.result) === "one_email") {
-  	          alert("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
-  	        } else {
-  	          alert("아이디와 이메일이 이미 존재합니다.");
-  	        }
-  	      },
-  	      error: function(request, status, e) {
-  	        alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
-  	      }
-  	    }); //ajax
-  	  } //else
-  	}); //joinBtn click
+	  // btnClose 클릭 시 이벤트 처리
+	  $(document).on('click', '.btnClose', function(e) {
+	    e.preventDefault();
+	    $('.ec-base-tooltip').fadeOut(100);
+	  });
+
+	  // 회원유형 선택 시 처리
+	  $(document).on('change', '#memType', function() {
+	    var selected = $(this).val();
+	    if (selected === "기업회원") {
+	      $("#entPhone").show();
+	      $("#entCrn").show();
+	    } else if (selected === "일반회원") {
+	      $("#entPhone").hide();
+	      $("#entCrn").hide();
+	    }
+	  });
+
+	  // join_submit_btn 클릭 시 이벤트 처리
+	  $("#join_submit_btn").on('click', function(event) {
+	    event.preventDefault();
+	    var selected = $('#memType').val();
+
+	    // memType에 따라 memNick을 설정
+	    var count = $("select#memType option:selected").index() + 1;
+	    var memNick = (selected === "enter" ? "기업회원" : "일반회원") + count;
+	    $("input#memNick").val(memNick);
+	    $("#join_submit_btn").on('click', function(event) {
+	    	  event.preventDefault();
+	    	  var selected = $('#memType').val();
+
+	    	  // 아이디, 비밀번호, 이메일, 이름에 빈칸 입력 시 경고창 표시
+	    	  if (join_id.value.trim() === "" || join_pw.value.trim() === "" || join_pw_confirm.value.trim() === "" || join_email.value.trim() === "" || join_name.value.trim() === "") {
+	    	    alert("빈칸을 입력해주세요");
+	    	  } else {
+	    	    $.ajax({
+	    	      url: 'ismemberexist',
+	    	      type: 'post',
+	    	      data: {
+	    	        'inputId': $('#memId').val(),
+	    	        'inputEmail': $('#memEmail').val()
+	    	      },
+	    	      dataType: 'json',
+	    	      success: function(response) {
+	    	        if ($.trim(response.result) === "ok") {
+	    	          if (selected === "normal") {
+	    	            // serchType이 normal일 경우 addMember 호출
+	    	            addMember();
+	    	          } else if (selected === "enter") {
+	    	            // serchType이 enter일 경우 addMember와 addEnterprise 호출
+	    	            addMember();
+	    	            addEnterprise();
+	    	          }
+	    	          alert("가입이 완료되었습니다.");
+	    	        } else if ($.trim(response.result) === "one_id") {
+	    	          alert("이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
+	    	        } else if ($.trim(response.result) === "one_email") {
+	    	          alert("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
+	    	        } else {
+	    	          alert("아이디와 이메일이 이미 존재합니다.");
+	    	        }
+	    	      },
+	    	      error: function(request, status, e) {
+	    	        alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+	    	      }
+	    	    });
+	    	  }
+	    	});
+
+	    	function addMember() {
+	    	  $.ajax({
+	    	    url: 'addMember',
+	    	    type: 'post',
+	    	    data: {
+	    	      'memId': $('#memId').val(),
+	    	      'memPw': $('#memPw').val(),
+	    	      'memNick': $('#memNick').val(),
+	    	      'memEmail': $('#memEmail').val(),
+	    	      'memType': $('#memType').val(),
+	    	      'memName': $('#memName').val()
+	    	    },
+	    	    dataType: 'json',
+	    	    success: function(response) {
+	    	    	console.log("Member added successfully");
+	    	    },
+	    	    error: function(request, status, e) {
+	    	      alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+	    	    }
+	    	  });
+	    	}
+
+	    	function addEnterprise() {
+	    	  $.ajax({
+	    	    url: 'addEnterprise',
+	    	    type: 'post',
+	    	    data: {
+	    	      'entCrn': $('#entCrn').val(),
+	    	      'entPhone': $('#entPhone').val()
+	    	    },
+	    	    dataType: 'json',
+	    	    success: function(response) {
+	    	    	console.log("Enterprise added successfully");
+	    	    },
+	    	    error: function(request, status, e) {
+	    	      alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+	    	    }
+	    	  });
+	    	}
+	  });
 });
 </script>
 
@@ -123,9 +176,9 @@ $(document).ready(function() {
                                             <th>회원유형</th>
                                             <td>
                                                 <p class="member">
-                                                    <select id="searchType" name="searchType" >
-                                                        <option id="normal" value="normal" selected="selected">일반회원</option>
-                                                        <option id="enter" value="enter">기업회원</option>
+                                                    <select id="memType" name="memType" >
+                                                        <option id="normal" value="일반회원" selected="selected">일반회원</option>
+                                                        <option id="enter" value="기업회원">기업회원</option>
                                                     </select>
                                                 </p>
                                             </td>
@@ -226,7 +279,11 @@ $(document).ready(function() {
                                         <tr class="mobile" id="entCrn" style="display: none">
                                             <th scope="row">사업자등록번호*</th>
                                             <td class="input-btn-box">
-                                                <input id="crn" name="crn" value="" type="text">
+                                            	<input id="crn1" name="crn[]" maxlength="3" value="" type="text">
+                                                -
+                                                <input id="crn2" name="crn[]" maxlength="2" value="" type="text">
+                                                -
+                                                <input id="crn3" name="crn[]" maxlength="5" value="" type="text">
                                             </td>
                                         </tr>
                                     </tbody>
