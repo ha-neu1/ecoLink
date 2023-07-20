@@ -16,15 +16,15 @@
 	<div class="banner">
 
 		<div class="mySlideDiv fade active">
-			<img src="${bannerPic }">
+			<img src="${banners[0].bannerPic }">
 		</div>
 
 		<div class="mySlideDiv fade">
-			<img src="images/banner3.jpg">
+			<img src="${banners[1].bannerPic }">
 		</div>
 
 		<div class="mySlideDiv fade">
-			<img src="images/banner4.jpg">
+			<img src="${banners[2].bannerPic }">
 		</div>
 
 		<a class="prev" onclick="prevSlide()">&#10094;</a> <a class="next"
@@ -101,7 +101,15 @@
 
 	<div class="boardMain">
 		<div class="boardList">
-			<h3 class="memId">작성자 이름</h3>
+			<h3 class="memId">${boardlist[0].memId}</h3>
+			<h4 class="boardTitle">${boardlist[0].boardTitle}</h4>
+			<span class="likeButton"></span> <img class="boardImage"
+				src="/images/logo2.png" alt="게시물 이미지">
+			<p class="boardCont">${boardlist[0].boardContents}</p>
+		</div>
+
+		<div class="boardList">
+			<h3 class="memId">${boardlist[1].memId}</h3>
 			<h4 class="boardTitle">게시물 제목</h4>
 			<span class="likeButton"></span> <img class="boardImage"
 				src="/images/logo2.png" alt="게시물 이미지">
@@ -110,16 +118,7 @@
 		</div>
 
 		<div class="boardList">
-			<h3 class="memId">작성자 이름</h3>
-			<h4 class="boardTitle">게시물 제목</h4>
-			<span class="likeButton"></span> <img class="boardImage"
-				src="/images/logo2.png" alt="게시물 이미지">
-			<p class="boardCont">본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문
-				내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.</p>
-		</div>
-
-		<div class="boardList">
-			<h3 class="memId">작성자 이름</h3>
+			<h3 class="memId">${boardlist[2].memId}</h3>
 			<h4 class="boardTitle">게시물 제목</h4>
 			<span class="likeButton"></span> <img class="boardImage"
 				src="/images/logo2.png" alt="게시물 이미지">
