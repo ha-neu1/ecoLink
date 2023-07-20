@@ -64,7 +64,7 @@
 					</div>
 					<div class="post_text">
 						<h3 class="post_tit">
-							<a href="#"> ${dto.boardTitle } </a>
+							<a href="infopostdetail?boardId=${dto.boardId }"> ${dto.boardTitle } </a>
 						</h3>
 						<div class="post_date_wrap">
 							<span class="post_date"> ${dto.boardRegtime }</span>

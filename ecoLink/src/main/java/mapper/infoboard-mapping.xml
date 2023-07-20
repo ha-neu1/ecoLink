@@ -54,5 +54,22 @@
 		order by boardRegtime desc
 	</select>
 
+<insert id="insertBoard" parameterType="boarddto" >
+ insert into board(boardTitle, boardContents, boardViewCount, boardRegtime, memId, boardType) 
+ values(#{boardTitle}, #{boardContents}, 0, now(), 'admin', 'info')
+</insert>
+
+<update id="updateViewcount" parameterType="int">
+update board set boardViewCount = boardViewCount + 1 where boardId = #{boardId}
+</update>
+
+<select id="getDetail" resultType="boarddto" parameterType="int">
+select * from board where boardId=#{boardId}
+</select>
+
+
+
+
+
 
 </mapper>

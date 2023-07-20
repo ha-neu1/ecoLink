@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.InfoBoardDAO;
+import dto.BoardCommentDTO;
 import dto.BoardDTO;
 
 @Service
@@ -34,5 +35,17 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	public int getSearchBoard(HashMap map) {
 		return dao.getSearchBoard(map);
 	}
+	@Override
+	public int insertBoard(BoardDTO dto) {
+		return dao.insertBoard(dto);
+	}
+	@Override
+	public BoardDTO updateViewcountAndGetDetail(int boardId) {
+		int updaterows = dao.updateViewcount(boardId);
+		return dao.getDetail(boardId);
+	}
+	
+	
+	
 	
 }

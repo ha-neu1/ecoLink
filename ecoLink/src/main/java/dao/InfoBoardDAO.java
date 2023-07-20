@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import dto.BoardCommentDTO;
 import dto.BoardDTO;
 
 @Mapper
@@ -21,5 +22,14 @@ public interface InfoBoardDAO {
 	public List<BoardDTO> searchList(HashMap map);
 
 	public int getSearchBoard(HashMap map);
+
+	public int insertBoard(BoardDTO dto);
+
+	public int updateViewcount(int boardId);
+
+	public BoardDTO getDetail(int boardId);
+	
+	
+
 
 }
