@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import dao.MainDAO;
 import dto.BannerDTO;
 import dto.BoardDTO;
+import dto.MainDTO;
 
 @Service
 public class MainServiceImpl implements MainService {
@@ -39,7 +40,12 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<BoardDTO> getShareBoardList() {
+	public List<MainDTO> getShareBoardList() {
 		return maindao.getShareBoardList();
+	}
+
+	@Override
+	public List<MainDTO> getBrandList() {
+		return maindao.getBrandList();
 	}
 }

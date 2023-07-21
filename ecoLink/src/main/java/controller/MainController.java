@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import dto.BannerDTO;
 import dto.BoardDTO;
+import dto.MainDTO;
 import service.MainService;
 
 @Controller
@@ -20,7 +21,9 @@ public class MainController {
 	public String Main(Model model) {
 		List<BannerDTO> banners = mainService.getAllBanners();
         model.addAttribute("banners", banners);
-        List<BoardDTO> boardlist = mainService.getShareBoardList();
+        List<MainDTO> brandlist = mainService.getBrandList();
+        model.addAttribute("brandlist", brandlist);
+        List<MainDTO> boardlist = mainService.getShareBoardList();
         model.addAttribute("boardlist", boardlist);
 		int memberCount = mainService.getMemberCount();
         model.addAttribute("memberCount", memberCount);
