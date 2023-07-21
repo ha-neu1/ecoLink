@@ -1,10 +1,15 @@
 package dto;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardDTO {
 	int boardId;
 	String boardTitle;
 	int boardViewCount;
 	String boardRegtime, boardUpdateTime, boardContents, memId, boardType;
+	List<MultipartFile> files; 
 	
 	public int getBoardId() {
 		return boardId;
@@ -54,13 +59,22 @@ public class BoardDTO {
 	public void setBoardType(String boardType) {
 		this.boardType = boardType;
 	}
-	
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
 	@Override
 	public String toString() {
 		return "BoardDTO [boardId=" + boardId + ", boardTitle=" + boardTitle + ", boardViewCount=" + boardViewCount
 				+ ", boardRegtime=" + boardRegtime + ", boardUpdateTime=" + boardUpdateTime + ", boardContents="
-				+ boardContents + ", memId=" + memId + ", boardType=" + boardType + "]";
+				+ boardContents + ", memId=" + memId + ", boardType=" + boardType + ", files=" + files + "]";
 	}
+	
+	
+	
+	
 	
 
 }

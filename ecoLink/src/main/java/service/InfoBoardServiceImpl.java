@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import dao.InfoBoardDAO;
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.FileDTO;
 
 @Service
 public class InfoBoardServiceImpl implements InfoBoardService {
@@ -37,13 +38,30 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	}
 	@Override
 	public int insertBoard(BoardDTO dto) {
-		return dao.insertBoard(dto);
+		int insertCount = dao.insertBoard(dto);
+        int boardId = dao.getGeneratedBoardId(); // Get the generated boardId after inserting the board
+        dto.setBoardId(boardId); // Set the boardId in the DTO for later use in the file insertion
+        return insertCount;
 	}
 	@Override
 	public BoardDTO updateViewcountAndGetDetail(int boardId) {
 		int updaterows = dao.updateViewcount(boardId);
 		return dao.getDetail(boardId);
 	}
+	@Override
+	public int insertFile(FileDTO dto) {
+		return dao.insertFile(dto);
+	}
+	@Override
+	public int getGeneratedBoardId() {
+		
+		return dao.getGeneratedBoardId();
+	}
+	
+	
+
+	
+	
 	
 	
 	

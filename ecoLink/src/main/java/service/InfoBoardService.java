@@ -5,6 +5,7 @@ import java.util.List;
 
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.FileDTO;
 
 public interface InfoBoardService {
 	public int getTotalBoard();
@@ -20,6 +21,11 @@ public interface InfoBoardService {
 	public int insertBoard(BoardDTO dto);
 	
 	public BoardDTO updateViewcountAndGetDetail(int boardId);
+	
+	public int insertFile(FileDTO dto);
+	
+	public int getGeneratedBoardId(); 
+	
 	
 	
 }

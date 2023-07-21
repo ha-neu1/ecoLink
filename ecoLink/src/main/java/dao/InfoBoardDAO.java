@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.FileDTO;
 
 @Mapper
 @Repository
@@ -28,6 +28,12 @@ public interface InfoBoardDAO {
 	public int updateViewcount(int boardId);
 
 	public BoardDTO getDetail(int boardId);
+	
+	public int insertFile(FileDTO dto);
+	
+	public int getGeneratedBoardId(); 
+	
+	
 	
 	
 
