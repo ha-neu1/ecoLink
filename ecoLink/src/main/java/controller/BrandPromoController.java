@@ -29,9 +29,56 @@ public class BrandPromoController {
 	public ModelAndView brandpromodetail(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String entCrn) {
 		ModelAndView mv = new ModelAndView();
 		BrandPromoDTO bpdto = service.getBrandPromoDetail(entCrn);
+		int bookmarked = 0;
+		if (dto != null) {
+			bookmarked = service.getBrandPromoBookmark(dto.getMemId(), entCrn);
+		}
+		if (bookmarked == 0) {
+			mv.addObject("bookmarked", 0);
+		} else {
+			mv.addObject("bookmarked", 1);
+		}
+		double rate = service.getCommentAvgRate(entCrn);
+		if (rate < 1) {
+			mv.addObject("rateColor", "#FF0000");
+			mv.addObject("rateTextColor", "#FFF");
+		} else if (rate < 2) {
+			mv.addObject("rateColor", "#FFA500");
+			mv.addObject("rateTextColor", "#FFF");
+		} else if (rate < 3) {
+			mv.addObject("rateColor", "#FFFF00");
+			mv.addObject("rateTextColor", "#000000");
+		} else if (rate < 4) {
+			mv.addObject("rateColor", "#00D084");
+			mv.addObject("rateTextColor", "#FFF");
+		} else {
+			mv.addObject("rateColor", "#00D084");
+			mv.addObject("rateTextColor", "#FFF");
+		}
+		mv.addObject("user", dto);
+		mv.addObject("rate", rate);
 		mv.addObject("bpd", bpdto);
 		mv.setViewName("brandpromodetail");
 		return mv;
 	}
 	
+	@RequestMapping("/brandpromodetail/bookmark")
+	public String bookmark(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String entCrn, String bookmarked) {
+		if (dto != null && entCrn != null) {
+			int result = 0;
+			if (bookmarked.equals("0")) {
+				result = service.insertBrandPromoBookmark(dto.getMemId(), entCrn);
+			} 
+			else if (bookmarked.equals("1")) {
+				result = service.deleteBrandPromoBookmark(dto.getMemId(), entCrn);
+			}
+		}
+		return "redirect:/brandpromodetail?entCrn=" + entCrn;
+	}
+	
+	@RequestMapping("/insertBrandComment")
+	public String insertBrandComment(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto) {
+		String entCrn = "";
+		return "redirect:/brandpromodetail?entCrn=" + entCrn;
+	}
 }

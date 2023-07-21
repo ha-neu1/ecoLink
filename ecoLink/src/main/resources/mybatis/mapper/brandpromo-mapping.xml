@@ -8,6 +8,22 @@
 		join member as m on m.memId = e.memId
 		where e.entCrn = #{entCrn};
 	</select>
+	
+	<select id="getBrandPromoBookmark" parameterType="string">
+		select count(*) from enterprise_bookmark where memId = #{memId} and entCrn = #{entCrn};
+	</select>
+	
+	<delete id="deleteBrandPromoBookmark" parameterType="string">
+		delete from enterprise_bookmark where memId = #{memId} and entCrn= #{entCrn};
+	</delete>
+	
+	<insert id="insertBrandPromoBookmark" parameterType="string">
+		insert into enterprise_bookmark values (#{memId}, #{entCrn});
+	</insert>
+	
+	<select id="getCommentAvgRate" parameterType="string" resultType="double">
+		select ROUND(AVG(brcRate),1) from brand_comment where entCrn = #{entCrn};
+	</select>
 </mapper>
 
 
