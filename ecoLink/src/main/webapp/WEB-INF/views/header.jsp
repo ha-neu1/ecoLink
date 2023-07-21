@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="js/header.js" defer></script>
 <link rel="stylesheet" href="css/header.css">
 <title>Insert title here</title>
 </head>
@@ -14,30 +15,27 @@
 			<a href="/main"> <img alt="로고" src="images/logo1.png">
 			</a>
 		</div>
-			<ul class="navbarMenu">
-				<li><a href="#">업사이클링</a>
-					<ul class="navbarSub">
-						<li><a href="#">정보</a></li>
-						<li><a href="#">뉴스</a></li>
-					</ul>
-				</li>
-				<li><a href="#">브랜드</a>
-					<ul class="navbarSub">
-						<li><a href="#">브랜드 소개</a></li>
-					</ul>
-				</li>
-				<li><a href="#">커뮤니티</a>
-					<ul class="navbarSub">
-						<li><a href="#">본인제품공유</a></li>
-						<li><a href="#">후기</a></li>
-					</ul>
-				</li>
-			</ul>
+		<ul class="navbarMenu">
+			<li><a href="/introboard">업사이클링</a>
+				<ul class="navbarSub">
+					<li><a href="/introboard">정보</a></li>
+					<li><a href="/infoboardlist">뉴스</a></li>
+				</ul></li>
+			<li><a href="/brandpromolist">브랜드</a>
+				<ul class="navbarSub">
+					<li><a href="/brandpromolist">브랜드 소개</a></li>
+				</ul></li>
+			<li><a href="/board">커뮤니티</a>
+				<ul class="navbarSub">
+					<li><a href="/board">본인제품공유</a></li>
+					<li><a href="/board">후기</a></li>
+				</ul></li>
+		</ul>
 		<ul class="navbarProfile">
 			<c:choose>
 				<c:when test="${not empty user}">
 					<li><a href="/userInfo">My page</a></li>
-					<li><a href="/logout">로그아웃</a></li>
+					<li><a href="#" onclick="logout()">로그아웃</a></li>
 				</c:when>
 				<c:otherwise>
 					<li><a href="/login">로그인</a></li>
