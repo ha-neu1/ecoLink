@@ -46,7 +46,7 @@
 
 	<div class="mainPromo">
 		<c:forEach var="brand" items="${brandlist}" varStatus="loop">
-			<c:if test="${loop.index < 4}">
+			<c:if test="${loop.index < 3}">
 				<div class="card">
 					<div class="card__image-holder">
 						<img class="card__image"
@@ -64,15 +64,16 @@
 
 	<div class="boardMain">
 		<c:forEach var="board" items="${boardlist}">
-				<div class="boardList">
-					<h3 class="memId">${board.memId}</h3>
-					<h4 class="boardTitle">${board.boardTitle}</h4>
-					<span class="likeButton"></span> <img class="boardImage"
-						src="/images/logo2.png" alt="게시물 이미지">
-					<p class="boardCont">${board.boardContents}</p>
-				</div>
+			<div class="boardList">
+				<h3 class="memId">${board.memId}</h3>
+				<h4 class="boardTitle">${board.boardTitle}</h4>
+				<span class="likeButton"></span> <img class="boardImage"
+					src="/images/logo2.png" alt="게시물 이미지">
+				<p class="boardCont">${board.boardContents}</p>
+			</div>
 		</c:forEach>
 	</div>
+
 	<%@ include file="footer.jsp"%>
 </body>
 </html>

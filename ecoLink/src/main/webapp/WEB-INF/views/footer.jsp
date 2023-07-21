@@ -12,9 +12,9 @@
 		<div>
 			<div class="fooIcon">
 				<ul>
-					<li><a href="#"><img alt="정보" src="images/information.png"></a></li>
-					<li><a href="#"><img alt="정보" src="images/promotion.png"></a></li>
-					<li><a href="#"><img alt="정보" src="images/community.png"></a></li>
+					<li><a href="/introboard"><img alt="정보" src="images/information.png"></a></li>
+					<li><a href="/brandpromolist"><img alt="브랜드홍보" src="images/promotion.png"></a></li>
+					<li><a href="/board"><img alt="커뮤니티" src="images/community.png"></a></li>
 				</ul>
 			</div>
 			<div class="fooLogo">

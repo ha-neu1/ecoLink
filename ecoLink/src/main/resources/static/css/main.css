@@ -1,4 +1,14 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: 'NanumSquareNeo-Variable';
+}
 
 /*초기화*/
 * {
@@ -117,7 +127,7 @@ to {
 .statistics ul {
 	display: flex;
 	justify-content: space-evenly;
-	padding: 20px 0px 40px 0px;
+	padding: 20px 0px 20px 0px;
 	text-align: center;
 }
 
@@ -138,6 +148,7 @@ to {
 }
 
 /* 카드리스트 */
+
 .mainPromo {
 	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
 	min-width: 1300px;
@@ -193,5 +204,4 @@ small {
 	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
 	min-width: 1300px;
 	text-align: center;
-	place-items: center;
 }
