@@ -53,9 +53,31 @@ $(document).ready(function() {
 	    if (selected === "기업회원") {
 	      $("#entPhone").show();
 	      $("#entCrn").show();
+	      $("#entd_MainPic").show();
+	      $("#entd_Short").show();
+	      $("#entd_URL").show();
+	      $("#entd_Intro").show();
+	      $("#entd_IntroPic").show();
+	      $("#entd_Pic1").show();
+	      $("#entd_Pic2").show();
+	      $("#entd_Pic3").show();
+	      $("#entd_Explain1").show();
+	      $("#entd_Explain2").show();
+	      $("#entd_Explain3").show();
 	    } else if (selected === "일반회원") {
 	      $("#entPhone").hide();
 	      $("#entCrn").hide();
+	      $("#entd_MainPic").hide();
+	      $("#entd_Short").hide();
+	      $("#entd_URL").hide();
+	      $("#entd_Intro").hide();
+	      $("#entd_IntroPic").hide();
+	      $("#entd_Pic1").hide();
+	      $("#entd_Pic2").hide();
+	      $("#entd_Pic3").hide();
+	      $("#entd_Explain1").hide();
+	      $("#entd_Explain2").hide();
+	      $("#entd_Explain3").hide();
 	    }
 	  });
 
@@ -150,7 +172,68 @@ $(document).ready(function() {
 	    	  });
 	    	}
 	  });
+	  
+      $(document).ready(function() {
+	      // 새로운 함수: 문자 수 표시 함수
+	      function showCharacterCount(textareaId, divId) {
+	    	  const charCount = document.getElementById(divId);
+	    	  const textarea = document.getElementById(textareaId);
+	    	  const maxLength = textarea.getAttribute("maxlength");
+	    	  const currentLength = textarea.value.length;
+	          charCount.textContent = currentLength + "/" + maxLength;
+	      }
+	
+	      // 새로운 기능: 각 textarea에 대한 문자 수 표시를 위한 이벤트 핸들러 추가
+	      const textareaIds = ["Short", "entdIntro", "entdExplain1", "entdExplain2", "entdExplain3"]; // 문자 수를 표시할 textarea 요소들의 ID 목록
+	      const divIds = ["shortCharCount", "IntrocharCount", "ExplaincharCount1", "ExplaincharCount2", "ExplaincharCount3"]; // 문자 수를 표시할 div 요소들의 ID 목록
+	
+	      for (let i = 0; i < textareaIds.length; i++) {
+	    	  const textareaId = textareaIds[i];
+	    	  const divId = divIds[i];
+	    	  const textarea = document.getElementById(textareaId);
+	    	  textarea.addEventListener('input', function() {
+	    	      showCharacterCount(textareaId, divId);
+	    	  });
+	    	  showCharacterCount(textareaId, divId); // 최초 페이지 로드 시 문자 수 표시를 위해 호출
+	      }
+      });
+      
+      // 파일 선택(input type="file") 요소에 대한 이벤트 리스너를 추가하여 이미지 미리 보기 기능 구현
+      function addImagePreviewListener(inputId, previewId) {
+          document.getElementById(inputId).addEventListener("change", function(event) {
+              const file = event.target.files[0]; // 선택된 파일 가져오기
+
+              // FileReader 객체를 생성하여 파일을 읽어옴
+              const reader = new FileReader();
+
+              // 파일을 성공적으로 읽었을 때의 이벤트 처리
+              reader.onload = function() {
+                  // 미리 보기 영역에 이미지를 삽입하여 미리 보기
+                  const previewArea = document.getElementById(previewId);
+                  previewArea.innerHTML = ""; // 기존 이미지 초기화
+                  const imgElement = document.createElement("img");
+                  imgElement.src = reader.result;
+                  imgElement.alt = "미리 보기 이미지";
+                  imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+                  previewArea.appendChild(imgElement);
+              };
+
+              // 파일 읽기 작업 실행
+              if (file) {
+                  reader.readAsDataURL(file);
+              }
+          });
+      }
+
+      // 각 파일 선택 요소에 대해 함수를 호출하여 이벤트 리스너를 추가
+      addImagePreviewListener("MainPic", "preview1");
+      addImagePreviewListener("entdIntroPic", "preview2");
+      addImagePreviewListener("entdPic1", "preview3");
+      addImagePreviewListener("entdPic2", "preview4");
+      addImagePreviewListener("entdPic3", "preview5");
+
 });
+
 </script>
 
 </head>
@@ -234,6 +317,16 @@ $(document).ready(function() {
                                                 <input id="memEmail" name="memEmail" value="" type="text">
                                             </td>
                                         </tr>
+                                        <tr class="mobile" id="entCrn" style="display: none">
+                                            <th scope="row">사업자등록번호*</th>
+                                            <td class="input-btn-box">
+                                            	<input id="crn1" name="crn[]" maxlength="3" value="" type="text">
+                                                -
+                                                <input id="crn2" name="crn[]" maxlength="2" value="" type="text">
+                                                -
+                                                <input id="crn3" name="crn[]" maxlength="5" value="" type="text">
+                                            </td>
+                                        </tr>
                                         <tr class="mobile" id="entPhone" style="display: none">
                                             <th scope="row">사업자 연락처*</th>
                                             <td class="input-btn-box">
@@ -276,14 +369,80 @@ $(document).ready(function() {
                                                 <input id="mobile3" name="mobile[]" maxlength="4" value="" type="text">
                                             </td>
                                         </tr>
-                                        <tr class="mobile" id="entCrn" style="display: none">
-                                            <th scope="row">사업자등록번호*</th>
-                                            <td class="input-btn-box">
-                                            	<input id="crn1" name="crn[]" maxlength="3" value="" type="text">
-                                                -
-                                                <input id="crn2" name="crn[]" maxlength="2" value="" type="text">
-                                                -
-                                                <input id="crn3" name="crn[]" maxlength="5" value="" type="text">
+                                        <tr id="entd_MainPic" style="display: none">
+                                            <th>대표 이미지</th>
+                                            <td>
+                                                <input id="MainPic" name="MainPic" class="inputTypeImage" type="file" accept="image/*">
+                                                <div id="preview1"></div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Short" style="display: none">
+                                            <th>간단한 회사 설명</th>
+                                            <td>
+                                                <textarea id="Short" name="Short" class="inputTypeLong" maxlength="255"></textarea>
+                                                <div id="shortCharCount">0/255</div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_URL" style="display: none">
+                                            <th>회사 홈페이지 URL</th>
+                                            <td>
+                                                <input id="entdURL" name="entdURL" class="inputTypeText" placeholder="" value="" type="text">
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Intro" style="display: none">
+                                            <th>자세한 회사 설명</th>
+                                            <td>
+                                                <textarea id="entdIntro" name="entdIntro" class="inputTypeLong" maxlength="1000"></textarea>
+                                                <div id="IntrocharCount">0/1000</div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_IntroPic" style="display: none">
+                                            <th>회사 로고 이미지</th>
+                                            <td>
+                                                <input id="entdIntroPic" name="entdIntroPic" class="inputTypeImage" type="file" accept="image/*">
+                                                <div id="preview2"></div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Pic1" style="display: none">
+                                            <th>제품 이미지1*</th>
+                                            <td>
+                                                <input id="entdPic1" name="entdPic1" class="inputTypeImage" type="file" accept="image/*" required>
+                                                <div id="preview3"></div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Pic2" style="display: none">
+                                            <th>제품 이미지2</th>
+                                            <td>
+                                                <input id="entdPic2" name="entdPic2" class="inputTypeImage" type="file" accept="image/*">
+                                                <div id="preview4"></div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Pic3" style="display: none">
+                                            <th>제품 이미지3</th>
+                                            <td>
+                                                <input id="entdPic3" name="entdPic3" class="inputTypeImage" type="file" accept="image/*">
+                                                <div id="preview5"></div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Explain1" style="display: none">
+                                            <th>제품 설명1*</th>
+                                            <td>
+                                                <textarea id="entdExplain1" name="entdExplain1" class="inputTypeLong" maxlength="500" required></textarea>
+                                                <div id="ExplaincharCount1">0/500</div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Explain2" style="display: none">
+                                            <th>제품 설명2</th>
+                                            <td>
+                                                <textarea id="entdExplain2" name="entdExplain2" class="inputTypeLong" maxlength="500"></textarea>
+                                                <div id="ExplaincharCount2">0/500</div>
+                                            </td>
+                                        </tr>
+                                        <tr id="entd_Explain3" style="display: none">
+                                            <th>제품 설명3</th>
+                                            <td>
+                                                <textarea id="entdExplain3" name="entdExplain3" class="inputTypeLong" maxlength="500"></textarea>
+                                                <div id="ExplaincharCount3">0/500</div>
                                             </td>
                                         </tr>
                                     </tbody>
