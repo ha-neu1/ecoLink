@@ -3,8 +3,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.MyInfoDAO">
 
-	<select id="getUserlogin" parameterType="String" resultType="memberDTO">
-		select * from member where memId=#{memId};
+	<select id="getEntUser" parameterType="String" resultType="enterpriseDto">
+		select * from enterprise where memId=#{memId};
 	</select>
 	
 	<update id="MemberUpdate" parameterType="memberDto">

@@ -73,6 +73,13 @@
 	select * from member where memType = 'admin' and memId = #{memId} and memPw = #{memPw};
 </select>
 
+<insert id="addBanner" parameterType="bannerDto">
+	insert into banner values(default, #{bannerPic}, #{memId});
+</insert>
+
+<delete id="deleteBanner" parameterType="String">
+	delete from banner where bannerId = #{bannerId};
+</delete>
 </mapper>
 
 
