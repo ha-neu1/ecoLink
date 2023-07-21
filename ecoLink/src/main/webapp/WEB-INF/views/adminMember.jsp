@@ -75,7 +75,9 @@
                                             	<td>${dto.memNick}</td>
                                             	<td>${dto.memRegtime}</td>
                                             	<c:if test="${title eq '관리자'}">
-                                            		<th><button id="${dto.memId}" onclick="deleteAccount('${dto.memId}');">계정삭제</button></th>
+                                            		<td>
+                                            			<button id="${dto.memId}" onclick="deleteAccount('${dto.memId}');">계정삭제</button>
+                                            		</td>
                                             	</c:if>
                                         	</tr>
                                     	</c:forEach>

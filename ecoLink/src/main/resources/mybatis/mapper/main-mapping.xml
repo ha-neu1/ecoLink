@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.MainDAO">
+
+	<select id="getAllBanners" resultType="bannerdto">
+		SELECT * FROM banner
+	</select>
+
+	<select id="getBrandList" resultType="maindto">
+		SELECT e.memId,
+		e.entdMainPic, e.entdURL, m.memNick
+		FROM enterprise e
+		INNER JOIN member
+		m ON e.memId = m.memId;
+	</select>
+
+	<select id="getShareBoardList" resultType="boarddto">
+		SELECT b.boardId, b.boardTitle, b.boardViewCount, b.boardRegtime, b.boardUpdateTime,
+       b.boardContents, b.memId, b.boardType, f.filePath
+FROM board b
+INNER JOIN file f ON b.boardId = f.boardId
+WHERE b.boardType = 'share'
+ORDER BY b.boardRegtime DESC;
+	</select>
+
+	<select id="getMemberCount" resultType="int">
+		SELECT COUNT(*) FROM
+		member
+	</select>
+
+	<select id="getEnterCount" resultType="int">
+		SELECT COUNT(*) FROM
+		enterprise
+		WHERE entdConfirm = true;
+	</select>
+
+	<select id="getBoardCount" resultType="int">
+		SELECT COUNT(*) FROM board
+	</select>
+</mapper>

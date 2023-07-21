@@ -54,19 +54,29 @@
 		order by boardRegtime desc
 	</select>
 
-<insert id="insertBoard" parameterType="boarddto" >
- insert into board(boardTitle, boardContents, boardViewCount, boardRegtime, memId, boardType) 
- values(#{boardTitle}, #{boardContents}, 0, now(), 'admin', 'info')
-</insert>
+	<insert id="insertBoard" parameterType="boarddto">
+		insert into board(boardTitle, boardContents, boardViewCount, boardRegtime,
+		memId, boardType)
+		values(#{boardTitle}, #{boardContents}, 0, now(), 'admin', 'info')
+	</insert>
 
-<update id="updateViewcount" parameterType="int">
-update board set boardViewCount = boardViewCount + 1 where boardId = #{boardId}
-</update>
+	<update id="updateViewcount" parameterType="int">
+		update board set boardViewCount = boardViewCount + 1 where boardId =
+		#{boardId}
+	</update>
 
-<select id="getDetail" resultType="boarddto" parameterType="int">
-select * from board where boardId=#{boardId}
-</select>
+	<select id="getDetail" resultType="boarddto" parameterType="int">
+		select * from board where boardId=#{boardId}
+	</select>
 
+	<insert id="insertFile" parameterType="filedto">
+		INSERT INTO file (fileIdx, filePath, fileName, fileType, boardId)
+		VALUES (#{fileIdx}, #{filePath}, #{fileName}, #{fileType}, #{boardId})
+	</insert>
+
+	<select id="getGeneratedBoardId" resultType="int">
+		select last_insert_id()
+	</select>
 
 
 
