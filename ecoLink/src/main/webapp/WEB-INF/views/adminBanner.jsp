@@ -37,6 +37,7 @@
                                             <th>배너ID</th>
                                             <th>이미지</th>
                                             <th>업로더</th>
+                                            <th>기타</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -44,6 +45,7 @@
                                             <th>배너ID</th>
                                             <th>이미지</th>
                                             <th>업로더</th>
+                                            <th>기타</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -52,6 +54,7 @@
                                             	<td>${dto.bannerId}</td>
                                             	<td>${dto.bannerPic}</a></td>
                                             	<td>${dto.memId}</td>
+                                            	<td><button id="${dto.bannerId}" onclick="deleteBanner('${dto.bannerId}', '${dto.bannerPic}');">배너삭제</button></td>
                                         	</tr>
                                     	</c:forEach>
                                     </tbody>
@@ -64,8 +67,8 @@
                                 배너 추가하기
                             </div>
                         <div class="card-body">
-                        	<form action="">
-                        	<input type="file" id="bannerpic" value="이미지 첨부" />
+                        	<form action="/adminBannerinput" method="post" enctype="multipart/form-data">
+                        	<input type="file" id="file" accept="image/*" name="file" value="이미지 첨부" />
                         	<input type="submit" value="추가" />
                         	</form>
                         </div>
@@ -88,6 +91,16 @@
         <script src="js/admin_scripts.js"></script>
         <script src="js/admin_dist_umd_simple_datatables.js"></script>
         <script src="js/admin_datatables_simple.js"></script>
+        <script type="text/javascript">
+        	function deleteBanner(s, a) {
+        		if (!confirm(a + " 배너를 삭제하시겠습니까?")) {
+                    
+                } else {
+                    alert("배너가 삭제되었습니다.");
+                    location.href="/deleteBanner?bannerId=" + s + "&bannerPic=" + a;
+                }
+        	}
+        </script>
     </body>
 </html>
 

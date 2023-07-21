@@ -29,4 +29,6 @@ public interface AdminDAO {
 	public int getSpecificAdminAccount(MemberDTO dto);
 	public int deleteAdminAccount(String memId);
 	public MemberDTO adminLogin(MemberDTO memberDTO);
+	public int addBanner(BannerDTO dto);
+	public int deleteBanner(String bannerId);
 }

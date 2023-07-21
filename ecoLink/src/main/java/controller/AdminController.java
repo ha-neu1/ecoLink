@@ -1,6 +1,9 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.AdminDTO;
@@ -33,8 +37,9 @@ public class AdminController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
+		
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin") && dto.getMemType().equals("admin")) {
 			int noConfirmedEnter = service.getRegEnterConfirm();
 			int allUserCount = service.getAllRegUser();
 			List<BoardDTO> boardlist = service.getSomeBoardList();
@@ -56,7 +61,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		MemberDTO dto = service.adminLogin(memberDTO);
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("logininfo", dto);
 			return "redirect:/admin";
@@ -85,7 +90,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<BoardDTO> boardlist = service.getNewsBoardList();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("boardlist", boardlist);
@@ -106,7 +111,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<BoardDTO> boardlist = service.getShareBoardList();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("boardlist", boardlist);
@@ -127,7 +132,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<BoardDTO> boardlist = service.getReviewBoardList();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("boardlist", boardlist);
@@ -148,7 +153,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<BoardDTO> boardlist = service.getTipsBoardList();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("boardlist", boardlist);
@@ -169,7 +174,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<AdminDTO> boardlist = service.getUnConfirmedEnterList();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("boardlist", boardlist);
@@ -190,7 +195,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<AdminDTO> boardlist = service.getConfirmedEnterList();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("boardlist", boardlist);
@@ -211,7 +216,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<BannerDTO> bannerlist = service.getAllBanner();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("bannerlist", bannerlist);
@@ -226,13 +231,65 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping("/adminBannerinput")
+	public ModelAndView adminBannerinput(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response, BannerDTO bdto) throws IllegalStateException, IOException {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		ModelAndView mv = new ModelAndView();
+		if (dto != null && dto.getMemType().equals("admin")) {
+			String savePath = "c:/banner/";
+			if (bdto.getFile() != null) {
+				if (!bdto.getFile().isEmpty()) {
+					MultipartFile file1 = bdto.getFile();
+					String originalname1 = file1.getOriginalFilename();
+					file1.transferTo(new File(savePath + originalname1));
+					
+					bdto.setBannerPic(savePath + originalname1);
+					bdto.setMemId(dto.getMemId());
+					int result = service.addBanner(bdto);
+					List<BannerDTO> bannerlist = service.getAllBanner();
+					mv.addObject("adminUserId", dto.getMemId());
+					mv.addObject("bannerlist", bannerlist);
+					mv.addObject("tabletitle", "등록된 배너 리스트");
+					mv.addObject("banneramount", bannerlist.size());
+					mv.setViewName("adminBanner");
+					return mv;
+				} else {
+					List<BannerDTO> bannerlist = service.getAllBanner();
+					mv.addObject("adminUserId", dto.getMemId());
+					mv.addObject("bannerlist", bannerlist);
+					mv.addObject("tabletitle", "등록된 배너 리스트");
+					mv.addObject("banneramount", bannerlist.size());
+					mv.setViewName("adminBanner");
+					return mv;
+				}
+				
+			} else {
+				List<BannerDTO> bannerlist = service.getAllBanner();
+				mv.addObject("adminUserId", "배너 등록에 실패하였습니다. 다시 시도해 주십시오.");
+				mv.addObject("adminUserId", dto.getMemId());
+				mv.addObject("bannerlist", bannerlist);
+				mv.addObject("tabletitle", "등록된 배너 리스트");
+				mv.addObject("banneramount", bannerlist.size());
+				mv.setViewName("adminBanner");
+				return mv;
+			}
+			
+		} else {
+			mv.setViewName("adminlogin");
+			return mv;
+		}
+		
+	}
+	
 	@RequestMapping("/adminMember")
 	public ModelAndView adminMember(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<MemberDTO> memberlist = service.getAllNormalMember();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("memberlist", memberlist);
@@ -253,7 +310,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			List<MemberDTO> memberlist = service.getAllAdminMember();
 			mv.addObject("adminUserId", dto.getMemId());
 			mv.addObject("memberlist", memberlist);
@@ -273,7 +330,7 @@ public class AdminController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			model.addAttribute("adminUserId", dto.getMemId());
 			return "adminAddaccount";
 		} else {
@@ -288,7 +345,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
-		if (dto2 != null) {
+		if (dto2 != null && dto2.getMemType().equals("admin")) {
 			MemberDTO dto = new MemberDTO();
 			dto.setMemId(inputId);
 			dto.setMemNick(inputName);
@@ -335,9 +392,26 @@ public class AdminController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		if (dto != null) {
+		if (dto != null && dto.getMemType().equals("admin")) {
 			int result = service.deleteAdminAccount(memId);
 			return "redirect:/adminAccount";
+		} else {
+			return "adminlogin";
+		}
+	}
+	
+	@RequestMapping("/deleteBanner")
+	public String deleteBanner(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String bannerId, String bannerPic, HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		if (dto != null && dto.getMemType().equals("admin")) {
+			File file = new File(bannerPic);
+			if (file.exists()) {
+				file.delete();
+			}
+			int result = service.deleteBanner(bannerId);
+			return "redirect:/adminBanner";
 		} else {
 			return "adminlogin";
 		}
