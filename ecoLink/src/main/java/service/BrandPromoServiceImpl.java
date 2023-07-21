@@ -18,6 +18,26 @@ public class BrandPromoServiceImpl implements BrandPromoService {
 		return dao.getBrandPromoDetail(entCrn);
 	}
 
+	@Override
+	public int getBrandPromoBookmark(String memId, String entCrn) {
+		return dao.getBrandPromoBookmark(memId, entCrn);
+	}
+
+	@Override
+	public int deleteBrandPromoBookmark(String memId, String entCrn) {
+		return dao.deleteBrandPromoBookmark(memId, entCrn);
+	}
+
+	@Override
+	public int insertBrandPromoBookmark(String memId, String entCrn) {
+		return dao.insertBrandPromoBookmark(memId, entCrn);
+	}
+
+	@Override
+	public double getCommentAvgRate(String entCrn) {
+		return dao.getCommentAvgRate(entCrn);
+	}
+
 	
 	
 }
