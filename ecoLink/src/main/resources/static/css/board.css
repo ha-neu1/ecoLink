@@ -34,22 +34,36 @@ hr.hr_bold {
     margin-bottom: 20px;
 }
 
+/* 검색과 관련된 컨테이너 스타일 */
+.search_container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
 /* 검색 상자 스타일 */
 .searchBox {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .searchBox input[type="text"] {
-    flex: 1;
+    width: 240px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.searchBox select {
+    margin-right: 5px;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .searchBox button {
-    margin-left: 10px;
+    margin-left: 5px;
     padding: 5px 10px;
     background-color: #00D084;
     color: #fff;
@@ -60,24 +74,43 @@ hr.hr_bold {
 
 /* 글쓰기 버튼 스타일 */
 #addButton {
-    padding: 8px 15px;
+    padding: 5px 10px;
     background-color: #00D084;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 5px;
 }
 
-/* 게시물 리스트를 담는 플렉스 레이아웃 스타일 */
+/* 좋아요 버튼 스타일 */
+.like_button {
+    width: 40px;
+    height: 40px;
+    background-image: url('/images/likebutton_off.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* 게시물 목록 스타일 */
 .boardMain {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px; /* 각 boardList 간격을 10px로 조정 */
+    gap: 5px;
+    position: relative;
 }
 
 /* 개별 게시물 항목 스타일 */
 .boardList {
-    flex: 0 0 calc(33.33% - 25.5px); /* 3개씩 가로로 나열 */
+    position: relative;
+    flex: 0 0 calc(33.33% - 25.5px);
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -154,4 +187,23 @@ button.submit_button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+/* 제목 입력 부분의 스타일 */
+.input_box input[type="text"] {
+    width: 980px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* 내용 입력 부분의 스타일 */
+.input_box textarea {
+    width: 980px;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: none;
 }

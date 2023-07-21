@@ -1,68 +1,71 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // 게시물 데이터
-    const boardData = [
-        {
-            memId: "user1",
-            boardTitle: "첫 번째 게시물",
-            boardContents: "첫 번째 게시물의 내용입니다.",
-            boardImage: "/images/logo2.png"
-        },
-        {
-            memId: "user2",
-            boardTitle: "두 번째 게시물",
-            boardContents: "두 번째 게시물의 내용입니다.",
-            boardImage: "/images/logo2.png"
-        },
-        {
-            memId: "user3",
-            boardTitle: "세 번째 게시물",
-            boardContents: "세 번째 게시물의 내용입니다.",
-            boardImage: "/images/logo2.png"
-        },
-        {
-            memId: "user4",
-            boardTitle: "네 번째 게시물",
-            boardContents: "네 번째 게시물의 내용입니다.",
-            boardImage: "/images/logo2.png"
-        },
-        {
-            memId: "user5",
-            boardTitle: "다섯 번째 게시물",
-            boardContents: "다섯 번째 게시물의 내용입니다.",
-            boardImage: "/images/logo2.png"
-        },
-        {
-            memId: "user6",
-            boardTitle: "여섯 번째 게시물",
-            boardContents: "여섯 번째 게시물의 내용입니다.",
-            boardImage: "/images/logo2.png"
-        },
-    ];
+// 가상의 게시물 데이터 배열
+const boardData = [
+  {
+    memId: "user1",
+    boardTitle: "첫 번째 게시물",
+  },
+  {
+    memId: "user2",
+    boardTitle: "두 번째 게시물",
+  },
+  {
+    memId: "user3",
+    boardTitle: "세 번째 게시물",
+  },
+  {
+    memId: "user4",
+    boardTitle: "네 번째 게시물",
+  },
+  {
+    memId: "user5",
+    boardTitle: "다섯 번째 게시물",
+  },
+  {
+    memId: "user6",
+    boardTitle: "여섯 번째 게시물",
+  },
+];
 
-    const boardListContainer = document.getElementById("boardListContainer");
+// 게시물 목록 렌더링 함수
+function renderBoardList() {
+  const boardContainer = document.querySelector(".boardMain");
+  boardContainer.innerHTML = ""; // 이전에 렌더링된 요소들 초기화
 
-    function renderBoardList() {
-        let boardListHTML = "";
+  // 각 게시물을 순회하면서 게시물 항목들을 생성하여 boardContainer에 추가
+  boardData.forEach((item) => {
+    const boardItem = document.createElement("div");
+    boardItem.classList.add("boardList");
 
-        for (let i = 0; i < boardData.length; i++) {
-            const board = boardData[i];
+    const memId = document.createElement("h3");
+    memId.classList.add("memId");
+    memId.innerText = item.memId;
 
-            const boardItemHTML = `
-                <div class="boardList">
-                    <h3 class="memId">${board.memId}</h3>
-                    <h4 class="boardTitle">${board.boardTitle}</h4>
-                    <span class="likeButton">좋아요 버튼</span>
-                    <img class="boardImage" src="${board.boardImage}" alt="게시물 이미지">
-                    <p class="boardCont">${board.boardContents}</p>
-                </div>
-            `;
+    const boardTitle = document.createElement("h4");
+    boardTitle.classList.add("boardTitle");
+    boardTitle.innerText = item.boardTitle + '의 제목';
 
-            boardListHTML += boardItemHTML;
-        }
+    const likeButton = document.createElement("button");
+    likeButton.classList.add("like_button");
+    likeButton.style.backgroundImage = "url('/images/likebutton_off.png')";
 
-        boardListContainer.innerHTML = boardListHTML;
-    }
+    const boardImage = document.createElement("img");
+    boardImage.classList.add("boardImage");
+    boardImage.src = "/images/logo2.png";
+    boardImage.alt = "게시물 이미지";
 
-    // 페이지 로딩 시 게시물 리스트를 생성
-    renderBoardList();
-});
+    const boardCont = document.createElement("p");
+    boardCont.classList.add("boardCont");
+    boardCont.innerText = "게시물 내용입니다. 게시물 내용입니다. 게시물 내용입니다. 게시물 내용입니다. ";
+
+    boardItem.appendChild(memId);
+    boardItem.appendChild(boardTitle);
+    boardItem.appendChild(likeButton);
+    boardItem.appendChild(boardImage);
+    boardItem.appendChild(boardCont);
+
+    boardContainer.appendChild(boardItem);
+  });
+}
+
+// 페이지 로드 시 게시물 목록 렌더링
+document.addEventListener("DOMContentLoaded", renderBoardList);
