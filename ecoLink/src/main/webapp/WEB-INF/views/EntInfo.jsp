@@ -79,7 +79,7 @@
 					</tr>
 					<tr>
 						<td>승인여부</td>
-						<td></td>
+						<td>${loginEnt.entdConfirm}</td>
 					</tr>
 				</table>
 				<div class="bt_wrap">

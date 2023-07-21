@@ -36,12 +36,12 @@
 		<ul class="navbarProfile">
 			<c:choose>
 				<c:when test="${not empty user}">
-					<li><a href="#">My page</a></li>
-					<li><a href="#">로그아웃</a></li>
+					<li><a href="/userInfo">My page</a></li>
+					<li><a href="/logout">로그아웃</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="#">로그인</a></li>
-					<li><a href="#">회원가입</a></li>
+					<li><a href="/login">로그인</a></li>
+					<li><a href="/join">회원가입</a></li>
 				</c:otherwise>
 			</c:choose>
 		</ul>
