@@ -7,19 +7,34 @@
 		SELECT * FROM banner
 	</select>
 
+	<select id="getBrandList" resultType="maindto">
+		SELECT e.memId,
+		e.entdMainPic, e.entdURL, m.memNick
+		FROM enterprise e
+		INNER JOIN member
+		m ON e.memId = m.memId;
+	</select>
+
 	<select id="getShareBoardList" resultType="boarddto">
-		select * from board where boardType ="share" order by boardId desc;
+		SELECT b.boardId, b.boardTitle, b.boardViewCount, b.boardRegtime, b.boardUpdateTime,
+       b.boardContents, b.memId, b.boardType, f.filePath
+FROM board b
+INNER JOIN file f ON b.boardId = f.boardId
+WHERE b.boardType = 'share'
+ORDER BY b.boardRegtime DESC;
 	</select>
 
 	<select id="getMemberCount" resultType="int">
 		SELECT COUNT(*) FROM
 		member
 	</select>
+
 	<select id="getEnterCount" resultType="int">
 		SELECT COUNT(*) FROM
 		enterprise
-		where entdConfirm = true;
+		WHERE entdConfirm = true;
 	</select>
+
 	<select id="getBoardCount" resultType="int">
 		SELECT COUNT(*) FROM board
 	</select>
