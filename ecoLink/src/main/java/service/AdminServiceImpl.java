@@ -96,6 +96,16 @@ public class AdminServiceImpl implements AdminService {
 	public MemberDTO adminLogin(MemberDTO memberDTO) {
 		return dao.adminLogin(memberDTO);
 	}
+
+	@Override
+	public int addBanner(BannerDTO dto) {
+		return dao.addBanner(dto);
+	}
+
+	@Override
+	public int deleteBanner(String bannerId) {
+		return dao.deleteBanner(bannerId);
+	}
 	
 	
 }

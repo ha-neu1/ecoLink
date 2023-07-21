@@ -13,5 +13,7 @@
 	<typeAlias type="dto.FileDTO" alias="fileDto"/>
 	<typeAlias type="dto.MemberDTO" alias="memberDto"/>
 	<typeAlias type="dto.AdminDTO" alias="adminDto"/>
+	<typeAlias type="dto.MainDTO" alias="mainDto"/>
+	<typeAlias type="dto.BrandPromoDTO" alias="brandPromoDto"/>
 </typeAliases>
 </configuration>
