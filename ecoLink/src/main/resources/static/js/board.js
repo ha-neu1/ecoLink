@@ -3,69 +3,102 @@ const boardData = [
   {
     memId: "user1",
     boardTitle: "첫 번째 게시물",
+    boardCont: "첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다."
   },
   {
     memId: "user2",
     boardTitle: "두 번째 게시물",
+    boardCont: "두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다."
   },
   {
     memId: "user3",
     boardTitle: "세 번째 게시물",
+    boardCont: "세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다."
   },
   {
     memId: "user4",
     boardTitle: "네 번째 게시물",
+    boardCont: "네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다."
   },
   {
     memId: "user5",
     boardTitle: "다섯 번째 게시물",
+    boardCont: "다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다."
   },
   {
     memId: "user6",
     boardTitle: "여섯 번째 게시물",
+    boardCont: "여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다."
   },
 ];
 
 // 게시물 목록 렌더링 함수
 function renderBoardList() {
-  const boardContainer = document.querySelector(".boardMain");
-  boardContainer.innerHTML = ""; // 이전에 렌더링된 요소들 초기화
+  const boardMain = document.querySelector(".boardMain");
+  boardMain.innerHTML = ""; // 기존 내용 비우기
 
-  // 각 게시물을 순회하면서 게시물 항목들을 생성하여 boardContainer에 추가
-  boardData.forEach((item) => {
-    const boardItem = document.createElement("div");
-    boardItem.classList.add("boardList");
+  boardData.forEach((item, index) => {
+    const boardList = document.createElement("div");
+    boardList.className = "boardList";
 
     const memId = document.createElement("h3");
-    memId.classList.add("memId");
-    memId.innerText = item.memId;
+    memId.className = "memId";
+    memId.textContent = item.memId;
 
     const boardTitle = document.createElement("h4");
-    boardTitle.classList.add("boardTitle");
-    boardTitle.innerText = item.boardTitle + '의 제목';
+    boardTitle.className = "boardTitle";
+    boardTitle.textContent = item.boardTitle;
 
     const likeButton = document.createElement("button");
-    likeButton.classList.add("like_button");
-    likeButton.style.backgroundImage = "url('/images/likebutton_off.png')";
+    likeButton.className = "like_button";
+    likeButton.addEventListener("click", toggleLike);
 
     const boardImage = document.createElement("img");
-    boardImage.classList.add("boardImage");
+    boardImage.className = "boardImage";
     boardImage.src = "/images/logo2.png";
     boardImage.alt = "게시물 이미지";
 
     const boardCont = document.createElement("p");
-    boardCont.classList.add("boardCont");
-    boardCont.innerText = "게시물 내용입니다. 게시물 내용입니다. 게시물 내용입니다. 게시물 내용입니다. ";
+    boardCont.className = "boardCont";
+    boardCont.textContent = item.boardCont;
 
-    boardItem.appendChild(memId);
-    boardItem.appendChild(boardTitle);
-    boardItem.appendChild(likeButton);
-    boardItem.appendChild(boardImage);
-    boardItem.appendChild(boardCont);
+    boardList.appendChild(memId);
+    boardList.appendChild(boardTitle);
+    boardList.appendChild(likeButton);
+    boardList.appendChild(boardImage);
+    boardList.appendChild(boardCont);
 
-    boardContainer.appendChild(boardItem);
+    boardMain.appendChild(boardList);
   });
 }
 
+// 좋아요 버튼 클릭 이벤트 처리 함수
+function toggleLike(event) {
+  const likeButton = event.target;
+  const liked = likeButton.classList.toggle("liked");
+  if (liked) {
+    likeButton.style.backgroundImage = "url('/images/likebutton_on.png')";
+  } else {
+    likeButton.style.backgroundImage = "url('/images/likebutton_off.png')";
+  }
+}
+
+// 검색 버튼 클릭 이벤트 처리 함수
+function searchBoard() {
+  // 검색 기능 구현
+}
+
 // 페이지 로드 시 게시물 목록 렌더링
-document.addEventListener("DOMContentLoaded", renderBoardList);
+document.addEventListener("DOMContentLoaded", function() {
+  renderBoardList();
+
+  // 좋아요 버튼 클릭 이벤트 리스너 추가
+  const likeButtons = document.querySelectorAll(".like_button");
+  likeButtons.forEach(button => {
+    button.addEventListener("click", toggleLike);
+  });
+
+  // 검색 버튼 클릭 이벤트 리스너 추가
+  const searchButton = document.querySelector(".searchBox button");
+  searchButton.addEventListener("click", searchBoard);
+});

@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #fff;
 }
 
 /* 게시판 영역 */
@@ -91,7 +91,7 @@ hr.hr_bold {
     background-size: cover;
     background-repeat: no-repeat;
     background-color: transparent;
-    border: 1px solid #000;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     position: absolute;
@@ -129,6 +129,7 @@ hr.hr_bold {
     width: 100%;
     height: auto;
     margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
 /* 페이지 번호 스타일 */
@@ -158,7 +159,7 @@ hr.hr_bold {
 
 /* boardCreate 화면 스타일 */
 input.input_text {
-    width: 100%;
+    width: 980px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -166,13 +167,13 @@ input.input_text {
 }
 
 textarea.input_textarea {
-    width: 100%;
+    width: 980px;
     height: 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    resize: vertical;
+    resize: none;
 }
 
 input.input_text:focus, textarea.input_textarea:focus {
@@ -187,23 +188,4 @@ button.submit_button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-/* 제목 입력 부분의 스타일 */
-.input_box input[type="text"] {
-    width: 980px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-/* 내용 입력 부분의 스타일 */
-.input_box textarea {
-    width: 980px;
-    height: 200px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    resize: none;
 }
