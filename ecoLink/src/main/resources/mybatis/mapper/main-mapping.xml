@@ -17,11 +17,11 @@
 
 	<select id="getShareBoardList" resultType="boarddto">
 		SELECT b.boardId, b.boardTitle, b.boardViewCount, b.boardRegtime, b.boardUpdateTime,
-       b.boardContents, b.memId, b.boardType, f.filePath
-FROM board b
-INNER JOIN file f ON b.boardId = f.boardId
-WHERE b.boardType = 'share'
-ORDER BY b.boardRegtime DESC;
+		b.boardContents, b.memId, b.boardType, f.filePath
+		FROM board b
+		INNER JOIN file f ON b.boardId = f.boardId
+		WHERE b.boardType = 'share'
+		ORDER BY b.boardRegtime DESC;
 	</select>
 
 	<select id="getMemberCount" resultType="int">
