@@ -10,38 +10,55 @@
 <script src="resources/js/jquery-3.6.4.min.js"></script>
 <script>
 window.addEventListener("DOMContentLoaded", function() {
-	var radiobox1 = document.getElementById("check_method1");
-	var radiobox2 = document.getElementById("check_method2");
-	var backgroundUrlOff = "/images/icon_input_radio_off.svg";
-	var backgroundUrlOn = "/images/icon_input_radio_on.svg";
+  var radiobox1 = document.getElementById("check_method1");
+  var radiobox2 = document.getElementById("check_method2");
+  var backgroundUrlOff = "/images/icon_input_radio_off.svg";
+  var backgroundUrlOn = "/images/icon_input_radio_on.svg";
+  var memType = document.getElementById("memType");
+  var checkLabel2 = document.getElementById("check_label2");
 
-	radiobox1.checked = true;
-	document.getElementById("email_view").style.display = "";
-	document.getElementById("mobile_view").style.display = "none";
-	radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-	radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+  radiobox1.checked = true;
+  document.getElementById("email_view").style.display = "";
+  document.getElementById("mobile_view").style.display = "none";
+  radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+  radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
 
-	// check_method1의 radio 버튼 클릭 시 email_view 보이도록 설정
-	radiobox1.addEventListener("click", function() {
-		// check_method2의 radio 버튼 클릭 해제
-		radiobox2.checked = false;
-		radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
-		radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-	    document.getElementById("email_view").style.display = "";
-	    document.getElementById("mobile_view").style.display = "none";
-  	});
+  // 회원유형 선택 시 처리
+  $(document).on('change', '#memType', function() {
+    var selected = $(this).val();
+    if (selected === "기업회원") {
+      // 조건 1: "기업회원"일 때
+      checkLabel2.style.display = "inline";
+      radiobox2.style.display = ""; // Set to default display value, which is usually "inline" or "block"z
+    } else if (selected === "일반회원") {
+      // 조건 2: "일반회원"일 때
+      checkLabel2.style.display = "none";
+      radiobox2.style.display = "none";
+    }
+  });
 
-	// check_method2의 radio 버튼 클릭 시 mobile_view 보이도록 설정
-	radiobox2.addEventListener("click", function() {
-	    // check_method1의 radio 버튼 클릭 해제
-	    radiobox1.checked = false;
-	    radiobox1.style.backgroundImage = "url(" + backgroundUrlOff + ")";
-	    radiobox2.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-	    document.getElementById("mobile_view").style.display = "";
-	    document.getElementById("email_view").style.display = "none";
-  	});
+  // check_method1의 radio 버튼 클릭 시 email_view 보이도록 설정
+  radiobox1.addEventListener("click", function() {
+    // check_method2의 radio 버튼 클릭 해제
+    radiobox2.checked = false;
+    radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+    radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+    document.getElementById("email_view").style.display = "";
+    document.getElementById("mobile_view").style.display = "none";
+  });
+
+  // check_method2의 radio 버튼 클릭 시 mobile_view 보이도록 설정
+  radiobox2.addEventListener("click", function() {
+    // check_method1의 radio 버튼 클릭 해제
+    radiobox1.checked = false;
+    radiobox1.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+    radiobox2.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+    document.getElementById("mobile_view").style.display = "";
+    document.getElementById("email_view").style.display = "none";
+  });
 });
 </script>
+
 </head>
 <body>
 <div id="container">
@@ -79,10 +96,10 @@ window.addEventListener("DOMContentLoaded", function() {
                                             <td>
                                                 <p class="check">
                                                     <input id="check_method1" name="check_method" value="1" type="radio" checked="checked" />
-                                                    <label for="check_method1">이메일로 찾기</label>
-                                                    <input id="check_method2" name="check_method" value="2" type="radio" />
-                                                    <label for="check_method2">
-                                                        <span id="search_type_mobile_lable" style="display:inline;">휴대폰 번호로 찾기</span>
+                                                    <label id="check_label1" for="check_method1">이메일로 찾기</label>
+                                                    <input id="check_method2" name="check_method" value="2" type="radio"/>
+                                                    <label id="check_label2" for="check_method2">
+                                                        <span id="search_type_mobile_lable">휴대폰 번호로 찾기</span>
                                                     </label>
                                                 </p>
                                             </td>
