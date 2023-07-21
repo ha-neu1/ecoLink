@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import service.MyInfoService;
 
 @Controller
@@ -32,7 +31,7 @@ public class MyInfoController {
 		 */
 		ModelAndView mv = new ModelAndView();
 		
-		if(dto.getMemType()=="enter") {
+		if(dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
 			mv.addObject("loginUser", dto);
 			mv.addObject("loginEnt", edto);
@@ -47,17 +46,18 @@ public class MyInfoController {
     }
 	
 	//유저 정보 수정	
-	@GetMapping("/updateMyInfo")
+	@GetMapping("/updateUserInfo")
 	public ModelAndView myInfoupdate(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		
 		ModelAndView mv = new ModelAndView();
-		if(dto.getMemType()=="enter") {
-			//EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+		
+		if(dto.getMemType().equals("enter")) {
+			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
 			mv.addObject("loginUser", dto);
-			//mv.addObject("loginUser", edto);
+			mv.addObject("loginEnt", edto);
 			mv.setViewName("EntInfoUpdate");
 		} else {
 			mv.addObject("loginUser", dto);
@@ -66,13 +66,19 @@ public class MyInfoController {
 		return mv;
 	}
 	
-	@PostMapping("/updateMyInfo")
+	@PostMapping("/updateUserInfo")
 	public @ResponseBody String myInfoupdatesql(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		
-		service.userUpdate(dto);
+		if(dto.getMemType().equals("enter")) {
+//			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+//			service.userUpdate(dto);
+//			service.entUpdate(edto);
+		} else {
+			service.userUpdate(dto);
+		}
 		return "";
 	}
 	
@@ -86,6 +92,11 @@ public class MyInfoController {
 		String memId = dto.getMemId();
 		service.deleteUser(memId);
         return "";
+    }
+	
+	@RequestMapping("/entInfo")
+    public String entInfo() {
+        return "EntInfo";
     }
 	
 	@RequestMapping("/updateEntInfo")

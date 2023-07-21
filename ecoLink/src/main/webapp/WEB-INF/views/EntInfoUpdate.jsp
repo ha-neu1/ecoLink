@@ -15,7 +15,7 @@
 						'click',
 						function() {
 							$.ajax({
-								url : 'updateEntInfo',
+								url : '/updateUserInfo',
 								data : {
 									'memId' : "${loginUser.memId}",
 									'pw' : $("#pw").val(),
@@ -63,13 +63,13 @@
 				</div>
 
 				<div class='formindiv'>
-					<p>이름</p>
+					<p>대표 사업자 이름</p>
 					<input type="text" name="name" id="name"
 						value="${loginUser.memName}" disabled>
 				</div>
 
 				<div class='formindiv'>
-					<p>닉네임</p>
+					<p>브랜드 이름</p>
 					<input type="text" name="nickname" id="nickname"
 						value="${loginUser.memNick}">
 				</div>
@@ -81,76 +81,76 @@
 				</div>
 				
 				<div class='formindiv'>
-					<p>사업자등록번호</p>
-					<input type="text" name="nickname" id="nickname"
-						value="" disabled>
+					<p>사업자 등록번호</p>
+					<input type="text" name="entnum" id="entnum"
+						value="${loginEnt.entCrn}" disabled>
 				</div>
 				
 				<div class='formindiv'>
-					<p>대표연락처</p>
-					<input type="text" name="nickname" id="nickname"
-						value="">
+					<p>사업자 연락처</p>
+					<input type="text" name="phonenum" id="phonenum"
+						value="${loginEnt.entPhone}">
 				</div>
 				
 				<div class='formindiv'>
-					<p>대표사진</p>
+					<p>대표 사진</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdMainPic}">
 				</div>
 				
 				<div class='formindiv'>
-					<p>회사간략소개</p>
+					<p>회사 간략 소개</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdShort}">
 				</div>
 				
 				<div class='formindiv'>
-					<p>회사홈페이지</p>
+					<p>회사 홈페이지</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdURL}">
 				</div>
 				
 				<div class='formindiv'>
-					<p>회사소개</p>
+					<p>회사 소개</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdIntro}">
 				</div>
 				
 				<div class='formindiv'>
-					<p>회사소개사진</p>
+					<p>회사 소개 사진</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdIntroPic}">
 				</div>
 				
 				<div class='formindiv'>
-					<p>제품사진1</p>
+					<p>제품 사진1</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdPic1}">
 				</div>
 				<div class='formindiv'>
-					<p>제품사진1</p>
+					<p>제품 사진2</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdPic2}">
 				</div>
 				<div class='formindiv'>
-					<p>제품사진1</p>
+					<p>제품 사진3</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdPic3}">
 				</div>
 				<div class='formindiv'>
-					<p>제품사진1</p>
+					<p>제품 설명1</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdExplain1}">
 				</div>
 				<div class='formindiv'>
-					<p>제품사진1</p>
+					<p>제품 설명2</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdExplain2}">
 				</div>
 				<div class='formindiv'>
-					<p>제품사진1</p>
+					<p>제품 설명3</p>
 					<input type="text" name="nickname" id="nickname"
-						value="">
+						value="${loginEnt.entdExplain3}">
 				</div>
 
 				<div class='formindiv'>

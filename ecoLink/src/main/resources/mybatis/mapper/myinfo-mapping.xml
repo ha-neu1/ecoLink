@@ -7,8 +7,13 @@
 		select * from enterprise where memId=#{memId};
 	</select>
 	
-	<update id="MemberUpdate" parameterType="memberDto">
+	<update id="userUpdate" parameterType="memberDto">
 		UPDATE member SET memPw=#{memPw}, memNick=#{memNick} WHERE memId=#{memId};
+	</update>
+	
+	<update id="entUpdate" parameterType="enterpriseDto">
+		
+		UPDATE enterprise SET memPw=#{memPw}, memNick=#{memNick} WHERE memId=#{memId};
 	</update>
 
 	<delete id="UserDelete" parameterType="String">

@@ -20,6 +20,10 @@ public class MyInfoService {
 		return dao.userUpdate(dto);
 	}
 	
+	public int entUpdate(EnterpriseDTO edto) {
+		return dao.entUpdate(edto);
+	}
+	
 	public int deleteUser(String memId) {
 		return dao.deleteUser(memId);
 	}
