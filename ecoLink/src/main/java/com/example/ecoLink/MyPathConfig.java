@@ -10,5 +10,6 @@ public class MyPathConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/banner/**").addResourceLocations("file:///c:/banner/");
+		registry.addResourceHandler("/upload/**").addResourceLocations("file:///c:/kdt/upload/");
 	}
 }

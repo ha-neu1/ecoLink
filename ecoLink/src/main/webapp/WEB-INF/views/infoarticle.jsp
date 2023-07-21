@@ -47,7 +47,7 @@
 					<div class="post_image_wrap">
 						<a class="post_link" href="#">
 							<div class="post_image">
-								<img src="images/kimbab.jpg">
+								<img src="/upload/catdog(ef3d341f-87d8-409d-9267-04e2ef74f821).jfif">
 							</div>
 						</a>
 					</div>
