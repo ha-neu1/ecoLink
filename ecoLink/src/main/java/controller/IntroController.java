@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,11 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.FileDTO;
 import service.InfoBoardService;
 
 @Controller
@@ -30,6 +33,7 @@ public class IntroController {
 
 	@RequestMapping("/infoboardlist")
 	public ModelAndView infoboardlist(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+
 			@RequestParam(value = "selectValue", required = false, defaultValue = "recent") String selectValue) {
 		int totalBoard = service.getTotalBoard();
 
@@ -49,18 +53,18 @@ public class IntroController {
 
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("totalBoard", totalBoard);
-		// mv.addObject("boardListRecent", listRecent);
-		// mv.addObject("boardListView", listView);
 		mv.addObject("boardList", boardList);
-
 		mv.setViewName("infoarticle");
 		return mv;
 	}
 
 	@RequestMapping("/infoboardsearch")
 	public ModelAndView infoboardsearch(
+
 			@RequestParam(value = "item", required = false, defaultValue = "seartch_all") String item,
+
 			@RequestParam(value = "word", required = false, defaultValue = "") String word,
+
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		int limitcount = 5;
 		int limitindex = (page - 1) * limitcount;
@@ -79,7 +83,6 @@ public class IntroController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("boardList", searchlist);
 		mv.addObject("totalBoard", searchcount);
-
 		mv.setViewName("infoboardsearch");
 		return mv;
 	}
@@ -91,8 +94,38 @@ public class IntroController {
 
 	@PostMapping("/infowriting")
 	public ModelAndView writeprocess(BoardDTO dto,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws IOException {
+		String savePath = "c:/kdt/upload/";
+
+		List<MultipartFile> files = dto.getFiles();
 		int insertcount = service.insertBoard(dto);
+		if (files != null && !files.isEmpty()) {
+			for (MultipartFile file : files) {
+				if (!file.isEmpty()) {
+					String originalname1 = file.getOriginalFilename();
+					String beforeext1 = originalname1.substring(0, originalname1.indexOf("."));
+					String ext1 = originalname1.substring(originalname1.indexOf("."));
+
+					String newFilename = beforeext1 + "(" + UUID.randomUUID().toString() + ")" + ext1;
+					File newFile = new File(savePath + newFilename);
+					file.transferTo(newFile);
+
+					FileDTO fileDTO = new FileDTO();
+					fileDTO.setFileIdx(UUID.randomUUID().toString());
+					fileDTO.setFilePath("c:/kdt/upload/" + newFilename);
+					fileDTO.setFileName(originalname1);
+					fileDTO.setFileType(file.getContentType());
+
+					fileDTO.setBoardId(dto.getBoardId());
+					int boardId = dto.getBoardId();
+
+					fileDTO.setBoardId(boardId);
+					int insertfile = service.insertFile(fileDTO);
+
+				}
+			}
+		}
+
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("insertcount", insertcount);
 
@@ -113,24 +146,19 @@ public class IntroController {
 
 	@RequestMapping("/infopostdetail")
 	public ModelAndView infopostdetail(@RequestParam(name = "boardId") Integer boardId) {
-	  ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView();
 
-	  if (boardId == null) {
-	    mv.addObject("error", "Invalid boardId"); // 오류 메시지 추가
-	    mv.setViewName("error-page"); // 오류 페이지로 이동하도록 설정
-	    return mv;
-	  }
+		if (boardId == null) {
+			mv.addObject("error", "Invalid boardId"); // 오류 메시지 추가
+			mv.setViewName("error-page"); // 오류 페이지로 이동하도록 설정
+			return mv;
+		}
 
-	  BoardDTO dto = service.updateViewcountAndGetDetail(boardId);
-	  mv.addObject("detaildto", dto);
+		BoardDTO dto = service.updateViewcountAndGetDetail(boardId);
+		mv.addObject("detaildto", dto);
 
-	 
-
-	  mv.setViewName("infopostdetail");
-	  return mv;
+		mv.setViewName("infopostdetail");
+		return mv;
 	}
-
-	
-
 
 }
