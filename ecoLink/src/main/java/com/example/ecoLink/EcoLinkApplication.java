@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 @Component
+@ComponentScan(basePackageClasses = MyPathConfig.class)
 @ComponentScan(basePackages = {"controller","dto","dao","service"})
 @MapperScan(basePackages = {"dao"})
 public class EcoLinkApplication {

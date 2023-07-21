@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,26 +15,20 @@
 	<%@ include file="header.jsp"%>
 
 	<div class="banner">
-
-		<div class="mySlideDiv fade active">
-			<img src="${banners[0].bannerPic }">
-		</div>
-
-		<div class="mySlideDiv fade">
-			<img src="${banners[1].bannerPic }">
-		</div>
-
-		<div class="mySlideDiv fade">
-			<img src="${banners[2].bannerPic }">
-		</div>
+		<c:forEach var="banner" items="${banners}">
+			<div class="mySlideDiv fade active">
+				<img src="${banner.bannerPic}">
+			</div>
+		</c:forEach>
 
 		<a class="prev" onclick="prevSlide()">&#10094;</a> <a class="next"
 			onclick="nextSlide()">&#10095;</a>
 	</div>
-	
+
 	<div class="mainIcon">
 		<ul>
-			<li><a href="#"><img alt="업사이클링 정보" src="images/information.png"></a></li>
+			<li><a href="#"><img alt="업사이클링 정보"
+					src="images/information.png"></a></li>
 			<li><a href="#"><img alt="브랜드 홍보" src="images/promotion.png"></a></li>
 			<li><a href="#"><img alt="커뮤니티" src="images/community.png"></a></li>
 		</ul>
@@ -50,81 +45,33 @@
 	</div>
 
 	<div class="mainPromo">
-		<div class="card">
-			<div class="card__image-holder">
-				<img class="card__image"
-					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
-			</div>
-			<div class="card-title">
-				<h2>
-					Card title <small>Image from unsplash.com</small>
-				</h2>
-			</div>
-		</div>
-
-		<div class="card">
-			<div class="card__image-holder">
-				<img class="card__image"
-					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
-			</div>
-			<div class="card-title">
-				<h2>
-					Card title <small>Image from unsplash.com</small>
-				</h2>
-			</div>
-		</div>
-
-		<div class="card">
-			<div class="card__image-holder">
-				<img class="card__image"
-					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
-			</div>
-			<div class="card-title">
-				<h2>
-					Card title <small>Image from unsplash.com</small>
-				</h2>
-			</div>
-		</div>
-
-		<div class="card">
-			<div class="card__image-holder">
-				<img class="card__image"
-					src="https://source.unsplash.com/300x225/?beach" alt="beach" />
-			</div>
-			<div class="card-title">
-				<h2>
-					Card title <small>Image from unsplash.com</small>
-				</h2>
-			</div>
-		</div>
+		<c:forEach var="brand" items="${brandlist}" varStatus="loop">
+			<c:if test="${loop.index < 4}">
+				<div class="card">
+					<div class="card__image-holder">
+						<img class="card__image"
+							src="https://source.unsplash.com/300x225/?beach" alt="beach" />
+					</div>
+					<div class="card-title">
+						<h2>
+							${brand.memNick } <small>${brand.entdURL }</small>
+						</h2>
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
 	</div>
 
 	<div class="boardMain">
-		<div class="boardList">
-			<h3 class="memId">${boardlist[0].memId}</h3>
-			<h4 class="boardTitle">${boardlist[0].boardTitle}</h4>
-			<span class="likeButton"></span> <img class="boardImage"
-				src="/images/logo2.png" alt="게시물 이미지">
-			<p class="boardCont">${boardlist[0].boardContents}</p>
-		</div>
-
-		<div class="boardList">
-			<h3 class="memId">${boardlist[1].memId}</h3>
-			<h4 class="boardTitle">게시물 제목</h4>
-			<span class="likeButton"></span> <img class="boardImage"
-				src="/images/logo2.png" alt="게시물 이미지">
-			<p class="boardCont">본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문
-				내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.</p>
-		</div>
-
-		<div class="boardList">
-			<h3 class="memId">${boardlist[2].memId}</h3>
-			<h4 class="boardTitle">게시물 제목</h4>
-			<span class="likeButton"></span> <img class="boardImage"
-				src="/images/logo2.png" alt="게시물 이미지">
-			<p class="boardCont">본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문
-				내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.본문 내용입니다.</p>
-		</div>
+		<c:forEach var="board" items="${boardlist}">
+				<div class="boardList">
+					<h3 class="memId">${board.memId}</h3>
+					<h4 class="boardTitle">${board.boardTitle}</h4>
+					<span class="likeButton"></span> <img class="boardImage"
+						src="/images/logo2.png" alt="게시물 이미지">
+					<p class="boardCont">${board.boardContents}</p>
+				</div>
+		</c:forEach>
 	</div>
 	<%@ include file="footer.jsp"%>
 </body>
