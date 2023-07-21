@@ -1,8 +1,19 @@
 package dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BannerDTO {
+	MultipartFile file;
 	String bannerId, bannerPic, memId;
 
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	
 	public String getBannerId() {
 		return bannerId;
 	}
@@ -29,7 +40,8 @@ public class BannerDTO {
 
 	@Override
 	public String toString() {
-		return "BannerDTO [bannerId=" + bannerId + ", bannerPic=" + bannerPic + ", memId=" + memId + "]";
+		return "BannerDTO [file=" + file + ", bannerId=" + bannerId + ", bannerPic=" + bannerPic + ", memId=" + memId
+				+ "]";
 	}
 	
 	

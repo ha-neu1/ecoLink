@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BrandPromoDAO">
+	<select id="getBrandPromoDetail" parameterType="string" resultType="brandPromoDto">
+		select m.memNick, m.memName, e.entCrn, e.entPhone, e.memId, e.entdMainPic, e.entdShort, e.entdURL, e.entdIntro, e.entdIntroPic, e.entdPic1, e.entdPic2, e.entdPic3, e.entdExplain1, e.entdExplain2, e.entdExplain3, e.entdConfirm
+		from enterprise as e
+		join member as m on m.memId = e.memId
+		where e.entCrn = #{entCrn};
+	</select>
+</mapper>
+
+
+
+
+
+
