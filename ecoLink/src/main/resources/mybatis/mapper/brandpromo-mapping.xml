@@ -24,6 +24,10 @@
 	<select id="getCommentAvgRate" parameterType="string" resultType="double">
 		select ROUND(AVG(brcRate),1) from brand_comment where entCrn = #{entCrn};
 	</select>
+	
+	<insert id="insertBrandComment" parameterType="brandCommentDto">
+		insert into brand_comment values (default, #{brcRate}, #{brcContents}, default, default, #{entCrn}, #{memId});
+	</insert>
 </mapper>
 
 

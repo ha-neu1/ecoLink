@@ -1,5 +1,6 @@
 package service;
 
+import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
 
 public interface BrandPromoService {
@@ -8,4 +9,5 @@ public interface BrandPromoService {
 	public int deleteBrandPromoBookmark(String memId, String entCrn);
 	public int insertBrandPromoBookmark(String memId, String entCrn);
 	public double getCommentAvgRate(String entCrn);
+	public int insertBrandComment(BrandCommentDTO bdto);
 }

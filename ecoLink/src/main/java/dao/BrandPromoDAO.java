@@ -3,6 +3,7 @@ package dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
 
 
@@ -14,4 +15,5 @@ public interface BrandPromoDAO {
 	public int deleteBrandPromoBookmark(String memId, String entCrn);
 	public int insertBrandPromoBookmark(String memId, String entCrn);
 	public double getCommentAvgRate(String entCrn);
+	public int insertBrandComment(BrandCommentDTO bdto);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.BrandPromoDAO;
+import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
 
 
@@ -36,6 +37,11 @@ public class BrandPromoServiceImpl implements BrandPromoService {
 	@Override
 	public double getCommentAvgRate(String entCrn) {
 		return dao.getCommentAvgRate(entCrn);
+	}
+
+	@Override
+	public int insertBrandComment(BrandCommentDTO bdto) {
+		return dao.insertBrandComment(bdto);
 	}
 
 	
