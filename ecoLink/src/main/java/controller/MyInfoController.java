@@ -30,6 +30,7 @@ public class MyInfoController {
 		 * loginuser = service.getUser(dto.getMemId());
 		 */
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dto);
 		
 		if(dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
@@ -53,6 +54,7 @@ public class MyInfoController {
 		response.setDateHeader("Expires", 0); // Proxies.
 		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dto);
 		
 		if(dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
@@ -71,7 +73,6 @@ public class MyInfoController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		
 		if(dto.getMemType().equals("enter")) {
 //			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
 //			service.userUpdate(dto);
