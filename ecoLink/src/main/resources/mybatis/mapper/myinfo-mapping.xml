@@ -12,12 +12,19 @@
 	</update>
 	
 	<update id="entUpdate" parameterType="enterpriseDto">
-		
 		UPDATE enterprise SET memPw=#{memPw}, memNick=#{memNick} WHERE memId=#{memId};
 	</update>
 
-	<delete id="UserDelete" parameterType="String">
+	<delete id="userDelete" parameterType="String">
 		delete from member WHERE memId=#{memId};
 	</delete>
+	
+	<delete id="entDelete" parameterType="String">
+		delete from enterprise WHERE memId=#{memId};
+	</delete>
+	
+	<select id="brandBookmark" resultType="dto.EnterpriseBookmarkDTO" parameterType="String">
+        SELECT * FROM enterprise_bookmark where memId=#{memId};
+    </select>
 
 </mapper>

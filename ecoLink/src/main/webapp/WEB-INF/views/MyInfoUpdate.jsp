@@ -15,7 +15,7 @@
 						'click',
 						function() {
 							$.ajax({
-								url : 'updateMyInfo',
+								url : '/updateUserInfo',
 								data : {
 									'memId' : "${loginUser.memId}",
 									'pw' : $("#pw").val(),
@@ -24,7 +24,7 @@
 								type : 'post',
 								success : function(res) {
 									alert("회원정보 수정이 완료되었습니다.");
-									location.href = "/myInfo"
+									location.href = "/main"
 								},
 								error : function(request, status, e) {
 									alert("코드=" + request.status + "\n메시지="
