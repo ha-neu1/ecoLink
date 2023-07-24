@@ -20,8 +20,10 @@ select * from member where memId=#{memId}
 </insert>
 
 <insert id="addEnterprise" parameterType="memberDto">
-	insert into enterprise (entCrn, entPhone)
-	values (#{entCrn}, #{entPhone})
+	insert into enterprise (entCrn, entPhone, memId, entdMainPic, entdShort, entdURL, entdIntro, entdIntroPic,
+							entdPic1, entdPic2, entdPic3, entdExplain1, entdExplain2, entdExplain3)
+	values (#{entCrn}, #{entPhone}, #{memId}, #{entdMainPic}, #{entdShort}, #{entdURL}, #{entdIntro}, #{entdIntroPic},
+			#{entdPic1}, #{entdPic2}, #{entdPic3}, #{entdExplain1}, #{entdExplain2}, #{entdExplain3})
 </insert>
 
 <!-- id 중복 여부 -->

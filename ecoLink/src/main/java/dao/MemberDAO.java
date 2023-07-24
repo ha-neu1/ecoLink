@@ -2,11 +2,11 @@ package dao;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
 @Repository
@@ -40,12 +40,12 @@ public class MemberDAO {
         return session.selectOne("getMemberCountByType", memType);
     }
     
-    //id중복여부
+    //id 중복여부
     public int isMemberIdExist(String inputId) {
     	return session.selectOne("isMemberIdExist", inputId);
     }
     
-    //id중복여부
+    //email 중복여부
     public int isMemberEmailExist(String inputEmail) {
     	return session.selectOne("isMemberEmailExist", inputEmail);
     }	

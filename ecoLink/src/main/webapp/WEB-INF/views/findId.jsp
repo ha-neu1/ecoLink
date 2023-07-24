@@ -10,55 +10,86 @@
 <script src="resources/js/jquery-3.6.4.min.js"></script>
 <script>
 window.addEventListener("DOMContentLoaded", function() {
-  var radiobox1 = document.getElementById("check_method1");
-  var radiobox2 = document.getElementById("check_method2");
-  var backgroundUrlOff = "/images/icon_input_radio_off.svg";
-  var backgroundUrlOn = "/images/icon_input_radio_on.svg";
-  var memType = document.getElementById("memType");
-  var checkLabel2 = document.getElementById("check_label2");
+	  var radiobox1 = document.getElementById("check_method1");
+	  var radiobox2 = document.getElementById("check_method2");
+	  var backgroundUrlOff = "/images/icon_input_radio_off.svg";
+	  var backgroundUrlOn = "/images/icon_input_radio_on.svg";
 
-  radiobox1.checked = true;
-  document.getElementById("email_view").style.display = "";
-  document.getElementById("mobile_view").style.display = "none";
-  radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-  radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+	  // 기본적으로 check_method1의 radio 버튼이 클릭되어 있도록 설정
+	  radiobox1.checked = true;
+	  document.getElementById("email_view").style.display = "";
+	  document.getElementById("mobile_view").style.display = "none";
+	  radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+	  radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
 
-  // 회원유형 선택 시 처리
-  $(document).on('change', '#memType', function() {
-    var selected = $(this).val();
-    if (selected === "기업회원") {
-      // 조건 1: "기업회원"일 때
-      checkLabel2.style.display = "inline";
-      radiobox2.style.display = ""; // Set to default display value, which is usually "inline" or "block"z
-    } else if (selected === "일반회원") {
-      // 조건 2: "일반회원"일 때
-      checkLabel2.style.display = "none";
-      radiobox2.style.display = "none";
-    }
-  });
+	  // check_method1의 radio 버튼 클릭 시 email_view 보이도록 설정
+	  radiobox1.addEventListener("click", function() {
+		// check_method2의 radio 버튼 클릭 해제
+		radiobox2.checked = false;
+		radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+		radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+	    document.getElementById("email_view").style.display = "";
+	    document.getElementById("mobile_view").style.display = "none";
+	  });
 
-  // check_method1의 radio 버튼 클릭 시 email_view 보이도록 설정
-  radiobox1.addEventListener("click", function() {
-    // check_method2의 radio 버튼 클릭 해제
-    radiobox2.checked = false;
-    radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
-    radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-    document.getElementById("email_view").style.display = "";
-    document.getElementById("mobile_view").style.display = "none";
-  });
+	  // check_method2의 radio 버튼 클릭 시 mobile_view 보이도록 설정
+	  radiobox2.addEventListener("click", function() {
+	    // check_method1의 radio 버튼 클릭 해제
+	    radiobox1.checked = false;
+	    radiobox1.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+	    radiobox2.style.backgroundImage = "url(" + backgroundUrlOn + ")";
+	    document.getElementById("mobile_view").style.display = "";
+	    document.getElementById("email_view").style.display = "none";
+	  });
+	  
+	  // 확인 버튼 클릭 시 처리
+	  document.getElementById("btn_submit").addEventListener("click", function() {
+	    var checkMethod = document.querySelector("input[name='check_method']:checked").value;
+	    var name = document.getElementById("memName").value;
 
-  // check_method2의 radio 버튼 클릭 시 mobile_view 보이도록 설정
-  radiobox2.addEventListener("click", function() {
-    // check_method1의 radio 버튼 클릭 해제
-    radiobox1.checked = false;
-    radiobox1.style.backgroundImage = "url(" + backgroundUrlOff + ")";
-    radiobox2.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-    document.getElementById("mobile_view").style.display = "";
-    document.getElementById("email_view").style.display = "none";
-  });
+	    // 이메일로 찾기
+	    if (checkMethod === "1") {
+	      var email = document.getElementById("memEmail").value;
+
+	      // AJAX 요청을 이용하여 서버로 데이터 전송
+	      $.ajax({
+	        type: "POST",
+	        url: "findIdByEmail", // 이메일로 아이디 찾기를 담당하는 컨트롤러의 URL
+	        data: { name: name, email: email },
+	        success: function(response) {
+	          // 서버에서 반환한 결과(response)를 팝업(alert)으로 띄워줌
+	          alert(response);
+	        },
+	        error: function(xhr, status, error) {
+	          alert("아이디 찾기에 실패했습니다. 다시 시도해주세요.");
+	        }
+	      });
+	    }
+	    // 휴대폰 번호로 찾기
+	    else if (checkMethod === "2") {
+	      var mobile1 = document.getElementById("mobile1").value;
+	      var mobile2 = document.getElementById("mobile2").value;
+	      var mobile3 = document.getElementById("mobile3").value;
+	      var phoneNumber = mobile1 + "-" + mobile2 + "-" + mobile3;
+
+	      // AJAX 요청을 이용하여 서버로 데이터 전송
+	      $.ajax({
+	        type: "POST",
+	        url: "findIdByPhoneNumber", // 휴대폰 번호로 아이디 찾기를 담당하는 컨트롤러의 URL
+	        data: { name: name, phoneNumber: phoneNumber },
+	        success: function(response) {
+	          // 서버에서 반환한 결과(response)를 팝업(alert)으로 띄워줌
+	          alert(response);
+	        },
+	        error: function(xhr, status, error) {
+	          alert("아이디 찾기에 실패했습니다. 다시 시도해주세요.");
+	        }
+	      });
+	    }
+	  });
 });
-</script>
 
+</script>
 </head>
 <body>
 <div id="container">
@@ -107,16 +138,16 @@ window.addEventListener("DOMContentLoaded", function() {
                                         <tr>
                                             <th id="name_lable">이름</th>
                                             <td id="name_view" class="name">
-                                                <input id="name" name="name" class="lostInput" placeholder="" value="" type="text" />
+                                                <input id="memName" name="memName" class="lostInput" placeholder="" value="" type="text" />
                                             </td>
                                         </tr>
-                                        <tr id="email_view" class="email" style="display:none;">
+                                        <tr id="email_view" class="email">
                                             <th>이메일로 찾기</th>
                                             <td>
-                                                <input id="email" name="email" class="lostInput" placeholder="" value="" type="text" />
+                                                <input id="memEmail" name="memEmail" class="lostInput" placeholder="" value="" type="text" />
                                             </td>
                                         </tr>
-                                        <tr id="mobile_view" class="mobile" style="display:none;">
+                                        <tr id="mobile_view" class="mobile">
                                             <th>휴대폰 번호로 찾기</th>
                                             <td>
                                                 <select id="mobile1" name="mobile[]">
@@ -136,7 +167,7 @@ window.addEventListener("DOMContentLoaded", function() {
                                     </tbody>
                                 </table>
                                 <div class="ec-base-button gColumn">
-                                    <a href="#none" class="btnSubmit btn btn-primary full" onclick="findId.action('upcyclist' , 'kcp'); return false;">확인</a>
+                                    <a href="#none" id="btn_submit" class="btnSubmit btn btn-primary full" onclick="findId.action('upcyclist' , 'kcp'); return false;">확인</a>
                                 </div>
                             </div>
                         </div>
