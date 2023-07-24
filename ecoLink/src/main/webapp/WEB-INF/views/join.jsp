@@ -160,7 +160,19 @@ $(document).ready(function() {
 	    	    type: 'post',
 	    	    data: {
 	    	      'entCrn': $('#entCrn').val(),
-	    	      'entPhone': $('#entPhone').val()
+	    	      'entPhone': $('#entPhone').val(),
+	    	      'memId': $('#memId').val(),
+	    	      'entdMainPic': $('#entdMainPic').val(),
+	    	      'entdShort': $('#entdShort').val(),
+	    	      'entdURL': $('#entdURL').val(),
+	    	      'entdIntro': $('#entdIntro').val(),
+	    	      'entdIntroPic': $('#entdIntroPic').val(),
+	    	      'entdPic1': $('#entdPic1').val(),
+	    	      'entdPic2': $('#entdPic2').val(),
+	    	      'entdPic3': $('#entdPic3').val(),
+	    	      'entdExplain1': $('#entdExplain1').val(),
+	    	      'entdExplain2': $('#entdExplain2').val(),
+	    	      'entdExplain3': $('#entdExplain3').val()
 	    	    },
 	    	    dataType: 'json',
 	    	    success: function(response) {
