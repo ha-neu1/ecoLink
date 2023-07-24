@@ -31,7 +31,9 @@ public interface InfoBoardDAO {
 	
 	public int insertFile(FileDTO dto);
 	
-	public int getGeneratedBoardId(); 
+	public int getGeneratedBoardId();
+	
+	public List<FileDTO> getFilesByBoardId(int boardId);
 	
 	
 	

@@ -7,24 +7,13 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/infoboard.css">
 <title>Insert title here</title>
-<script src="js/infoarticle.js" ></script>
+
 <script src="https://kit.fontawesome.com/7aca531ae5.js"
 	crossorigin="anonymous"></script>
 <script src="js/jquery-3.6.4.min.js"></script>
 <%@ include file="header.jsp"%>
 </head>
-<script>
-    function submitForm() {
-        var selectElement = document.getElementById("search_form");
-        var selectedValue = selectElement.options[selectElement.selectedIndex].value;
 
-        var inputValue = document.getElementsByName("word")[0].value;
-
-        var form = document.getElementById("search_form");
-        var pageUrl = "infoboardsearch?page=1&item=" + selectedValue + "&word=" + inputValue;
-        form.action = pageUrl;
-    }
-</script>
 <body>
 	<div class="info_title">NEWS</div>
 	<div class="info_cata">
@@ -39,7 +28,7 @@
 		<div class="info_search">
 			<form id="search_form" onsubmit="submitForm(); return false;">
 				<select class="search_form" name="item">
-					<option value="seartch_all"<% if ("search_all".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>모두</option>
+					<option value="search_all"<% if ("search_all".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>모두</option>
 					<option value="boardTitle"<% if ("boardTitle".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>제목</option>
 					<option value="boardContents" <% if ("boardContents".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>내용</option>
 				</select> <input type="search" class="searchbar" name="word">
@@ -56,9 +45,9 @@
 			<c:forEach items="${boardList }" var="dto">
 				<div class="post_container ">
 					<div class="post_image_wrap">
-						<a class="post_link" href="#">
+						<a class="post_link" href="infopostdetail?boardId=${dto.boardId }" >
 							<div class="post_image">
-								<img src="images/kimbab.jpg">
+								<img src="${dto.firstImageUrl}" alt="Image">
 							</div>
 						</a>
 					</div>
@@ -105,6 +94,6 @@
 
 
 
-
+<script src="js/infoarticle.js" ></script>
 </body>
 </html>

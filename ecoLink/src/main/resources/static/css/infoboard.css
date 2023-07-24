@@ -12,6 +12,7 @@
 } 
 * {
 	font-family: 'NanumSquareNeo';
+	
 }
 
 .info_title{
@@ -23,6 +24,7 @@
     height: 190px;
     font-size: 44px;
     color: #212529;
+    
     
 }
 .info_cata{
@@ -62,11 +64,18 @@
 }
 .post_text{
     padding-left: 20px;
+    
+}
+.post_tit{
+	margin: 7px 0px;
 }
 .post_tit a{
     font-size: 22px;
     color: #222;
     text-decoration: none;
+}
+.post_date_wrap{
+	margin: 15px 0px;
 }
 .post_date{
     color: #9E9E9E;
