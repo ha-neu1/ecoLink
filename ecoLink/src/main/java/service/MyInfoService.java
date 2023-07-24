@@ -1,9 +1,12 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MyInfoDAO;
+import dto.EnterpriseBookmarkDTO;
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
@@ -27,4 +30,17 @@ public class MyInfoService {
 	public int deleteUser(String memId) {
 		return dao.deleteUser(memId);
 	}
+	
+	public int deleteEnt(String memId) {
+		return dao.deleteEnt(memId);
+	}
+	
+	public List<EnterpriseBookmarkDTO> brandBookmark(String memId){
+		return dao.brandBookmark(memId);
+	}
+	
+	/*
+	 * public EnterpriseDTO getbrandbyId(String entCrn) { return
+	 * dao.getbrandbyId(entCrn); }
+	 */
 }
