@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,26 +12,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import dto.MemberDTO;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class BoardController {
 
 	@RequestMapping("/board")
-	public String board() {
+	public String board(HttpSession session, Model model) {
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가
 		return "board";
 	}
 
 	@GetMapping("/boardCreate")
-	public String boardCreate() {
+	public String boardCreate(HttpSession session, Model model) {
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가
 		return "boardCreate";
 	}
 
 	@GetMapping("/boardRead")
-	public String boardRead() {
+	public String boardRead(HttpSession session, Model model) {
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가
 		return "boardRead";
 	}
 
 	@GetMapping("/boardUpdate")
-	public String boardUpdate() {
+	public String boardUpdate(HttpSession session, Model model) {
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가
 		return "boardUpdate";
 	}
 

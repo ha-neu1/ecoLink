@@ -83,6 +83,11 @@ hr.hr_bold {
     margin-left: 5px;
 }
 
+/* 작성일 텍스트 스타일 */
+.boardDate {
+  font-size: 12px;
+}
+
 /* 좋아요 버튼 스타일 */
 .like_button {
     width: 40px;
