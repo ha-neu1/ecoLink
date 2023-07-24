@@ -7,12 +7,14 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/infoboard.css">
 <title>Insert title here</title>
+
 <script src="js/infoarticle.js" ></script>
 <script src="https://kit.fontawesome.com/7aca531ae5.js"
 	crossorigin="anonymous"></script>
 <script src="js/jquery-3.6.4.min.js"></script>
 <%@ include file="header.jsp"%>
 </head>
+
 
 <body>
 	<div class="info_title">NEWS</div>
@@ -27,8 +29,8 @@
 		
 		<div class="info_search">
 			<form action="infoboardsearch">
-				<select class="search_form" name="item" onchange="OptionValue(this.value);">
-					<option value="seartch_all"<c:if test="${param.selectValue == 'seartch_all'}">selected="selected"</c:if>>모두</option>
+				<select class="search_form" name="item" >
+					<option value="search_all"<c:if test="${param.selectValue == 'search_all'}">selected="selected"</c:if>>모두</option>
 					<option value="boardTitle"<c:if test="${param.selectValue == 'boardTitle'}">selected="selected"</c:if>>제목</option>
 					<option value="boardContents"<c:if test="${param.selectValue == 'boardContents'}">selected="selected"</c:if>>내용</option>
 				</select> <input type="search" class="searchbar" name="word">
@@ -45,9 +47,9 @@
 			<c:forEach items="${boardList }" var="dto">
 				<div class="post_container ">
 					<div class="post_image_wrap">
-						<a class="post_link" href="#">
+						<a class="post_link" href="/infopostdetail?boardId=${dto.boardId}">
 							<div class="post_image">
-								<img src="/upload/catdog(ef3d341f-87d8-409d-9267-04e2ef74f821).jfif">
+								<img src="${dto.firstImageUrl}" alt="Image">
 							</div>
 						</a>
 					</div>

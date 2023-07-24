@@ -70,12 +70,16 @@
 	</select>
 
 	<insert id="insertFile" parameterType="filedto">
-		INSERT INTO file (fileIdx, filePath, fileName, fileType, boardId)
-		VALUES (#{fileIdx}, #{filePath}, #{fileName}, #{fileType}, #{boardId})
+		insert into file (fileIdx, filePath, fileName, fileType, boardId)
+		values (#{fileIdx}, #{filePath}, #{fileName}, #{fileType}, #{boardId})
 	</insert>
 
 	<select id="getGeneratedBoardId" resultType="int">
 		select last_insert_id()
+	</select>
+	
+	<select id="getFilesByBoardId" parameterType="int" resultType="dto.FileDTO">
+    select * from file where boardId = #{boardId};
 	</select>
 
 

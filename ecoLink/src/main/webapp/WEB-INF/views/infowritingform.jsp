@@ -29,6 +29,7 @@
     </form>
    
     <script>
+    
         (function imageView(image_fileholder, image_file) {
   var fileHolder = document.getElementById(image_fileholder);
   var imageFile = document.getElementById(image_file);
@@ -45,12 +46,13 @@
     'width:30px;height:30px;position:absolute;font-size:24px;' +
     'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00;z-index:1';
 
-  imageFile.onchange = function (e) {
-    var files = e.target.files;
-    for (var f of files) {
-      imageLoader(f);
-    }
-  };
+  imageFile.onchange = function(e) {
+	  var files = e.target.files;
+	  sel_files = []; // Clear the sel_files array before adding new files
+	  for (var f of files) {
+	    imageLoader(f);
+	  }
+	};
 
   // 탐색기에서 드래그앤 드롭 사용
   fileHolder.addEventListener(
@@ -72,35 +74,51 @@
   );
 
   fileHolder.addEventListener(
-    'drop',
-    function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var files = e.dataTransfer.files;
-      for (var f of files) {
-        imageLoader(f);
-      }
-    },
-    false
-  );
+		  'drop',
+		  function (e) {
+		    e.preventDefault();
+		    e.stopPropagation();
+		    fileHolder.classList.remove('dragover'); // Remove the "dragover" style
+
+		    var files = e.dataTransfer.files;
+		    imageFile.files = files; // Add the dropped files to the file input field
+
+		    // Update the hidden input field with the dropped files
+		    var formData = new FormData();
+		    for (var i = 0; i < files.length; i++) {
+		      formData.append('files', files[i]);
+		    }
+
+		    // Optional: You can send the formData to the server via AJAX if needed.
+		    // However, the form submission should automatically include the updated file input.
+
+		    for (var f of files) {
+		      imageLoader(f);
+		    }
+		  },
+		  false
+		);
 
   /* 첨부된 이미지를 배열에 넣고 미리보기 */
-  function imageLoader(file) {
-    console.log(file);
-    sel_files.push(file);
-    var reader = new FileReader();
-    reader.onload = function (ee) {
-      let img = document.createElement('img');
-      img.setAttribute('style', img_style);
-      img.src = ee.target.result;
-      if (fileHolder.textContent == '사진추가') {
-        fileHolder.textContent = '';
-      }
-      fileHolder.appendChild(makeDiv(img, file));
-    };
+ function imageLoader(file) {
+  var reader = new FileReader();
+  reader.onload = function (ee) {
+    let img = document.createElement('img');
+    img.setAttribute('style', img_style);
+    img.src = ee.target.result;
+    if (fileHolder.textContent == '사진추가') {
+      fileHolder.textContent = '';
+    }
+    fileHolder.appendChild(makeDiv(img, file));
+  };
+  reader.readAsDataURL(file);
 
-    reader.readAsDataURL(file); // 단일 파일 객체를 읽어오도록 수정
+  var formData = new FormData();
+  formData.append('files', file);
+  for (var f of formData.getAll('files')) {
+    console.log("Files added to FormData:", f.name);
   }
+}
 
   /* 첨부된 파일이 있는 경우 checkbox와 함께 fileHolder에 추가할 div를 만들어 반환 */
   function makeDiv(img, file) {
@@ -135,8 +153,30 @@
     div.appendChild(btn);
     return div;
   }
-})('image_fileholder', 'image_file');
+  function uploadFiles() {
+      var formData = new FormData();
+      var imageFiles = document.getElementById('image_file').files;
+      for (var i = 0; i < imageFiles.length; i++) {
+          formData.append('files', imageFiles[i]);
+      }
 
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'infowriting', true);
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                  // Handle the response from the server if needed
+                  var response = xhr.responseText;
+                  console.log('Response:', response);
+              } else {
+                  // Handle errors if any
+                  console.error('Error:', xhr.statusText);
+              }
+          }
+      };
+      xhr.send(formData);
+  }
+})('image_fileholder', 'image_file');
     </script>
 </body>
 </html>

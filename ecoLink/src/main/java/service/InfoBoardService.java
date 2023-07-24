@@ -26,6 +26,8 @@ public interface InfoBoardService {
 	
 	public int getGeneratedBoardId(); 
 	
+	public List<FileDTO> getFilesByBoardId(int boardId);
+	
 	
 	
 }

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="dto.BoardCommentDTO" %>
-<%@ page import="java.util.List" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="dto.BoardCommentDTO"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,9 +38,9 @@
 	</div>
 	<div class="post_image">
 		<ul class="slides">
-			<li><img src="images/kimbab.jpg" alt=""></li>
-			<li><img src="images/logo1.png" alt=""></li>
-			<li><img src="images/promotion.png" alt=""></li>
+			<c:forEach var="imageUrl" items="${imageUrls}">
+				<li><img src="${imageUrl}" alt=""></li>
+			</c:forEach>
 		</ul>
 		<p class="controller">
 
@@ -57,9 +58,9 @@
 	</div>
 	<div class="comment_list">
 		<!-- 댓글 목록이 표시될 영역 -->
-		
+
 	</div>
-	
+
 	<script src="js/infopostdetail.js"></script>
 </body>
 </html>
