@@ -1,12 +1,10 @@
 package dao;
 
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
 @Repository
@@ -30,15 +28,14 @@ public class MemberDAO {
         session.insert("addMember", member);
     }
     
-    public void addEnterprise(String entCrn, String entPhone) {
-    	  session.insert("addEnterprise", Map.of("entCrn", entCrn, "entPhone", entPhone));
+    public void addEnterprise(EnterpriseDTO enter) {
+    	  session.insert("addEnterprise", enter);
     }
-
     
-    // memType에 해당하는 회원 수 조회
-    public int getMemberCountByType(String memType) {
-        return session.selectOne("getMemberCountByType", memType);
-    }
+    //닉네임 설정
+    public String getLatestMemNickByType(String memType) {
+		return session.selectOne("getLatestMemNickByType", memType);
+	}
     
     //id 중복여부
     public int isMemberIdExist(String inputId) {

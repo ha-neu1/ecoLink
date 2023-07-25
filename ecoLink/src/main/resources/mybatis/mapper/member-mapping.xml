@@ -22,9 +22,19 @@ select * from member where memId=#{memId}
 <insert id="addEnterprise" parameterType="memberDto">
 	insert into enterprise (entCrn, entPhone, memId, entdMainPic, entdShort, entdURL, entdIntro, entdIntroPic,
 							entdPic1, entdPic2, entdPic3, entdExplain1, entdExplain2, entdExplain3)
-	values (#{entCrn}, #{entPhone}, #{memId}, #{entdMainPic}, #{entdShort}, #{entdURL}, #{entdIntro}, #{entdIntroPic},
-			#{entdPic1}, #{entdPic2}, #{entdPic3}, #{entdExplain1}, #{entdExplain2}, #{entdExplain3})
+	values (#{crn1} || '-' || #{crn2} || '-' || #{crn3}, #{mobile1} || '-' || #{mobile2} || '-' || #{mobile3}, 
+			#{memId}, #{entdMainPic}, #{entdShort}, #{entdURL}, #{entdIntro}, #{entdIntroPic}, #{entdPic1}, 
+			#{entdPic2}, #{entdPic3}, #{entdExplain1}, #{entdExplain2}, #{entdExplain3})
 </insert>
+
+<!-- 닉네임 설정 -->
+<select id="getLatestMemNickByType" resultType="String">
+    SELECT memNick
+    FROM member
+    WHERE memNick LIKE #{memType}%
+    ORDER BY memNick DESC
+    LIMIT 1
+</select>
 
 <!-- id 중복 여부 -->
 <select id="isMemberIdExist" resultType="int" parameterType="String">

@@ -1,5 +1,6 @@
 package service;
 
+import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
 public interface MemberService {
@@ -8,7 +9,11 @@ public interface MemberService {
 	
 	// 회원가입
 	void addMember(MemberDTO member);
-	void addEnterprise(String entCrn, String entPhone);
+	void addEnterprise(EnterpriseDTO enter);
+	
+	//닉네임 설정
+	String getLatestMemNickByType(String memType);
+	String generateNextMemNick(String memType, String latestMemNick);
 	
 	//로그인
 	public MemberDTO login(MemberDTO memberDTO);

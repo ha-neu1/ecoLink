@@ -34,9 +34,25 @@ public class MemberServiceImpl implements MemberService {
 	    dao.addMember(member);
 	}
 	
-	public void addEnterprise(String entCrn, String entPhone) {
-		  dao.addEnterprise(entCrn, entPhone);
+	public void addEnterprise(EnterpriseDTO enter) {
+		  dao.addEnterprise(enter);
 		}
+	
+	// 닉네임 설정
+	@Override
+	public String getLatestMemNickByType(String memType) {
+	    return dao.getLatestMemNickByType(memType);
+	}
+
+	@Override
+	public String generateNextMemNick(String memType, String latestMemNick) {
+	    if (latestMemNick == null) {
+	        return memType + "1";
+	    } else {
+	        int currentNumber = Integer.parseInt(latestMemNick.substring(latestMemNick.length() - 1));
+	        return memType + (currentNumber + 1);
+	    }
+	}
 
     
     //id중복여부

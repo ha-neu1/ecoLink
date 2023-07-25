@@ -80,66 +80,102 @@ $(document).ready(function() {
 	      $("#entd_Explain3").hide();
 	    }
 	  });
-
-	  // join_submit_btn 클릭 시 이벤트 처리
+	// join_submit_btn 클릭 시 이벤트 처리
 	  $("#join_submit_btn").on('click', function(event) {
-	    event.preventDefault();
-	    var selected = $('#memType').val();
+	      event.preventDefault();
+	      var selected = $('#memType').val();
+	      var emptyFields = []; // 빈칸인 필드들을 저장하는 배열
 
-	    // memType에 따라 memNick을 설정
-	    var count = $("select#memType option:selected").index() + 1;
-	    var memNick = (selected === "enter" ? "기업회원" : "일반회원") + count;
-	    $("input#memNick").val(memNick);
-	    $("#join_submit_btn").on('click', function(event) {
-	    	  event.preventDefault();
-	    	  var selected = $('#memType').val();
+	      // 아이디, 비밀번호, 이메일, 이름에 빈칸 입력 시 배열에 추가
+	      if (join_id.value.trim() === "") {
+	          emptyFields.push("아이디");
+	      }
+	      if (join_pw.value.trim() === "") {
+	          emptyFields.push("비밀번호");
+	      }
+	      if (join_pw_confirm.value.trim() === "") {
+	          emptyFields.push("비밀번호 확인");
+	      }
+	      if (join_email.value.trim() === "") {
+	          emptyFields.push("이메일");
+	      }
+	      if (join_name.value.trim() === "") {
+	          emptyFields.push("이름");
+	      }
 
-	    	  // 아이디, 비밀번호, 이메일, 이름에 빈칸 입력 시 경고창 표시
-	    	  if (join_id.value.trim() === "" || join_pw.value.trim() === "" || join_pw_confirm.value.trim() === "" || join_email.value.trim() === "" || join_name.value.trim() === "") {
-	    	    alert("빈칸을 입력해주세요");
-	    	  } else {
-	    	    $.ajax({
-	    	      url: 'ismemberexist',
-	    	      type: 'post',
-	    	      data: {
-	    	        'inputId': $('#memId').val(),
-	    	        'inputEmail': $('#memEmail').val()
-	    	      },
-	    	      dataType: 'json',
-	    	      success: function(response) {
-	    	        if ($.trim(response.result) === "ok") {
-	    	          if (selected === "normal") {
-	    	            // serchType이 normal일 경우 addMember 호출
-	    	            addMember();
-	    	          } else if (selected === "enter") {
-	    	            // serchType이 enter일 경우 addMember와 addEnterprise 호출
-	    	            addMember();
-	    	            addEnterprise();
-	    	          }
-	    	          alert("가입이 완료되었습니다.");
-	    	        } else if ($.trim(response.result) === "one_id") {
-	    	          alert("이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
-	    	        } else if ($.trim(response.result) === "one_email") {
-	    	          alert("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
-	    	        } else {
-	    	          alert("아이디와 이메일이 이미 존재합니다.");
-	    	        }
-	    	      },
-	    	      error: function(request, status, e) {
-	    	        alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
-	    	      }
-	    	    });
-	    	  }
-	    	});
+	      // 기업회원인 경우 추가 필드에 대한 빈칸 확인
+	      if (selected === "기업회원") {
+	          if ($('#crn1').val().trim() === "" || $('#crn1').val().trim().length !== 3) {
+	        	  emptyFields.push("사업자 등록번호(첫 번째 3자리)");
+	          }
+	          if ($('#crn2').val().trim() === "" || $('#crn2').val().trim().length !== 2) {
+	        	  emptyFields.push("사업자 등록번호(두 번째 2자리)");
+	          }
+	          if ($('#crn3').val().trim() === "" || $('#crn3').val().trim().length !== 5) {
+	        	  emptyFields.push("사업자 등록번호(세 번째 5자리)");
+	          }
+	          if ($('#mobile2').val().trim() === "" || $('#crn2').val().trim().length !== 2) {
+	        	  emptyFields.push("기업 전화번호");
+	          }
+	          if ($('#mobile3').val().trim() === "" || $('#crn3').val().trim().length !== 5) {
+	        	  emptyFields.push("기업 전화번호");
+	          }
+	          // 이미지 필드에 대한 확인
+	          if (!$('#entdPic1')[0].files[0]) {
+	        	  emptyFields.push("제품1 이미지");
+	          }
+	          if ($('#entdExplain1').val().trim() === "") {
+	              emptyFields.push("제품1 설명");
+	          }
+	      }
 
-	    	function addMember() {
+	      // 빈칸인 필드가 있을 경우 메시지 출력
+	      if (emptyFields.length > 0) {
+	          var fieldsMessage = emptyFields.join(", ");
+	          alert(fieldsMessage + "란을 입력해주세요.");
+	      } else {
 	    	  $.ajax({
+		            url: 'ismemberexist',
+		            type: 'post',
+		            data: {
+		                'inputId': $('#memId').val(),
+		                'inputEmail': $('#memEmail').val()
+		            },
+		            dataType: 'json',
+		            success: function(response) {
+		                if ($.trim(response.result) === "ok") {
+		                    if (selected === "일반회원") {
+		                        // serchType이 normal일 경우 addMember 호출
+		                        addMember();
+		                    } else if (selected === "기업회원") {
+		                        // serchType이 enter일 경우 addMember와 addEnterprise 호출
+		                        addMember();
+		                        addEnterprise();
+		                    }
+		                    alert("가입이 완료되었습니다.");
+		                } else if ($.trim(response.result) === "one_id") {
+		                    alert("이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
+		                } else if ($.trim(response.result) === "one_email") {
+		                    alert("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
+		                } else {
+		                    alert("아이디와 이메일이 이미 존재합니다.");
+		                }
+		            },
+		            error: function(request, status, e) {
+		                alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+		            }
+		        });
+	      }
+	  });
+
+
+	  function addMember() {
+    	  $.ajax({
 	    	    url: 'addMember',
 	    	    type: 'post',
 	    	    data: {
 	    	      'memId': $('#memId').val(),
 	    	      'memPw': $('#memPw').val(),
-	    	      'memNick': $('#memNick').val(),
 	    	      'memEmail': $('#memEmail').val(),
 	    	      'memType': $('#memType').val(),
 	    	      'memName': $('#memName').val()
@@ -152,15 +188,15 @@ $(document).ready(function() {
 	    	      alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
 	    	    }
 	    	  });
-	    	}
+	  }
 
-	    	function addEnterprise() {
-	    	  $.ajax({
+	  function addEnterprise() {
+		  $.ajax({
 	    	    url: 'addEnterprise',
 	    	    type: 'post',
 	    	    data: {
-	    	      'entCrn': $('#entCrn').val(),
-	    	      'entPhone': $('#entPhone').val(),
+	    	      'entCrn': $('#crn1').val()+'-'+$('#crn2').val()+'-'+$('#crn3').val(),
+	    	      'entPhone': $('#mobile1').val()+'-'+$('#mobile2').val()+'-'+$('#mobile3').val(),
 	    	      'memId': $('#memId').val(),
 	    	      'entdMainPic': $('#entdMainPic').val(),
 	    	      'entdShort': $('#entdShort').val(),
@@ -182,8 +218,7 @@ $(document).ready(function() {
 	    	      alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
 	    	    }
 	    	  });
-	    	}
-	  });
+	  }
 	  
       $(document).ready(function() {
 	      // 새로운 함수: 문자 수 표시 함수
@@ -210,7 +245,7 @@ $(document).ready(function() {
 	      }
       });
       
-      // 파일 선택(input type="file") 요소에 대한 이벤트 리스너를 추가하여 이미지 미리 보기 기능 구현
+   // 파일 선택(input type="file") 요소에 대한 이벤트 리스너를 추가하여 이미지 미리 보기 기능 구현
       function addImagePreviewListener(inputId, previewId) {
           document.getElementById(inputId).addEventListener("change", function(event) {
               const file = event.target.files[0]; // 선택된 파일 가져오기
@@ -227,7 +262,20 @@ $(document).ready(function() {
                   imgElement.src = reader.result;
                   imgElement.alt = "미리 보기 이미지";
                   imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+
+                  // 이미지 삭제 버튼 생성
+                  const deleteBtn = document.createElement("button");
+                  deleteBtn.textContent = "등록된 이미지 삭제";
+                  deleteBtn.addEventListener("click", function() {
+                      // 이미지 삭제 버튼이 클릭되면 미리 보기 영역에서 이미지 제거
+                      previewArea.innerHTML = "";
+                      // 선택한 파일도 초기화
+                      document.getElementById(inputId).value = "";
+                  });
+
+                  // 이미지와 삭제 버튼을 미리 보기 영역에 추가
                   previewArea.appendChild(imgElement);
+                  previewArea.appendChild(deleteBtn);
               };
 
               // 파일 읽기 작업 실행

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
@@ -25,25 +26,41 @@ public class MemberController {
 	
 	//로그인
 	@GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-	
-	//로그인	
-	@PostMapping("/login")
-	public String login(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response, HttpServletRequest request, Model model) {
+	public String login(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response, HttpServletRequest request) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		MemberDTO dto = service.login(memberDTO);
-		if (dto != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("logininfo", dto);
-			return "redirect:/main";
+			
+		if (dto == null) {
+	    	return "login";
 		} else {
-			model.addAttribute("loginfail", "아이디 또는 비밀번호가 맞지 않습니다.");
-			return "login";
-		}
+			return "redirect:" + request.getHeader("Referer");
+		}	
+	}
+	
+	@PostMapping("/login")
+	public String login(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response,
+	                    HttpServletRequest request, Model model) {
+	    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	    response.setHeader("Pragma", "no-cache");
+	    response.setDateHeader("Expires", 0);
+
+	    // 세션 정보가 없을 때만 로그인 처리
+	    HttpSession session = request.getSession(false);
+	    if (session == null || session.getAttribute("logininfo") == null) {
+	        MemberDTO dto = service.login(memberDTO);
+	        if (dto != null) {
+	            session = request.getSession();
+	            session.setAttribute("logininfo", dto);
+	            return "redirect:/main";
+	        } else {
+	            model.addAttribute("loginfail", "아이디 또는 비밀번호가 맞지 않습니다.");
+	            return "login";
+	        }
+	    } else {
+	        // 이미 로그인 상태라면 메인 페이지로 리다이렉트
+	        return "redirect:/main";
+	    }
 	}
 
     // 로그아웃
@@ -66,18 +83,24 @@ public class MemberController {
         return "join";
     }
 
+    //회원가입 구현
     @PostMapping("/join")
     public String memberjoin(@ModelAttribute("member") MemberDTO member, @ModelAttribute("enter") EnterpriseDTO enter) {
-      service.addMember(member); // addMember 호출
+        // memNick 값 설정
+        String memType = member.getMemType();
+        String memNick = service.getLatestMemNickByType(memType);
+        member.setMemNick(service.generateNextMemNick(memType, memNick));
 
-      if (member.getMemType().equals("기업회원")) {
-        service.addEnterprise(enter.getEntCrn(), enter.getEntPhone()); // addEnterprise 호출
-      }
+        // 회원 등록
+        service.addMember(member);
 
-      return "redirect:/login";
+        // 기업회원 등록
+        if (memType.equals("기업회원")) {
+            service.addEnterprise(enter);
+        }
+
+        return "redirect:/login";
     }
-
-
     
     //id, email 중복여부
     @RequestMapping(value="/ismemberexist", produces = {"application/json;charset=utf-8"})

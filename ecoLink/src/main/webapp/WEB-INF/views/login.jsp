@@ -13,6 +13,11 @@
 <script src="/js/jquery-3.6.4.min.js"></script>
 <script>
 $(document).ready(function(){
+	var logininfo = '<%=session.getAttribute("logininfo")%>';
+	if (logininfo != "null") {
+		window.history.forward();
+	}
+	
 	const loginForm = document.getElementById("login_form");	
 	const loginBtn = document.getElementById("login_submit_btn");
 	const loginId = document.getElementById("memId");
@@ -46,6 +51,7 @@ $(document).ready(function(){
 	      loginBtn.click(); 
 	    }
 	    });//keydown
+	    
 });//ready end
 
 //아이디 저장 체크박스
