@@ -1,9 +1,12 @@
 @charset "UTF-8";
+
 @font-face {
-    font-family: 'NanumSquareNeo-Variable';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'NanumSquareNeo-Variable';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 body {
@@ -136,7 +139,7 @@ to {
 	height: 55px;
 	background: #008252;
 	content: '';
-	margin: 25px 0px auto 0px;
+	margin: 8px 0px auto 0px;
 }
 
 .statistics strong {
@@ -148,7 +151,6 @@ to {
 }
 
 /* 카드리스트 */
-
 .mainPromo {
 	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
 	min-width: 1300px;
@@ -165,23 +167,30 @@ div.card {
 	width: 300px;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 	z-index: 1;
+	border-radius: 5px;
 }
 
 .card__image {
 	max-width: 300px;
 	object-fit: cover; /* 비율을 유지하면서 이미지를 표시 */
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 .card__image-holder {
 	background: rgba(0, 0, 0, 0.1);
 	height: 0;
 	padding-bottom: 75%;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 div.card-title {
 	background: white;
 	padding: 6px 15px 10px;
 	position: relative;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 h2 {
@@ -194,14 +203,67 @@ h2 {
 
 small {
 	display: block;
-	font-size: 18px;
-	font-weight: 600;
+	font-size: 15px;
+	font-weight: 300;
 	letter-spacing: -0.025em;
+	margin-top: 5px;
 }
 
 /*후기*/
+/* 게시물 목록 스타일 */
 .boardMain {
 	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
 	min-width: 1300px;
 	text-align: center;
+}
+
+/* 개별 게시물 항목 스타일 */
+.boardList {
+	display: inline-block;
+	max-width: 280px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 8px;
+	position: relative;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	text-align: left;
+}
+
+.boardCont {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    height: 2.4em;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.boardList .memId {
+	font-weight: bold;
+}
+
+.boardList .boardImage {
+	width: 100%;
+	height: auto;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.likeButton {
+    width: 40px;
+    height: 40px;
+    background-image: url('/images/likebutton_off.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }

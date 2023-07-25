@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="js/banner.js" defer></script>
 <link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="/css/board.css">
 <title>ECOLINK</title>
 </head>
 <body>
@@ -47,30 +46,34 @@
 	<div class="mainPromo">
 		<c:forEach var="brand" items="${brandlist}" varStatus="loop">
 			<c:if test="${loop.index < 3}">
-				<div class="card">
-					<div class="card__image-holder">
-						<img class="card__image"
-							src="https://source.unsplash.com/300x225/?beach" alt="beach" />
+				<a href="#">
+					<div class="card">
+						<div class="card__image-holder">
+							<img class="card__image"
+								src="https://source.unsplash.com/300x225/?beach" alt="beach" />
+						</div>
+						<div class="card-title">
+							<h2>
+								${brand.memNick } <small>${brand.entdURL }</small>
+							</h2>
+						</div>
 					</div>
-					<div class="card-title">
-						<h2>
-							${brand.memNick } <small>${brand.entdURL }</small>
-						</h2>
-					</div>
-				</div>
+				</a>
 			</c:if>
 		</c:forEach>
 	</div>
 
 	<div class="boardMain">
 		<c:forEach var="board" items="${boardlist}">
-			<div class="boardList">
-				<h3 class="memId">${board.memId}</h3>
-				<h4 class="boardTitle">${board.boardTitle}</h4>
-				<span class="likeButton"></span> <img class="boardImage"
-					src="/images/logo2.png" alt="게시물 이미지">
-				<p class="boardCont">${board.boardContents}</p>
-			</div>
+			<a href="#">
+				<div class="boardList">
+					<h3 class="memId">${board.memId}</h3>
+					<h4 class="boardTitle">${board.boardTitle}</h4>
+					<span class="likeButton"></span> <img class="boardImage"
+						src="/images/logo2.png" alt="게시물 이미지">
+					<p class="boardCont">${board.boardContents}</p>
+				</div>
+			</a>
 		</c:forEach>
 	</div>
 
