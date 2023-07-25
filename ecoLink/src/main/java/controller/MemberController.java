@@ -23,7 +23,7 @@ public class MemberController {
 
 	@Autowired
     private MemberService service;
-	
+    
 	//로그인
 	@GetMapping("/login")
 	public String login(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response, HttpServletRequest request) {
@@ -159,12 +159,12 @@ public class MemberController {
     public String findId() {
         return "findId";
     }
-    
+
     // 비밀번호 찾기
     @RequestMapping("/findPw")
     public String findPw() {
-    	return "findPw";
+        return "findPw";
     }
-
-
+    
+    
 }
