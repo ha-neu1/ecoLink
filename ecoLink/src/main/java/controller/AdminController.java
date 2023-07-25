@@ -245,7 +245,7 @@ public class AdminController {
 					String originalname1 = file1.getOriginalFilename();
 					file1.transferTo(new File(savePath + originalname1));
 					
-					bdto.setBannerPic(savePath + originalname1);
+					bdto.setBannerPic("/banner/" + originalname1);
 					bdto.setMemId(dto.getMemId());
 					int result = service.addBanner(bdto);
 					List<BannerDTO> bannerlist = service.getAllBanner();
@@ -406,7 +406,7 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		if (dto != null && dto.getMemType().equals("admin")) {
-			File file = new File(bannerPic);
+			File file = new File("c:" + bannerPic);
 			if (file.exists()) {
 				file.delete();
 			}
