@@ -18,10 +18,11 @@ import service.MyInfoService;
 public class MyInfoController {
 	@Autowired
 	MyInfoService service;
-	
-	//유저 정보 조회
+
+	// 유저 정보 조회
 	@GetMapping("/userInfo")
-    public ModelAndView myInfo(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response) {
+	public ModelAndView myInfo(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
@@ -31,32 +32,32 @@ public class MyInfoController {
 		 */
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
-		
-		if(dto.getMemType().equals("enter")) {
+
+		if (dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
 			mv.addObject("loginUser", dto);
 			mv.addObject("loginEnt", edto);
 			mv.setViewName("EntInfo");
-		}
-		else {
+		} else {
 			mv.addObject("loginUser", dto);
 			mv.setViewName("MyInfo");
 		}
-		
+
 		return mv;
-    }
-	
-	//유저 정보 수정	
+	}
+
+	// 유저 정보 수정
 	@GetMapping("/updateUserInfo")
-	public ModelAndView myInfoupdate(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response) {
+	public ModelAndView myInfoupdate(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		
+
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
-		
-		if(dto.getMemType().equals("enter")) {
+
+		if (dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
 			mv.addObject("loginUser", dto);
 			mv.addObject("loginEnt", edto);
@@ -67,14 +68,15 @@ public class MyInfoController {
 		}
 		return mv;
 	}
-	
+
 	@PostMapping("/updateUserInfo")
-	public @ResponseBody String myInfoupdatesql(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response) {
+	public @ResponseBody String myInfoupdatesql(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		
-		if(dto.getMemType().equals("enter")) {
+
+		if (dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
 			service.userUpdate(dto);
 			service.entUpdate(edto);
@@ -83,64 +85,75 @@ public class MyInfoController {
 		}
 		return "";
 	}
-	
-	//유저 삭제
+
+	// 유저 삭제
 	@RequestMapping("/deleteUser")
-    public String deleteUser(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, HttpServletResponse response) {
+	public String deleteUser(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+
+		if (dto.getMemType().equals("enter")) {
+			service.deleteUser(dto.getMemId());
+			service.deleteEnt(dto.getMemId());
+		} else {
+			service.deleteUser(dto.getMemId());
+		}
+
+		return "";
+	}
+
+	// 브랜드 북마크 조회
+	
+	@GetMapping("/myBrandLike")
+	public ModelAndView myBrandLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		
-		if(dto.getMemType().equals("enter")) {
-			service.deleteUser(dto.getMemId());
-			service.deleteEnt(dto.getMemId());
-		}else {
-			service.deleteUser(dto.getMemId());
-		}
-		
-        return "";
-    }
-	
-	//브랜드 북마크 조회
 		/*
-		 * @GetMapping("/myBrandLike") public ModelAndView myBrandLike(HttpSession
-		 * session){ String memId = (String)session.getAttribute("memId"); MemberDTO
-		 * loginuser = service.getUser(memId); List<EnterpriseBookmarkDTO> bookmarkList
-		 * = likeService.brandBookmark(memId); ArrayList<EnterpriseDTO> brandList = new
+		 * String memId = (String) session.getAttribute("memId"); MemberDTO loginuser =
+		 * service.getUser(memId); List<EnterpriseBookmarkDTO> bookmarkList =
+		 * likeService.brandBookmark(memId); ArrayList<EnterpriseDTO> brandList = new
 		 * ArrayList<EnterpriseDTO>();
 		 * 
-		 * for(EnterpriseBookmarkDTO bookmarkdto : bookmarkList) { EnterpriseDTO
+		 * for (EnterpriseBookmarkDTO bookmarkdto : bookmarkList) { EnterpriseDTO
 		 * enterprisedto = likeService.getbrandbyId(bookmarkdto.getEntCrn());
 		 * bookmarkList.add(enterprisedto); }
 		 * 
-		 * for(EnterpriseDTO dto : brandList) { String entdMainPic =
+		 * for (EnterpriseDTO dto : brandList) { String entdMainPic =
 		 * dto.getEntdMainPic(); dto.setEntdMainPic(entdMainPic); }
-		 * 
-		 * ModelAndView mv = new ModelAndView(); mv.addObject("brandList", brandList);
-		 * mv.setViewName("MyInfo2"); return mv;
-		 * 
-		 * }
 		 */
-		
-		//좋아요한 글 조회
-		@RequestMapping("/myBoardLike")
-	    public String myBoardLike() {
-	        return "MyInfo3";
-	    }
-		//GetMapping("/myBoardLike")
-		//public ModelAndView myBoardLike(HttpSession session){
-		////String memId = (String)session.getAttribute("memId");
-		//}
-		
-		//내가 쓴 글 조회
-		@RequestMapping("/myBoard")
-	    public String myBoard() {
-	        return "MyInfo4";
-	    }
-		//GetMapping("/myBoard")
-		//public ModelAndView myBoard(HttpSession session){
-		////String memId = (String)session.getAttribute("memId");
-		//MemberDTO loginuser = service.getUser(memId);
-		//}
+
+		ModelAndView mv = new ModelAndView();
+		/* mv.addObject("brandList", brandList); */
+		mv.setViewName("MyInfo2");
+		return mv;
+
+	}
+	 
+
+	// 좋아요한 글 조회
+	@RequestMapping("/myBoardLike")
+	public String myBoardLike() {
+		return "MyInfo3";
+	}
+	// GetMapping("/myBoardLike")
+	// public ModelAndView myBoardLike(HttpSession session){
+	//// String memId = (String)session.getAttribute("memId");
+	// }
+
+	// 내가 쓴 글 조회
+	@RequestMapping("/myBoard")
+	public String myBoard() {
+		return "MyInfo4";
+	}
+	// GetMapping("/myBoard")
+	// public ModelAndView myBoard(HttpSession session){
+	//// String memId = (String)session.getAttribute("memId");
+	// MemberDTO loginuser = service.getUser(memId);
+	// }
 
 }
