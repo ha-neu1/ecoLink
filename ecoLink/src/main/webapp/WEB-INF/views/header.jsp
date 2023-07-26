@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="../js/jquery-3.6.4.min.js"></script>
 <script src="js/header.js" defer></script>
 <link rel="stylesheet" href="css/header.css">
 <title>Insert title here</title>
@@ -37,10 +38,10 @@
 					<li><a href="/userInfo">My page</a></li>
 					<li><a href="#" onclick="logout()">로그아웃</a></li>
 				</c:when>
-				<c:otherwise>
+				<c:when test="${empty user}">
 					<li><a href="/login">로그인</a></li>
 					<li><a href="/join">회원가입</a></li>
-				</c:otherwise>
+				</c:when>
 			</c:choose>
 		</ul>
 	</nav>
