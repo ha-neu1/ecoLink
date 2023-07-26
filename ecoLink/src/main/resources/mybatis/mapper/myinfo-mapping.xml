@@ -15,11 +15,11 @@
 		UPDATE enterprise SET memPw=#{memPw}, memNick=#{memNick} WHERE memId=#{memId};
 	</update>
 
-	<delete id="userDelete" parameterType="String">
+	<delete id="userDelete" parameterType="memberDto">
 		delete from member WHERE memId=#{memId};
 	</delete>
 	
-	<delete id="entDelete" parameterType="String">
+	<delete id="entDelete" parameterType="enterpriseDto">
 		delete from enterprise WHERE memId=#{memId};
 	</delete>
 	

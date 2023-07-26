@@ -18,13 +18,13 @@
 								url : '/updateUserInfo',
 								data : {
 									'memId' : "${loginUser.memId}",
-									'pw' : $("#pw").val(),
-									'email' : $("#email").val()
+									'memPw' : $("#pw").val(),
+									'memNick' : $("#nickname").val()
 								},
 								type : 'post',
 								success : function(res) {
 									alert("회원정보 수정이 완료되었습니다.");
-									location.href = "/main"
+									logout();
 								},
 								error : function(request, status, e) {
 									alert("코드=" + request.status + "\n메시지="
@@ -33,7 +33,22 @@
 								}
 							});
 						});
-			});
+			}
+			
+		
+	);
+	function logout() {
+		$.ajax({
+			type: "POST",
+			url: "/logout",
+			success: function() {
+				location.reload(); // 현재 페이지 리로드
+			},
+			error: function() {
+				alert("로그아웃 도중 오류가 발생했습니다.");
+			}
+		});
+	}
 </script>
 <body>
 	<%@ include file="header.jsp"%>

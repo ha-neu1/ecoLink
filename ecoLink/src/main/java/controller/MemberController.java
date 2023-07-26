@@ -64,7 +64,7 @@ public class MemberController {
 	}
 
     // 로그아웃
-	@PostMapping("/logout")
+	@RequestMapping("/logout")
 	public String logout(HttpServletResponse response, HttpServletRequest request) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.

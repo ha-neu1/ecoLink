@@ -33,14 +33,18 @@ public class MyInfoController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
 
-		if (dto.getMemType().equals("enter")) {
-			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
-			mv.addObject("loginUser", dto);
-			mv.addObject("loginEnt", edto);
-			mv.setViewName("EntInfo");
-		} else {
-			mv.addObject("loginUser", dto);
-			mv.setViewName("MyInfo");
+		if (dto != null) {
+			if (dto.getMemType().equals("enter")) {
+				EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+				mv.addObject("loginUser", dto);
+				mv.addObject("loginEnt", edto);
+				mv.setViewName("EntInfo");
+			} else {
+				mv.addObject("loginUser", dto);
+				mv.setViewName("MyInfo");
+			}
+		} else { // x
+			mv.setViewName("redirect:/logout");
 		}
 
 		return mv;
@@ -57,31 +61,41 @@ public class MyInfoController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
 
-		if (dto.getMemType().equals("enter")) {
-			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
-			mv.addObject("loginUser", dto);
-			mv.addObject("loginEnt", edto);
-			mv.setViewName("EntInfoUpdate");
-		} else {
-			mv.addObject("loginUser", dto);
-			mv.setViewName("MyInfoUpdate");
+		if(dto != null) {
+			if (dto.getMemType().equals("enter")) {
+				EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+				mv.addObject("loginUser", dto);
+				mv.addObject("loginEnt", edto);
+				mv.setViewName("EntInfoUpdate");
+			} else {
+				mv.addObject("loginUser", dto);
+				mv.setViewName("MyInfoUpdate");
+			}
+		}else {
+			mv.setViewName("redirect:/logout");
 		}
+		
 		return mv;
 	}
 
 	@PostMapping("/updateUserInfo")
 	public @ResponseBody String myInfoupdatesql(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			HttpServletResponse response) {
+			HttpServletResponse response, String memId, String memPw, String memNick) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-
+		
+		MemberDTO updto = new MemberDTO();
+		updto.setMemId(memId);
+		updto.setMemPw(memPw);
+		updto.setMemNick(memNick);
+		
 		if (dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
-			service.userUpdate(dto);
+			service.userUpdate(updto);
 			service.entUpdate(edto);
 		} else {
-			service.userUpdate(dto);
+			service.userUpdate(updto);
 		}
 		return "";
 	}
@@ -95,8 +109,8 @@ public class MyInfoController {
 		response.setDateHeader("Expires", 0); // Proxies.
 
 		if (dto.getMemType().equals("enter")) {
-			service.deleteUser(dto.getMemId());
 			service.deleteEnt(dto.getMemId());
+			service.deleteUser(dto.getMemId());
 		} else {
 			service.deleteUser(dto.getMemId());
 		}
