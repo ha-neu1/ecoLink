@@ -1,15 +1,21 @@
 package controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
 import dto.MemberDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import service.BrandPromoService;
 
 
@@ -27,7 +33,7 @@ public class BrandPromoController {
 	}
 	
 	@RequestMapping("/brandpromodetail")
-	public ModelAndView brandpromodetail(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String entCrn) {
+	public ModelAndView brandpromodetail(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, @RequestParam(value="page", required=false, defaultValue = "1") int page, HttpServletRequest request, String focus, String entCrn) {
 		ModelAndView mv = new ModelAndView();
 		BrandPromoDTO bpdto = service.getBrandPromoDetail(entCrn);
 		int bookmarked = 0;
@@ -39,7 +45,19 @@ public class BrandPromoController {
 		} else {
 			mv.addObject("bookmarked", 1);
 		}
+		int totalComment = service.getCommentCount(entCrn);
 		double rate = service.getCommentAvgRate(entCrn);
+		if (page == 0) {
+			page = 1;
+		}
+		int limitindex = (page-1)*5;
+		int limitcount = 5;
+		HashMap<String, Object> clistmap = new HashMap<String, Object>();
+		clistmap.put("entCrn", entCrn);
+		clistmap.put("limitindex", limitindex);
+		clistmap.put("limitcount", limitcount);
+		List<BrandCommentDTO> clist = service.getAllBrandComment(clistmap);
+		
 		if (rate < 2) {
 			mv.addObject("rateColor", "#FF0000");
 			mv.addObject("rateTextColor", "#FFF");
@@ -56,6 +74,36 @@ public class BrandPromoController {
 			mv.addObject("rateColor", "#00D084");
 			mv.addObject("rateTextColor", "#FFF");
 		}
+		int totalPage = 0;
+		if (totalComment % 5 == 0) {
+			totalPage = totalComment / 5;
+		} else {
+			totalPage = (totalComment / 5) + 1;
+		}
+		int startpage = page / 5 * 5 + 1;
+		if (page % 5 == 0) {
+			startpage -= 5;
+		}
+		int endpage = startpage + 5 - 1;
+		if (endpage > totalPage) {
+			endpage = totalPage;
+		}
+		HttpSession session = request.getSession();
+		if (focus != null) {
+			if (focus.equals("true")) {
+	            session.setAttribute("focus", "true");
+			} else {
+				session.setAttribute("focus", "false");
+			}
+		} else {
+			session.setAttribute("focus", "false");
+		}
+
+		mv.addObject("currentCpage", page);
+		mv.addObject("totalPage", totalPage);
+		mv.addObject("startpage", startpage);
+		mv.addObject("endpage", endpage);
+		mv.addObject("clist", clist);
 		mv.addObject("user", dto);
 		mv.addObject("rate", rate);
 		mv.addObject("bpd", bpdto);
@@ -82,7 +130,7 @@ public class BrandPromoController {
 		if (dto != null) {
 			BrandCommentDTO bcdto = new BrandCommentDTO();
 			bcdto.setBrcRate(Integer.parseInt(star));
-			bcdto.setBrcContents(comment);
+			bcdto.setBrcContents(comment.replace("\r\n","<br>"));
 			bcdto.setEntCrn(entCrn);
 			bcdto.setMemId(dto.getMemId());
 			int result = service.insertBrandComment(bcdto);

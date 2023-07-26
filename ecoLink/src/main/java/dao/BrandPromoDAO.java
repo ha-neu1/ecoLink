@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +19,6 @@ public interface BrandPromoDAO {
 	public int insertBrandPromoBookmark(String memId, String entCrn);
 	public double getCommentAvgRate(String entCrn);
 	public int insertBrandComment(BrandCommentDTO bdto);
+	public List<BrandCommentDTO> getAllBrandComment(HashMap<String, Object> clistmap);
+	public int getCommentCount(String entCrn);
 }

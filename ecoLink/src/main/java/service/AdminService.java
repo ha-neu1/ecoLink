@@ -26,4 +26,5 @@ public interface AdminService {
 	public MemberDTO adminLogin(MemberDTO memberDTO);
 	public int addBanner(BannerDTO dto);
 	public int deleteBanner(String bannerId);
+	public int enterRegAllow(String entCrn);
 }

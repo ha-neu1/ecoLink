@@ -3900,7 +3900,7 @@ textarea.form-control-lg {
 .page-link.active, .active > .page-link {
   z-index: 3;
   color: var(--bs-pagination-active-color);
-  background-color: var(--bs-pagination-active-bg);
+  background-color: var(--bs-ecolink);
   border-color: var(--bs-pagination-active-border-color);
 }
 .page-link.disabled, .disabled > .page-link {
@@ -10280,4 +10280,8 @@ td {
 
 .margin-5 {
 	margin-left: 5px;
+}
+
+.wordbreak {
+	word-break:break-all;
 }

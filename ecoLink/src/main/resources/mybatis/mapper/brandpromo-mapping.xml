@@ -22,12 +22,26 @@
 	</insert>
 	
 	<select id="getCommentAvgRate" parameterType="string" resultType="double">
-		select ROUND(AVG(brcRate),1) from brand_comment where entCrn = #{entCrn};
+		select ifnull(ROUND(AVG(brcRate),1), 0) from brand_comment where entCrn = #{entCrn};
+	</select>
+	
+	<select id="getCommentCount" parameterType="string" resultType="int">
+		select COUNT(*) from brand_comment where entCrn = #{entCrn};
 	</select>
 	
 	<insert id="insertBrandComment" parameterType="brandCommentDto">
 		insert into brand_comment values (default, #{brcRate}, #{brcContents}, default, default, #{entCrn}, #{memId});
 	</insert>
+	
+	<select id="getAllBrandComment" parameterType="hashmap" resultType="brandCommentDto">
+		select b.brcId, b.brcRate, b.brcContents, b.brcRegtime, b.brcUpdateTime, b.entCrn, b.memId, m.memNick
+		from brand_comment as b
+		join member as m on m.memId = b.memId
+		where entCrn = #{entCrn}
+		order by b.brcRegtime desc limit #{limitindex} , #{limitcount};
+	</select>
+	
+	
 </mapper>
 
 
