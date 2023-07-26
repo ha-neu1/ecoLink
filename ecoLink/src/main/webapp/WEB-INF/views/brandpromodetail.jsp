@@ -138,57 +138,112 @@
 						</div>
 					</div>
 
-					<div class="border p-3 rounded">
+					<div class="border p-3 rounded" id="commentdiv">
 						<div class="row">
 							<div class="col-md-3"></div>
 						</div>
 
 						<div class="mt-4">
+							<c:forEach items="${clist}" var="dto">
+								<div class="card">
+									<div class="row d-flex">
+										<div class="d-flex flex-column wordbreak">
+											<h4 class="mt-2 mb-0">${dto.memNick}</h4>
+											<div class="ml-auto">
+												<p class="text-muted pt-sm-1">${dto.brcRegtime}</p>
+											</div>
+											<div>
+												<p class="text-left">
+													<span class="text-muted">${dto.brcRate}.0</span>
+													<c:if test="${dto.brcRate == 1}">
+														<span class="fa fa-star star-active ml-3"></span>
+														<span class="fa fa-star star-inactive"></span>
+														<span class="fa fa-star star-inactive"></span>
+														<span class="fa fa-star star-inactive"></span>
+														<span class="fa fa-star star-inactive"></span>
+													</c:if>
+													<c:if test="${dto.brcRate == 2}">
+														<span class="fa fa-star star-active ml-3"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-inactive"></span>
+														<span class="fa fa-star star-inactive"></span>
+														<span class="fa fa-star star-inactive"></span>
+													</c:if>
+													<c:if test="${dto.brcRate == 3}">
+														<span class="fa fa-star star-active ml-3"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-inactive"></span>
+														<span class="fa fa-star star-inactive"></span>
+													</c:if>
+													<c:if test="${dto.brcRate == 4}">
+														<span class="fa fa-star star-active ml-3"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-inactive"></span>
+													</c:if>
+													<c:if test="${dto.brcRate == 5}">
+														<span class="fa fa-star star-active ml-3"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-active"></span>
+														<span class="fa fa-star star-active"></span>
+													</c:if>
+												</p>
+											</div>
+										</div>
 
-							<div class="card">
-								<div class="row d-flex">
-									<div class="d-flex flex-column">
-										<h4 class="mt-2 mb-0">회원닉네임</h4>
-										<div class="ml-auto">
-											<p class="text-muted pt-sm-1">2023.07.20</p>
-										</div>
-										<div>
-											<p class="text-left">
-												<span class="text-muted">4.0</span> <span
-													class="fa fa-star star-active ml-3"></span> <span
-													class="fa fa-star star-active"></span> <span
-													class="fa fa-star star-active"></span> <span
-													class="fa fa-star star-active"></span> <span
-													class="fa fa-star star-inactive"></span>
-											</p>
-										</div>
+									</div>
+									<div class="row text-left wordbreak">
+										<p class="content">${dto.brcContents}</p>
 									</div>
 
-								</div>
-								<div class="row text-left">
-									<p class="content">코멘트 내용입니다. 예시 코멘트를 임시로 작성했습니다. 임시 문장입니다.</p>
-								</div>
+									<c:if test="${dto.memId eq logininfo.memId}">
+										<div class="row text-right mt-4">
+											<div
+												class="d-flex justify-content-end align-items-center comment-buttons mt-2 text-right">
+												<button class="btn btn-dark btn-sm px-3 margin-5"
+													type="button">삭제</button>
+												<button class="btn btn-success btn-sm px-3 margin-5"
+													type="button">수정</button>
+											</div>
+										</div>
+									</c:if>
 
-								<div class="row text-right mt-4">
-									<div
-										class="d-flex justify-content-end align-items-center comment-buttons mt-2 text-right">
-										<button class="btn btn-dark btn-sm px-3 margin-5"
-											type="button">삭제</button>
-										<button class="btn btn-success btn-sm px-3 margin-5"
-											type="button">수정</button>
-									</div>
 								</div>
-							</div>
-
+							</c:forEach>
 							<div class="mt-3">
 								<ul class="pagination justify-content-center">
-									<li class="page-item disabled"><a class="page-link"
-										href="#" tabindex="-1" aria-disabled="true">이전</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">다음</a>
-									</li>
+								<c:choose>
+									<c:when test="${startpage == 1}">
+										<li class="page-item disabled"><a class="page-link"
+											href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${startpage - 1}&focus=true" tabindex="-1" aria-disabled="true">이전</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item"><a class="page-link"
+											href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${startpage - 1}&focus=true">이전</a></li>
+									</c:otherwise>
+								</c:choose>
+								<c:forEach var="i" begin="${startpage}" end="${endpage}">
+									<c:choose>
+										<c:when test="${i == currentCpage}">
+											<li class="page-item active"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${i}&focus=true">${i}</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${i}&focus=true">${i}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:choose>
+									<c:when test="${totalPage != endpage}">
+										<li class="page-item"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${endpage + 1}&focus=true">다음</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${endpage + 1}&focus=true">다음</a></li>
+									</c:otherwise>
+								</c:choose>
+									
 								</ul>
 							</div>
 						</div>
@@ -243,6 +298,13 @@
 			alert('글자수는 255자까지 입력 가능합니다.');
 		}
 		;
+	});
+	
+	$(document).ready(function() {
+		var focus = '<%=session.getAttribute("focus")%>';
+		if (focus == "true") {
+			window.scrollBy({ top: document.getElementById('commentdiv').getBoundingClientRect().top, behavior: 'smooth' });
+		}
 	});
 	</script>
 </body>

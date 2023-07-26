@@ -416,4 +416,22 @@ public class AdminController {
 			return "adminlogin";
 		}
 	}
+	
+	@RequestMapping("/controlEnterReg")
+	public String controlEnterReg(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String entCrn, String allow, HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		if (dto != null && dto.getMemType().equals("admin")) {
+			if (allow.equals("allow")) {
+				int result = service.enterRegAllow(entCrn);
+				return "redirect:/adminEnterReg";
+			} else {
+				return "redirect:/adminEnterReg";
+			}
+			
+		} else {
+			return "adminlogin";
+		}
+	}
 }

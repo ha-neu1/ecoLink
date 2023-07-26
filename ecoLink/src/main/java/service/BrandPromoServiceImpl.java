@@ -1,5 +1,8 @@
 package service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +45,16 @@ public class BrandPromoServiceImpl implements BrandPromoService {
 	@Override
 	public int insertBrandComment(BrandCommentDTO bdto) {
 		return dao.insertBrandComment(bdto);
+	}
+
+	@Override
+	public List<BrandCommentDTO> getAllBrandComment(HashMap<String, Object> clistmap) {
+		return dao.getAllBrandComment(clistmap);
+	}
+
+	@Override
+	public int getCommentCount(String entCrn) {
+		return dao.getCommentCount(entCrn);
 	}
 
 	

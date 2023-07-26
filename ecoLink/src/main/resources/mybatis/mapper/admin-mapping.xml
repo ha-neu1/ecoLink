@@ -80,6 +80,10 @@
 <delete id="deleteBanner" parameterType="String">
 	delete from banner where bannerId = #{bannerId};
 </delete>
+
+<update id="enterRegAllow" parameterType="String">
+	update enterprise set entdConfirm = true where entCrn = #{entCrn};
+</update>
 </mapper>
 
 

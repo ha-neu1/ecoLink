@@ -2,7 +2,7 @@ package dto;
 
 public class BrandCommentDTO {
 	int brcId, brcRate;
-	String brcContents, brcRegtime, brcUpdateTime, entCrn, memId;
+	String brcContents, brcRegtime, brcUpdateTime, entCrn, memId, memNick;
 	
 	public int getBrcId() {
 		return brcId;
@@ -46,13 +46,19 @@ public class BrandCommentDTO {
 	public void setMemId(String memId) {
 		this.memId = memId;
 	}
-	
+	public String getMemNick() {
+		return memNick;
+	}
+	public void setMemNick(String memNick) {
+		this.memNick = memNick;
+	}
 	@Override
 	public String toString() {
 		return "BrandCommentDTO [brcId=" + brcId + ", brcRate=" + brcRate + ", brcContents=" + brcContents
 				+ ", brcRegtime=" + brcRegtime + ", brcUpdateTime=" + brcUpdateTime + ", entCrn=" + entCrn + ", memId="
-				+ memId + "]";
+				+ memId + ", memNick=" + memNick + "]";
 	}
+	
 	
 
 }

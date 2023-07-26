@@ -106,6 +106,11 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteBanner(String bannerId) {
 		return dao.deleteBanner(bannerId);
 	}
+
+	@Override
+	public int enterRegAllow(String entCrn) {
+		return dao.enterRegAllow(entCrn);
+	}
 	
 	
 }
