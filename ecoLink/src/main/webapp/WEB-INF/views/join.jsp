@@ -197,7 +197,6 @@ $(document).ready(function() {
 	    	    data: {
 	    	      'entCrn': $('#crn1').val()+'-'+$('#crn2').val()+'-'+$('#crn3').val(),
 	    	      'entPhone': $('#mobile1').val()+'-'+$('#mobile2').val()+'-'+$('#mobile3').val(),
-	    	      'memId': $('#memId').val(),
 	    	      'entdMainPic': $('#entdMainPic').val(),
 	    	      'entdShort': $('#entdShort').val(),
 	    	      'entdURL': $('#entdURL').val(),
@@ -361,7 +360,7 @@ $(document).ready(function() {
                                         <tr>
                                             <th scope="row">비밀번호 확인*</th>
                                             <td>
-                                                <input id="memPw_confirm" name="memPw_confirm" autocomplete="off" maxlength="16" 0="disabled" value="" type="password">
+                                                <input id="memPw_confirm" name="memPw_confirm" autocomplete="off" maxlength="16" value="" type="password">
                                             </td>
                                         </tr>
                                         <tr>
