@@ -27,12 +27,12 @@ public class MyInfoService {
 		return dao.entUpdate(edto);
 	}
 	
-	public int deleteUser(String memId) {
-		return dao.deleteUser(memId);
+	public int deleteUser(MemberDTO dto) {
+		return dao.deleteUser(dto);
 	}
 	
-	public int deleteEnt(String memId) {
-		return dao.deleteEnt(memId);
+	public int deleteEnt(EnterpriseDTO edto) {
+		return dao.deleteEnt(edto);
 	}
 	
 	public List<EnterpriseBookmarkDTO> brandBookmark(String memId){

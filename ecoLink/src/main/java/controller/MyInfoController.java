@@ -103,16 +103,16 @@ public class MyInfoController {
 	// 유저 삭제
 	@RequestMapping("/deleteUser")
 	public String deleteUser(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			HttpServletResponse response) {
+			HttpServletResponse response, EnterpriseDTO edto) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-
+		
 		if (dto.getMemType().equals("enter")) {
-			service.deleteEnt(dto.getMemId());
-			service.deleteUser(dto.getMemId());
+			service.deleteEnt(edto);
+			service.deleteUser(dto);
 		} else {
-			service.deleteUser(dto.getMemId());
+			service.deleteUser(dto);
 		}
 
 		return "";
