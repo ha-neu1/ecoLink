@@ -31,12 +31,12 @@ public class MyInfoDAO {
 		return session.update("entUpdate",edto);
 	}
 	
-	public int deleteUser(String memId) {
-		return session.delete("userDelete",memId);
+	public int deleteUser(MemberDTO dto) {
+		return session.delete("userDelete",dto);
 	}
 	
-	public int deleteEnt(String memId) {
-		return session.delete("entDelete",memId);
+	public int deleteEnt(EnterpriseDTO edto) {
+		return session.delete("entDelete",edto);
 	}
 	
 	public List<EnterpriseBookmarkDTO> brandBookmark(String memId) {
