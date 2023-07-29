@@ -149,10 +149,11 @@ $(document).ready(function() {
 		                        addMember();
 		                    } else if (selected === "기업회원") {
 		                        // serchType이 enter일 경우 addMember와 addEnterprise 호출
-		                        addMember();
+		                       	addMember();
 		                        addEnterprise();
 		                    }
 		                    alert("가입이 완료되었습니다.");
+		                    window.location.href = "/login";
 		                } else if ($.trim(response.result) === "one_id") {
 		                    alert("이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
 		                } else if ($.trim(response.result) === "one_email") {
@@ -171,7 +172,7 @@ $(document).ready(function() {
 
 	  function addMember() {
     	  $.ajax({
-	    	    url: 'addMember',
+	    	    url: 'join',
 	    	    type: 'post',
 	    	    data: {
 	    	      'memId': $('#memId').val(),
@@ -185,18 +186,20 @@ $(document).ready(function() {
 	    	    	console.log("Member added successfully");
 	    	    },
 	    	    error: function(request, status, e) {
-	    	      alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+	    	    	console.log("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
 	    	    }
 	    	  });
 	  }
 
 	  function addEnterprise() {
+		  //alert("addEnterprise");
 		  $.ajax({
-	    	    url: 'addEnterprise',
+	    	    url: 'enterjoin',
 	    	    type: 'post',
 	    	    data: {
-	    	      'entCrn': $('#crn1').val()+'-'+$('#crn2').val()+'-'+$('#crn3').val(),
-	    	      'entPhone': $('#mobile1').val()+'-'+$('#mobile2').val()+'-'+$('#mobile3').val(),
+	    	      'entCrn': $('#crn1').val() + '-' + $('#crn2').val() + '-' + $('#crn3').val(),
+	    	      'entPhone': $('#mobile1').val() + '-' + $('#mobile2').val() + '-' + $('#mobile3').val(),
+	    	      'memId': $('#memId').val(),
 	    	      'entdMainPic': $('#entdMainPic').val(),
 	    	      'entdShort': $('#entdShort').val(),
 	    	      'entdURL': $('#entdURL').val(),
@@ -214,11 +217,15 @@ $(document).ready(function() {
 	    	    	console.log("Enterprise added successfully");
 	    	    },
 	    	    error: function(request, status, e) {
-	    	      alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+	    	    	console.log("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
 	    	    }
 	    	  });
 	  }
-	  
+	  $(document.body).on('input', 'textarea', function() {
+	        const textareaId = $(this).attr('id');
+	        const divId = textareaId + 'charCount';
+	        showCharacterCount(textareaId, divId);
+	    });
       $(document).ready(function() {
 	      // 새로운 함수: 문자 수 표시 함수
 	      function showCharacterCount(textareaId, divId) {
@@ -230,7 +237,7 @@ $(document).ready(function() {
 	      }
 	
 	      // 새로운 기능: 각 textarea에 대한 문자 수 표시를 위한 이벤트 핸들러 추가
-	      const textareaIds = ["Short", "entdIntro", "entdExplain1", "entdExplain2", "entdExplain3"]; // 문자 수를 표시할 textarea 요소들의 ID 목록
+	      const textareaIds = ["entdShort", "entdIntro", "entdExplain1", "entdExplain2", "entdExplain3"]; // 문자 수를 표시할 textarea 요소들의 ID 목록
 	      const divIds = ["shortCharCount", "IntrocharCount", "ExplaincharCount1", "ExplaincharCount2", "ExplaincharCount3"]; // 문자 수를 표시할 div 요소들의 ID 목록
 	
 	      for (let i = 0; i < textareaIds.length; i++) {
@@ -285,7 +292,7 @@ $(document).ready(function() {
       }
 
       // 각 파일 선택 요소에 대해 함수를 호출하여 이벤트 리스너를 추가
-      addImagePreviewListener("MainPic", "preview1");
+      addImagePreviewListener("entdMainPic", "preview1");
       addImagePreviewListener("entdIntroPic", "preview2");
       addImagePreviewListener("entdPic1", "preview3");
       addImagePreviewListener("entdPic2", "preview4");
@@ -431,14 +438,14 @@ $(document).ready(function() {
                                         <tr id="entd_MainPic" style="display: none">
                                             <th>대표 이미지</th>
                                             <td>
-                                                <input id="MainPic" name="MainPic" class="inputTypeImage" type="file" accept="image/*">
+                                                <input id="entdMainPic" name="entdMainPic" class="inputTypeImage" type="file" accept="image/*">
                                                 <div id="preview1"></div>
                                             </td>
                                         </tr>
                                         <tr id="entd_Short" style="display: none">
                                             <th>간단한 회사 설명</th>
                                             <td>
-                                                <textarea id="Short" name="Short" class="inputTypeLong" maxlength="255"></textarea>
+                                                <textarea id="entdShort" name="entdShort" class="inputTypeLong" maxlength="255"></textarea>
                                                 <div id="shortCharCount">0/255</div>
                                             </td>
                                         </tr>
