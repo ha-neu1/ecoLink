@@ -12,7 +12,9 @@
 	</update>
 	
 	<update id="entUpdate" parameterType="enterpriseDto">
-		UPDATE enterprise SET memPw=#{memPw}, memNick=#{memNick} WHERE memId=#{memId};
+		UPDATE enterprise SET entPhone=#{entPhone}, entdMainPic=#{entdMainPic}, entdShort=#{entdShort}, entdURL=#{entdURL},
+		entdIntro=#{entdIntro}, entdIntroPic=#{entdIntroPic}, entdPic1=#{entdPic1}, entdPic2=#{entdPic2}, entdPic3=#{entdPic3},
+		entdExplain1=#{entdExplain1}, entdExplain2=#{entdExplain2}, entdExplain3=#{entdExplain3} WHERE memId=#{memId};
 	</update>
 
 	<delete id="userDelete" parameterType="memberDto">

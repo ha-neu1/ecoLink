@@ -11,9 +11,7 @@
 <script>
 	$(document).ready(
 			function() {
-				$("#updateBtn").on(
-						'click',
-						function() {
+				$("#updateBtn").on('click', function() {
 							$.ajax({
 								url : '/updateUserInfo',
 								data : {

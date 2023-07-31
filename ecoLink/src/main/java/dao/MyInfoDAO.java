@@ -28,7 +28,7 @@ public class MyInfoDAO {
 	}
 	
 	public int entUpdate(EnterpriseDTO edto) {
-		return session.update("entUpdate",edto);
+		return session.update("entUpdate", edto);
 	}
 	
 	public int deleteUser(MemberDTO dto) {

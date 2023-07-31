@@ -80,7 +80,9 @@ public class MyInfoController {
 
 	@PostMapping("/updateUserInfo")
 	public @ResponseBody String myInfoupdatesql(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			HttpServletResponse response, String memId, String memPw, String memNick) {
+			HttpServletResponse response, String memId, String memPw, String memNick, String entPhone,
+	String entdMainPic, String entdShort, String entdURL, String entdIntro, String entdIntroPic,
+	String entdPic1, String entdPic2, String entdPic3, String entdExplain1, String entdExplain2, String entdExplain3) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
@@ -90,10 +92,25 @@ public class MyInfoController {
 		updto.setMemPw(memPw);
 		updto.setMemNick(memNick);
 		
+		EnterpriseDTO eudto = new EnterpriseDTO();
+		eudto.setEntPhone(entPhone);
+		eudto.setEntdMainPic(entdMainPic);
+		eudto.setEntdShort(entdShort);
+		eudto.setEntdURL(entdURL);
+		eudto.setEntdIntro(entdIntroPic);
+		eudto.setEntdIntroPic(entdIntroPic);
+		eudto.setEntdPic1(entdPic1);
+		eudto.setEntdPic2(entdPic2);
+		eudto.setEntdPic3(entdPic3);
+		eudto.setEntdExplain1(entdExplain1);
+		eudto.setEntdExplain2(entdExplain2);
+		eudto.setEntdExplain3(entdExplain3);
+		
+		
 		if (dto.getMemType().equals("enter")) {
-			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+			/* EnterpriseDTO edto = service.getEntUser(dto.getMemId()); */
 			service.userUpdate(updto);
-			service.entUpdate(edto);
+			service.entUpdate(eudto);
 		} else {
 			service.userUpdate(updto);
 		}
