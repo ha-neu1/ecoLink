@@ -27,7 +27,7 @@
 									type : 'get',
 									success : function(res) {
 										alert("회원 탈퇴가 완료되었습니다.");
-										location.href = "/logout";
+										logout();
 									},
 									error : function(request, status, e) {
 										alert("코드=" + request.status + "\n메시지="
@@ -42,6 +42,18 @@
 						});
 
 			});
+	function logout() {
+		$.ajax({
+			type: "POST",
+			url: "/logout",
+			success: function() {
+				location.reload(); // 현재 페이지 리로드
+			},
+			error: function() {
+				alert("로그아웃 도중 오류가 발생했습니다.");
+			}
+		});
+	}
 </script>
 <body>
 	<%@ include file="header.jsp"%>
