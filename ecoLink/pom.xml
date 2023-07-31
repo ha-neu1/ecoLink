@@ -80,8 +80,20 @@
     <artifactId>jakarta.servlet.jsp.jstl</artifactId>
     <version>2.0.0</version>
  </dependency>
+<!-- json 데이터 parsing을 위한 라이브러리 다운로드 -->
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20220320</version>
+	</dependency>
 
 
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>demo</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

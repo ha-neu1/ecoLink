@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'NanumSquareNeo-Variable';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	font-family: 'NanumSquareNeo-Variable';
+}
+
+/*초기화*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none; /*밑줄 없애기*/
+	color: inherit; /*색변화x*/
+}
+
+/*챗봇 아이콘*/
+.chatIcon {
+	position: fixed;
+	display: block;
+	bottom : 61px;
+	right: 71px;
+	z-index: 9999;
+}
+
+/* 채팅방 스타일 */
+.chatbox {
+	position : fixed;
+	bottom : 80px;
+	right: 75px;
+    width: 350px;
+    height:480px;
+    border: 1px solid #00d084;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 10001;
+    box-shadow: 0px 0px 10px #00d084;
+    background-color: #fff;
+    font-size: 13px;
+}
+
+.chatheader img{
+	width: 100%;
+	border-bottom: 1px solid #00d084;
+}
+
+.chatlogs {
+    padding: 10px;
+    height: 320px;
+    overflow-y: scroll;
+}
+
+.chatlogs::-webkit-scrollbar {
+    display:none;
+  }
+
+/* 각 메시지 요소 스타일 */
+.message {
+    overflow: hidden;
+    margin: 5px 0;
+    display: block;
+}
+
+.message-content {
+    padding: 8px 10px;
+    border-radius: 5px;
+    display: block;
+    line-height: 1.5;
+}
+
+.message-content a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* 사용자 메시지 스타일 */
+.user {
+    float: right; /* 사용자 메시지를 오른쪽 정렬 */
+    background: #fdefc4; /* 배경색 */
+    clear: both;
+}
+
+/* 챗봇 메시지 스타일 */
+.bot {
+    float: left; /* 챗봇 메시지를 왼쪽 정렬 */
+    background: #DCF8C6; /* 배경색 */
+    clear: both; /* 이전에 floating된 요소들과의 연결을 끊어줌 */
+}
+
+.user-input {
+    border-top: 1px solid #00d084;
+    padding: 10px;
+    display: flex; /* flexbox를 사용하여 아이콘과 입력창을 가로 정렬 */
+    align-items: center; /* 세로 정렬 */
+}
+
+/* 입력창 스타일 */
+.user-input input[type="text"] {
+    flex: 1; /* 입력창이 남은 공간을 모두 차지하도록 설정 */
+    border: none;
+    background-color: #d0ffee; /* 배경색을 흰색으로 설정 */
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none; /* 포커스 시 테두리 제거 */
+    margin-right: 10px;
+}
+
+.user-input input[type="button"] {
+    background-color: #007bff; /* 배경색 변경 */
+    color: #fff; /* 텍스트 색상 변경 */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s; /* 부드러운 배경색 변경 효과 추가 */
+}
+
+/* 버튼에 마우스를 올렸을 때 스타일 변경 */
+.user-input input[type="button"]:hover {
+    background-color: #0056b3; /* 호버 시 배경색 변경 */
+}
+
+#welcomemsg {
+  display: none;
+}

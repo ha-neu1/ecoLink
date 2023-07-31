@@ -29,7 +29,6 @@ ul, li {
 	display: flex; /* 박스 가로로 */
 	justify-content: space-between; /*박스 사이에 빈공간*/
 	margin: 0 auto; /*위아래 간격 0, 좌우간격 자동*/
-	border-bottom: 2px solid #00d084;
 }
 
 .navbarLogo {

@@ -15,7 +15,7 @@
 		m ON e.memId = m.memId;
 	</select>
 
-	<select id="getShareBoardList" resultType="boarddto">
+	<select id="getShareBoardList" resultType="maindto">
 		SELECT b.boardId, b.boardTitle, b.boardViewCount, b.boardRegtime, b.boardUpdateTime,
 		b.boardContents, b.memId, b.boardType, f.filePath
 		FROM board b
