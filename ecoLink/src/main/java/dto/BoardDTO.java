@@ -9,7 +9,7 @@ public class BoardDTO {
 	int boardId;
 	String boardTitle;
 	int boardViewCount;
-	String boardRegtime, boardUpdateTime, boardContents, memId, boardType;
+	String boardRegtime, boardUpdateTime, boardContents, memId, boardType,memNick;
 	List<MultipartFile> files;
 	private String firstImageUrl;
 	private List<MultipartFile> draggedFiles;
@@ -116,7 +116,15 @@ public class BoardDTO {
         this.draggedFiles.add(file);
     }
 
-    @Override
+    public String getMemNick() {
+		return memNick;
+	}
+
+	public void setMemNick(String memNick) {
+		this.memNick = memNick;
+	}
+
+	@Override
     public String toString() {
         return "BoardDTO [boardId=" + boardId + ", boardTitle=" + boardTitle + ", boardViewCount=" + boardViewCount
                 + ", boardRegtime=" + boardRegtime + ", boardUpdateTime=" + boardUpdateTime + ", boardContents="

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.InfoBoardDAO;
+import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.BrandCommentDTO;
 import dto.FileDTO;
 import jakarta.servlet.ServletContext;
 
@@ -138,5 +140,25 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		}
 		return fileNameWithUUID;
 	}
+
+	@Override
+	public int insertBoardComment(BoardCommentDTO boarddto) {
+		
+		return dao.insertBoardComment(boarddto);
+	}
+
+	@Override
+	public int getCommentCount(String boardId) {
+		
+		return dao.getCommentCount(boardId);
+	}
+
+	@Override
+	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap) {
+		
+		return dao.getAllBoardComment(clistmap);
+	}
+	
+	
 
 }

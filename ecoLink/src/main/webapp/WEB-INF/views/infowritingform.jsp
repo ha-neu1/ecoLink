@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/infowritingform.css">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
+    <%@ include file="header.jsp"%>
 </head>
 <body>
     <form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">

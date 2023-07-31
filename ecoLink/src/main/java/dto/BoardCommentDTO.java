@@ -2,7 +2,7 @@ package dto;
 
 public class BoardCommentDTO {
 	int bcId, boardId;
-	String bcContents, memId, bcRegtime, bcUpdateTime;
+	String bcContents, memId, bcRegtime, bcUpdateTime,memNick;
 	
 	public int getBcId() {
 		return bcId;
@@ -41,6 +41,12 @@ public class BoardCommentDTO {
 		this.bcUpdateTime = bcUpdateTime;
 	}
 	
+	public String getMemNick() {
+		return memNick;
+	}
+	public void setMemNick(String memNick) {
+		this.memNick = memNick;
+	}
 	@Override
 	public String toString() {
 		return "BoardCommentDTO [bcId=" + bcId + ", boardId=" + boardId + ", bcContents=" + bcContents + ", memId="

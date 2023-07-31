@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.BrandCommentDTO;
 import dto.FileDTO;
 
 @Mapper
@@ -34,6 +36,12 @@ public interface InfoBoardDAO {
 	public int getGeneratedBoardId();
 	
 	public List<FileDTO> getFilesByBoardId(int boardId);
+	
+	public int getCommentCount(String boardId);
+	
+	public int insertBoardComment(BoardCommentDTO boarddto);
+	
+	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap);
 	
 	
 	
