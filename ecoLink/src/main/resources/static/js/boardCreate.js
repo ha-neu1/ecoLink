@@ -1,4 +1,3 @@
-// boardCreate.js
 document.addEventListener("DOMContentLoaded", function () {
     const createBoardForm = document.getElementById("createBoardForm");
     const previewImageElement = document.getElementById("preview");
