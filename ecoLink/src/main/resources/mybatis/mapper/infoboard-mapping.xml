@@ -4,12 +4,14 @@
 <mapper namespace="dao.InfoBoardDAO">
 
 	<select id="getTotalBoard" resultType="int">
-		select count(*) from board where boardType = 'news'
+		select count(*) from board
+		where boardType = 'news'
 	</select>
 
 	<select id="boardListRecent" resultType="boardDto"
 		parameterType="int">
-		select * from board where boardType = 'news' order by boardRegtime desc limit
+		select * from board where boardType = 'news' order by boardRegtime
+		desc limit
 		<foreach collection="array" item="num" separator=",">
 			#{num}
 		</foreach>
@@ -17,48 +19,55 @@
 
 	<select id="boardListView" resultType="boardDto"
 		parameterType="int">
-		select * from board where boardType = 'news' order by boardViewCount desc, boardRegtime DESC
+		select * from board where boardType = 'news' order by boardViewCount
+		desc, boardRegtime DESC
 		limit
 		<foreach collection="array" item="num" separator=",">
 			#{num}
 		</foreach>
 	</select>
-	<select id="searchList" parameterType="hashmap" resultType="boarddto">
-    select * from board
-    <where>
-        <if test="colname != null">
-            ${colname} like #{colvalue}
-        </if>
-        <if test="colname == null">
-            (boardTitle like #{colvalue} or boardContents like #{colvalue})
-        </if>
-        and boardType = 'news'
-    </where>
-    order by boardRegtime desc
-    limit #{limitindex}, #{limitcount}
-</select>
+	<select id="searchList" parameterType="hashmap"
+		resultType="boarddto">
+		select * from board
+		<where>
+			<if test="colname != null">
+				${colname} like #{colvalue}
+			</if>
+			<if test="colname == null">
+				(boardTitle like #{colvalue} or boardContents like #{colvalue})
+			</if>
+			and boardType = 'news'
+		</where>
+		order by boardRegtime desc
+		limit #{limitindex}, #{limitcount}
+	</select>
 
-<select id="getSearchBoard" parameterType="hashmap" resultType="int">
-    select count(*) from board
-    <where>
-        <if test="colname != null">
-            ${colname} like #{colvalue}
-        </if>
-        <if test="colname == null">
-            (boardTitle like #{colvalue} or boardContents like #{colvalue})
-        </if>
-        and boardType = 'news'
-    </where>
-</select>
+	<select id="getSearchBoard" parameterType="hashmap"
+		resultType="int">
+		select count(*) from board
+		<where>
+			<if test="colname != null">
+				${colname} like #{colvalue}
+			</if>
+			<if test="colname == null">
+				(boardTitle like #{colvalue} or boardContents like #{colvalue})
+			</if>
+			and boardType = 'news'
+		</where>
+	</select>
 
 	<insert id="insertBoard" parameterType="boarddto">
-		insert into board(boardTitle, boardContents, boardViewCount, boardRegtime,
-		memId, boardType)
-		values(#{boardTitle}, #{boardContents}, 0, now(), 'admin', 'news')
+		insert into
+		board(boardTitle, boardContents, boardViewCount, boardRegtime,
+		memId,
+		boardType)
+		values(#{boardTitle}, #{boardContents}, 0, now(), #{memId},
+		'news')
 	</insert>
 
 	<update id="updateViewcount" parameterType="int">
-		update board set boardViewCount = boardViewCount + 1 where boardId =
+		update board set
+		boardViewCount = boardViewCount + 1 where boardId =
 		#{boardId}
 	</update>
 
@@ -67,16 +76,41 @@
 	</select>
 
 	<insert id="insertFile" parameterType="filedto">
-		insert into file (fileIdx, filePath, fileName, fileType, boardId)
-		values (#{fileIdx}, #{filePath}, #{fileName}, #{fileType}, #{boardId})
+		insert into file (fileIdx,
+		filePath, fileName, fileType, boardId)
+		values (#{fileIdx}, #{filePath},
+		#{fileName}, #{fileType}, #{boardId})
 	</insert>
 
 	<select id="getGeneratedBoardId" resultType="int">
-		select last_insert_id()
+		select
+		last_insert_id()
+	</select>
+
+	<select id="getFilesByBoardId" parameterType="int"
+		resultType="dto.FileDTO">
+		select * from file where boardId = #{boardId};
 	</select>
 	
-	<select id="getFilesByBoardId" parameterType="int" resultType="dto.FileDTO">
-    select * from file where boardId = #{boardId};
+	<select id="getCommentCount" parameterType="string" resultType="int">
+		select COUNT(*) from board_comment where boardId = #{boardId};
+	</select>
+	
+	<insert id="insertBoardComment" parameterType="boardCommentDto">
+		insert into
+		board_comment values (default, #{boardId}, #{bcContents}, #{memId},
+		default, default);
+	</insert>
+	
+	<select id="getAllBoardComment" parameterType="hashmap"
+		resultType="boardCommentDto">
+		select b.bcId, b.boardId, b.bcContents, b.memId,
+		b.bcRegTime,b.bcUpdateTime, m.memNick
+		from board_comment as b
+		join member as m on m.memId = b.memId
+		where boardId = #{boardId}
+		order by
+		b.bcRegtime desc limit #{limitindex} , #{limitcount};
 	</select>
 
 

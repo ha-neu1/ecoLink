@@ -15,12 +15,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import dto.BoardCommentDTO;
 import dto.BoardDTO;
 import dto.FileDTO;
+import dto.MemberDTO;
 import service.InfoBoardService;
+
 
 @Controller
 public class IntroController {
@@ -34,7 +42,7 @@ public class IntroController {
 	}
 
 	@RequestMapping("/infoboardlist")
-	public ModelAndView infoboardlist(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	public ModelAndView infoboardlist(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto,@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	        @RequestParam(value = "selectValue", required = false, defaultValue = "recent") String selectValue) {
 	    int totalBoard = service.getTotalBoard();
 
@@ -54,8 +62,8 @@ public class IntroController {
 	    }
 
 	    Map<Integer, String> imageMap = new HashMap<>();
-	    for (BoardDTO dto : boardList) {
-	        List<FileDTO> files = service.getFilesByBoardId(dto.getBoardId());
+	    for (BoardDTO boarddto : boardList) {
+	        List<FileDTO> files = service.getFilesByBoardId(boarddto.getBoardId());
 	        if (files != null && !files.isEmpty()) {
 	            FileDTO firstFile = files.get(0);
 	            String imageUrl = firstFile.getFilePath() + "/" + firstFile.getFileName();
@@ -67,10 +75,10 @@ public class IntroController {
 	                imageUrl = "/upload/" + imageUrl;
 	            }
 
-	            imageMap.put(dto.getBoardId(), imageUrl);
+	            imageMap.put(boarddto.getBoardId(), imageUrl);
 	        } else {
 	            // 이미지 없을 떄
-	            imageMap.put(dto.getBoardId(), "/upload/noimage.png");
+	            imageMap.put(boarddto.getBoardId(), "/upload/noimage.png");
 	        }
 	    }
 
@@ -84,7 +92,7 @@ public class IntroController {
 
 
 	@RequestMapping("/infoboardsearch")
-	public ModelAndView infoboardsearch(
+	public ModelAndView infoboardsearch(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto,
 
 			@RequestParam(value = "item", required = false, defaultValue = "search_all") String item,
 
@@ -105,8 +113,8 @@ public class IntroController {
 		List<BoardDTO> searchlist = service.searchList(map);
 		int searchcount = service.getSearchBoard(map);
 		Map<Integer, String> imageMap = new HashMap<>();
-	    for (BoardDTO dto : searchlist) {
-	        List<FileDTO> files = service.getFilesByBoardId(dto.getBoardId());
+	    for (BoardDTO boarddto : searchlist) {
+	        List<FileDTO> files = service.getFilesByBoardId(boarddto.getBoardId());
 	        if (files != null && !files.isEmpty()) {
 	            FileDTO firstFile = files.get(0);
 	            String imageUrl = firstFile.getFilePath() + "/" + firstFile.getFileName();
@@ -118,10 +126,10 @@ public class IntroController {
 	                imageUrl = "/upload/" + imageUrl;
 	            }
 
-	            imageMap.put(dto.getBoardId(), imageUrl);
+	            imageMap.put(boarddto.getBoardId(), imageUrl);
 	        } else {
 	            // 이미지 없을 때
-	            imageMap.put(dto.getBoardId(), "/upload/noimage.png");
+	            imageMap.put(boarddto.getBoardId(), "/upload/noimage.png");
 	        }
 	    }
 		
@@ -136,18 +144,29 @@ public class IntroController {
 	
 
 	@GetMapping("/infowriting")
-	public String infowriting() {
+	public String infowriting(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto) {
 		return "infowritingform";
 	}
 
 	@PostMapping("/infowriting")
-	public ModelAndView writeprocess(BoardDTO dto,
+	public ModelAndView writeprocess(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto,BoardDTO boarddto,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) throws IOException {
 		String savePath = "c:/kdt/upload/";
 
-		List<MultipartFile> files = dto.getFiles();
-		List<MultipartFile> draggedFiles = dto.getDraggedFiles();
-		int insertcount = service.insertBoard(dto);
+		List<MultipartFile> files = boarddto.getFiles();
+		List<MultipartFile> draggedFiles = boarddto.getDraggedFiles();
+		
+		String loggedInUserId = dto != null ? dto.getMemId() : null;
+        if (loggedInUserId == null) {
+           
+            ModelAndView mv = new ModelAndView("login"); // Replace "login" with the appropriate login page view name.
+            mv.addObject("message", "로그인을 하시기 바랍니다.");
+            return mv;
+        }
+        
+        // Set the memId in the boarddto before inserting into the database
+        boarddto.setMemId(loggedInUserId);
+		int insertcount = service.insertBoard(boarddto);
 		
 		List<FileDTO> fileDTOList = new ArrayList<>();
 		
@@ -168,7 +187,7 @@ public class IntroController {
 	                fileDTO.setFileName(originalName);
 	                fileDTO.setFileType(file.getContentType());
 	    
-	                fileDTO.setBoardId(dto.getBoardId()); 
+	                fileDTO.setBoardId(boarddto.getBoardId()); 
 	                fileDTOList.add(fileDTO);
 	            }
 	        }
@@ -190,7 +209,7 @@ public class IntroController {
 	                fileDTO.setFileName(originalName);
 	                fileDTO.setFileType(file.getContentType());
 	    
-	                fileDTO.setBoardId(dto.getBoardId()); 
+	                fileDTO.setBoardId(boarddto.getBoardId()); 
 	                fileDTOList.add(fileDTO);
 	            }
 	        }
@@ -211,7 +230,7 @@ public class IntroController {
 		limit[0] = limitindex;
 		limit[1] = limitcount;
 		List<BoardDTO> boardList = service.boardListRecent(limit);
-		// 예시: 최신순으로 게시물 목록을 가져오는 로직
+		//  최신순으로 게시물 목록을 가져오는 로직
 		mv.addObject("insertcount", insertcount);
 		mv.addObject("boardList", boardList);
 		mv.setViewName("infoarticle");
@@ -219,7 +238,7 @@ public class IntroController {
 	}
 
 	@RequestMapping("/infopostdetail")
-	public ModelAndView infopostdetail(@RequestParam(name = "boardId") Integer boardId) {
+	public ModelAndView infopostdetail(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto,@RequestParam(name = "boardId") Integer boardId) {
 		ModelAndView mv = new ModelAndView();
 
 		if (boardId == null) {
@@ -229,20 +248,79 @@ public class IntroController {
 		}
 		
 
-		BoardDTO dto = service.updateViewcountAndGetDetail(boardId);
-		mv.addObject("detaildto", dto);
+		BoardDTO boarddto = service.updateViewcountAndGetDetail(boardId);
+		mv.addObject("detaildto", boarddto);
 		 List<FileDTO> files = service.getFilesByBoardId(boardId);
 		    List<String> imageUrls = new ArrayList<>();
 
 		    
 		    for (FileDTO file : files) {
 		        imageUrls.add(file.getFilePath());
-		        System.out.println("Image URL: " + file.getFilePath());
+		        
 		    }
 		    mv.addObject("imageUrls", imageUrls);
 
 		mv.setViewName("infopostdetail");
 		return mv;
 	}
+	@RequestMapping("/insertBoardComment")
+	public String insertBoardComment(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String comment, String boardId) {
+		if(dto != null) {
+			BoardCommentDTO boarddto = new BoardCommentDTO();
+			boarddto.setBcContents(comment.replace("\r\n","<br>"));
+			boarddto.setMemId(dto.getMemId());
+			boarddto.setBoardId(Integer.parseInt(boardId));
+			int result = service.insertBoardComment(boarddto);
+			return "redirect:/infopostdetail?boardId=" + boardId;
+		}else {
+			return "/login";
+		}
+	}
+	@RequestMapping("/getBoardComments")
+	@ResponseBody
+	public String getBoardComments(@RequestParam(name = "boardId") Integer boardId,@RequestParam(value="page", required=false, defaultValue = "1") int page) {
+		 System.out.println("Received Board ID: " + boardId);
+	    
+	  
+	    int totalComment = service.getCommentCount(Integer.toString(boardId));
+	    int limitindex = (page - 1) * 5;
+	    int limitcount = 5;
+	    HashMap<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("boardId", boardId);
+	    paramMap.put("limitindex", limitindex);
+	    paramMap.put("limitcount", limitcount);
+	    List<BoardCommentDTO> comments = service.getAllBoardComment(paramMap);
+		int totalPage = 0;
+		if (totalComment % 5 == 0) {
+			totalPage = totalComment / 5;
+		} else {
+			totalPage = (totalComment / 5) + 1;
+		}
+		int startpage = page / 5 * 5 + 1;
+		if (page % 5 == 0) {
+			startpage -= 5;
+		}
+		int endpage = startpage + 5 - 1;
+		if (endpage > totalPage) {
+			endpage = totalPage;
+		}
+		 HashMap<String, Object> result = new HashMap<>();
+		    result.put("comments", comments);
+		    result.put("page", page);
+		    result.put("totalPage", totalPage);
+		    result.put("startpage", startpage);
+		    result.put("endpage", endpage);
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    String jsonComments;
+	    try {
+	        jsonComments = objectMapper.writeValueAsString(result);
+	    } catch (JsonProcessingException e) {
+	        // Handle the exception, log the error, etc.
+	        jsonComments = "[]"; // Return an empty JSON array as a fallback
+	    }
+	    return jsonComments;   
+	}
+	
+	
 
 }
