@@ -1,5 +1,5 @@
 // 가상의 게시물 데이터 배열
-const boardData = [
+/*const boardData = [
 	{
 		memId: "user1",
 		boardTitle: "첫 번째 게시물",
@@ -36,12 +36,12 @@ const boardData = [
 		boardDate: "2023-07-15",
 		boardCont: "여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다."
 	},
-];
+];*/
 
 // 게시물 목록 렌더링 함수
 function renderBoardList() {
   const boardMain = document.querySelector(".boardMain");
-  boardMain.innerHTML = ""; // 기존 내용 비우기
+  boardMain.innerHTML = ""; 
 
   boardData.forEach((item, index) => {
     const boardList = document.createElement("div");
@@ -57,7 +57,7 @@ function renderBoardList() {
 
     const boardDate = document.createElement("p");
     boardDate.className = "boardDate";
-    boardDate.textContent = item.boardDate; // 작성일 표시
+    boardDate.textContent = item.boardDate; 
 
     const likeButton = document.createElement("button");
     likeButton.className = "like_button";
@@ -74,7 +74,7 @@ function renderBoardList() {
 
     boardList.appendChild(memId);
     boardList.appendChild(boardTitle);
-    boardList.appendChild(boardDate); // 작성일 추가
+    boardList.appendChild(boardDate);
     boardList.appendChild(likeButton);
     boardList.appendChild(boardImage);
     boardList.appendChild(boardCont);
@@ -113,3 +113,4 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchButton = document.querySelector(".searchBox button");
   searchButton.addEventListener("click", searchBoard);
 });
+

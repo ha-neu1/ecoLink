@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -19,11 +20,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public boolean createBoard(BoardDTO boardDTO) {
+    public boolean createBoard(BoardDTO boardDTO, MultipartFile boardImage) {
         try {
-            return true;
+            // TODO: 게시물 작성 로직을 구현하고, 파일 업로드 처리를 수행합니다.
+            boardDAO.insertBoard(boardDTO); // BoardDAO를 사용하여 게시물을 DB에 저장
+            return true; // 게시물 작성 성공
         } catch (Exception e) {
-            return false;
+            return false; // 게시물 작성 실패
         }
     }
 

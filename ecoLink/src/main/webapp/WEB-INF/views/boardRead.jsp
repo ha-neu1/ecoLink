@@ -33,6 +33,6 @@
 
 	<jsp:include page="footer.jsp" />
 
-	<script src="/js/board.js" defer type="module"></script>
+	<script src="/js/boardRead.js" defer type="module"></script>
 </body>
 </html>

@@ -6,6 +6,12 @@ body {
     background-color: #fff;
 }
 
+/* 포인트 컬러 */
+.point_color {
+    color: #00D084;
+    background-color: #00D084;
+}
+
 /* 게시판 영역 */
 .board_area {
     max-width: 1000px;
@@ -34,12 +40,35 @@ hr.hr_bold {
     margin-bottom: 20px;
 }
 
-/* 검색과 관련된 컨테이너 스타일 */
+/* 검색 정렬 관련 스타일 */
 .search_container {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-bottom: 10px;
+}
+
+/* 게시판 정렬 스타일 */
+.boardSort {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.boardSort select {
+    color: #333;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* 드롭다운 목록의 옵션 스타일 */
+.boardSort select option:checked {
+    background-color: #00D084;
+    color: #fff;
 }
 
 /* 검색 상자 스타일 */
@@ -65,27 +94,22 @@ hr.hr_bold {
 .searchBox button {
     margin-left: 5px;
     padding: 5px 10px;
-    background-color: #00D084;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
 }
 
 /* 글쓰기 버튼 스타일 */
 #addButton {
     padding: 5px 10px;
-    background-color: #00D084;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 5px;
-}
-
-/* 작성일 텍스트 스타일 */
-.boardDate {
-  font-size: 12px;
+    background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
 }
 
 /* 좋아요 버튼 스타일 */
@@ -137,6 +161,12 @@ hr.hr_bold {
     border-bottom: 1px solid #ccc;
 }
 
+/* 작성일 표시 스타일 */
+.boardList .boardDate {
+    font-size: 14px;
+    color: #888;
+}
+
 /* 페이지 번호 스타일 */
 .page_number {
     text-align: center;
@@ -162,35 +192,44 @@ hr.hr_bold {
     color: #fff;
 }
 
-/* boardCreate 화면 스타일 */
-input.input_text {
-    width: 980px;
+/* 게시물 수정 페이지 스타일 */
+.form_container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form_container label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form_container textarea {
+    width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
 }
 
-textarea.input_textarea {
-    width: 980px;
-    height: 200px;
+.form_container input[type="text"] {
+    width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
-    resize: none;
 }
 
-input.input_text:focus, textarea.input_textarea:focus {
-    outline: none;
-    border-color: #00D084;
-}
-
-button.submit_button {
-    padding: 10px 15px;
-    background-color: #00D084;
+.form_container input[type="submit"] {
+    padding: 10px 20px;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #00D084;
+}
+
+.form_container input[type="submit"]:hover {
+    background-color: #00805a;
 }
