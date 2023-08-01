@@ -67,6 +67,4 @@ public class BrandPromoServiceImpl implements BrandPromoService {
 		return dao.updateBrandComment(bdto);
 	}
 
-	
-	
 }

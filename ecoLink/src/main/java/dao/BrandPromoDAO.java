@@ -23,4 +23,5 @@ public interface BrandPromoDAO {
 	public int getCommentCount(String entCrn);
 	public int deleteBrandComment(String entCrn, String memId);
 	public int updateBrandComment(BrandCommentDTO bdto);
+	
 }
