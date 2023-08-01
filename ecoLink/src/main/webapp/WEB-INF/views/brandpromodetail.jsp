@@ -16,6 +16,52 @@
 <%@ include file="header.jsp"%>
 </head>
 <body>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">후기 수정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="updateComment" action="/updateBrandComment">
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">후기 작성자
+								:</label> <input type="text" class="form-control" id="recipient-name"
+								name="memId" readonly>
+						</div>
+						<div class="mb-3">
+							<label for="rate-name" class="col-form-label">평점 :</label> <select
+								name="brcRate" class="rateselector">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">후기 내용 :</label>
+							<textarea class="form-control" id="message-text"
+								name="brcContents"></textarea>
+							<p class="modalTextTotal">0/255자</p>
+							<input type="hidden" value="${bpd.entCrn}" name="entCrn" /> <input
+								type="hidden" value="${currentCpage}" name="currentCpage" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-success"
+						onclick="updateBrandComment()">제출</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div class="container px-4 px-lg-5">
 			<div class="row gx-4 gx-lg-5 align-items-start my-5">
@@ -72,8 +118,61 @@
 
 			<div class="card-ecolink-tab text-black bg-ecolinkcustomwhite">
 				<div class="card-body">
+					<c:if test="${not empty bpd.entdIntroPic}">
+						<div class="text-center">
+							<img class="img-fluid rounded mb-4 mb-lg-0"
+								src="${bpd.entdIntroPic}"
+								onerror="this.onerror=null; this.src='https://dummyimage.com/900x400/dee2e6/6c757d.jpg';" />
+						</div>
+					</c:if>
+					<hr>
 					<p class="text-black m-0">${bpd.entdIntro}</p>
+					<hr>
+					<div class="text-center">
+						<h4>이 브랜드의 상품들</h4>
+					</div>
+					<div class="row gx-4 gx-lg-5">
+						<c:if test="${not empty bpd.entdPic1}">
+							<div class="col-md-4 mb-5">
+								<div class="card h-100">
+									<div class="card-body">
+										<img class="img-fluid rounded mb-2 mb-lg-0"
+											src="${bpd.entdPic1}"
+											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
+										<p class="card-text">${bpd.entdExplain1}</p>
+									</div>
+								</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty bpd.entdPic2}">
+							<div class="col-md-4 mb-5">
+								<div class="card h-100">
+									<div class="card-body">
+										<img class="img-fluid rounded mb-4 mb-lg-0"
+											src="${bpd.entdPic2}"
+											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
+										<p class="card-text">${bpd.entdExplain2}</p>
+									</div>
+
+								</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty bpd.entdPic3}">
+							<div class="col-md-4 mb-5">
+								<div class="card h-100">
+									<div class="card-body">
+										<img class="img-fluid rounded mb-4 mb-lg-0"
+											src="${bpd.entdPic3}"
+											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
+										<p class="card-text">${bpd.entdExplain3}</p>
+									</div>
+
+								</div>
+							</div>
+						</c:if>
+					</div>
 				</div>
+
 			</div>
 
 			<div class="card-ecolink-tab text-black bg-ecolinkcustomwhite"
@@ -198,52 +297,76 @@
 									<div class="row text-left wordbreak">
 										<p class="content">${dto.brcContents}</p>
 									</div>
-
-									<c:if test="${dto.memId eq logininfo.memId}">
-										<div class="row text-right mt-4">
-											<div
-												class="d-flex justify-content-end align-items-center comment-buttons mt-2 text-right">
-												<button class="btn btn-dark btn-sm px-3 margin-5"
-													type="button">삭제</button>
-												<button class="btn btn-success btn-sm px-3 margin-5"
-													type="button">수정</button>
+									<c:choose>
+										<c:when test="${logininfo.memId eq 'admin'}">
+											<div class="row text-right mt-4">
+												<div
+													class="d-flex justify-content-end align-items-center comment-buttons mt-2 text-right">
+													<button class="btn btn-dark btn-sm px-3 margin-5"
+														type="button"
+														onclick="deleteComment('${bpd.entCrn}', '${dto.memId}');">삭제</button>
+													<button class="btn btn-success btn-sm px-3 margin-5"
+														type="button" data-bs-toggle="modal"
+														data-bs-target="#exampleModal"
+														data-bs-whatever="${dto.memId}">수정</button>
+												</div>
 											</div>
-										</div>
-									</c:if>
-
+										</c:when>
+										<c:otherwise>
+											<c:if test="${dto.memId eq logininfo.memId}">
+												<div class="row text-right mt-4">
+													<div
+														class="d-flex justify-content-end align-items-center comment-buttons mt-2 text-right">
+														<button class="btn btn-dark btn-sm px-3 margin-5"
+															type="button"
+															onclick="deleteComment('${bpd.entCrn}', '${dto.memId}');">삭제</button>
+														<button class="btn btn-success btn-sm px-3 margin-5"
+															type="button" data-bs-toggle="modal"
+															data-bs-target="#exampleModal"
+															data-bs-whatever="${dto.memId}">수정</button>
+													</div>
+												</div>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</c:forEach>
 							<div class="mt-3">
 								<ul class="pagination justify-content-center">
-								<c:choose>
-									<c:when test="${startpage == 1}">
-										<li class="page-item disabled"><a class="page-link"
-											href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${startpage - 1}&focus=true" tabindex="-1" aria-disabled="true">이전</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item"><a class="page-link"
-											href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${startpage - 1}&focus=true">이전</a></li>
-									</c:otherwise>
-								</c:choose>
-								<c:forEach var="i" begin="${startpage}" end="${endpage}">
 									<c:choose>
-										<c:when test="${i == currentCpage}">
-											<li class="page-item active"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${i}&focus=true">${i}</a></li>
+										<c:when test="${startpage == 1}">
+											<li class="page-item disabled"><a class="page-link"
+												href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${startpage - 1}&focus=true"
+												tabindex="-1" aria-disabled="true">이전</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="page-item"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${i}&focus=true">${i}</a></li>
+											<li class="page-item"><a class="page-link"
+												href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${startpage - 1}&focus=true">이전</a></li>
 										</c:otherwise>
 									</c:choose>
-								</c:forEach>
-								<c:choose>
-									<c:when test="${totalPage != endpage}">
-										<li class="page-item"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${endpage + 1}&focus=true">다음</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item disabled"><a class="page-link" href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${endpage + 1}&focus=true">다음</a></li>
-									</c:otherwise>
-								</c:choose>
-									
+									<c:forEach var="i" begin="${startpage}" end="${endpage}">
+										<c:choose>
+											<c:when test="${i == currentCpage}">
+												<li class="page-item active"><a class="page-link"
+													href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${i}&focus=true">${i}</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${i}&focus=true">${i}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${totalPage != endpage}">
+											<li class="page-item"><a class="page-link"
+												href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${endpage + 1}&focus=true">다음</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item disabled"><a class="page-link"
+												href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${endpage + 1}&focus=true">다음</a></li>
+										</c:otherwise>
+									</c:choose>
+
 								</ul>
 							</div>
 						</div>
@@ -272,6 +395,8 @@
 		var logininfo = '<%=session.getAttribute("logininfo")%>';
 		if (logininfo == "null") {
 			alert("로그인이 필요한 작업입니다.");
+		} else if('${commentinserted}' == "yes") {
+			alert("이미 후기를 작성하셨습니다.");
 		} else {
 			$('#brandComment').submit();
 		}
@@ -299,6 +424,73 @@
 		}
 		;
 	});
+	
+	function deleteComment(s, a) {
+		if (!confirm("댓글을 삭제하시겠습니까?")) {
+            
+        } else {
+            alert("댓글이 삭제되었습니다.");
+            location.href="/deleteBrandComment?entCrn=" + s + "&memId=" + a;
+        }
+	}
+	
+	var exampleModal = document.getElementById('exampleModal')
+	exampleModal.addEventListener('show.bs.modal', function (event) {
+	  // Button that triggered the modal
+	  var button = event.relatedTarget
+	  // Extract info from data-bs-* attributes
+	  var recipient = button.getAttribute('data-bs-whatever')
+	  // If necessary, you could initiate an AJAX request here
+	  // and then do the updating in a callback.
+	  //
+	  // Update the modal's content.
+	  var modalTitle = exampleModal.querySelector('.modal-title')
+	  var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+	  modalTitle.textContent = recipient + " 님의 후기를 수정합니다."
+	  modalBodyInput.value = recipient
+	});
+	
+	exampleModal.addEventListener('hide.bs.modal', function (event) {
+		  // Button that triggered the modal
+		  var button = event.relatedTarget
+		  // Extract info from data-bs-* attributes
+	      var modalmessage = exampleModal.querySelector('#message-text')
+	      var modaltotaltext = exampleModal.querySelector('.modalTextTotal')
+	      var modalrate = exampleModal.querySelector('.rateselector')
+	      modalrate.value = "1";
+		  modalmessage.value = "";
+		  modaltotaltext.innerText = "0/255자";
+		});
+	
+	
+	$('#message-text').keyup(function(e) {
+		let content = $(this).val();
+
+		if (content.length == 0 || content == '') {
+			$('.modalTextTotal').text('0/255자');
+		} else {
+			$('.modalTextTotal').text(content.length + '/255자');
+		}
+
+		if (content.length > 255) {
+			$('.modalTextTotal').text(content.length - 1 + '/255자');
+			$(this).val($(this).val().substring(0, 255));
+
+			alert('글자수는 255자까지 입력 가능합니다.');
+		}
+		;
+	});
+	
+	function updateBrandComment() {
+		var logininfo = '<%=session.getAttribute("logininfo")%>';
+		if (logininfo == "null") {
+			alert("로그인이 필요한 작업입니다.");
+		} else {
+			$('#updateComment').submit();
+		}
+
+	}
 	
 	$(document).ready(function() {
 		var focus = '<%=session.getAttribute("focus")%>';

@@ -2,46 +2,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.BrandPromoDAO">
-	<select id="getBrandPromoDetail" parameterType="string" resultType="brandPromoDto">
-		select m.memNick, m.memName, e.entCrn, e.entPhone, e.memId, e.entdMainPic, e.entdShort, e.entdURL, e.entdIntro, e.entdIntroPic, e.entdPic1, e.entdPic2, e.entdPic3, e.entdExplain1, e.entdExplain2, e.entdExplain3, e.entdConfirm
+	<select id="getBrandPromoDetail" parameterType="string"
+		resultType="brandPromoDto">
+		select m.memNick, m.memName, e.entCrn, e.entPhone, e.memId,
+		e.entdMainPic, e.entdShort, e.entdURL, e.entdIntro, e.entdIntroPic,
+		e.entdPic1, e.entdPic2, e.entdPic3, e.entdExplain1, e.entdExplain2,
+		e.entdExplain3, e.entdConfirm
 		from enterprise as e
-		join member as m on m.memId = e.memId
+		join member as m on
+		m.memId = e.memId
 		where e.entCrn = #{entCrn};
 	</select>
-	
+
 	<select id="getBrandPromoBookmark" parameterType="string">
-		select count(*) from enterprise_bookmark where memId = #{memId} and entCrn = #{entCrn};
+		select count(*)
+		from enterprise_bookmark where memId = #{memId} and entCrn =
+		#{entCrn};
 	</select>
-	
+
 	<delete id="deleteBrandPromoBookmark" parameterType="string">
-		delete from enterprise_bookmark where memId = #{memId} and entCrn= #{entCrn};
+		delete from
+		enterprise_bookmark where memId = #{memId} and entCrn= #{entCrn};
 	</delete>
-	
+
 	<insert id="insertBrandPromoBookmark" parameterType="string">
-		insert into enterprise_bookmark values (#{memId}, #{entCrn});
+		insert into
+		enterprise_bookmark values (#{memId}, #{entCrn});
 	</insert>
-	
-	<select id="getCommentAvgRate" parameterType="string" resultType="double">
-		select ifnull(ROUND(AVG(brcRate),1), 0) from brand_comment where entCrn = #{entCrn};
+
+	<select id="getCommentAvgRate" parameterType="string"
+		resultType="double">
+		select ifnull(ROUND(AVG(brcRate),1), 0) from brand_comment
+		where entCrn = #{entCrn};
 	</select>
-	
-	<select id="getCommentCount" parameterType="string" resultType="int">
-		select COUNT(*) from brand_comment where entCrn = #{entCrn};
+
+	<select id="getCommentCount" parameterType="string"
+		resultType="int">
+		select COUNT(*) from brand_comment where entCrn =
+		#{entCrn};
 	</select>
-	
+
 	<insert id="insertBrandComment" parameterType="brandCommentDto">
-		insert into brand_comment values (default, #{brcRate}, #{brcContents}, default, default, #{entCrn}, #{memId});
+		insert into
+		brand_comment values (default, #{brcRate}, #{brcContents}, default,
+		default, #{entCrn}, #{memId});
 	</insert>
-	
-	<select id="getAllBrandComment" parameterType="hashmap" resultType="brandCommentDto">
-		select b.brcId, b.brcRate, b.brcContents, b.brcRegtime, b.brcUpdateTime, b.entCrn, b.memId, m.memNick
+
+	<select id="getAllBrandComment" parameterType="hashmap"
+		resultType="brandCommentDto">
+		select b.brcId, b.brcRate, b.brcContents, b.brcRegtime,
+		b.brcUpdateTime, b.entCrn, b.memId, m.memNick
 		from brand_comment as b
 		join member as m on m.memId = b.memId
 		where entCrn = #{entCrn}
-		order by b.brcRegtime desc limit #{limitindex} , #{limitcount};
+		order by
+		b.brcRegtime desc limit #{limitindex} , #{limitcount};
 	</select>
-	
-	
+
+	<delete id="deleteBrandComment" parameterType="string">
+		delete from
+		brand_comment where entCrn = #{entCrn} and memId = #{memId};
+	</delete>
+
+	<update id="updateBrandComment" parameterType="brandCommentDto">
+		update
+		brand_comment set brcRate = #{brcRate}, brcContents = #{brcContents}, brcUpdateTime =
+		default where memId = #{memId} and entCrn = #{entCrn};
+	</update>
+
 </mapper>
 
 

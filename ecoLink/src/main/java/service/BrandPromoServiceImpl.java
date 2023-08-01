@@ -57,6 +57,16 @@ public class BrandPromoServiceImpl implements BrandPromoService {
 		return dao.getCommentCount(entCrn);
 	}
 
+	@Override
+	public int deleteBrandComment(String entCrn, String memId) {
+		return dao.deleteBrandComment(entCrn, memId);
+	}
+
+	@Override
+	public int updateBrandComment(BrandCommentDTO bdto) {
+		return dao.updateBrandComment(bdto);
+	}
+
 	
 	
 }

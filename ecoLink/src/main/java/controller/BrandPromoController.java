@@ -2,6 +2,7 @@ package controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +16,7 @@ import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
 import dto.MemberDTO;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.BrandPromoService;
 
@@ -36,15 +38,6 @@ public class BrandPromoController {
 	public ModelAndView brandpromodetail(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, @RequestParam(value="page", required=false, defaultValue = "1") int page, HttpServletRequest request, String focus, String entCrn) {
 		ModelAndView mv = new ModelAndView();
 		BrandPromoDTO bpdto = service.getBrandPromoDetail(entCrn);
-		int bookmarked = 0;
-		if (dto != null) {
-			bookmarked = service.getBrandPromoBookmark(dto.getMemId(), entCrn);
-		}
-		if (bookmarked == 0) {
-			mv.addObject("bookmarked", 0);
-		} else {
-			mv.addObject("bookmarked", 1);
-		}
 		int totalComment = service.getCommentCount(entCrn);
 		double rate = service.getCommentAvgRate(entCrn);
 		if (page == 0) {
@@ -57,7 +50,20 @@ public class BrandPromoController {
 		clistmap.put("limitindex", limitindex);
 		clistmap.put("limitcount", limitcount);
 		List<BrandCommentDTO> clist = service.getAllBrandComment(clistmap);
-		
+		int bookmarked = 0;
+		if (dto != null) {
+			bookmarked = service.getBrandPromoBookmark(dto.getMemId(), entCrn);
+			List<String> nameList = clist.stream().map(BrandCommentDTO::getMemId).collect(Collectors.toList());
+			if (nameList.contains(dto.getMemId())) {
+				mv.addObject("commentinserted", "yes");
+			}
+		}
+		if (bookmarked == 0) {
+			mv.addObject("bookmarked", 0);
+		} else {
+			mv.addObject("bookmarked", 1);
+		}
+
 		if (rate < 2) {
 			mv.addObject("rateColor", "#FF0000");
 			mv.addObject("rateTextColor", "#FFF");
@@ -135,6 +141,43 @@ public class BrandPromoController {
 			bcdto.setMemId(dto.getMemId());
 			int result = service.insertBrandComment(bcdto);
 			return "redirect:/brandpromodetail?entCrn=" + entCrn;
+		} else {
+			return "/login";
+		}
+		
+	}
+	
+	@RequestMapping("/deleteBrandComment")
+	public String deleteBrandComment(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String memId, String entCrn, HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		if (dto != null) {
+			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
+				int result = service.deleteBrandComment(entCrn, memId);
+				return "redirect:/brandpromodetail?entCrn=" + entCrn;
+			} else {
+				return "/login";
+			}
+		} else {
+			return "/login";
+		}
+	}
+	
+	@RequestMapping("/updateBrandComment")
+	public String updateBrandComment(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String memId, String brcRate, String brcContents, String entCrn, int currentCpage) {
+		if (dto != null) {
+			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
+				BrandCommentDTO bcdto = new BrandCommentDTO();
+				bcdto.setBrcRate(Integer.parseInt(brcRate));
+				bcdto.setBrcContents(brcContents.replace("\r\n","<br>"));
+				bcdto.setEntCrn(entCrn);
+				bcdto.setMemId(memId);
+				int result = service.updateBrandComment(bcdto);
+				return "redirect:/brandpromodetail?entCrn=" + entCrn + "&page=" + currentCpage + "&focus=true";
+			} else {
+				return "/login";
+			}			
 		} else {
 			return "/login";
 		}

@@ -21,4 +21,6 @@ public interface BrandPromoDAO {
 	public int insertBrandComment(BrandCommentDTO bdto);
 	public List<BrandCommentDTO> getAllBrandComment(HashMap<String, Object> clistmap);
 	public int getCommentCount(String entCrn);
+	public int deleteBrandComment(String entCrn, String memId);
+	public int updateBrandComment(BrandCommentDTO bdto);
 }
