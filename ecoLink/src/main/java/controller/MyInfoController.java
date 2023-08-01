@@ -14,6 +14,7 @@ import dto.MemberDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import service.MyInfoService;
 
+
 @Controller
 public class MyInfoController {
 	@Autowired
@@ -132,7 +133,7 @@ public class MyInfoController {
 			service.deleteUser(dto);
 		}
 
-		return "";
+		return "redirect:/logout";
 	}
 
 	// 브랜드 북마크 조회
