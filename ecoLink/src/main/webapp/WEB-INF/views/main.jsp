@@ -67,11 +67,11 @@
 	<div class="mainPromo">
 		<c:forEach var="brand" items="${brandlist}" varStatus="loop">
     <c:if test="${loop.index < 3}">
-        <a href="http://localhost:8070/brandpromolist">
+        <a href="http://localhost:8070/brandpromodetail?${brand.entCrn }">
             <div class="card">
                 <div class="card__image-holder">
                     <img class="card__image"
-                        src="${empty brand.entdMainPic ? 'https://source.unsplash.com/300x225/?beach' : brand.entdMainPic }" alt="beach" />
+                        src="${brand.entdMainPic }" onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';" />
                 </div>
                 <div class="card-title">
                     <h2>
@@ -86,13 +86,13 @@
 
 	<div class="boardMain">
 		<c:forEach var="board" items="${boardlist}">
-			<a href="http://localhost:8070/board">
+			<a href="http://localhost:8070/boardRead?${board.boardId }">
 				<div class="boardList">
 					<h3 class="memId">${board.memId}</h3>
 					<h4 class="boardTitle">${board.boardTitle}</h4>
 					<p class="boardDate">${board.boardRegtime}</p>
 					<img class="boardImage"
-						src="${empty board.filePath ? '/images/logo2.png' : board.filePath }" alt="게시물 이미지">
+						src="${board.filePath }" onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
 					<p class="boardCont">${board.boardContents}</p>
 				</div>
 			</a>

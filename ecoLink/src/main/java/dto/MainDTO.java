@@ -1,11 +1,20 @@
 package dto;
 
 public class MainDTO {
-	String memId, entdMainPic, memNick, entdURL;
+	String entCrn, memId, entdMainPic, memNick, entdURL;
+
 	int boardId;
 	String boardTitle, filePath;
 	int boardViewCount;
 	String boardRegtime, boardUpdateTime, boardContents, boardType;
+	
+	public String getEntCrn() {
+		return entCrn;
+	}
+	
+	public void setEntCrn(String entCrn) {
+		this.entCrn = entCrn;
+	}
 	
 	public String getMemId() {
 		return memId;

@@ -8,7 +8,7 @@
 	</select>
 
 	<select id="getBrandList" resultType="maindto">
-		SELECT e.memId,
+		SELECT e.entCrn, e.memId,
 		e.entdMainPic, e.entdURL, m.memNick
 		FROM enterprise e
 		INNER JOIN member
