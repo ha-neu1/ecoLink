@@ -161,6 +161,7 @@ public class MyInfoController {
 		 */
 
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dto);
 		/* mv.addObject("brandList", brandList); */
 		mv.setViewName("MyInfo2");
 		return mv;
