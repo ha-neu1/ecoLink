@@ -11,9 +11,8 @@ public interface MemberService {
 	void addMember(MemberDTO member);
 	void addEnterprise(EnterpriseDTO enter);
 	
-	//닉네임 설정
-	String getLatestMemNickByType(String memType);
-	String generateNextMemNick(String memType, String latestMemNick);
+	// 닉네임 설정
+	String generateNextMemNick(String memType);
 	
 	//로그인
 	public MemberDTO login(MemberDTO memberDTO);
