@@ -1,7 +1,6 @@
 package service;
 
 import dto.BoardDTO;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface BoardService {
     List<BoardDTO> getBoardList();
 
     // 게시물 작성
-    boolean createBoard(BoardDTO boardDTO, MultipartFile boardImage);
+    boolean createBoard(BoardDTO boardDTO);
 
     // 게시물 상세 조회
     BoardDTO getBoardById(int boardId);

@@ -1,47 +1,9 @@
-// 가상의 게시물 데이터 배열
-/*const boardData = [
-	{
-		memId: "user1",
-		boardTitle: "첫 번째 게시물",
-		boardDate: "2023-07-20",
-		boardCont: "첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다.첫 번째 게시물의 내용입니다."
-	},
-	{
-		memId: "user2",
-		boardTitle: "두 번째 게시물",
-		boardDate: "2023-07-19",
-		boardCont: "두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다.두 번째 게시물의 내용입니다."
-	},
-	{
-		memId: "user3",
-		boardTitle: "세 번째 게시물",
-		boardDate: "2023-07-18",
-		boardCont: "세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다.세 번째 게시물의 내용입니다."
-	},
-	{
-		memId: "user4",
-		boardTitle: "네 번째 게시물",
-		boardDate: "2023-07-17",
-		boardCont: "네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다.네 번째 게시물의 내용입니다."
-	},
-	{
-		memId: "user5",
-		boardTitle: "다섯 번째 게시물",
-		boardDate: "2023-07-16",
-		boardCont: "다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다.다섯 번째 게시물의 내용입니다."
-	},
-	{
-		memId: "user6",
-		boardTitle: "여섯 번째 게시물",
-		boardDate: "2023-07-15",
-		boardCont: "여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다.여섯 번째 게시물의 내용입니다."
-	},
-];*/
+let boardData = []; // 게시물 데이터를 저장할 배열
 
 // 게시물 목록 렌더링 함수
 function renderBoardList() {
   const boardMain = document.querySelector(".boardMain");
-  boardMain.innerHTML = ""; 
+  boardMain.innerHTML = "";
 
   boardData.forEach((item, index) => {
     const boardList = document.createElement("div");
@@ -57,7 +19,7 @@ function renderBoardList() {
 
     const boardDate = document.createElement("p");
     boardDate.className = "boardDate";
-    boardDate.textContent = item.boardDate; 
+    boardDate.textContent = item.boardDate;
 
     const likeButton = document.createElement("button");
     likeButton.className = "like_button";
@@ -94,13 +56,28 @@ function toggleLike(event) {
   }
 }
 
-// 검색 버튼 클릭 이벤트 처리 함수
-function searchBoard() {
-  // 검색 기능 구현
+// 글쓰기 버튼 클릭 이벤트 처리 함수
+function handleWriteButtonClick() {
+  window.location.href = "/boardCreate";
 }
 
 // 페이지 로드 시 게시물 목록 렌더링
 document.addEventListener("DOMContentLoaded", function () {
+  boardData = [
+    {
+      memId: "user1",
+      boardTitle: "게시물 제목 1",
+      boardDate: "2023-07-20",
+      boardCont: "게시물 내용 1",
+    },
+    {
+      memId: "user2",
+      boardTitle: "게시물 제목 2",
+      boardDate: "2023-07-21",
+      boardCont: "게시물 내용 2",
+    },
+  ];
+
   renderBoardList();
 
   // 좋아요 버튼 클릭 이벤트 리스너 추가
@@ -109,8 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", toggleLike);
   });
 
-  // 검색 버튼 클릭 이벤트 리스너 추가
-  const searchButton = document.querySelector(".searchBox button");
-  searchButton.addEventListener("click", searchBoard);
+  // 글쓰기 버튼 클릭 이벤트 리스너 추가
+  const writeButton = document.getElementById("addButton");
+  writeButton.addEventListener("click", handleWriteButtonClick);
 });
-

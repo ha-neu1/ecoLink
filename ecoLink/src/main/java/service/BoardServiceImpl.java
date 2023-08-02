@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -20,37 +19,42 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public boolean createBoard(BoardDTO boardDTO, MultipartFile boardImage) {
+    public boolean createBoard(BoardDTO boardDTO) {
         try {
-            // TODO: 게시물 작성 로직을 구현하고, 파일 업로드 처리를 수행합니다.
-            boardDAO.insertBoard(boardDTO); // BoardDAO를 사용하여 게시물을 DB에 저장
-            return true; // 게시물 작성 성공
+            boardDAO.insertBoard(boardDTO);
+            return true;
         } catch (Exception e) {
-            return false; // 게시물 작성 실패
+            return false;
         }
     }
 
     @Override
     public List<BoardDTO> getBoardList() {
-        // TODO: BoardDAO를 사용하여 게시물 목록 조회 로직을 작성합니다.
-        return null;
+        return boardDAO.getBoardList();
     }
 
     @Override
     public BoardDTO getBoardById(int boardId) {
-        // TODO: BoardDAO를 사용하여 게시물 상세 조회 로직을 작성합니다.
-        return null;
+        return boardDAO.getBoardById(boardId);
     }
 
     @Override
     public boolean updateBoard(BoardDTO boardDTO) {
-        // TODO: BoardDAO를 사용하여 게시물 수정 로직을 작성합니다.
-        return false;
+        try {
+            boardDAO.updateBoard(boardDTO);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public boolean deleteBoard(int boardId) {
-        // TODO: BoardDAO를 사용하여 게시물 삭제 로직을 작성합니다.
-        return false;
+        try {
+            boardDAO.deleteBoard(boardId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
