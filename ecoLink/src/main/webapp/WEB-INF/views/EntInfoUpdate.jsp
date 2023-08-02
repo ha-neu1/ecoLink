@@ -79,13 +79,13 @@
 	<%@ include file="header.jsp"%>
 	<aside id="sidebar">
 			<ul id='menusList'>
-				<li class='menuItem' id=''><a href="/entInfo">기업 정보</a></li>
-				<li class='menuItem' id=''><a href="#">내 브랜드 조회</a></li>
+				<li class='menuItem' id=''><a href="/userInfo">기업 정보</a></li>
+				<li class='menuItem' id=''><a href="/brandpromodetail?entCrn=${brand.entCrn}">내 브랜드 조회</a></li>
 			</ul>
 	</aside>
 	<div class="containers">
 		<article>
-			<form name="signUpForm" method = "post" enctype="multipart/form-data" name="">
+			<form name="signUpForm" enctype="multipart/form-data">
 				<h2>기업정보 수정</h2>
 				<p>고객님이 등록한 기업정보를 수정하실 수 있습니다.</p>
 				<div class='formindiv'>
