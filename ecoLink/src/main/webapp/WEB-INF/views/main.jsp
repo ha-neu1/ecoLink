@@ -67,7 +67,7 @@
 	<div class="mainPromo">
 		<c:forEach var="brand" items="${brandlist}" varStatus="loop">
     <c:if test="${loop.index < 3}">
-        <a href="http://localhost:8070/brandpromodetail?${brand.entCrn }">
+        <a href="http://localhost:8070/brandpromodetail?entCrn=${brand.entCrn }">
             <div class="card">
                 <div class="card__image-holder">
                     <img class="card__image"
@@ -86,7 +86,7 @@
 
 	<div class="boardMain">
 		<c:forEach var="board" items="${boardlist}">
-			<a href="http://localhost:8070/boardRead?${board.boardId }">
+			<a href="http://localhost:8070/boardRead?boardId=${board.boardId }">
 				<div class="boardList">
 					<h3 class="memId">${board.memId}</h3>
 					<h4 class="boardTitle">${board.boardTitle}</h4>
