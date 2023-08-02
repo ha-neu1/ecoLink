@@ -3,7 +3,7 @@ package dto;
 public class BoardCommentDTO {
 	int bcId, boardId;
 	String bcContents, memId, bcRegtime, bcUpdateTime,memNick;
-	
+	int bcRef, bcReLevel;
 	public int getBcId() {
 		return bcId;
 	}
@@ -46,6 +46,19 @@ public class BoardCommentDTO {
 	}
 	public void setMemNick(String memNick) {
 		this.memNick = memNick;
+	}
+	
+	public int getBcRef() {
+		return bcRef;
+	}
+	public void setBcRef(int bcRef) {
+		this.bcRef = bcRef;
+	}
+	public int getBcReLevel() {
+		return bcReLevel;
+	}
+	public void setBcReLevel(int bcReLevel) {
+		this.bcReLevel = bcReLevel;
 	}
 	@Override
 	public String toString() {

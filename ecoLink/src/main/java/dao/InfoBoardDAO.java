@@ -30,22 +30,17 @@ public interface InfoBoardDAO {
 	public int updateViewcount(int boardId);
 
 	public BoardDTO getDetail(int boardId);
-	
-	public int insertFile(FileDTO dto);
-	
-	public int getGeneratedBoardId();
-	
-	public List<FileDTO> getFilesByBoardId(int boardId);
-	
-	public int getCommentCount(String boardId);
-	
-	public int insertBoardComment(BoardCommentDTO boarddto);
-	
-	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap);
-	
-	
-	
-	
 
+	public int insertFile(FileDTO dto);
+
+	public int getGeneratedBoardId();
+
+	public List<FileDTO> getFilesByBoardId(int boardId);
+
+	public int insertBoardComment(BoardCommentDTO boarddto);
+
+	public int updateBcRef(int bcId);
+
+	public int getCommentCountForBoard(int boardId);
 
 }

@@ -13,6 +13,7 @@ public class BoardDTO {
 	List<MultipartFile> files;
 	private String firstImageUrl;
 	private List<MultipartFile> draggedFiles;
+	
 
 
 	public int getBoardId() {
@@ -123,6 +124,8 @@ public class BoardDTO {
 	public void setMemNick(String memNick) {
 		this.memNick = memNick;
 	}
+
+	
 
 	@Override
     public String toString() {

@@ -41,29 +41,28 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 
 	@Override
 	public List<FileDTO> getFilesByBoardId(int boardId) {
-	    List<FileDTO> files = dao.getFilesByBoardId(boardId);
+		List<FileDTO> files = dao.getFilesByBoardId(boardId);
 
-	    if (files == null || files.isEmpty()) {
-	        // 이미지없을때
-	        FileDTO defaultImage = new FileDTO();
-	        defaultImage.setFilePath("/upload/noimage.png"); 
-	        files = Collections.singletonList(defaultImage);
-	    } else {
-	        
-	        for (FileDTO file : files) {
-	            String imagePath = file.getFilePath();
+		if (files == null || files.isEmpty()) {
+			// 이미지없을때
+			FileDTO defaultImage = new FileDTO();
+			defaultImage.setFilePath("/upload/noimage.png");
+			files = Collections.singletonList(defaultImage);
+		} else {
 
-	            // "c:/kdt/upload/", "/upload/"
-	            if (imagePath.startsWith("c:/kdt/upload/")) {
-	                imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
-	            }
+			for (FileDTO file : files) {
+				String imagePath = file.getFilePath();
 
-	           
-	            file.setFilePath(imagePath);
-	        }
-	    }
+				// "c:/kdt/upload/", "/upload/"
+				if (imagePath.startsWith("c:/kdt/upload/")) {
+					imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
+				}
 
-	    return files;
+				file.setFilePath(imagePath);
+			}
+		}
+
+		return files;
 	}
 
 	@Override
@@ -71,7 +70,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		List<BoardDTO> boardList = dao.searchList(map);
 		setFirstImageUrls(boardList);
 		return boardList;
-		
+
 	}
 
 	@Override
@@ -103,33 +102,31 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		return dao.getGeneratedBoardId();
 	}
 
-
 	private void setFirstImageUrls(List<BoardDTO> boardList) {
-	    for (BoardDTO dto : boardList) {
-	        List<FileDTO> files = dao.getFilesByBoardId(dto.getBoardId());
-	        if (files != null && !files.isEmpty()) {
-	            FileDTO firstFile = files.get(0);
-	            String imagePath = firstFile.getFilePath();
-	            String imageName = firstFile.getFileName();
+		for (BoardDTO dto : boardList) {
+			List<FileDTO> files = dao.getFilesByBoardId(dto.getBoardId());
+			if (files != null && !files.isEmpty()) {
+				FileDTO firstFile = files.get(0);
+				String imagePath = firstFile.getFilePath();
+				String imageName = firstFile.getFileName();
 
-	         
-	            if (imagePath.startsWith("c:/kdt/upload/")) {
-	                imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
-	            }
+				if (imagePath.startsWith("c:/kdt/upload/")) {
+					imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
+				}
 
-	            //// 이미지 이름에서 "(UUID)" 부분을 제거합니다
-	            int indexOfOpeningParenthesis = imageName.indexOf("(");
-	            if (indexOfOpeningParenthesis != -1) {
-	                imageName = imageName.substring(0, indexOfOpeningParenthesis);
-	            }
+				//// 이미지 이름에서 "(UUID)" 부분을 제거합니다
+				int indexOfOpeningParenthesis = imageName.indexOf("(");
+				if (indexOfOpeningParenthesis != -1) {
+					imageName = imageName.substring(0, indexOfOpeningParenthesis);
+				}
 
-	            String imageUrl = imagePath + "/" ;
-	            dto.setFirstImageUrl(imageUrl);
-	        } else {
-	            // 이미지 없을때
-	            dto.setFirstImageUrl("/upload/noimage.png");
-	        }
-	    }
+				String imageUrl = imagePath + "/";
+				dto.setFirstImageUrl(imageUrl);
+			} else {
+				// 이미지 없을때
+				dto.setFirstImageUrl("/upload/noimage.png");
+			}
+		}
 	}
 
 	private String getOriginalFileName(String fileNameWithUUID) {
@@ -143,22 +140,37 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 
 	@Override
 	public int insertBoardComment(BoardCommentDTO boarddto) {
-		
-		return dao.insertBoardComment(boarddto);
+		// Insert the comment into the database
+		int result = dao.insertBoardComment(boarddto);
+		if (result > 0) {
+			// Get the count of comments for the associated boardId
+			int commentCount = dao.getCommentCountForBoard(boarddto.getBoardId());
+
+			// Set the bcRef value based on the comment count (incremented by 1)
+			boarddto.setBcRef(commentCount);
+
+			// Update the bcRef value in the database
+			int updateResult = dao.updateBcRef(boarddto.getBcId());
+			if (updateResult > 0) {
+				System.out.println("bcRef updated successfully");
+			} else {
+				System.out.println("Failed to update bcRef");
+			}
+		} else {
+			System.out.println("Failed to insert comment");
+		}
+		return result;
 	}
 
 	@Override
-	public int getCommentCount(String boardId) {
-		
-		return dao.getCommentCount(boardId);
+	public int updateBcRef(int bcId) {
+
+		return dao.updateBcRef(bcId);
 	}
 
 	@Override
-	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap) {
-		
-		return dao.getAllBoardComment(clistmap);
+	public int getCommentCountForBoard(int boardId) {
+		return dao.getCommentCountForBoard(boardId);
 	}
-	
-	
 
 }

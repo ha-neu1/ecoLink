@@ -29,9 +29,10 @@ public interface InfoBoardService {
 
 	public List<FileDTO> getFilesByBoardId(int boardId);
 
-	public int getCommentCount(String boardId);
-
 	public int insertBoardComment(BoardCommentDTO boarddto);
 
-	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap);
+	public int updateBcRef(int bcId);
+
+	public int getCommentCountForBoard(int boardId);
+
 }
