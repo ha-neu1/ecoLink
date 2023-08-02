@@ -181,6 +181,5 @@ public class BrandPromoController {
 		} else {
 			return "/login";
 		}
-		
 	}
 }
