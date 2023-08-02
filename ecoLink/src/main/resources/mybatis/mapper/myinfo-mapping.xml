@@ -18,7 +18,7 @@
 	</update>
 
 	<update id="deleteUser" parameterType="memberDto">
-		UPDATE member SET memPw="deleting@acount", memNick="탈퇴회원", memEmail="d@ecolink.com", memType="withdrawal", memRegtime=now(), memName="탈퇴회원" WHERE memId=#{memId};
+		UPDATE member SET memPw="deleting@acount", memNick=#{memNick}, memEmail=#{memEmail}, memType="withdrawal", memRegtime=#{memRegtime}, memName=#{memName} WHERE memId=#{memId};
 	</update>
 	
 	<update id="deleteEnt" parameterType="enterpriseDto">

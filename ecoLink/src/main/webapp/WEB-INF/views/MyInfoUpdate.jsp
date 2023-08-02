@@ -51,20 +51,22 @@
 <body>
 	<%@ include file="header.jsp"%>
 	<aside id="sidebar">
-		<!-- <div id='menus'>
+		<div id='menus'>
 			<ul id='menusList'>
 				<li class='menuItem'><a href="/myInfo">MY 정보</a></li>
 				<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
 				<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
 				<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
 			</ul>
-		</div> -->
+		</div>
 	</aside>
 	<div class="containers">
 		<article>
 			<form name="signUpForm">
+			<div class='myinfoheader'>
 				<h2>개인정보 수정</h2>
 				<p>고객님의 개인정보에 포함된 닉네임과 비밀번호를 수정하실 수 있습니다.</p>
+			</div>
 				<div class='formindiv'>
 					<p>아이디</p>
 					<div id=id_div>

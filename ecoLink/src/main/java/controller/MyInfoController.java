@@ -105,6 +105,12 @@ public class MyInfoController {
 		eudto.setEntdExplain3(entdExplain3);
 		
 		if (dto.getMemType().equals("enter")) {
+			String savePath = "c:/brand/";
+			/*
+			 * if() {
+			 * 
+			 * }
+			 */
 			service.userUpdate(updto);
 			service.entUpdate(eudto);
 		} else {
@@ -121,13 +127,13 @@ public class MyInfoController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		
-		if (dto.getMemType().equals("enter")) {
-			service.deleteEnt(edto);
-			service.deleteUser(dto);
-		} else {
-			service.deleteUser(dto);
-		}
+		/*
+		 * if (dto.getMemType().equals("enter")) { service.deleteEnt(edto);
+		 * service.deleteUser(dto); } else { service.deleteUser(dto); }
+		 */
 
+		service.deleteUser(dto);
+		
 		return "redirect:/logout";
 	}
 

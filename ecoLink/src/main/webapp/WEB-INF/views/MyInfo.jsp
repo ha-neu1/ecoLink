@@ -60,18 +60,20 @@
 	<aside id="sidebar">
 		<div id='menus'>
 			<ul id='menusList'>
-				<!-- <li class='menuItem'><a href="/myInfo">MY 정보</a></li>
+				<li class='menuItem'><a href="/myInfo">MY 정보</a></li>
 				<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
 				<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
-				<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li> -->
+				<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
 			</ul>
 		</div>
 	</aside>
 	<div class="containers">
 		<article>
 			<div class='menuDivs' id='menuDiv1'>
+			<div class='myinfoheader'>
 				<h2>MY 정보</h2>
 				<p>고객님의 닉네임과 비밀번호 등 개인정보를 확인하실 수 있습니다.</p>
+			</div>
 				<table id='myinfo'>
 					<tr>
 						<td>아이디</td>
