@@ -29,12 +29,12 @@
 					<p>고객님의 북마크한 브랜드를 확인하실 수 있습니다.</p>
 				</div>
 				<div class='container'>
-					<c:forEach items="${movieDBlist}" var="movie">
+					<%-- <c:forEach items="" var="">
 						<span class='likebrand'> <span class='imgcontainer'>
 								<a href="#"><img src="#"></a>
 						</span>
 						</span>
-					</c:forEach>
+					</c:forEach> --%>
 				</div>
 			</div>
 		</article>
