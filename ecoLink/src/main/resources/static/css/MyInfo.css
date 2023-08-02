@@ -123,3 +123,127 @@ table tr td:nth-child(2){
 	border-radius: 15px;
 	color: black;
 }
+
+.container {
+	display: flex;
+	justify-content: space-around;
+	align-content:flex-start;
+	flex-flow:wrap;
+	width:700px;
+	height: 400px;
+	overflow: scroll;
+}
+
+.imgcontainer img{
+	border: 1px solid #00d084;
+	width:180px;
+	height: 180px;
+}
+
+
+.board_list {
+    width: 700px;
+/*     border-top: 2px solid #000; */
+    margin: 0 auto;
+    text-decoration: none;
+}
+
+.board_list > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.board_list > div.top {
+    border-bottom: 1px solid #999;
+}
+
+.board_list > div:last-child {
+    border-bottom: 1px solid #999;
+}
+
+.board_list > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+.board_list > div.top > div {
+    font-weight: 600;
+}
+
+.board_list .num {
+    width: 10%;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.board_list .title {
+    width: 50%;
+    text-align: left;
+    margin-left: 25px;
+}
+
+.board_list .top .title {
+    text-align: center;
+}
+
+.board_list .writer {
+    width: 15%;
+}
+
+.board_list .date {
+    width: 18%;
+}
+
+
+.board_list2 {
+    width: 700px;
+/*     border-top: 2px solid #000; */
+    margin: 0 auto;
+    text-decoration: none;
+}
+
+.board_list2 > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.board_list2 > div.top {
+    border-bottom: 1px solid #999;
+}
+
+.board_list2 > div:last-child {
+    border-bottom: 1px solid #999;
+}
+
+.board_list2 > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+.board_list2 > div.top > div {
+    font-weight: 600;
+}
+
+.board_list2 .num {
+    width: 10%;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.board_list2 .title {
+    width: 65%;
+    text-align: left;
+    margin-left: 25px;
+}
+
+.board_list2 .top .title {
+    text-align: center;
+}
+
+.board_list2 .date {
+    width: 18%;
+}
