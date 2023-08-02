@@ -18,7 +18,7 @@ select * from member where memId=#{memId}
     insert into member (memId, memPw, memNick, memEmail, memType, memRegtime, memName)
     values (#{memId}, #{memPw}, #{memNick}, #{memEmail}, #{memType}, now(), #{memName})
 </insert>
-
+ 
 <insert id="addEnterprise" parameterType="memberDto">
 	insert into enterprise (entCrn, entPhone, memId, entdMainPic, entdShort, entdURL, entdIntro, entdIntroPic,
 							entdPic1, entdPic2, entdPic3, entdExplain1, entdExplain2, entdExplain3, entdConfirm)

@@ -98,7 +98,7 @@ public class MemberController {
         // memNick 값 설정
         String memNick = service.generateNextMemNick(member.getMemType());
         member.setMemNick(memNick);
-        
+         
         // 회원 등록
         service.addMember(member);
 
