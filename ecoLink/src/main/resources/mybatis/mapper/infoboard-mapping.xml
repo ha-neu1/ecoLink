@@ -34,7 +34,8 @@
 				${colname} like #{colvalue}
 			</if>
 			<if test="colname == null">
-				(boardTitle like #{colvalue} or boardContents like #{colvalue})
+				(boardTitle like #{colvalue} or boardContents like
+				#{colvalue})
 			</if>
 			and boardType = 'news'
 		</where>
@@ -50,7 +51,8 @@
 				${colname} like #{colvalue}
 			</if>
 			<if test="colname == null">
-				(boardTitle like #{colvalue} or boardContents like #{colvalue})
+				(boardTitle like #{colvalue} or boardContents like
+				#{colvalue})
 			</if>
 			and boardType = 'news'
 		</where>
@@ -91,23 +93,40 @@
 		resultType="dto.FileDTO">
 		select * from file where boardId = #{boardId};
 	</select>
-	
-	<select id="getCommentCount" parameterType="string" resultType="int">
-		select COUNT(*) from board_comment where boardId = #{boardId};
+
+	<select id="getCommentCount" parameterType="string"
+		resultType="int">
+		select COUNT(*) from board_comment where boardId =
+		#{boardId};
 	</select>
-	
-	<insert id="insertBoardComment" parameterType="boardCommentDto">
-		insert into
-		board_comment values (default, #{boardId}, #{bcContents}, #{memId},
-		default, default);
+
+	<insert id="insertBoardComment" parameterType="boardCommentDto"
+		useGeneratedKeys="true" keyProperty="bcId">
+		INSERT INTO board_comment
+		(boardId, bcContents, memId, bcRef, bcReLevel)
+		VALUES
+		(#{boardId},
+		#{bcContents}, #{memId}, 0, 0)
 	</insert>
-	
+
+	<update id="updateBcRef" parameterType="boardCommentDto">
+		UPDATE board_comment
+		SET
+		bcRef = #{bcRef}
+		WHERE bcId = #{bcId}
+	</update>
+	<select id="getCommentCountForBoard" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) FROM board_comment WHERE boardId = #{boardId}
+	</select>
+
 	<select id="getAllBoardComment" parameterType="hashmap"
 		resultType="boardCommentDto">
 		select b.bcId, b.boardId, b.bcContents, b.memId,
 		b.bcRegTime,b.bcUpdateTime, m.memNick
 		from board_comment as b
-		join member as m on m.memId = b.memId
+		join
+		member as m on m.memId = b.memId
 		where boardId = #{boardId}
 		order by
 		b.bcRegtime desc limit #{limitindex} , #{limitcount};

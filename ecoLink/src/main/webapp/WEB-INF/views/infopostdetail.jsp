@@ -60,133 +60,37 @@
 			<input type="hidden" name="boardId" value="${detaildto.boardId}" />
 		</form>
 	</div>
-
-
-	<div class="comment_list" id="commentList">
-		<div class="bcWriterAndRegtime">
-			<div class="bcMemNick"></div>
-			<div class="bcRegtime"></div>
-		</div>
-		<div class="bcContentsAndBtn">
-			<div class="bcContents"></div>
-			<c:if test="${dto.memId eq logininfo.memId}">
-				<div class="bcBtn">
-					<input type="button" value="수정"> <input type="button"
-						value="삭제">
-				</div>
-			</c:if>
-		</div>
-		<ul class="bcPagination ">
-			<c:choose>
-				<c:when test="${startpage == 1}">
-					<li class="page-item disabled"><a class="page-link"
-						href="/infopostdetail?boardId=${boardId}&page=${startpage - 1}&focus=true"
-						tabindex="-1" aria-disabled="true">이전</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item"><a class="page-link"
-						href="/infopostdetail?boardId=${boardId}&page=${startpage - 1}&focus=true">이전</a></li>
-				</c:otherwise>
-			</c:choose>
-			<c:forEach var="i" begin="${startpage}" end="${endpage}">
-				<c:choose>
-					<c:when test="${i == currentCpage}">
-						<li class="page-item active"><a class="page-link"
-							href="/infopostdetail?boardId=${boardId}&page=${i}&focus=true">${i}</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="/infopostdetail?boardId=${boardId}&page=${i}&focus=true">${i}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:choose>
-				<c:when test="${totalPage != endpage}">
-					<li class="page-item"><a class="page-link"
-						href="/infopostdetail?boardId=${boardId}&page=${endpage + 1}&focus=true">다음</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled"><a class="page-link"
-						href="/infopostdetail?boardId=${boardId}&page=${endpage + 1}&focus=true">다음</a></li>
-				</c:otherwise>
-			</c:choose>
-
-		</ul>
-	</div>
-
-
-
-
-
 	<script>
-	$(document).ready(function () {
-	    var page = 1; // Set the initial page value
-
-	    $('#boardComment').submit(function (e) {
-	        e.preventDefault();
-	        var formData = $(this).serialize();
-	        var data = {
-	                "comments": [
-	                    {
-	                        "bcId": 1,
-	                        "boardId": 55,
-	                        "bcContents": "Sample Comment 1"
-	                    },
-	                    {
-	                        "bcId": 2,
-	                        "boardId": 55,
-	                        "bcContents": "Sample Comment 2"
+		$(document).ready(function() {
+			$('#boardComment ').submit(function(e) {
+				e.preventDefault();
+				var formData = $(this).serialize();
+				$.ajax({
+					url : '/insertBoardComment',
+					type : 'POST',
+					data : formData,
+					success : function(response) {
+						 $('.comment').val('');
+						alert("댓글이 작성되었습니다.");
+						
+					}, error: function(xhr, status, error) {
+	                    if (xhr.status === 401) {
+	                        alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+	                        window.location.href = '/login'; // Redirect to the login page
+	                    } else {
+	                        alert("댓글 작성에 실패하였습니다.");
 	                    }
-	                ]
-	            };
-	        $.ajax({
-	            url: '/insertBoardComment',
-	            type: 'POST',
-	            data: formData,
-	            success: function(response) {
-	                alert("댓글이 작성되었습니다.")
-	                // After successful comment submission, fetch the comments using AJAX
-	                $.ajax({
-	                    url: '/getBoardComments',
-	                    type: 'GET',
-	                    data: { boardId: "${detaildto.boardId}", page: page }, // Pass the boardId and page as parameters
-	                    success: function (response) {
-	                        console.log("Response:", response);
-	                        var data = JSON.parse(response);
-	                        console.log("Data:", data);
-	                        
-	                        // Check if "comments" exists in the data object
-	                        if (data.hasOwnProperty("comments")) {
-	                            var comments = data.comments;
-	                            console.log("Comments:", comments);
-	
-	                            // Clear existing comments (optional, depending on your requirement)
-	                            $("#commentList").empty();
-
-	                            // Append each comment to the container
-	                            comments.forEach(function (comment) {
-	                            	
-	                                var commentDiv = $("<div>").addClass("comment");
-	                                var memNick = $("<div>").addClass("bcMemNick").text(comment.memNick);
-	                                var bcRegtime = $("<div>").addClass("bcRegtime").text(comment.bcRegtime);
-	                                var bcContents = $("<div>").addClass("bcContents").text(comment.bcContents);
-
-	                                // Append the elements to the comment container
-	                                commentDiv.append(memNick, bcRegtime, bcContents);
-	                                $("#commentList").append(commentDiv);
-	                            });
-	                        } else {
-	                            console.log("No comments found in the response.");
-	                        }
-	                    }
-	                });
-	            }
-	        });
-	    });
-	});
-	
-	    </script>
+	                }
+					
+				});
+			});
+		});
+	</script>
 	<script src="js/infopostdetail.js"></script>
+
+
+
+
 
 </body>
 </html>
