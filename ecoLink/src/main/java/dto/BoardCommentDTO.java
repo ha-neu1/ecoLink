@@ -1,7 +1,13 @@
 package dto;
 
 public class BoardCommentDTO {
-	int bcId, boardId;
+	int bcId, boardId, bcRef, bcReLevel;
+	public int getBcReLevel() {
+		return bcReLevel;
+	}
+	public void setBcReLevel(int bcReLevel) {
+		this.bcReLevel = bcReLevel;
+	}
 	String bcContents, memId, bcRegtime, bcUpdateTime,memNick;
 	int bcRef, bcReLevel;
 	public int getBcId() {
