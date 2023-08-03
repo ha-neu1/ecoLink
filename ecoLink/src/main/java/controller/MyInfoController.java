@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.BoardDTO;
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
 import jakarta.servlet.http.HttpServletResponse;
@@ -162,18 +165,42 @@ public class MyInfoController {
 
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
-		/* mv.addObject("brandList", brandList); */
-		mv.setViewName("MyInfo2");
+		
+		if(dto != null) {
+			List<EnterpriseDTO> Bookmark =service.getBrandBookmark(dto.getMemId());
+			mv.addObject("Bookmark", Bookmark);
+			mv.setViewName("MyInfo2");
+		}else {
+			mv.setViewName("redirect:/logout");
+		}
+		
 		return mv;
-
 	}
-	 
+		/* mv.addObject("brandList", brandList); */
+
 
 	// 좋아요한 글 조회
 	@RequestMapping("/myBoardLike")
-	public String myBoardLike() {
-		return "MyInfo3";
+	public ModelAndView myBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dto);
+		
+		if(dto != null) {
+			List<BoardDTO> Boardlike =service.getBoardLike(dto.getMemId());
+			mv.addObject("Boardlike", Boardlike);
+			mv.setViewName("MyInfo3");
+		}else {
+			mv.setViewName("redirect:/logout");
+		}
+		
+		return mv;
 	}
+	
 	// GetMapping("/myBoardLike")
 	// public ModelAndView myBoardLike(HttpSession session){
 	//// String memId = (String)session.getAttribute("memId");
@@ -181,8 +208,24 @@ public class MyInfoController {
 
 	// 내가 쓴 글 조회
 	@RequestMapping("/myBoard")
-	public String myBoard() {
-		return "MyInfo4";
+	public ModelAndView myBoard(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dto);
+		
+		if(dto != null) {
+			List<BoardDTO> MyBoard =service.getMyBoard(dto.getMemId());
+			mv.addObject("MyBoard", MyBoard);
+			mv.setViewName("MyInfo4");
+		}else {
+			mv.setViewName("redirect:/logout");
+		}
+		
+		return mv;
 	}
 	// GetMapping("/myBoard")
 	// public ModelAndView myBoard(HttpSession session){

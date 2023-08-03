@@ -29,12 +29,23 @@
 					<p>고객님의 북마크한 브랜드를 확인하실 수 있습니다.</p>
 				</div>
 				<div class='container'>
-					<%-- <c:forEach items="" var="">
-						<span class='likebrand'> <span class='imgcontainer'>
-								<a href="#"><img src="#"></a>
-						</span>
-						</span>
-					</c:forEach> --%>
+					<c:choose>
+						<c:when test="${empty Bookmark}">
+							<p>북마크가 없습니다.</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${Bookmark }" var="enterprise">
+								<span class='likebrand'> <span class='imgcontainer'>
+										<a
+										href="http://localhost:8070/brandpromodetail?entCrn=${enterprise.entCrn}">
+											<img src="${enterprise.entdMainPic}"
+											onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';" />
+									</a>
+								</span>
+								</span>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</article>

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MyInfoDAO;
-import dto.EnterpriseBookmarkDTO;
+import dto.BoardDTO;
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
@@ -35,8 +35,16 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return dao.deleteEnt(edto);
 	}
 	
-	public List<EnterpriseBookmarkDTO> brandBookmark(String memId){
-		return dao.brandBookmark(memId);
+	public List<EnterpriseDTO> getBrandBookmark(String memId){
+		return dao.getBrandBookmark(memId);
+	}
+	
+	public List<BoardDTO> getBoardLike(String memId){
+		return dao.getBoardLike(memId);
+	}
+	
+	public List<BoardDTO> getMyBoard(String memId){
+		return dao.getMyBoard(memId);
 	}
 	
 	/*

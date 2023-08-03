@@ -35,13 +35,24 @@
 						<div class="writer">작성자</div>
 						<div class="date">작성일</div>
 					</div>
-					<div>
-						<div class="num" id="boardid">1</div>
-						<div class="title" id="title">
-							<a href="#" style="text-decoration: none; color: black">제목</a>
-						</div>
-						<div class="writer" id="nickname">닉네임</div>
-						<div class="date" id="creatAt">2023-06-30</div>
+					<div class='likeboard'>
+						<c:choose>
+							<c:when test="${empty Boardlike}">
+								<p>좋아요한 글이 없습니다.</p>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${Boardlike}" var="board" varStatus="status">
+									<div class="likeboardlist">
+										<div class="num" id="boardid">${status.index + 1}</div>
+										<div class="title" id="title">
+											<a href="#" style="text-decoration: none; color: black">${board.boardTitle }</a>
+										</div>
+										<div class="writer" id="nickname">${board.memNick }</div>
+										<div class="date" id="creatAt">${board.boardRegtime }</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
