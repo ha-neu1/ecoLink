@@ -16,7 +16,7 @@
 			<aside id="sidebar">
 				<div id='menus'>
 					<ul id='menusList'>
-						<li class='menuItem'><a href="/myInfo">MY 정보</a></li>
+						<li class='menuItem'><a href="/userInfo">MY 정보</a></li>
 						<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
 						<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
 						<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
@@ -24,7 +24,7 @@
 				</div>
 			</aside>
 			<div class='menuDivs' id='menuDiv4'>
-				<div class='menuDivs' id='menuDiv3'>
+				<div class='myinfoheader'>
 					<h2>내가 쓴 글</h2>
 					<p>고객님의 작성글을 확인하실 수 있습니다.</p>
 				</div>

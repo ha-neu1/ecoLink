@@ -1,54 +1,54 @@
 @charset "UTF-8";
-@import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css");
-
-* { font-family: 'NanumSquareNeo'; }
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
 aside {
-	float:left;
-	width: 110px;
-	height: 200px;
+	position: absolute;
 	text-align:center;
-	margin: 200px 0px 0px 0px;
-	padding-left:300px;
+	padding: 10px;
+	border: 2px solid #00d084;
+	top: 200px;
+	left: -150px;
+	border-radius: 10px;
 }
 
 aside li{
 	margin: 5px;
 	/* border-bottom: 1px solid #b2b2b2; */
-	font-size: 12px;
+	font-size: 15px;
 }
 
 aside li:hover{
-	margin: 5px;
-	/* border-bottom: 1px solid #b2b2b2; */
-	font-size: 12px;
+	font-size: 15.5px;
 	color: #00d084;
-}
-
-#menusList {
-	width: 110px;
-	height: 45px;
-	border: 1px solid lightgrey;
-	border-radius: 15px;
-	margin: auto auto auto -50px;/*위 우 아래 좌*/
 }
 
 .containers {
 	display:flex;
 	justify-content:center;
 	align-items:center;
-	width: 700px;
 }
 
 article {
 	float:left; /* 가로 정렬 */
 	border: 1px solid lightgrey;
 	border-radius: 20px;
-	margin: 50px auto;
+	margin: 50px;
 	padding : 20px;
 	width: 700px;
 	height: 580px;
+	position: relative;
 }
+
+.myinfoheader {
+	border-bottom: 1px solid lightgrey;
+	margin-bottom: 70px;
+}
+
 
 article h2{
 	text-align: left;
@@ -58,21 +58,21 @@ article h2{
 article p{
 	text-align: left;
 	font-size: 10px;
-	margin: 10px 20px 70px 128px;
+	margin: 10px 20px 10px 128px;
 }
 
 #myinfo {
 	/* margin-left:50px; */
-	width: 450px;
+	width: 400px;
 	height: 250px;
 	font-size: 15px;
-	margin: 0px 40px 30px 120px;/*위 우 아래 좌*/
+	margin: 0px 40px 30px 150px;/*위 우 아래 좌*/
 }
 
 table tr td:nth-child(1){
 	padding:10px;
 	border: 3px solid ligthgrey;
-	width:160px;
+	width:150px;
 }
 
 table tr td:nth-child(2){
@@ -82,14 +82,15 @@ table tr td:nth-child(2){
 
 .bt_wrap{
 	width:500px;
-	padding: 0px 0px 0px 112px;/*위 우 아래 좌*/
+	padding: 0px 0px 0px 130px;/*위 우 아래 좌*/
 	
 }
 
 #updateUser {
+	font-family: 'NanumSquareNeo-Variable';
 	background-color: #00d084;
 	border: 1px solid #00d084;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: white;
 	padding: 10px 40px;
 	margin: auto 10px;
@@ -100,14 +101,15 @@ table tr td:nth-child(2){
 #updateUser:hover {
 	background-color: white;
 	border: 1px solid #00d084;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: #00d084;
 }
 
 #deleteUser {
+	font-family: 'NanumSquareNeo-Variable';
 	background-color: #e7e7e7;
 	border: 1px solid #e7e7e7;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: white;
 	padding: 10px 40px;
 	margin: auto 10px;
@@ -124,6 +126,6 @@ table tr td:nth-child(2){
 #deleteUser:hover {
 	background-color: #b2b2b2;
 	border: 1px solid #b2b2b2;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: black;
 }

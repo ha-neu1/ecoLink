@@ -16,6 +16,6 @@ public interface MyInfoDAO {
 	public int userUpdate(MemberDTO dto);
 	public int entUpdate(EnterpriseDTO edto);
 	public int deleteUser(MemberDTO dto);
-	public int deleteEnt(EnterpriseDTO edto);
+	//public int deleteEnt(EnterpriseDTO edto);
 	public List<EnterpriseBookmarkDTO> brandBookmark(String memId);
 }

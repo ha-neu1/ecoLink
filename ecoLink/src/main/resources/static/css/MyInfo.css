@@ -1,7 +1,10 @@
 @charset "UTF-8";
-@import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css");
-
-* { font-family: 'NanumSquareNeo'; }
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
 aside {
 	position: absolute;
@@ -20,7 +23,7 @@ aside li{
 }
 
 aside li:hover{
-	/* border-bottom: 1px solid #b2b2b2; */
+	font-size: 15.5px;
 	color: #00d084;
 }
 
@@ -62,7 +65,7 @@ article p{
 	width: 400px;
 	height: 250px;
 	font-size: 15px;
-	margin: 0px 40px 30px 120px;/*위 우 아래 좌*/
+	margin: 0px 40px 30px 150px;/*위 우 아래 좌*/
 }
 
 table tr td:nth-child(1){
@@ -78,14 +81,15 @@ table tr td:nth-child(2){
 
 .bt_wrap{
 	width:500px;
-	padding: 0px 0px 0px 112px;/*위 우 아래 좌*/
+	padding: 0px 0px 0px 130px;/*위 우 아래 좌*/
 	
 }
 
 #updateUser {
+	font-family: 'NanumSquareNeo-Variable';
 	background-color: #00d084;
 	border: 1px solid #00d084;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: white;
 	padding: 10px 40px;
 	margin: auto 10px;
@@ -96,14 +100,15 @@ table tr td:nth-child(2){
 #updateUser:hover {
 	background-color: white;
 	border: 1px solid #00d084;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: #00d084;
 }
 
 #deleteUser {
+	font-family: 'NanumSquareNeo-Variable';
 	background-color: #e7e7e7;
 	border: 1px solid #e7e7e7;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: white;
 	padding: 10px 40px;
 	margin: auto 10px;
@@ -120,7 +125,7 @@ table tr td:nth-child(2){
 #deleteUser:hover {
 	background-color: #b2b2b2;
 	border: 1px solid #b2b2b2;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: black;
 }
 

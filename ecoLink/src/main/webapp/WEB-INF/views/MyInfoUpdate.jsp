@@ -72,7 +72,7 @@
 					<p>아이디</p>
 					<div id=id_div>
 						<input type="text" name="userid" id="userid"
-							value="${loginUser.memId}" maxlength="16" disabled>
+							value="${loginUser.memId}" disabled>
 					</div>
 				</div>
 
@@ -85,7 +85,7 @@
 				<div class='formindiv'>
 					<p>이름</p>
 					<input type="text" name="name" id="name"
-						value="${loginUser.memName}" disabled>
+						value="${loginUser.memName}" maxlength="30" disabled>
 				</div>
 
 				<div class='formindiv'>

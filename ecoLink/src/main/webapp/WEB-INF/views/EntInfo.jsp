@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 정보</title>
+<title>기업 정보</title>
 <link rel="stylesheet" href="css/EntInfo.css">
 </head>
 <script src="js/jquery-3.6.4.min.js"></script>
@@ -57,17 +57,22 @@
 </script>
 <body>
 	<%@ include file="header.jsp"%>
-	<aside id="sidebar">
-			<ul id='menusList'>
-				<li class='menuItem' id=''><a href="/entInfo">기업 정보</a></li>
-				<li class='menuItem' id=''><a href="#">내 브랜드 조회</a></li>
-			</ul>
-	</aside>
+	
 	<div class="containers">
 		<article>
+			<aside id="sidebar">
+				<div id='menus'>
+					<ul id='menusList'>
+						<li class='menuItem' id=''><a href="/userInfo">기업 정보</a></li>
+						<li class='menuItem' id=''><a href="/brandpromodetail?entCrn=${loginEnt.entCrn}">내 브랜드 조회</a></li>
+					</ul>
+				</div>
+			</aside>
 			<div class='menuDivs' id='menuDiv1'>
+			<div class='myinfoheader'>
 				<h2>기업 정보</h2>
 				<p>고객님이 등록한 기업정보를 확인하실 수 있습니다.</p>
+				</div>
 				<table id='myinfo'>
 					<tr>
 						<td>아이디</td>
@@ -78,11 +83,11 @@
 						<td>********</td>
 					</tr>
 					<tr>
-						<td>대표이름</td>
+						<td>대표 이름</td>
 						<td>${loginUser.memName}</td>
 					</tr>
 					<tr>
-						<td>브랜드이름</td>
+						<td>브랜드 이름</td>
 						<td>${loginUser.memNick}</td>
 					</tr>
 					<tr>
@@ -90,7 +95,7 @@
 						<td>${loginUser.memEmail}</td>
 					</tr>
 					<tr>
-						<td>승인여부</td>
+						<td>승인 여부</td>
 						<td>${loginEnt.entdConfirm}</td>
 					</tr>
 				</table>

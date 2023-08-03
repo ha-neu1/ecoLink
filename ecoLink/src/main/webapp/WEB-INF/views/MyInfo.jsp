@@ -63,7 +63,7 @@
 			<aside id="sidebar">
 				<div id='menus'>
 					<ul id='menusList'>
-						<li class='menuItem'><a href="/myInfo">MY 정보</a></li>
+						<li class='menuItem'><a href="/userInfo">MY 정보</a></li>
 						<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
 						<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
 						<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>

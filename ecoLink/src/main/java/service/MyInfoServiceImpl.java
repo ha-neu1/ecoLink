@@ -31,9 +31,9 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return dao.deleteUser(dto);
 	}
 	
-	public int deleteEnt(EnterpriseDTO edto) {
-		return dao.deleteEnt(edto);
-	}
+	//public int deleteEnt(EnterpriseDTO edto) {
+		//return dao.deleteEnt(edto);
+	//}
 	
 	public List<EnterpriseBookmarkDTO> brandBookmark(String memId){
 		return dao.brandBookmark(memId);
