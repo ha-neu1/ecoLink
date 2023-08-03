@@ -45,7 +45,7 @@ public class BoardController {
     @PostMapping("/createBoard")
     @ResponseBody
     public Map<String, Object> createBoard(@RequestParam("boardTitle") String boardTitle,
-            @RequestParam("boardImage") MultipartFile boardImage,
+            @RequestParam(value = "boardImage", required = false) MultipartFile boardImage,
             @RequestParam("boardContents") String boardContents) {
 
         Map<String, Object> response = new HashMap<>();

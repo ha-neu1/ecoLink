@@ -1,3 +1,5 @@
+<!-- resources/mapper/board-mapping.xml -->
+
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -11,8 +13,8 @@
 
     <!-- 게시물 작성 -->
     <insert id="insertBoard" parameterType="dto.BoardDTO">
-        INSERT INTO board (board_title, board_view_count, board_regtime, board_update_time, board_contents, mem_id, board_type)
-        VALUES (#{boardTitle}, #{boardViewCount}, #{boardRegtime}, #{boardUpdateTime}, #{boardContents}, #{memId}, #{boardType})
+        INSERT INTO board (board_title, board_view_count, board_regtime, board_update_time, board_contents, mem_id, board_type, image_path)
+        VALUES (#{boardTitle}, #{boardViewCount}, #{boardRegtime}, #{boardUpdateTime}, #{boardContents}, #{memId}, #{boardType}, #{imagePath})
     </insert>
 
     <!-- 게시물 상세 조회 -->
