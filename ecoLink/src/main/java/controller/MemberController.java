@@ -85,20 +85,37 @@ public class MemberController {
 
     //회원가입 구현
     @PostMapping("/join")
-    public String memberjoin(@ModelAttribute("member") MemberDTO member, @ModelAttribute("enter") EnterpriseDTO enter) {
-        // memNick 값 설정
+    @ResponseBody
+    public String memberjoin(@ModelAttribute("member") MemberDTO member) {
+        // memType 값 설정 ("일반회원" -> "normal", "기업회원" -> "enter" 로 변환)
         String memType = member.getMemType();
-        String memNick = service.getLatestMemNickByType(memType);
-        member.setMemNick(service.generateNextMemNick(memType, memNick));
+        if (memType.equals("일반회원")) {
+            member.setMemType("normal");
+        } else if (memType.equals("기업회원")) {
+            member.setMemType("enter");
+        }
 
+        // memNick 값 설정
+        String memNick = service.generateNextMemNick(member.getMemType());
+        member.setMemNick(memNick);
+         
         // 회원 등록
         service.addMember(member);
 
-        // 기업회원 등록
-        if (memType.equals("기업회원")) {
-            service.addEnterprise(enter);
-        }
-
+        return "redirect:/login";
+    }
+    
+    @PostMapping("/enterjoin")
+    @ResponseBody
+    public String enterprisejoin(@ModelAttribute("enter") EnterpriseDTO enter) {
+    	System.out.println("enter.getEntCrn() : " + enter.getEntCrn());
+    	System.out.println("enter.toString() : " + enter.toString());
+    	//enter.toString() : EnterpriseDTO [entCrn=null, entPhone=null, 
+    	//memId=test3, entdMainPic=null, entdShort=null, entdURL=null, entdIntro=null, 
+    	//entdIntroPic=null, entdPic1=null, entdPic2=null, entdPic3=null, entdExplain1=null, entdExplain2=null, entdExplain3=null, entdConfirm=false]
+        
+    	service.addEnterprise(enter);
+   
         return "redirect:/login";
     }
     

@@ -1,60 +1,64 @@
 @charset "UTF-8";
-@import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css");
-
-* { font-family: 'NanumSquareNeo'; }
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
 aside {
-	/* border: 1px solid lightgrey; */
-	float:left;
-	width: 110px;
-	height: 90px;
+	position: absolute;
 	text-align:center;
-	margin: 200px 0px 0px 0px;
-	padding-left:300px;
+	padding: 10px;
+	border: 2px solid #00d084;
+	top: 200px;
+	left: -150px;
+	border-radius: 10px;
 }
 
 aside li{
 	margin: 5px;
 	/* border-bottom: 1px solid #b2b2b2; */
-	font-size: 12px;
+	font-size: 15px;
 }
 
 aside li:hover{
-	margin: 5px;
-	/* border-bottom: 1px solid #b2b2b2; */
-	font-size: 12px;
+	font-size: 15.5px;
 	color: #00d084;
-}
-
-input:disabled {
-    background: #F0F0F0;
 }
 
 .containers {
 	display:flex;
 	justify-content:center;
 	align-items:center;
-	width: 700px;
 }
 
 article {
+	float:left; /* 가로 정렬 */
 	border: 1px solid lightgrey;
 	border-radius: 20px;
-	margin: 50px auto;
+	margin: 50px;
 	padding : 20px;
 	width: 700px;
 	height: 650px;
+	position: relative;
 }
 
-article h2{
-	text-align: left;
-	margin: 60px 20px 0px 130px;
+.forminheader {
+	border-bottom: 1px solid lightgrey;
+	margin-bottom: 35px;
 }
 
-article p{
-	text-align: left;
+.forminheader h2{
+	text-align: center;
+	margin: 60px auto 0px auto;
+}
+
+.forminheader p{
+	text-align: center;
 	font-size: 10px;
-	margin: 10px 20px 70px 130px; /*위 우 아래 좌*/
+	margin: 10px auto 10px auto; /*위 우 아래 좌*/
+
 }
 
 .formindiv {
@@ -63,22 +67,27 @@ article p{
 }
 
 .formindiv>p {
-	font-size : 12px;
+	font-size : 13px;
 	line-height : 12px;
-	margin:5px 0px 5px 10px; /*위 우 아래 좌*/
+	margin:8px 0px 8px 9px; /*위 우 아래 좌*/
 }
 
 input {
+	font-family: 'NanumSquareNeo-Variable';
 	border: 1px solid lightgrey;
-	border-radius: 15px;
+	border-radius: 1rem;
 	height: 25px;
 	padding: 5px 10px;
 	width: 378px;
 }
 
 input:focus {
-	border-color:#00d084;
+	border: 2px solid #00d084;
 	outline: 0;
+}
+
+input:disabled {
+    background: #F0F0F0;
 }
 
 #emailinner {
@@ -101,14 +110,16 @@ select {
 }
 
 #updateBtn {
+	font-family: 'NanumSquareNeo-Variable';
 	background-color: #00d084;
 	border: 1px solid #00d084;
-	border-radius: 15px;
+	border-radius: 1rem;
 	color: white;
 	padding: 10px 40px;
 	width:400px;
 	height: 40px;
 	margin-top:15px;
+	margin-bottom:40px;
 }
 
 #updateBtn:hover {

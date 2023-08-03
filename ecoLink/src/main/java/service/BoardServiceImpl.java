@@ -1,36 +1,59 @@
+// BoardServiceImpl.java
+
 package service;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
-    private final BoardDAO boardDAO;
-
     @Autowired
-    public BoardServiceImpl(BoardDAO boardDAO) {
-        this.boardDAO = boardDAO;
-    }
+    private BoardDAO boardDAO;
 
-    @Override
-    public boolean createBoard(BoardDTO boardDTO) {
-        try {
-            boardDAO.insertBoard(boardDTO);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+    // 이미지를 저장할 경로
+    private static final String IMAGE_UPLOAD_DIR = "src/main/resources/static/images/";
 
     @Override
     public List<BoardDTO> getBoardList() {
         return boardDAO.getBoardList();
+    }
+
+    @Override
+    public boolean createBoard(BoardDTO boardDTO) {
+        // 이미지 업로드 처리
+        List<MultipartFile> draggedFiles = boardDTO.getDraggedFiles();
+        if (draggedFiles != null && !draggedFiles.isEmpty()) {
+            for (MultipartFile file : draggedFiles) {
+                try {
+                    String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                    Path filePath = Paths.get(IMAGE_UPLOAD_DIR + fileName);
+                    Files.write(filePath, file.getBytes());
+
+                    // 첫 번째 이미지의 경로를 firstImageUrl로 설정
+                    if (boardDTO.getFirstImageUrl() == null) {
+                        boardDTO.setFirstImageUrl("/images/" + fileName);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+
+        int result = boardDAO.createBoard(boardDTO);
+        return result > 0;
     }
 
     @Override
@@ -40,21 +63,13 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public boolean updateBoard(BoardDTO boardDTO) {
-        try {
-            boardDAO.updateBoard(boardDTO);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        int result = boardDAO.updateBoard(boardDTO);
+        return result > 0;
     }
 
     @Override
     public boolean deleteBoard(int boardId) {
-        try {
-            boardDAO.deleteBoard(boardId);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        int result = boardDAO.deleteBoard(boardId);
+        return result > 0;
     }
 }

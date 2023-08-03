@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,32 +12,51 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <body>
 	<%@ include file="header.jsp"%>
-	<aside id="sidebar">
-		<div id='menus'>
-			<ul id='menusList'>
-				<li class='menuItem'><a href="/myInfo">MY 정보</a></li>
-				<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
-				<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
-				<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
-			</ul>
-		</div>
-	</aside>
+
 	<div class="containers">
 		<article>
+			<aside id="sidebar">
+				<div id='menus'>
+					<ul id='menusList'>
+						<li class='menuItem'><a href="/userInfo">MY 정보</a></li>
+						<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
+						<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
+						<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
+					</ul>
+				</div>
+			</aside>
 			<div class='menuDivs' id='menuDiv4'>
-				<h2>내가 쓴 글</h2>
+				<div class='myinfoheader'>
+					<h2>내가 쓴 글</h2>
+					<p>고객님의 작성글을 확인하실 수 있습니다.</p>
+				</div>
 				<div class="board_list2">
 					<div class="top">
 						<div class="num">No.</div>
 						<div class="title">제목</div>
 						<div class="date">작성일</div>
 					</div>
-					<div>
-						<div class="num" id="boardid">1</div>
-						<div class="title" id="title">
-							<a href="#" style="text-decoration: none; color: black">제목</a>
-						</div>
-						<div class="date" id="creatAt">2023-06-30</div>
+					<div class='myboard'>
+						<c:choose>
+							<c:when test="${empty MyBoard}">
+								<p>내가 쓴 글이 없습니다.</p>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${MyBoard}" var="myboard" varStatus="status">
+									<div class="myboardlist">
+										<div class="num" id="boardid">${status.index + 1}</div>
+										<div class="title" id="title">
+											<a href="#" style="text-decoration: none; color: black">${myboard.boardTitle }</a>
+										</div>
+										<div class="date" id="creatAt">
+											<fmt:parseDate value="${myboard.boardRegtime}"
+												pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+											<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

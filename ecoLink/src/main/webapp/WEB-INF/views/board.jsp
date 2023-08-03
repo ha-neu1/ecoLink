@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시물 작성</title>
+    <title>게시판</title>
     <link rel="stylesheet" href="/css/board.css">
 </head>
 <body>
@@ -14,35 +14,38 @@
     <div class="board_area">
         <div class="board_title">
             <div class="page_name">
-                <strong>게시물 작성</strong>
+                <strong>게시판</strong>
             </div>
         </div>
         <hr class="hr_bold">
 
-        <form id="createBoardForm" enctype="multipart/form-data">
-            <div class="input_box">
-                <label for="boardTitle" hidden>제목</label>
-                <input type="text" id="boardTitle" name="boardTitle" class="input_text" placeholder="제목을 입력해주세요">
+        <div class="search_container">
+            <div class="boardSort">
+                <select id="sortSelect">
+                    <option value="latest">최신순</option>
+                    <option value="recommend">추천순</option>
+                </select>
             </div>
-            <div class="input_box">
-                <label for="boardImage">이미지 첨부</label>
-                <br>
-                <input type="file" id="boardImage" name="boardImage" accept="image/*">
-                <br>
-                <img id="preview" src="/images/logo2.png" alt="미리보기 이미지" class="preview_image">
+            <div class="searchBox">
+                <input type="text" placeholder="검색어를 입력하세요">
+                <button>검색</button>
+                <a href="/boardCreate"><button>글쓰기</button></a>
             </div>
-            <div class="input_box">
-                <label for="boardContents" hidden>내용</label>
-                <textarea id="boardContents" name="boardContents" class="input_textarea" placeholder="내용을 입력해주세요"></textarea>
-            </div>
-            <div class="input_box">
-                <button type="submit" id="submitBoardButton" class="submit_button">작성</button>
-            </div>
-        </form>
+        </div>
+
+        <div class="boardMain"></div>
+
+        <br> <br>
+        <div class="page_number">
+            <a href="#" class="prev">&lt;</a> <a href="#" class="page">1</a> <a
+                href="#" class="page">2</a> <a href="#" class="page">3</a> <a
+                href="#" class="page">4</a> <a href="#" class="page">5</a> <a
+                href="#" class="next">&gt;</a>
+        </div>
     </div>
 
     <jsp:include page="footer.jsp" />
 
-    <script src="/js/boardCreate.js" defer type="module"></script>
+    <script src="/js/board.js" defer type="module"></script>
 </body>
 </html>

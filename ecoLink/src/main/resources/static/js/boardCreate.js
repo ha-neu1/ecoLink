@@ -13,7 +13,7 @@ function displayPreviewImage() {
   if (file) {
     reader.readAsDataURL(file);
   } else {
-    // 이미지를 선택하지 않았을 경우 기본 이미지 표시
+    // 기본 이미지 표시
     previewImageElement.src = "/images/logo2.png";
   }
 }

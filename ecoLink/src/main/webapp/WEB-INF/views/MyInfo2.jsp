@@ -10,27 +10,42 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <body>
 	<%@ include file="header.jsp"%>
-	<aside id="sidebar">
-		<div id='menus'>
-			<ul id='menusList'>
-				<li class='menuItem'><a href="/myInfo">MY 정보</a></li>
-				<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
-				<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
-				<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
-			</ul>
-		</div>
-	</aside>
+
 	<div class="containers">
 		<article>
+			<aside id="sidebar">
+				<div id='menus'>
+					<ul id='menusList'>
+						<li class='menuItem'><a href="/userInfo">MY 정보</a></li>
+						<li class='menuItem'><a href="/myBrandLike">브랜드 북마크</a></li>
+						<li class='menuItem'><a href="/myBoardLike">좋아요한 글</a></li>
+						<li class='menuItem'><a href="/myBoard">내가 쓴 글</a></li>
+					</ul>
+				</div>
+			</aside>
 			<div class='menuDivs' id='menuDiv2'>
-				<h2>브랜드 북마크</h2>
+				<div class='myinfoheader'>
+					<h2>브랜드 북마크</h2>
+					<p>고객님의 북마크한 브랜드를 확인하실 수 있습니다.</p>
+				</div>
 				<div class='container'>
-					<c:forEach items="${movieDBlist}" var="movie">
-						<span class='likebrand'> <span class='imgcontainer'>
-								<a href="#"><img src="#"></a>
-						</span>
-						</span>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${empty Bookmark}">
+							<p>북마크가 없습니다.</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${Bookmark }" var="enterprise">
+								<span class='likebrand'> <span class='imgcontainer'>
+										<a
+										href="http://localhost:8070/brandpromodetail?entCrn=${enterprise.entCrn}">
+											<img src="${enterprise.entdMainPic}"
+											onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';" />
+									</a>
+								</span>
+								</span>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</article>

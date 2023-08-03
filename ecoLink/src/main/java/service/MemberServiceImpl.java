@@ -27,10 +27,6 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 회원가입
 	public void addMember(MemberDTO member) {
-//	    // memNick 카운트
-//	    int count = dao.getMemberCountByType(member.getMemType());
-//	    String memNick = member.getMemType() + (count + 1);
-//	    member.setMemNick(memNick);
 	    dao.addMember(member);
 	}
 	
@@ -40,20 +36,17 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 닉네임 설정
 	@Override
-	public String getLatestMemNickByType(String memType) {
-	    return dao.getLatestMemNickByType(memType);
-	}
+	public String generateNextMemNick(String memType) {
+	    String memTypePrefix = (memType.equals("normal") ? "일반회원" : "기업회원");
+	    String latestMemNick = dao.getLatestMemNickByType(memType);
 
-	@Override
-	public String generateNextMemNick(String memType, String latestMemNick) {
 	    if (latestMemNick == null) {
-	        return memType + "1";
+	        return memTypePrefix + "1";
 	    } else {
-	        int currentNumber = Integer.parseInt(latestMemNick.substring(latestMemNick.length() - 1));
-	        return memType + (currentNumber + 1);
+	        int currentNumber = Integer.parseInt(latestMemNick.substring(memTypePrefix.length()));
+	        return memTypePrefix + (currentNumber + 1);
 	    }
 	}
-
     
     //id중복여부
     public int isMemberIdExist(String inputId) {
