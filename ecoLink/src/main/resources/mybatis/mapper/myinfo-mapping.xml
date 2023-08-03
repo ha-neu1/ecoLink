@@ -27,8 +27,21 @@
 		entdExplain1=#{entdExplain1}, entdExplain2=#{entdExplain2}, entdExplain3=#{entdExplain3} WHERE memId=#{memId};
 	</update>
 	
-	<select id="brandBookmark" resultType="dto.EnterpriseBookmarkDTO" parameterType="String">
-        SELECT * FROM enterprise_bookmark where memId=#{memId};
-    </select>
+	<select id="getBrandBookmark" resultType="enterpriseDto" parameterType="String">
+		SELECT e.* FROM enterprise_bookmark eb
+		JOIN enterprise e ON eb.entCrn = e.entCrn
+		WHERE eb.memId = #{memId}
+	</select>
+    
+	<select id="getBoardLike" resultType="boardDto" parameterType="String">
+		SELECT b.*, m.memNick FROM board_like bl
+		JOIN board b ON bl.boardId = b.boardId
+		JOIN member m ON bl.memId = m.memId
+		WHERE bl.memId = #{memId}
+	</select>
+    
+	<select id="getMyBoard" resultType="boardDto" parameterType="String">
+		SELECT * FROM board WHERE memId = #{memId}
+	</select>
 
 </mapper>

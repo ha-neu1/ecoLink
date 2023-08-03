@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 
-import dto.EnterpriseBookmarkDTO;
+import dto.BoardDTO;
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
@@ -12,5 +12,7 @@ public interface MyInfoService {
 	public int entUpdate(EnterpriseDTO edto);
 	public int deleteUser(MemberDTO dto);
 	public int deleteEnt(EnterpriseDTO edto);
-	public List<EnterpriseBookmarkDTO> brandBookmark(String memId);
+	public List<EnterpriseDTO> getBrandBookmark(String memId);
+	public List<BoardDTO> getBoardLike(String memId);
+	public List<BoardDTO> getMyBoard(String memId);
 }

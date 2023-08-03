@@ -31,7 +31,6 @@ aside li:hover{
 }
 
 article {
-	float:left; /* 가로 정렬 */
 	border: 1px solid lightgrey;
 	border-radius: 20px;
 	margin: 50px;
@@ -43,18 +42,18 @@ article {
 
 .myinfoheader {
 	border-bottom: 1px solid lightgrey;
-	margin-bottom: 70px;
+	margin-bottom: 35px;
 }
 
-article h2{
-	text-align: left;
-	margin: 60px 20px 0px 130px;
+.myinfoheader h2{
+	text-align: center;
+	margin: 60px auto 0px auto;
 }
 
-article p{
-	text-align: left;
+.myinfoheader p{
+	text-align: center;
 	font-size: 10px;
-	margin: 10px 20px 10px 128px;
+	margin: 10px auto 10px auto; /*위 우 아래 좌*/
 }
 
 #myinfo {
@@ -150,7 +149,6 @@ table tr td:nth-child(2){
 
 .board_list > div {
     border-bottom: 1px solid #ddd;
-    font-size: 0;
 }
 
 .board_list > div.top {
@@ -161,27 +159,25 @@ table tr td:nth-child(2){
     border-bottom: 1px solid #999;
 }
 
-.board_list > div > div {
-    display: inline-block;
-    padding: 15px 0;
+.board_list .top {
+	display: flex;
+	padding: 15px 0;
     text-align: center;
     font-size: 12px;
-}
-
-.board_list > div.top > div {
     font-weight: 600;
 }
 
 .board_list .num {
-    width: 10%;
+    flex : 1;
     text-align: center;
-    margin-left: 10px;
 }
 
 .board_list .title {
-    width: 50%;
+    flex : 5;
     text-align: left;
-    margin-left: 25px;
+    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .board_list .top .title {
@@ -189,13 +185,26 @@ table tr td:nth-child(2){
 }
 
 .board_list .writer {
-    width: 15%;
+    flex : 2;
+    text-align: center;
 }
 
 .board_list .date {
-    width: 18%;
+    flex : 2;
+    text-align: center;
 }
 
+.likeboard p {
+	text-align:center;
+	padding: 15px 0;
+}
+
+.likeboardlist {
+	display: flex;
+	padding: 15px 0;
+    font-size: 12px;
+    text-align: center;
+}
 
 .board_list2 {
     width: 700px;
@@ -206,7 +215,6 @@ table tr td:nth-child(2){
 
 .board_list2 > div {
     border-bottom: 1px solid #ddd;
-    font-size: 0;
 }
 
 .board_list2 > div.top {
@@ -217,27 +225,25 @@ table tr td:nth-child(2){
     border-bottom: 1px solid #999;
 }
 
-.board_list2 > div > div {
-    display: inline-block;
-    padding: 15px 0;
+.board_list2 .top {
+    display: flex;
+	padding: 15px 0;
     text-align: center;
     font-size: 12px;
-}
-
-.board_list2 > div.top > div {
     font-weight: 600;
 }
 
 .board_list2 .num {
-    width: 10%;
+    flex : 1;
     text-align: center;
-    margin-left: 10px;
 }
 
 .board_list2 .title {
-    width: 65%;
+    flex : 7;
     text-align: left;
-    margin-left: 25px;
+    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .board_list2 .top .title {
@@ -245,5 +251,19 @@ table tr td:nth-child(2){
 }
 
 .board_list2 .date {
-    width: 18%;
+    flex : 2;
+    text-align: center;
 }
+
+.myboard p {
+	text-align:center;
+	padding: 15px 0;
+}
+
+.myboardlist {
+	display: flex;
+	padding: 15px 0;
+    font-size: 12px;
+    text-align: center;
+}
+
