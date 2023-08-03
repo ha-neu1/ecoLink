@@ -7,7 +7,7 @@ public class EnterpriseDTO {
 	String entdMainPic, entdShort, entdURL, entdIntro, entdIntroPic,
 	entdPic1, entdPic2, entdPic3, entdExplain1, entdExplain2, entdExplain3;
 	boolean entdConfirm;
-	MultipartFile entdIntroPicImg, entdPic1Img, entdPic2Img, entdPic3Img;
+	MultipartFile entdMainPicImg, entdIntroPicImg, entdPic1Img, entdPic2Img, entdPic3Img;
 
 	public String getEntCrn() {
 		return entCrn;
@@ -127,6 +127,14 @@ public class EnterpriseDTO {
 
 	public void setEntdConfirm(boolean entdConfirm) {
 		this.entdConfirm = entdConfirm;
+	}
+	
+	public MultipartFile getEntdMainPicImg() {
+		return entdMainPicImg;
+	}
+
+	public void setEntdMainPicImg(MultipartFile entdMainPicImg) {
+		this.entdMainPicImg = entdMainPicImg;
 	}
 
 	public MultipartFile getEntdIntroPicImg() {

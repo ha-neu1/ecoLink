@@ -31,9 +31,9 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return dao.deleteUser(dto);
 	}
 	
-	public int deleteEnt(EnterpriseDTO edto) {
-		return dao.deleteEnt(edto);
-	}
+	//public int deleteEnt(EnterpriseDTO edto) {
+		//return dao.deleteEnt(edto);
+	//}
 	
 	public List<EnterpriseDTO> getBrandBookmark(String memId){
 		return dao.getBrandBookmark(memId);
@@ -47,8 +47,4 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return dao.getMyBoard(memId);
 	}
 	
-	/*
-	 * public EnterpriseDTO getbrandbyId(String entCrn) { return
-	 * dao.getbrandbyId(entCrn); }
-	 */
 }
