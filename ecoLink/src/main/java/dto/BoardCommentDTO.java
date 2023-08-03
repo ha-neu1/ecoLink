@@ -1,16 +1,9 @@
 package dto;
 
 public class BoardCommentDTO {
-	int bcId, boardId, bcRef, bcReLevel;
+	int bcId, boardId;
 	String bcContents, memId, bcRegtime, bcUpdateTime,memNick;
-	
-	public int getBcReLevel() {
-		return bcReLevel;
-	}
-	public void setBcReLevel(int bcReLevel) {
-		this.bcReLevel = bcReLevel;
-	}
-	
+	int bcRef, bcReLevel;
 	public int getBcId() {
 		return bcId;
 	}
@@ -61,12 +54,20 @@ public class BoardCommentDTO {
 	public void setBcRef(int bcRef) {
 		this.bcRef = bcRef;
 	}
-	
+	public int getBcReLevel() {
+		return bcReLevel;
+	}
+	public void setBcReLevel(int bcReLevel) {
+		this.bcReLevel = bcReLevel;
+	}
 	@Override
 	public String toString() {
 		return "BoardCommentDTO [bcId=" + bcId + ", boardId=" + boardId + ", bcContents=" + bcContents + ", memId="
-				+ memId + ", bcRegtime=" + bcRegtime + ", bcUpdateTime=" + bcUpdateTime + "]";
+				+ memId + ", bcRegtime=" + bcRegtime + ", bcUpdateTime=" + bcUpdateTime + ", memNick=" + memNick
+				+ ", bcRef=" + bcRef + ", bcReLevel=" + bcReLevel + "]";
 	}
 	
 	
+	
 }
+

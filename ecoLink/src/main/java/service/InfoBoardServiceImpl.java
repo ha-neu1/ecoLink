@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import dao.InfoBoardDAO;
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.BoardLikeDTO;
 import dto.BrandCommentDTO;
 import dto.FileDTO;
 import jakarta.servlet.ServletContext;
@@ -163,6 +164,11 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	}
 
 	@Override
+	public int insertReplyComment(BoardCommentDTO boarddto) {
+		return dao.insertReplyComment(boarddto);
+	}
+
+	@Override
 	public int updateBcRef(int bcId) {
 
 		return dao.updateBcRef(bcId);
@@ -172,5 +178,30 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	public int getCommentCountForBoard(int boardId) {
 		return dao.getCommentCountForBoard(boardId);
 	}
+
+	@Override
+	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap) {
+
+		return dao.getAllBoardComment(clistmap);
+	}
+
+	@Override
+	public int insertBoardLike(BoardLikeDTO likedto) {
+		return dao.insertBoardLike(likedto);
+	}
+
+	@Override
+	public boolean hasUserLikedBoard(String memId, int boardId) {
+		return dao.hasUserLikedBoard(memId, boardId);
+	}
+
+	@Override
+	public void deleteBoardLike(String memId, int boardId) {
+		dao.deleteBoardLike(memId, boardId);
+	}
+
+	
+	
+	
 
 }

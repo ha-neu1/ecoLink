@@ -25,8 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import dto.BoardLikeDTO;
 import dto.FileDTO;
 import dto.MemberDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.InfoBoardService;
@@ -36,7 +38,7 @@ public class IntroController {
 	@Autowired
 	@Qualifier("infoBoardServiceImpl")
 	InfoBoardService service;
-	
+
 	private static final Logger logger = Logger.getLogger(IntroController.class.getName());
 
 	@RequestMapping("/introboard")
@@ -268,7 +270,9 @@ public class IntroController {
 
 	@RequestMapping("/infopostdetail")
 	public ModelAndView infopostdetail(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			@RequestParam(name = "boardId") Integer boardId, HttpServletResponse response, HttpSession session) {
+			@RequestParam(name = "boardId") Integer boardId,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpServletResponse response,
+			HttpSession session, HttpServletRequest request, String focus) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
@@ -280,7 +284,7 @@ public class IntroController {
 			mv.setViewName("error-page"); // 오류 페이지로 이동하도록 설정
 			return mv;
 		}
-		
+
 		BoardDTO boarddto = service.updateViewcountAndGetDetail(boardId);
 		mv.addObject("detaildto", boarddto);
 		List<FileDTO> files = service.getFilesByBoardId(boardId);
@@ -290,41 +294,91 @@ public class IntroController {
 			imageUrls.add(file.getFilePath());
 
 		}
+		int totalComment = service.getCommentCountForBoard(boardId);
+
+		if (page == 0) {
+			page = 1;
+		}
+		int limitindex = (page - 1) * 5;
+		int limitcount = 5;
+		HashMap<String, Object> clistmap = new HashMap<String, Object>();
+		clistmap.put("boardId", boardId);
+		clistmap.put("limitindex", limitindex);
+		clistmap.put("limitcount", limitcount);
+		List<BoardCommentDTO> clist = service.getAllBoardComment(clistmap);
+		int totalPage = 0;
+		if (totalComment % 5 == 0) {
+			totalPage = totalComment / 5;
+		} else {
+			totalPage = (totalComment / 5) + 1;
+		}
+		int startpage = page / 5 * 5 + 1;
+		if (page % 5 == 0) {
+			startpage -= 5;
+		}
+		int endpage = startpage + 5 - 1;
+		if (endpage > totalPage) {
+			endpage = totalPage;
+		}
+		session = request.getSession();
+		if (focus != null) {
+			if (focus.equals("true")) {
+				session.setAttribute("focus", "true");
+			} else {
+				session.setAttribute("focus", "false");
+			}
+		} else {
+			session.setAttribute("focus", "false");
+		}
+		if (dto != null) {
+	        boolean hasLiked = service.hasUserLikedBoard(dto.getMemId(), boardId);
+	        logger.info("Value of hasLiked: " + hasLiked);
+	        mv.addObject("hasLiked", hasLiked);
+	    } else {
+	        mv.addObject("hasLiked", false) ;
+	    }
+		
+		mv.addObject("currentCpage", page);
+		mv.addObject("totalPage", totalPage);
+		mv.addObject("startpage", startpage);
+		mv.addObject("endpage", endpage);
+		mv.addObject("clist", clist);
 		mv.addObject("user", dto);
 		mv.addObject("imageUrls", imageUrls);
-
+		mv.addObject("bId", boardId);
 		mv.setViewName("infopostdetail");
 		return mv;
 	}
 
 	@RequestMapping("/insertBoardComment")
-	public ResponseEntity<String> insertBoardComment(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			String comment, String boardId,HttpServletResponse response, HttpSession session, Model model) {
+	public ResponseEntity<String> insertBoardComment(
+			@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String comment, String boardId,
+			HttpServletResponse response, HttpSession session, Model model) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
 		model.addAttribute("user", user); // Model에 사용자 정보를 추가) {
-		
+
 		if (dto != null) {
 			BoardCommentDTO boarddto = new BoardCommentDTO();
 			boarddto.setBcContents(comment.replace("\r\n", "<br>"));
 			boarddto.setMemId(dto.getMemId());
 			boarddto.setBoardId(Integer.parseInt(boardId));
-			 logger.info("Inserting comment: " + boarddto.toString());
+			logger.info("Inserting comment: " + boarddto.toString());
 			int result = service.insertBoardComment(boarddto);
 			if (result > 0) {
-			    // Update bcRef value for the newly inserted comment
-			    int insertedBcId = boarddto.getBcId(); // Assuming the bcId is set after insertion
-			    int updateResult = service.updateBcRef(insertedBcId);
-			    if (updateResult > 0) {
-			        System.out.println("bcRef updated successfully");
-			    } else {
-			        System.out.println("Failed to update bcRef");
-			    }
+				// Update bcRef value for the newly inserted comment
+				int insertedBcId = boarddto.getBcId(); // Assuming the bcId is set after insertion
+				int updateResult = service.updateBcRef(insertedBcId);
+				if (updateResult > 0) {
+					System.out.println("bcRef updated successfully");
+				} else {
+					System.out.println("Failed to update bcRef");
+				}
 			} else {
-			    System.out.println("Failed to insert comment");
+				System.out.println("Failed to insert comment");
 			}
 			return ResponseEntity.ok().build();
 		} else {
@@ -333,6 +387,63 @@ public class IntroController {
 		}
 	}
 
-	
+	@RequestMapping("/insertReplyComment")
+	public ResponseEntity<String> insertReplyComment(
+			@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String reply, String boardId,
+			int bcRef, HttpServletResponse response, HttpSession session, Model model) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
 
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가) {
+
+		if (dto != null) {
+			BoardCommentDTO boarddto = new BoardCommentDTO();
+			boarddto.setBcContents(reply.replace("\r\n", "<br>"));
+			boarddto.setMemId(dto.getMemId());
+			boarddto.setBoardId(Integer.parseInt(boardId));
+			boarddto.setBcRef(bcRef);
+			logger.info("Inserting comment: " + boarddto.toString());
+			int result = service.insertReplyComment(boarddto);
+
+			return ResponseEntity.ok().build();
+		} else {
+			System.out.println("User is not logged in. Redirecting to /login.");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
+		}
+	}
+
+	@RequestMapping("/insertBoardLike")
+	public String insertBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam("boardId") int boardId, HttpServletResponse response, HttpSession session, Model model) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user);
+		if (dto != null) {
+			// Check if the user has already liked the board
+			boolean hasLiked = service.hasUserLikedBoard(dto.getMemId(), boardId);
+
+			if (hasLiked) {
+				// If the user has already liked the board, delete the like
+				service.deleteBoardLike(dto.getMemId(), boardId);
+			} else {
+				// If the user has not liked the board, insert a new like
+				BoardLikeDTO likedto = new BoardLikeDTO();
+				likedto.setMemId(dto.getMemId());
+				likedto.setBoardId(boardId);
+				int result = service.insertBoardLike(likedto);
+			}
+
+			// Redirect to the infopostdetail page after handling the like action
+			return "redirect:/infopostdetail?boardId=" + boardId;
+		} else {
+			// If the user is not logged in, redirect to the login page
+			return "/login";
+		}
+
+	}
 }

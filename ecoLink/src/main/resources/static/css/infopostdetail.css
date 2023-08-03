@@ -1,175 +1,281 @@
 @charset "UTF-8";
+
 @font-face {
-    font-family: 'NanumSquareNeo';
-    font-weight: 300;
-    font-style: normal;
-    src: url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot');
-    src: url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot?#iefix') format('embedded-opentype'),
-         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff2') format('woff2'),
-         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff') format('woff'),
-         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.ttf') format("truetype");
-    font-display: swap;
-} 
+	font-family: 'NanumSquareNeo';
+	font-weight: 300;
+	font-style: normal;
+	src:
+		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot');
+	src:
+		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot?#iefix')
+		format('embedded-opentype'),
+		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff2')
+		format('woff2'),
+		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff')
+		format('woff'),
+		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.ttf')
+		format("truetype");
+	font-display: swap;
+}
+
 * {
 	font-family: 'NanumSquareNeo';
 }
-.head_wrap{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 800px;
-    height: 60px;
-    margin: 0 auto;   
+
+.head_wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 800px;
+	height: 60px;
+	margin: 0 auto;
 }
-.left_wrap{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+
+.left_wrap {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 }
-.date_views{
-    display: flex;
-    flex-direction: row;
+
+.date_views {
+	display: flex;
+	flex-direction: row;
 }
-.user_image{
-    font-size: 30px;
-    padding: 10px;
+
+.user_image {
+	font-size: 30px;
+	padding: 10px;
 }
-.nickname{
-    font-size: 15px;
+
+.nickname {
+	font-size: 15px;
 }
-.date_views{
-    font-size: 12px;
+
+.date_views {
+	font-size: 12px;
 }
-.date{
-    padding-right: 5px;
+
+.date {
+	padding-right: 5px;
 }
-.right_wrap{
-    display: flex;
-    justify-content:flex-end; 
+
+.like button {
+	border-style: none;
+	background-color: transparent;
+	cursor: pointer;
+	
 }
-.post_image{
-  width: 800px;
-  height: 500px;
-  position: relative;
-  margin: 0px auto;
-  overflow: hidden;
+.fa-regular.fa-heart {
+
+  color: #000000;
+}
+
+.fa-heart.fa-solid {
+
+  color: #FA383E;
   
 }
-.post_image img{
-  width: 800px;
-  height: 500px;
-  border-radius: 15px;
-}
-.slides{
- position: absolute;
-  left: 0;
-  top: 0;
-  width: 2500px; /* 슬라이드할 사진과 마진 총 넓이 */
-  transition: left 0.2s ease-out; 
+.right_wrap {
+	display: flex;
+	justify-content: flex-end;
 }
 
-.slides li:not(:last-child){
-  float: left;
-  margin-right: 100px;
+.post_image {
+	width: 800px;
+	height: 500px;
+	position: relative;
+	margin: 0px auto;
+	overflow: hidden;
 }
 
-.slides li{
-  float: left;
+.post_image img {
+	width: 800px;
+	height: 500px;
+	border-radius: 15px;
 }
 
-.controller span{
-  position:absolute;
-  background-color: transparent;
-  color: black;
-  text-align: center;
-  border-radius: 50%;
-  padding:  0px 20px;
-  top: 50%;
-  font-size: 1.5em;
-  cursor: pointer;
+.slides {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 2500px; /* 슬라이드할 사진과 마진 총 넓이 */
+	transition: left 0.2s ease-out;
+}
+
+.slides li:not(:last-child) {
+	float: left;
+	margin-right: 100px;
+}
+
+.slides li {
+	float: left;
+}
+
+.controller span {
+	position: absolute;
+	background-color: transparent;
+	color: black;
+	text-align: center;
+	border-radius: 50%;
+	padding: 0px 20px;
+	top: 50%;
+	font-size: 1.5em;
+	cursor: pointer;
 }
 
 /* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
-.controller span:hover{
-  background-color: rgba(128, 128, 128, 0.11);
+.controller span:hover {
+	background-color: rgba(128, 128, 128, 0.11);
 }
 
-.prev{
-  left: 10px;
+.prev {
+	left: 10px;
 }
 
 /* 이전 화살표에 마우스 커서가 올라가 있을때 
 이전 화살표가 살짝 왼쪽으로 이동하는 효과*/
-.prev:hover{
-  transform: translateX(-10px);
+.prev:hover {
+	transform: translateX(-10px);
 }
 
-.next{
-  right: 10px;
+.next {
+	right: 10px;
 }
 
 /* 다음 화살표에 마우스 커서가 올라가 있을때 
 이전 화살표가 살짝 오른쪽으로 이동하는 효과*/
-.next:hover{
-  transform: translateX(10px);
-}
-.post_tit{
-    width: 800px;
-    padding-bottom: 20px;
-    margin: 0 auto;
-    font-size: 25px; 
-    font-weight: bold;
-    padding-left: 20px;
-}
-.post_contents{
-    width: 800px;
-    padding-bottom: 50px;
-    margin: 0 auto;
-    font-size: 15px;
-    padding-left: 20px;
-
-}
-.post_comment_header{
-    width: 800px;
-    margin: 0 auto;
-    border-top: 10px solid #f5f5f5;
-    font-size: 18px;
-    padding: 10px;
-    padding-left: 30px;
-    border-bottom: 1px solid #f5f5f5;;
-    
-}
-.post_comment{
-    display: flex;
-    width: 800px;
-    margin: 0 auto;
-    justify-content: space-between;
-    align-items: center;   
-    padding-top: 10px;
-    
-}
-.comment{
-    width: 700px;
-    max-height: 80px;
-    font-size: 14px;
-    color: #333;
-    background-color: transparent;
-    border-style: none;
-    padding: 10px;
-    background-color: #f5f5f5;
-    border-radius: 18px;
+.next:hover {
+	transform: translateX(10px);
 }
 
-.commentbtn{
-    border: none;
-    background: none;
-    color: #999;
-    font-size: 14px;  
+.post_tit {
+	width: 800px;
+	padding-bottom: 20px;
+	margin: 0 auto;
+	font-size: 25px;
+	font-weight: bold;
+	padding-left: 20px;
 }
-.commentbtn:hover{
-    color: #333;
-    background-color: transparent;
-    border-radius: 10px;
-    border: 2px solid #f5f5f5;
+
+.post_contents {
+	width: 800px;
+	padding-bottom: 50px;
+	margin: 0 auto;
+	font-size: 15px;
+	padding-left: 20px;
+}
+
+.post_comment_header {
+	width: 800px;
+	margin: 0 auto;
+	border-top: 10px solid #f5f5f5;
+	font-size: 18px;
+	padding: 10px;
+	padding-left: 30px;
+	border-bottom: 1px solid #f5f5f5;;
+}
+
+.post_comment {
+	display: flex;
+	width: 800px;
+	margin: 0 auto;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 10px;
+}
+
+.comment {
+	width: 700px;
+	max-height: 80px;
+	font-size: 14px;
+	color: #333;
+	background-color: transparent;
+	border-style: none;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 18px;
+}
+
+.commentbtn {
+	border: none;
+	background: none;
+	color: #999;
+	font-size: 14px;
+}
+
+.commentbtn:hover {
+	color: #333;
+	background-color: transparent;
+	border-radius: 10px;
+	border: 2px solid #f5f5f5;
+}
+
+.commentContentWrap {
+	display: flex;
+	padding: 16px 24px;
+	width: 750px;
+	margin: 0 auto;
+}
+
+.replyWrap {
+	display: flex;
+	padding: 16px 24px;
+	width: 750px;
+	margin: 0 auto;
+	padding-left: 70px;
+}
+
+.commentContentProfile {
+	padding-right: 8px;
+}
+
+.commentContents {
+	padding-top: 8px;
+}
+
+.dateReplyWrap {
+	display: flex;
+	flex-direction: row;
+	padding-top: 8px;
+}
+
+.replyContents {
+	display: flex;
+	flex-direction: row;
+	padding: 16px 24px;
+}
+
+.reply {
+	width: 630px;
+	max-height: 80px;
+	font-size: 14px;
+	color: #333;
+	background-color: transparent;
+	border-style: none;
+	padding: 10px; background-color : #f5f5f5;
+	border-radius: 18px;
+	background-color: #f5f5f5;
+}
+
+.replyBtn {
+	border: none;
+	background: none;
+	color: #999;
+	font-size: 14px;
+	padding-left: 2px;
+}
+
+.commentReply {
+	padding-left: 20px;
+}
+
+.commentReply button {
+	border: 0 none;
+	cursor: pointer;
+	background-color: transparent;
+}
+
+.replyBtn {
+	color: #282828;
 }

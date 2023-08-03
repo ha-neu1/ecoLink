@@ -74,7 +74,11 @@
 	</update>
 
 	<select id="getDetail" resultType="boarddto" parameterType="int">
-		select * from board where boardId=#{boardId}
+		SELECT b.*, m.memNick
+		FROM board AS b
+		JOIN member AS m ON b.memId =
+		m.memId
+		WHERE b.boardId = #{boardId}
 	</select>
 
 	<insert id="insertFile" parameterType="filedto">
@@ -115,22 +119,53 @@
 		bcRef = #{bcRef}
 		WHERE bcId = #{bcId}
 	</update>
+
 	<select id="getCommentCountForBoard" parameterType="int"
 		resultType="int">
-		SELECT COUNT(*) FROM board_comment WHERE boardId = #{boardId}
+		SELECT COUNT(*) FROM board_comment WHERE boardId =
+		#{boardId}
 	</select>
 
 	<select id="getAllBoardComment" parameterType="hashmap"
 		resultType="boardCommentDto">
 		select b.bcId, b.boardId, b.bcContents, b.memId,
-		b.bcRegTime,b.bcUpdateTime, m.memNick
-		from board_comment as b
-		join
-		member as m on m.memId = b.memId
-		where boardId = #{boardId}
-		order by
-		b.bcRegtime desc limit #{limitindex} , #{limitcount};
+		b.bcRegTime, b.bcUpdateTime, b.bcRef, b.bcReLevel, m.memNick
+		from
+		board_comment as b
+		join member as m on m.memId = b.memId
+		where boardId =
+		#{boardId}
+		order by b.bcRef asc, b.bcReLevel asc, b.bcRegTime asc
+		limit
+		#{limitindex}, #{limitcount};
 	</select>
+
+	<insert id="insertReplyComment" parameterType="boardCommentDto"
+		useGeneratedKeys="true" keyProperty="bcId">
+		INSERT INTO board_comment
+		(boardId, bcContents, memId, bcRef, bcReLevel)
+		VALUES
+		(#{boardId},
+		#{bcContents}, #{memId},#{bcRef}, 1)
+	</insert>
+
+	<insert id="insertBoardLike" parameterType="boardLikeDto">
+		insert into
+		board_like(memId,boardId) values (#{memId}, #{boardId})
+	</insert>
+
+	<select id="hasUserLikedBoard" parameterType="hashmap"
+		resultType="boolean">
+		select exists(select 1 from board_like where memId =
+		#{memId} and boardId =
+		#{boardId})
+	</select>
+
+	<delete id="deleteBoardLike" parameterType="hashmap">
+		delete from board_like where memId = #{memId} and boardId = #{boardId}
+	</delete>
+
+
 
 
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
-import dto.BrandCommentDTO;
+import dto.BoardLikeDTO;
 import dto.FileDTO;
 
 @Mapper
@@ -41,6 +41,19 @@ public interface InfoBoardDAO {
 
 	public int updateBcRef(int bcId);
 
+	
+
 	public int getCommentCountForBoard(int boardId);
+
+	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap);
+
+	public int insertReplyComment(BoardCommentDTO boarddto);
+
+	public int insertBoardLike(BoardLikeDTO likedto);
+	
+	public boolean hasUserLikedBoard(String memId, int boardId);
+	
+	public void deleteBoardLike(String memId, int boardId);
+
 
 }
