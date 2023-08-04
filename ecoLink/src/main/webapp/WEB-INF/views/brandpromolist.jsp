@@ -47,15 +47,20 @@
 		<div class="boardMain">
 			<c:forEach items="${list}" var="dto">
 				<div class="boardList">
-					<h3 class="memId">
-						<a href="/brandpromodetail?entCrn=${dto.entCrn}">${dto.memNick}</a>
-					</h3>
-					<h4 class="boardTitle">
-						<span class="fa fa-star star-active"></span> ${dto.avgRate}
-					</h4>
+					<div class="titlerate">
+						<div class="titlenamediv">
+							<a class="titlename"
+								href="/brandpromodetail?entCrn=${dto.entCrn}">${dto.memNick}</a>
+						</div>
+						<div class="ratediv">
+							<span class="fa fa-star star-active"></span> ${dto.avgRate}
+						</div>
+					</div>
+					<hr style="margin-top: 3px; margin-bottom: 5px;">
 					<a href="/brandpromodetail?entCrn=${dto.entCrn}"><img
 						class="boardImage" src="${dto.entdMainPic}"
 						onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
+					<hr style="margin-bottom: 5px;">
 					<div class="entdShort">
 						<p class="boardCont">${dto.entdShort}</p>
 					</div>
@@ -119,28 +124,26 @@
 			</c:forEach>
 			<c:choose>
 				<c:when test="${totalPage != endpage}">
-					<a class="next" 
-					<c:choose>
+					<a class="next"
+						<c:choose>
 					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}&search=${search}"</c:when>
 					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}"</c:when>
 					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=latest&search=${search}"</c:when>
 					<c:otherwise>
 					href="/brandpromolist?page=${endpage + 1}"
 					</c:otherwise>
-					</c:choose>
-					>다음</a>
+					</c:choose>>다음</a>
 				</c:when>
 				<c:otherwise>
-					<a class="next disabled" 
-					<c:choose>
+					<a class="next disabled"
+						<c:choose>
 					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}&search=${search}"</c:when>
 					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}"</c:when>
 					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=latest&search=${search}"</c:when>
 					<c:otherwise>
 					href="/brandpromolist?page=${endpage + 1}"
 					</c:otherwise>
-					</c:choose>
-					>다음</a>
+					</c:choose>>다음</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
