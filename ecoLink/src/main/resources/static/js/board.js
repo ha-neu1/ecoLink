@@ -63,20 +63,6 @@ function handleWriteButtonClick() {
 
 // 페이지 로드 시 게시물 목록 렌더링
 document.addEventListener("DOMContentLoaded", function() {
-	boardData = [
-		{
-			memId: "user1",
-			boardTitle: "게시물 제목 1",
-			boardDate: "2023-07-20",
-			boardCont: "게시물 내용 1",
-		},
-		{
-			memId: "user2",
-			boardTitle: "게시물 제목 2",
-			boardDate: "2023-07-21",
-			boardCont: "게시물 내용 2",
-		},
-	];
 
 	renderBoardList();
 

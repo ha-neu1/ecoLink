@@ -1,14 +1,12 @@
-// BoardServiceImpl.java
-
 package service;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,15 +17,16 @@ import java.util.UUID;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-    @Autowired
-    private BoardDAO boardDAO;
+    private final SqlSession sqlSession;
 
-    // 이미지를 저장할 경로
-    private static final String IMAGE_UPLOAD_DIR = "src/main/resources/static/images/";
+    @Autowired
+    public BoardServiceImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 
     @Override
     public List<BoardDTO> getBoardList() {
-        return boardDAO.getBoardList();
+        return sqlSession.selectList("dao.BoardDAO.getBoardList");
     }
 
     @Override
@@ -38,12 +37,12 @@ public class BoardServiceImpl implements BoardService {
             for (MultipartFile file : draggedFiles) {
                 try {
                     String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-                    Path filePath = Paths.get(IMAGE_UPLOAD_DIR + fileName);
+                    Path filePath = Paths.get("c:/kdt/upload/" + fileName); // 이미지를 upload 폴더에 저장
                     Files.write(filePath, file.getBytes());
 
                     // 첫 번째 이미지의 경로를 firstImageUrl로 설정
                     if (boardDTO.getFirstImageUrl() == null) {
-                        boardDTO.setFirstImageUrl("/images/" + fileName);
+                        boardDTO.setFirstImageUrl("/upload/" + fileName); // 이미지 경로 설정
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -52,24 +51,29 @@ public class BoardServiceImpl implements BoardService {
             }
         }
 
-        int result = boardDAO.createBoard(boardDTO);
+        int result = sqlSession.insert("dao.BoardDAO.insertBoard", boardDTO);
         return result > 0;
     }
 
     @Override
     public BoardDTO getBoardById(int boardId) {
-        return boardDAO.getBoardById(boardId);
+        return sqlSession.selectOne("dao.BoardDAO.getBoardById", boardId);
     }
 
     @Override
     public boolean updateBoard(BoardDTO boardDTO) {
-        int result = boardDAO.updateBoard(boardDTO);
+        int result = sqlSession.update("dao.BoardDAO.updateBoard", boardDTO);
         return result > 0;
     }
 
     @Override
     public boolean deleteBoard(int boardId) {
-        int result = boardDAO.deleteBoard(boardId);
+        int result = sqlSession.delete("dao.BoardDAO.deleteBoard", boardId);
         return result > 0;
+    }
+
+    @Override
+    public List<BoardDTO> getShareBoardList() {
+        return sqlSession.selectList("dao.BoardDAO.getShareBoardList");
     }
 }
