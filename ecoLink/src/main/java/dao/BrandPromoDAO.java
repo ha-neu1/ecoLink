@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
+import dto.BrandPromoListDTO;
 
 
 @Repository
@@ -23,5 +24,10 @@ public interface BrandPromoDAO {
 	public int getCommentCount(String entCrn);
 	public int deleteBrandComment(String entCrn, String memId);
 	public int updateBrandComment(BrandCommentDTO bdto);
+	public List<BrandPromoListDTO> getNormalBPList(HashMap<String, Object> clistmap);
+	public List<BrandPromoListDTO> getrateBPList(HashMap<String, Object> clistmap);
+	public List<BrandPromoListDTO> getoptionBPList(HashMap<String, Object> clistmap);
+	public int getBPListCount();
+	public int getoptionBPListCount(String memNick);
 	
 }

@@ -12,7 +12,8 @@
 		e.entdMainPic, e.entdURL, m.memNick
 		FROM enterprise e
 		INNER JOIN member
-		m ON e.memId = m.memId;
+		m ON e.memId = m.memId
+		WHERE entdConfirm = true;
 	</select>
 
 	<select id="getShareBoardList" resultType="maindto">

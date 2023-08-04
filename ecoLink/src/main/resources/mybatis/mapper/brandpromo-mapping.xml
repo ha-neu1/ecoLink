@@ -66,9 +66,68 @@
 
 	<update id="updateBrandComment" parameterType="brandCommentDto">
 		update
-		brand_comment set brcRate = #{brcRate}, brcContents = #{brcContents}, brcUpdateTime =
+		brand_comment set brcRate = #{brcRate}, brcContents = #{brcContents},
+		brcUpdateTime =
 		default where memId = #{memId} and entCrn = #{entCrn};
 	</update>
+
+	<select id="getNormalBPList" parameterType="hashmap"
+		resultType="brandPromoListDto">
+		select e.entCrn, e.memId, e.entPhone, e.entdMainPic,
+		e.entdShort, e.entdURL, e.entdConfirm,
+		ifnull(ROUND(AVG(bc.brcRate),1), 0) avgRate, m.memRegtime, m.memNick
+		from enterprise as e
+		join member as m on e.memId = m.memId
+		left join
+		brand_comment as bc on e.entCrn = bc.entCrn
+		where e.entdConfirm = true
+		group by e.entCrn
+		order by m.memRegtime desc limit #{limitindex} ,
+		#{limitcount};
+	</select>
+
+	<select id="getrateBPList" parameterType="hashmap"
+		resultType="brandPromoListDto">
+		select e.entCrn, e.memId, e.entPhone, e.entdMainPic,
+		e.entdShort, e.entdURL, e.entdConfirm,
+		ifnull(ROUND(AVG(bc.brcRate),1), 0) avgRate, m.memRegtime, m.memNick
+		from enterprise as e
+		join member as m on e.memId = m.memId
+		left join
+		brand_comment as bc on e.entCrn = bc.entCrn
+		where e.entdConfirm = true
+		group by e.entCrn
+		order by avgRate desc limit #{limitindex} ,
+		#{limitcount};
+	</select>
+
+	<select id="getoptionBPList" parameterType="hashmap"
+		resultType="brandPromoListDto">
+		select e.entCrn, e.memId, e.entPhone, e.entdMainPic,
+		e.entdShort, e.entdURL, e.entdConfirm,
+		ifnull(ROUND(AVG(bc.brcRate),1), 0) avgRate, m.memRegtime, m.memNick
+		from enterprise as e
+		join member as m on e.memId = m.memId
+		left join
+		brand_comment as bc on e.entCrn = bc.entCrn
+		where e.entdConfirm = true
+		and m.memNick like CONCAT('%',#{memNick},'%')
+		group by e.entCrn
+		order by #{option} desc limit #{limitindex} , #{limitcount};
+	</select>
+
+	<select id="getBPListCount" parameterType="string"
+		resultType="int">
+		select COUNT(*) from enterprise where entdConfirm = true;
+	</select>
+
+	<select id="getoptionBPListCount" parameterType="string"
+		resultType="int">
+		select COUNT(*) from enterprise as e
+		join member as m on e.memId = m.memId
+		where e.entdConfirm = true and m.memNick like CONCAT('%',#{memNick},'%');
+	</select>
+
 
 </mapper>
 

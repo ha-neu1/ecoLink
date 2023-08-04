@@ -23,7 +23,6 @@ aside li{
 }
 
 aside li:hover{
-	font-size: 15.5px;
 	color: #00d084;
 }
 
@@ -44,9 +43,21 @@ article {
 	position: relative;
 }
 
-.myinfoheader {
+.forminheader {
 	border-bottom: 1px solid lightgrey;
 	margin-bottom: 70px;
+}
+
+.forminheader h2{
+	text-align: center;
+	margin: 60px auto 0px auto;
+}
+
+.forminheader p{
+	text-align: center;
+	font-size: 10px;
+	margin: 10px auto 10px auto; /*위 우 아래 좌*/
+
 }
 
 

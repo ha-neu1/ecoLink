@@ -95,9 +95,9 @@ public class MemberController {
             member.setMemType("enter");
         }
 
-        // memNick 값 설정
+        /*// memNick 값 설정
         String memNick = service.generateNextMemNick(member.getMemType());
-        member.setMemNick(memNick);
+        member.setMemNick(memNick);*/
          
         // 회원 등록
         service.addMember(member);
@@ -109,14 +109,41 @@ public class MemberController {
     @ResponseBody
     public String enterprisejoin(@ModelAttribute("enter") EnterpriseDTO enter) {
     	System.out.println("enter.getEntCrn() : " + enter.getEntCrn());
-    	System.out.println("enter.toString() : " + enter.toString());
-    	//enter.toString() : EnterpriseDTO [entCrn=null, entPhone=null, 
-    	//memId=test3, entdMainPic=null, entdShort=null, entdURL=null, entdIntro=null, 
-    	//entdIntroPic=null, entdPic1=null, entdPic2=null, entdPic3=null, entdExplain1=null, entdExplain2=null, entdExplain3=null, entdConfirm=false]
+
+    	String modifiedIntro = convertToHtmlFormat(enter.getEntdIntro());
+        enter.setEntdIntro(modifiedIntro);
+        
+    	String modifiedShort = convertToHtmlFormat(enter.getEntdShort());
+        enter.setEntdShort(modifiedShort);
+        
+        String modifiedExplain1 = convertToHtmlFormat(enter.getEntdExplain1());
+        enter.setEntdExplain1(modifiedExplain1);
+
+        String modifiedExplain2 = convertToHtmlFormat(enter.getEntdExplain2());
+        enter.setEntdExplain2(modifiedExplain2);
+
+        String modifiedExplain3 = convertToHtmlFormat(enter.getEntdExplain3());
+        enter.setEntdExplain3(modifiedExplain3);
+        
+        System.out.println("enter.toString() : " + enter.toString());
+        //enter.toString() : EnterpriseDTO [entCrn=null, entPhone=null, 
+        //memId=test3, entdMainPic=null, entdShort=null, entdURL=null, entdIntro=null, 
+        //entdIntroPic=null, entdPic1=null, entdPic2=null, entdPic3=null, entdExplain1=null, entdExplain2=null, entdExplain3=null, entdConfirm=false]
         
     	service.addEnterprise(enter);
    
         return "redirect:/login";
+    }
+    
+    public String convertToHtmlFormat(String text) {
+        String htmlText = text.replace("\r\n", "<br>")
+                              .replace("\n", "<br>")
+                              .replace("\r", "<br>");
+//                              .replace("\"", "&quot;")
+//                              .replace("'", "&#39;")
+//                              .replace("<", "&lt;")
+//                              .replace(">", "&gt;");
+        return htmlText;
     }
     
     //id, email 중복여부
@@ -140,37 +167,7 @@ public class MemberController {
     	}
     	return "{\"result\" : \"" + result+ " \" }";
     }    
-
-    /*
-    // 회원가입
-    @RequestMapping("/join")
-    public String join() {
-        return "join";
-    }
-    
-    // id 중복여부
-    @PostMapping("/ismemberidexist")
-    @ResponseBody
-    public String isMemberIdExist(@RequestParam("memberId") String memberId) {
-        boolean isExist = service.isMemberIdExist(memberId);
-        return isExist ? "exist" : "notexist";
-    }
-
-    // email 중복 여부
-    @PostMapping("/ismemberemailexist")
-    @ResponseBody
-    public String isMemberEmailExist(@RequestParam("memberEmail") String memberEmail) {
-        boolean isExist = service.isMemberEmailExist(memberEmail);
-        return isExist ? "exist" : "notexist";
-    }
-
-    // 회원가입 / 데이터 저장
-    @PostMapping("/savememberinfo")
-    public String saveMemberInfo(@ModelAttribute MemberDTO memberDto) {
-    	service.saveMemberInfo(memberDto);
-        return "login"; // 로그인 페이지로 이동하도록 설정
-    }*/
-    
+ 
     // 아이디 찾기
     @RequestMapping("/findId")
     public String findId() {

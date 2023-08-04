@@ -36,4 +36,9 @@
         DELETE FROM board WHERE board_id = #{boardId}
     </delete>
 
+    <!-- 'share' 게시물 목록 조회 -->
+    <select id="getShareBoardList" resultType="dto.BoardDTO">
+        SELECT * FROM board WHERE board_type = 'share'
+    </select>
+
 </mapper>

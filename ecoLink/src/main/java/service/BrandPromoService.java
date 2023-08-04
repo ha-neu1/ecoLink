@@ -5,6 +5,7 @@ import java.util.List;
 
 import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
+import dto.BrandPromoListDTO;
 
 public interface BrandPromoService {
 	public BrandPromoDTO getBrandPromoDetail(String entCrn);
@@ -17,5 +18,10 @@ public interface BrandPromoService {
 	public int getCommentCount(String entCrn);
 	public int deleteBrandComment(String entCrn, String memId);
 	public int updateBrandComment(BrandCommentDTO bdto);
+	public List<BrandPromoListDTO> getNormalBPList(HashMap<String, Object> clistmap);
+	public List<BrandPromoListDTO> getrateBPList(HashMap<String, Object> clistmap);
+	public List<BrandPromoListDTO> getoptionBPList(HashMap<String, Object> clistmap);
+	public int getBPListCount();
+	public int getoptionBPListCount(String memNick);
 	
 }

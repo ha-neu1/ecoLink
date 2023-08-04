@@ -15,5 +15,6 @@
 	<typeAlias type="dto.AdminDTO" alias="adminDto"/>
 	<typeAlias type="dto.MainDTO" alias="mainDto"/>
 	<typeAlias type="dto.BrandPromoDTO" alias="brandPromoDto"/>
+	<typeAlias type="dto.BrandPromoListDTO" alias="brandPromoListDto"/>
 </typeAliases>
 </configuration>

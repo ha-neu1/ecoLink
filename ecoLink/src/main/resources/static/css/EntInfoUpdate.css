@@ -23,7 +23,6 @@ aside li{
 }
 
 aside li:hover{
-	font-size: 15.5px;
 	color: #00d084;
 }
 
@@ -47,6 +46,18 @@ article {
 .forminheader {
 	border-bottom: 1px solid lightgrey;
 	margin-bottom: 70px;
+}
+
+.forminheader h2{
+	text-align: center;
+	margin: 60px auto 0px auto;
+}
+
+.forminheader p{
+	text-align: center;
+	font-size: 10px;
+	margin: 10px auto 10px auto; /*위 우 아래 좌*/
+
 }
 
 article h2{
@@ -162,7 +173,7 @@ input[type=file]::file-selector-button {
 	margin-right: 1rem;
 }
 
-#numCount {
+.numCount {
 	font-size: 10px;
 	color: #808080;
 	margin:0px 0px 0px 350px; /*위 우 아래 좌*/

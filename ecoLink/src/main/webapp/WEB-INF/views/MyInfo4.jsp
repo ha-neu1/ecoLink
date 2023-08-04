@@ -46,7 +46,18 @@
 									<div class="myboardlist">
 										<div class="num" id="boardid">${status.index + 1}</div>
 										<div class="title" id="title">
-											<a href="#" style="text-decoration: none; color: black">${myboard.boardTitle }</a>
+											<c:choose>
+												<c:when test="${myboard.boardType eq 'share'}">
+													<a
+														href="http://localhost:8070/boardRead?boardId=${myboard.boardId}"
+														style="text-decoration: none; color: black">${myboard.boardTitle}</a>
+												</c:when>
+												<c:when test="${myboard.boardType eq 'review'}">
+													<a
+														href="http://localhost:8070/reviewRead?boardId=${myboard.boardId}"
+														style="text-decoration: none; color: black">${myboard.boardTitle}</a>
+												</c:when>
+											</c:choose>
 										</div>
 										<div class="date" id="creatAt">
 											<fmt:parseDate value="${myboard.boardRegtime}"

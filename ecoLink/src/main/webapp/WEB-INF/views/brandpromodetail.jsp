@@ -135,7 +135,7 @@
 						<c:if test="${not empty bpd.entdPic1}">
 							<div class="col-md-4 mb-5">
 								<div class="card h-100">
-									<div class="card-body">
+									<div class="card-body text-center">
 										<img class="img-fluid rounded mb-2 mb-lg-0"
 											src="${bpd.entdPic1}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
@@ -147,7 +147,7 @@
 						<c:if test="${not empty bpd.entdPic2}">
 							<div class="col-md-4 mb-5">
 								<div class="card h-100">
-									<div class="card-body">
+									<div class="card-body text-center">
 										<img class="img-fluid rounded mb-4 mb-lg-0"
 											src="${bpd.entdPic2}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
@@ -160,7 +160,7 @@
 						<c:if test="${not empty bpd.entdPic3}">
 							<div class="col-md-4 mb-5">
 								<div class="card h-100">
-									<div class="card-body">
+									<div class="card-body text-center">
 										<img class="img-fluid rounded mb-4 mb-lg-0"
 											src="${bpd.entdPic3}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
@@ -366,7 +366,6 @@
 												href="/brandpromodetail?entCrn=${bpd.entCrn}&page=${endpage + 1}&focus=true">다음</a></li>
 										</c:otherwise>
 									</c:choose>
-
 								</ul>
 							</div>
 						</div>

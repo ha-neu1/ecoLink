@@ -14,28 +14,99 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
+import dto.BrandPromoListDTO;
 import dto.MemberDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.BrandPromoService;
 
-
-
 @Controller
 public class BrandPromoController {
-	
+
 	@Autowired
 	@Qualifier("brandPromoServiceImpl")
 	BrandPromoService service;
-	
+
 	@RequestMapping("/brandpromolist")
-	public String brandpromolist() {
-		return "brandpromolist";
+	public ModelAndView brandpromolist(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "order", required = false, defaultValue = "latest") String order,
+			@RequestParam(value = "search", required = false, defaultValue = "") String search) {
+		ModelAndView mv = new ModelAndView();
+
+		int limitindex = (page - 1) * 9;
+		int limitcount = 9;
+		int totalList = 0;
+		HashMap<String, Object> clistmap = new HashMap<String, Object>();
+		clistmap.put("limitindex", limitindex);
+		clistmap.put("limitcount", limitcount);
+		List<BrandPromoListDTO> list = null;
+
+		if (search.equals("")) {
+			if (order != null) {
+				if (order.equals("latest")) {
+					list = service.getNormalBPList(clistmap);
+					mv.addObject("order", "latest");
+				} else if (order.equals("rate")) {
+					list = service.getrateBPList(clistmap);
+					mv.addObject("order", "rate");
+				}
+			} else {
+				list = service.getNormalBPList(clistmap);
+				mv.addObject("order", "latest");
+			}
+			totalList = service.getBPListCount();
+		} else {
+			if (order != null) {
+				if (order.equals("latest")) {
+					clistmap.put("option", "m.memRegtime");
+					clistmap.put("memNick", search);
+					list = service.getoptionBPList(clistmap);
+					mv.addObject("order", "latest");
+					mv.addObject("search", search);
+				} else if (order.equals("rate")) {
+					clistmap.put("option", "avgRate");
+					clistmap.put("memNick", search);
+					list = service.getoptionBPList(clistmap);
+					mv.addObject("order", "rate");
+					mv.addObject("search", search);
+				}
+			} else {
+				list = service.getNormalBPList(clistmap);
+				mv.addObject("order", "latest");
+			}
+			totalList = service.getoptionBPListCount(search);
+		}
+
+		int totalPage = 0;
+		if (totalList % 9 == 0) {
+			totalPage = totalList / 9;
+		} else {
+			totalPage = (totalList / 9) + 1;
+		}
+		int startpage = page / 9 * 9 + 1;
+		if (page % 5 == 0) {
+			startpage -= 5;
+		}
+		int endpage = startpage + 9 - 1;
+		if (endpage > totalPage) {
+			endpage = totalPage;
+		}
+
+		mv.addObject("currentCpage", page);
+		mv.addObject("totalPage", totalPage);
+		mv.addObject("startpage", startpage);
+		mv.addObject("endpage", endpage);
+		mv.addObject("list", list);
+		mv.setViewName("brandpromolist");
+		return mv;
 	}
-	
+
 	@RequestMapping("/brandpromodetail")
-	public ModelAndView brandpromodetail(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, @RequestParam(value="page", required=false, defaultValue = "1") int page, HttpServletRequest request, String focus, String entCrn) {
+	public ModelAndView brandpromodetail(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpServletRequest request,
+			String focus, String entCrn) {
 		ModelAndView mv = new ModelAndView();
 		BrandPromoDTO bpdto = service.getBrandPromoDetail(entCrn);
 		int totalComment = service.getCommentCount(entCrn);
@@ -43,7 +114,7 @@ public class BrandPromoController {
 		if (page == 0) {
 			page = 1;
 		}
-		int limitindex = (page-1)*5;
+		int limitindex = (page - 1) * 5;
 		int limitcount = 5;
 		HashMap<String, Object> clistmap = new HashMap<String, Object>();
 		clistmap.put("entCrn", entCrn);
@@ -97,7 +168,7 @@ public class BrandPromoController {
 		HttpSession session = request.getSession();
 		if (focus != null) {
 			if (focus.equals("true")) {
-	            session.setAttribute("focus", "true");
+				session.setAttribute("focus", "true");
 			} else {
 				session.setAttribute("focus", "false");
 			}
@@ -116,27 +187,28 @@ public class BrandPromoController {
 		mv.setViewName("brandpromodetail");
 		return mv;
 	}
-	
+
 	@RequestMapping("/brandpromodetail/bookmark")
-	public String bookmark(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String entCrn, String bookmarked) {
+	public String bookmark(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String entCrn,
+			String bookmarked) {
 		if (dto != null && entCrn != null) {
 			int result = 0;
 			if (bookmarked.equals("0")) {
 				result = service.insertBrandPromoBookmark(dto.getMemId(), entCrn);
-			} 
-			else if (bookmarked.equals("1")) {
+			} else if (bookmarked.equals("1")) {
 				result = service.deleteBrandPromoBookmark(dto.getMemId(), entCrn);
 			}
 		}
 		return "redirect:/brandpromodetail?entCrn=" + entCrn;
 	}
-	
+
 	@RequestMapping("/insertBrandComment")
-	public String insertBrandComment(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String star, String comment, String entCrn) {
+	public String insertBrandComment(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String star,
+			String comment, String entCrn) {
 		if (dto != null) {
 			BrandCommentDTO bcdto = new BrandCommentDTO();
 			bcdto.setBrcRate(Integer.parseInt(star));
-			bcdto.setBrcContents(comment.replace("\r\n","<br>"));
+			bcdto.setBrcContents(comment.replace("\r\n", "<br>"));
 			bcdto.setEntCrn(entCrn);
 			bcdto.setMemId(dto.getMemId());
 			int result = service.insertBrandComment(bcdto);
@@ -144,11 +216,12 @@ public class BrandPromoController {
 		} else {
 			return "/login";
 		}
-		
+
 	}
-	
+
 	@RequestMapping("/deleteBrandComment")
-	public String deleteBrandComment(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String memId, String entCrn, HttpServletResponse response) {
+	public String deleteBrandComment(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			String memId, String entCrn, HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
@@ -163,21 +236,22 @@ public class BrandPromoController {
 			return "/login";
 		}
 	}
-	
+
 	@RequestMapping("/updateBrandComment")
-	public String updateBrandComment(@SessionAttribute(name = "logininfo", required = false)MemberDTO dto, String memId, String brcRate, String brcContents, String entCrn, int currentCpage) {
+	public String updateBrandComment(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			String memId, String brcRate, String brcContents, String entCrn, int currentCpage) {
 		if (dto != null) {
 			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
 				BrandCommentDTO bcdto = new BrandCommentDTO();
 				bcdto.setBrcRate(Integer.parseInt(brcRate));
-				bcdto.setBrcContents(brcContents.replace("\r\n","<br>"));
+				bcdto.setBrcContents(brcContents.replace("\r\n", "<br>"));
 				bcdto.setEntCrn(entCrn);
 				bcdto.setMemId(memId);
 				int result = service.updateBrandComment(bcdto);
 				return "redirect:/brandpromodetail?entCrn=" + entCrn + "&page=" + currentCpage + "&focus=true";
 			} else {
 				return "/login";
-			}			
+			}
 		} else {
 			return "/login";
 		}
