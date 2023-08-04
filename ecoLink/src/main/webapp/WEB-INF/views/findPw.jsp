@@ -48,7 +48,7 @@ window.addEventListener("DOMContentLoaded", function() {
 <div id="container">
 <div id="header">
             <div class="logo">
-                <a href="/">
+                <a href="/main">
                     <img src="/images/logo1.png" alt="" class="max">
                 </a>
             </div>
