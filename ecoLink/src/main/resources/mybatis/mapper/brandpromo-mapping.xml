@@ -113,7 +113,7 @@
 		where e.entdConfirm = true
 		and m.memNick like CONCAT('%',#{memNick},'%')
 		group by e.entCrn
-		order by #{option} desc limit #{limitindex} , #{limitcount};
+		order by ${option} desc limit #{limitindex} , #{limitcount};
 	</select>
 
 	<select id="getBPListCount" parameterType="string"

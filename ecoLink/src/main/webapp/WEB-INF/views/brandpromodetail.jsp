@@ -378,7 +378,6 @@
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="../js/brandpromodetail.js"></script>
 	<script type="text/javascript">
 	function bookmark(e, f) {
 		var logininfo = '<%=session.getAttribute("logininfo")%>';
