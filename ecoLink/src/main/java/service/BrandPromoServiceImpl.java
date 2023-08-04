@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import dao.BrandPromoDAO;
 import dto.BrandCommentDTO;
 import dto.BrandPromoDTO;
+import dto.BrandPromoListDTO;
 
 
 @Service
@@ -65,6 +66,31 @@ public class BrandPromoServiceImpl implements BrandPromoService {
 	@Override
 	public int updateBrandComment(BrandCommentDTO bdto) {
 		return dao.updateBrandComment(bdto);
+	}
+
+	@Override
+	public List<BrandPromoListDTO> getNormalBPList(HashMap<String, Object> clistmap) {
+		return dao.getNormalBPList(clistmap);
+	}
+	
+	@Override
+	public List<BrandPromoListDTO> getrateBPList(HashMap<String, Object> clistmap) {
+		return dao.getrateBPList(clistmap);
+	}
+	
+	@Override
+	public List<BrandPromoListDTO> getoptionBPList(HashMap<String, Object> clistmap) {
+		return dao.getoptionBPList(clistmap);
+	}
+
+	@Override
+	public int getBPListCount() {
+		return dao.getBPListCount();
+	}
+
+	@Override
+	public int getoptionBPListCount(String memNick) {
+		return dao.getoptionBPListCount(memNick);
 	}
 
 }

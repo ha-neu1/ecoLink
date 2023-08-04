@@ -1,0 +1,276 @@
+/* 전체 페이지 스타일 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+
+/* 포인트 컬러 */
+.point_color {
+    color: #00D084;
+    background-color: #00D084;
+}
+
+/* 게시판 영역 */
+.board_area {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 게시판 제목 및 페이지 이름 스타일 */
+.board_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.page_name strong {
+    font-size: 24px;
+    color: #00D084;
+}
+
+/* 두꺼운 구분선 스타일 */
+hr.hr_bold {
+    border: none;
+    height: 3px;
+    background-color: #00D084;
+    margin-bottom: 20px;
+}
+
+/* 검색 정렬 관련 스타일 */
+.search_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* 게시판 정렬 스타일 */
+.boardSort {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.boardSort select {
+    color: #333;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* 드롭다운 목록의 옵션 스타일 */
+.boardSort select option:checked {
+    background-color: #00D084;
+    color: #fff;
+}
+
+/* 검색 상자 스타일 */
+.searchBox {
+    display: flex;
+    align-items: center;
+}
+
+.searchBox input[type="text"] {
+    width: 240px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.searchBox select {
+    margin-right: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.searchBox button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
+}
+
+/* 글쓰기 버튼 스타일 */
+#addButton {
+    padding: 5px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+    background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
+}
+
+/* 좋아요 버튼 스타일 */
+.like_button {
+    width: 40px;
+    height: 40px;
+    background-image: url('/images/likebutton_off.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* 게시물 목록 스타일 */
+.boardMain {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    position: relative;
+}
+
+/* 개별 게시물 항목 스타일 */
+.boardList {
+    position: relative;
+    flex: 0 0 calc(33.33% - 25.5px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.entdShort p{
+	width:296px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    word-break:break-all;
+    white-space: nowrap;
+}
+
+.boardList h3, .boardList h4, .boardList p {
+    margin: 0;
+    padding: 0;
+}
+
+.boardList .memId {
+    font-weight: bold;
+}
+
+.boardList .boardImage {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 작성일 표시 스타일 */
+.boardList .boardDate {
+    font-size: 14px;
+    color: #888;
+}
+
+/* 페이지 번호 스타일 */
+.page_number {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.page_number a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.page_number .prev, .page_number .next {
+    font-weight: bold;
+}
+
+.page_number .prev:hover {
+	background-color: #00D084;
+    color: #fff;
+}
+
+.page_number .next:hover {
+	background-color: #00D084;
+    color: #fff;
+}
+
+.disabled {
+	background-color: silver !important;
+	pointer-events: none !important;
+}
+
+.page_number .page:hover {
+    background-color: #00D084;
+    color: #fff;
+}
+
+.page_number .active {
+    background-color: #00D084;
+    color: #fff;
+    pointer-events: none !important;
+}
+
+/* 게시물 수정 페이지 스타일 */
+.form_container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form_container label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form_container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form_container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form_container input[type="submit"] {
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #00D084;
+}
+
+.form_container input[type="submit"]:hover {
+    background-color: #00805a;
+}
+
+.star-active {
+	color: #FBC02D;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.star-active:hover {
+	color: #F9A825;
+	cursor: pointer;
+}
+
