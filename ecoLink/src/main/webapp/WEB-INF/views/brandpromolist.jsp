@@ -17,7 +17,7 @@
 	<div class="board_area">
 		<div class="board_title">
 			<div class="page_name">
-				<strong>게시판</strong>
+				<strong>브랜드 홍보 게시판</strong>
 			</div>
 		</div>
 		<hr class="hr_bold">
