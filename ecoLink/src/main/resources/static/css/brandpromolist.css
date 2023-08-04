@@ -153,6 +153,11 @@ hr.hr_bold {
 	white-space: nowrap;
 }
 
+.entdShort p:hover {
+	color: #00D084;
+	cursor: pointer;
+}
+
 .boardList h3, .boardList h4, .boardList p {
 	margin: 0;
 	padding: 0;
@@ -171,6 +176,10 @@ hr.hr_bold {
 	display: -webkit-box;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
+}
+
+.titlerate a:hover {
+	color: #00D084;
 }
 
 .titlenamediv {

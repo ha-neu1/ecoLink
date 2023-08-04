@@ -17,7 +17,7 @@
 	<div class="board_area">
 		<div class="board_title">
 			<div class="page_name">
-				<strong>브랜드 홍보 게시판</strong>
+				<strong>브랜드 홍보 게시판 ${os}</strong>
 			</div>
 		</div>
 		<hr class="hr_bold">
@@ -62,7 +62,7 @@
 						onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
 					<hr style="margin-bottom: 5px;">
 					<div class="entdShort">
-						<p class="boardCont">${dto.entdShort}</p>
+						<p class="boardCont" onclick="opendetail('${dto.entCrn}')">${dto.entdShort}</p>
 					</div>
 				</div>
 			</c:forEach>
@@ -164,6 +164,10 @@
 			location.href = "/brandpromolist?page=1&order=" + order
 					+ "&search=" + value;
 		}
+	}
+
+	function opendetail(e) {
+		location.href = "/brandpromodetail?entCrn=" + e;
 	}
 </script>
 <footer>

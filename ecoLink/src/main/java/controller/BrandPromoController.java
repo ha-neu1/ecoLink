@@ -34,7 +34,10 @@ public class BrandPromoController {
 			@RequestParam(value = "order", required = false, defaultValue = "latest") String order,
 			@RequestParam(value = "search", required = false, defaultValue = "") String search) {
 		ModelAndView mv = new ModelAndView();
-
+		
+		String os = System.getProperty("os.name").toLowerCase();
+		mv.addObject("os", os);
+		
 		int limitindex = (page - 1) * 9;
 		int limitcount = 9;
 		int totalList = 0;
@@ -93,7 +96,6 @@ public class BrandPromoController {
 		if (endpage > totalPage) {
 			endpage = totalPage;
 		}
-
 		mv.addObject("currentCpage", page);
 		mv.addObject("totalPage", totalPage);
 		mv.addObject("startpage", startpage);
