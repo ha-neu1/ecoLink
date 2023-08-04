@@ -11,7 +11,6 @@ import dao.InfoBoardDAO;
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
 import dto.BoardLikeDTO;
-import dto.BrandCommentDTO;
 import dto.FileDTO;
 import jakarta.servlet.ServletContext;
 
@@ -86,6 +85,14 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		dto.setBoardId(boardId); // 나중에 파일 삽입에 사용할 수 있도록 DTO에 boardId를 설정
 		return insertCount;
 	}
+	
+	
+
+	@Override
+	public int updateBoard(BoardDTO dto) {
+		
+		return dao.updateBoard(dto);
+	}
 
 	@Override
 	public BoardDTO updateViewcountAndGetDetail(int boardId) {
@@ -96,6 +103,12 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	@Override
 	public int insertFile(FileDTO dto) {
 		return dao.insertFile(dto);
+	}
+
+	
+	@Override
+	public int updateFile(FileDTO dto) {
+		return dao.updateFile(dto);
 	}
 
 	@Override
@@ -181,7 +194,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 
 	@Override
 	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap) {
-
+		 
 		return dao.getAllBoardComment(clistmap);
 	}
 
@@ -200,6 +213,37 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		dao.deleteBoardLike(memId, boardId);
 	}
 
+	@Override
+	public int countLike(int boardId) {
+		return dao.countLike(boardId);
+	}
+
+	@Override
+	public void deleteAllBoard(int boardId) {
+		dao.deleteComments(boardId);
+		dao.deleteLike(boardId);
+		dao.deleteFile(boardId);
+		dao.deleteBoard(boardId);
+	}
+
+	@Override
+	public void deleteReply(int bcId) {
+		dao.deleteReply(bcId);
+		
+	}
+
+	@Override
+	public void deleteComment(int bcId) {
+		dao.deleteComment(bcId);
+	}
+	
+
+	
+	
+
+	
+	
+	
 	
 	
 	

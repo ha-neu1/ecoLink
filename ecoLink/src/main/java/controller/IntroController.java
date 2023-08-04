@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -267,7 +268,112 @@ public class IntroController {
 		mv.setViewName("infoarticle");
 		return mv;
 	}
+	@GetMapping("/infoeditform")
+	public String infoeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,
+			HttpServletResponse response, HttpSession session, Model model) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+		System.out.println(boardId);
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user);
+		model.addAttribute("boardId", boardId);// Model에 사용자 정보를 추가) {
+		return "infoeditform";
+	}
+	
+	@PostMapping("/infoeditform")
+	public ModelAndView infoeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,
+			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			HttpServletResponse response, HttpSession session) throws IOException {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+		String savePath = "c:/kdt/upload/";
 
+		List<MultipartFile> files = boarddto.getFiles();
+		List<MultipartFile> draggedFiles = boarddto.getDraggedFiles();
+
+		String loggedInUserId = dto != null ? dto.getMemId() : null;
+		if (loggedInUserId == null) {
+
+			ModelAndView mv = new ModelAndView("login"); // Replace "login" with the appropriate login page view name.
+			mv.addObject("message", "로그인을 하시기 바랍니다.");
+			return mv;
+		}
+
+		// Set the memId in the boarddto before inserting into the database
+		boarddto.setMemId(loggedInUserId);
+		int updatecount = service.updateBoard(boarddto);
+
+		List<FileDTO> fileDTOList = new ArrayList<>();
+
+		if (files != null && !files.isEmpty()) {
+			for (MultipartFile file : files) {
+				if (!file.isEmpty()) {
+					String originalName = file.getOriginalFilename();
+					String beforeExt = originalName.substring(0, originalName.indexOf("."));
+					String ext = originalName.substring(originalName.indexOf("."));
+
+					String newFilename = beforeExt + "(" + UUID.randomUUID().toString() + ")" + ext;
+					File newFile = new File(savePath + newFilename);
+					file.transferTo(newFile);
+
+					FileDTO fileDTO = new FileDTO();
+					fileDTO.setFileIdx(UUID.randomUUID().toString());
+					fileDTO.setFilePath("c:/kdt/upload/" + newFilename);
+					fileDTO.setFileName(originalName);
+					fileDTO.setFileType(file.getContentType());
+
+					fileDTO.setBoardId(boardId);
+					fileDTOList.add(fileDTO);
+				}
+			}
+		}
+		if (draggedFiles != null && !draggedFiles.isEmpty()) {
+			for (MultipartFile file : draggedFiles) {
+				if (!file.isEmpty()) {
+					String originalName = file.getOriginalFilename();
+					String beforeExt = originalName.substring(0, originalName.indexOf("."));
+					String ext = originalName.substring(originalName.indexOf("."));
+
+					String newFilename = beforeExt + "(" + UUID.randomUUID().toString() + ")" + ext;
+					File newFile = new File(savePath + newFilename);
+					file.transferTo(newFile);
+
+					FileDTO fileDTO = new FileDTO();
+					fileDTO.setFileIdx(UUID.randomUUID().toString());
+					fileDTO.setFilePath("c:/kdt/upload/" + newFilename);
+					fileDTO.setFileName(originalName);
+					fileDTO.setFileType(file.getContentType());
+
+					fileDTO.setBoardId(boardId);
+					fileDTOList.add(fileDTO);
+				}
+			}
+		}
+		for (FileDTO fileDTO : fileDTOList) {
+			int insertfile = service.insertFile(fileDTO);
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("insertcount", updatecount);
+
+		int totalBoard = service.getTotalBoard();
+		mv.addObject("totalBoard", totalBoard);
+
+		// 게시물 목록 조회 로직
+		int limitcount = 5;
+		int limitindex = (page - 1) * limitcount;
+		int limit[] = new int[2];
+		limit[0] = limitindex;
+		limit[1] = limitcount;
+		List<BoardDTO> boardList = service.boardListRecent(limit);
+		// 최신순으로 게시물 목록을 가져오는 로직
+		mv.addObject("user", dto);
+		mv.addObject("insertcount", updatecount);
+		mv.addObject("boardList", boardList);
+		mv.setViewName("infoarticle");
+		return mv;
+	}
 	@RequestMapping("/infopostdetail")
 	public ModelAndView infopostdetail(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
 			@RequestParam(name = "boardId") Integer boardId,
@@ -331,13 +437,15 @@ public class IntroController {
 			session.setAttribute("focus", "false");
 		}
 		if (dto != null) {
-	        boolean hasLiked = service.hasUserLikedBoard(dto.getMemId(), boardId);
-	        logger.info("Value of hasLiked: " + hasLiked);
-	        mv.addObject("hasLiked", hasLiked);
-	    } else {
-	        mv.addObject("hasLiked", false) ;
-	    }
-		
+			boolean hasLiked = service.hasUserLikedBoard(dto.getMemId(), boardId);
+			logger.info("Value of hasLiked: " + hasLiked);
+			mv.addObject("hasLiked", hasLiked);
+		} else {
+			mv.addObject("hasLiked", false);
+		}
+		int countLike = service.countLike(boardId);
+
+		mv.addObject("countLike", countLike);
 		mv.addObject("currentCpage", page);
 		mv.addObject("totalPage", totalPage);
 		mv.addObject("startpage", startpage);
@@ -351,6 +459,7 @@ public class IntroController {
 	}
 
 	@RequestMapping("/insertBoardComment")
+	@ResponseBody
 	public ResponseEntity<String> insertBoardComment(
 			@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String comment, String boardId,
 			HttpServletResponse response, HttpSession session, Model model) {
@@ -388,6 +497,7 @@ public class IntroController {
 	}
 
 	@RequestMapping("/insertReplyComment")
+	@ResponseBody
 	public ResponseEntity<String> insertReplyComment(
 			@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String reply, String boardId,
 			int bcRef, HttpServletResponse response, HttpSession session, Model model) {
@@ -415,7 +525,8 @@ public class IntroController {
 	}
 
 	@RequestMapping("/insertBoardLike")
-	public String insertBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+	@ResponseBody
+	public int insertBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
 			@RequestParam("boardId") int boardId, HttpServletResponse response, HttpSession session, Model model) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
@@ -438,12 +549,64 @@ public class IntroController {
 				int result = service.insertBoardLike(likedto);
 			}
 
-			// Redirect to the infopostdetail page after handling the like action
-			return "redirect:/infopostdetail?boardId=" + boardId;
+			int updatedLikeCount = service.countLike(boardId);
+
+			return updatedLikeCount;
 		} else {
 			// If the user is not logged in, redirect to the login page
-			return "/login";
+			return 0;
 		}
 
+	}
+	@RequestMapping("/deleteBoard")
+	public String deleteBoard(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			int boardId, String memId , HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		if (dto != null) {
+			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
+				 service.deleteAllBoard(boardId);
+				return "redirect:/infoboardlist";
+			} else {
+				return "/login";
+			}
+		} else {
+			return "/login";
+		}
+	}
+	@RequestMapping("/deleteComment")
+	public String deleteComment(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			int bcId,int boardId, String memId , HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		if (dto != null) {
+			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
+				 service.deleteComment(bcId);
+				return "redirect:/infopostdetail?boardId="+boardId+"&page="+ page;
+			} else {
+				return "/login";
+			}
+		} else {
+			return "/login";
+		}
+	}
+	@RequestMapping("/deleteReply")
+	public String deleteReply(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			int bcId,int boardId, String memId , HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		if (dto != null) {
+			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
+				 service.deleteReply(bcId);
+				return "redirect:/infopostdetail?boardId="+boardId+"&page="+ page;
+			} else {
+				return "/login";
+			}
+		} else {
+			return "/login";
+		}
 	}
 }

@@ -41,6 +41,8 @@
 							<i id="likeIcon" class="fa-solid fa-heart"></i>
 						</c:otherwise>
 					</c:choose>
+					<span id="countLike">${countLike}</span>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -59,6 +61,18 @@
 	</div>
 	<div class="post_tit" name="boardTitle">${detaildto.boardTitle }</div>
 	<div class="post_contents" name="boardContents">${detaildto.boardContents }</div>
+	<div class="post_edit_delete">
+		<c:choose>
+			<c:when test="${logininfo.memId eq detaildto.memId || logininfo.memId eq 'admin'}">
+				<form id="infoeditform" action="infoeditform"> 
+				<input type="hidden" name="boardId" value="${detaildto.boardId}" />
+				<button type="submit" class="postEditBtn">수정</button>
+				</form>
+				<button class="postDeleteBtn"
+					onclick="deleteBoard(${detaildto.boardId }, '${detaildto.memId}');">삭제</button>
+					</c:when>
+		</c:choose>
+	</div>
 	<div class="post_comment_header">댓글</div>
 	<div class="post_comment">
 		<form id="boardComment">
@@ -68,55 +82,96 @@
 			<input type="hidden" name="boardId" value="${detaildto.boardId}" />
 		</form>
 	</div>
-	<c:forEach items="${clist }" var="dto">
-		<c:choose>
-			<c:when test="${dto.bcReLevel == 0 }">
-				<div class="commentContentWrap">
-					<div class="commentContentProfile">
-						<i class="fa-regular fa-user"></i>
-					</div>
-					<div class="commentContentRight">
-						<div class="commentNickName">${dto.memNick}</div>
-						<div class="commentContents">${dto.bcContents}</div>
-						<div class="commentContentFooter">
-							<div class="dateReplyWrap">
-								<div class="commentDate">${dto.bcRegtime}</div>
-								<form id="replyComment">
-									<div class="commentReply">
-										<button class="replyWrite">답글쓰기</button>
+		<div id="commentsSection">
+		<c:forEach items="${clist }" var="dto">
+			<c:choose>
+				<c:when test="${dto.bcReLevel == 0 }">
+					<div class="commentContentWrap">
+						<div class="commentContentProfile">
+							<i class="fa-regular fa-user"></i>
+						</div>
+						<div class="commentContentRight">
+							<div class="commentNickName">${dto.memNick}
+								<c:choose>
+									<c:when
+										test="${not dto.deleted && (logininfo.memId eq dto.memId || logininfo.memId eq 'admin')}">
+										<button class="deleteCommentBtn"
+											onclick="deleteComment(${dto.bcId },${dto.boardId }, '${dto.memId}');">
+											<i class="fa-solid fa-xmark"></i>
+										</button>
+									</c:when>
+								</c:choose>
+							</div>
+							<div class="commentContents">
+								<c:choose>
+									<c:when test="${dto.deleted}">
+                                    삭제된 댓글입니다.
+                                </c:when>
+									<c:otherwise>
+                                    ${dto.bcContents}
+                                </c:otherwise>
+								</c:choose>
+							</div>
+							<div class="commentContentFooter">
+								<div class="dateReplyWrap">
+									<div class="commentDate">
+										<c:choose>
+											<c:when test="${not dto.deleted}">
+                                            ${dto.bcRegtime}
+                                        </c:when>
+										</c:choose>
 									</div>
-									<input type="hidden" name="boardId"
-										value="${detaildto.boardId}" /> <input type="hidden"
-										name="bcRef" value="${dto.bcRef}" />
+									<form id="replyComment">
+										<c:choose>
+											<c:when test="${not dto.deleted}">
+												<div class="commentReply">
+													<button class="replyWrite">답글쓰기</button>
+												</div>
+												<input type="hidden" name="boardId"
+													value="${detaildto.boardId}" />
+												<input type="hidden" name="bcRef" value="${dto.bcRef}" />
+											</c:when>
+										</c:choose>
+								</div>
+								<div class="replyContents">
+									<input type="text" placeholder="답글을 입력해 주세요." class="reply"
+										name="reply">
+									<button class="replyBtn">등록</button>
+								</div>
+								</form>
 							</div>
-							<div class="replyContents">
-								<input type="text" placeholder="답글을 입력해 주세요." class="reply"
-									name="reply">
-								<button class="replyBtn">등록</button>
-							</div>
-							</form>
 						</div>
 					</div>
-				</div>
-			</c:when>
-		</c:choose>
-		<c:choose>
-			<c:when test="${dto.bcReLevel == 1 }">
-				<div class="replyWrap">
-					<div class="commentContentProfile">
-						<i class="fa-regular fa-user"></i>
-					</div>
-					<div class="commentContentRight">
-						<div class="commentNickName">${dto.memNick}</div>
-						<div class="commentContents">${dto.bcContents}</div>
-						<div class="commentContentFooter">
-							<div class="commentDate">${dto.bcRegtime}</div>
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${dto.bcReLevel == 1 }">
+					<div class="replyWrap">
+						<div class="commentContentProfile">
+							<i class="fa-regular fa-user"></i>
+						</div>
+						<div class="commentContentRight">
+							<div class="commentNickName">${dto.memNick}
+								<c:choose>
+									<c:when
+										test="${logininfo.memId eq dto.memId || logininfo.memId eq 'admin'}">
+										<button class="deleteReplyBtn"
+											onclick="deleteReply(${dto.bcId },${dto.boardId }, '${dto.memId}');">
+											<i class="fa-solid fa-xmark"></i>
+										</button>
+									</c:when>
+								</c:choose>
+							</div>
+							<div class="commentContents">${dto.bcContents}</div>
+							<div class="commentContentFooter">
+								<div class="commentDate">${dto.bcRegtime}</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</c:when>
-		</c:choose>
-	</c:forEach>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+	</div>
 	<div class="mt-3">
 		<ul class="pagination justify-content-center">
 			<c:choose>
@@ -168,14 +223,15 @@ $(document).ready(function() {
       data: formData,
       success: function(response) {
         $('.comment').val('');
-        alert("Your comment has been written");
+        alert("댓글이 작성되었습니다.");
+        location.reload();
       },
       error: function(xhr, status, error) {
         if (xhr.status === 401) {
-          alert("Login is required. You will be taken to the login page.");
+          alert("로그인을 해주세요.");
           window.location.href = '/login'; // Redirect to the login page
         } else {
-          alert("Failed to write comment: " + xhr.responseText);
+          alert("댓글이 작성되지 않았습니다.: " + xhr.responseText);
         }
       }
     });
@@ -191,14 +247,16 @@ $(document).ready(function() {
       data: formData,
       success: function(response) {
         $('.reply').val('');
-        alert("Reply has been written");
+        alert("답글이 작성되었습니다.");
+        location.reload();
+       
       },
       error: function(xhr, status, error) {
         if (xhr.status === 401) {
-          alert("Login is required. You will be taken to the login page.");
+          alert("로그인을 해주세요");
           window.location.href = '/login'; // Redirect to the login page
         } else {
-          alert("Failed to write reply: " + xhr.responseText);
+          alert("답글이 작성되지 않았습니다.: " + xhr.responseText);
         }
       }
     });
@@ -208,8 +266,6 @@ $(document).ready(function() {
   $('#likeBoard').click(function() {
     // Toggle the classes on the <i> element to change its heart style
     var likeIcon = $('#likeIcon');
-    likeIcon.toggleClass('fa-regular fa-heart');
-    likeIcon.toggleClass('fa-solid fa-heart');
     var boardId = ${bId};
     var memId = '${user.memId}'; // Use single quotes to ensure proper string representation
 
@@ -223,9 +279,13 @@ $(document).ready(function() {
           boardId: boardId,
           memId: memId
         },
-        success: function(response) {
-          // Handle the success response if needed
-          console.log('Board liked!');
+        success: function(updatedLikeCount) {
+            // Update the like count and heart icon dynamically
+            $('#countLike').text(updatedLikeCount);
+           // Toggle the heart icon classes correctly
+        likeIcon.toggleClass('fa-regular fa-heart');
+        likeIcon.toggleClass('fa-solid fa-heart');
+        console.log('Board liked!');
         },
         error: function(xhr, status, error) {
           // Handle the error response if needed
@@ -237,11 +297,38 @@ $(document).ready(function() {
       });
     } else {
       // Show an alert and redirect to the login page
-      alert("Login is required. You will be taken to the login page.");
+      alert("로그인을 해주세요");
       window.location.href = '/login'; // Redirect to the login page
     }
   });
 });
+function deleteBoard(s, a) {
+	if (!confirm("게시물을 삭제하시겠습니까?")) {
+        
+    } else {
+        alert("게시물이 삭제되었습니다.");
+        location.href="/deleteBoard?boardId=" + s + "&memId=" + a;
+    }
+}
+function deleteComment(bc,b, m) {
+	if (!confirm("댓글을 삭제하시겠습니까?")) {
+        
+    } else {
+        alert("댓글이 삭제되었습니다.");
+        location.href="/deleteComment?bcId=" + bc + " &boardId=" + b + "&memId=" + m;
+    }
+}
+
+
+function deleteReply(bc,b, m) {
+	if (!confirm("답글을 삭제하시겠습니까?")) {
+        
+    } else {
+        alert("답글이 삭제되었습니다.");
+        location.href="/deleteReply?bcId=" + bc + " &boardId=" + b + "&memId=" + m;
+    }
+}
+
 </script>
 	<script src="js/infopostdetail.js"></script>
 

@@ -67,6 +67,16 @@
 		'news')
 	</insert>
 
+	<update id="updateBoard" parameterType="boarddto">
+		UPDATE board
+		SET
+		boardTitle = #{boardTitle},
+		boardContents = #{boardContents},
+		boardRegtime = now(),
+		memId = #{memId}
+		WHERE boardId = #{boardId}
+	</update>
+
 	<update id="updateViewcount" parameterType="int">
 		update board set
 		boardViewCount = boardViewCount + 1 where boardId =
@@ -87,6 +97,16 @@
 		values (#{fileIdx}, #{filePath},
 		#{fileName}, #{fileType}, #{boardId})
 	</insert>
+
+	<update id="updateFile" parameterType="filedto">
+		UPDATE file
+		SET filePath =
+		#{filePath},
+		fileName = #{fileName},
+		fileType = #{fileType}
+		WHERE fileIdx
+		= #{fileIdx}
+	</update>
 
 	<select id="getGeneratedBoardId" resultType="int">
 		select
@@ -129,7 +149,7 @@
 	<select id="getAllBoardComment" parameterType="hashmap"
 		resultType="boardCommentDto">
 		select b.bcId, b.boardId, b.bcContents, b.memId,
-		b.bcRegTime, b.bcUpdateTime, b.bcRef, b.bcReLevel, m.memNick
+		b.bcRegTime, b.bcUpdateTime, b.bcRef, b.bcReLevel,b.deleted, m.memNick
 		from
 		board_comment as b
 		join member as m on m.memId = b.memId
@@ -162,8 +182,50 @@
 	</select>
 
 	<delete id="deleteBoardLike" parameterType="hashmap">
-		delete from board_like where memId = #{memId} and boardId = #{boardId}
+		delete from
+		board_like where memId = #{memId} and boardId = #{boardId}
 	</delete>
+
+	<select id="countLike" parameterType="int" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM board_like
+		WHERE boardId = #{boardId}
+	</select>
+
+	<delete id="deleteComments" parameterType="int">
+		DELETE FROM
+		board_comment WHERE boardId = #{boardId}
+	</delete>
+
+	<delete id="deleteLike" parameterType="int">
+		DELETE FROM board_like
+		WHERE boardId = #{boardId}
+	</delete>
+
+	<delete id="deleteFile" parameterType="int">
+		DELETE FROM file WHERE
+		boardId = #{boardId}
+	</delete>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board WHERE
+		boardId = #{boardId}
+	</delete>
+
+	<update id="deleteComment" parameterType="int">
+		UPDATE board_comment
+		SET bcContents = "삭제된 댓글입니다.",
+		deleted = 1
+		WHERE bcId = #{bcId}
+	</update>
+	<delete id="deleteReply" parameterType="int">
+		delete from board_comment
+		where
+		bcId = #{bcId}
+	</delete>
+
+
 
 
 

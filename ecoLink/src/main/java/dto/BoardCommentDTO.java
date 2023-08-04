@@ -4,6 +4,7 @@ public class BoardCommentDTO {
 	int bcId, boardId;
 	String bcContents, memId, bcRegtime, bcUpdateTime,memNick;
 	int bcRef, bcReLevel;
+	boolean deleted;
 	public int getBcId() {
 		return bcId;
 	}
@@ -59,6 +60,13 @@ public class BoardCommentDTO {
 	}
 	public void setBcReLevel(int bcReLevel) {
 		this.bcReLevel = bcReLevel;
+	}
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	@Override
 	public String toString() {

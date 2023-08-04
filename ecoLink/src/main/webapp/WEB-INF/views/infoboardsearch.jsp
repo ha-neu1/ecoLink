@@ -39,7 +39,12 @@
 		</div>
 	</div>
 	<div class="writingform">
-		<a href="infowriting"><input type="button" value="글쓰기"></a>
+		<c:choose>
+			<c:when test="${logininfo.memId eq 'admin'}">
+				<a href="infowriting"><input type="button" value="글쓰기"></a>
+			</c:when>
+			
+		</c:choose>
 	</div>
 	
 			<c:forEach items="${boardList }" var="dto">

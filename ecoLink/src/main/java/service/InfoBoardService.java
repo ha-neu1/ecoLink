@@ -21,10 +21,14 @@ public interface InfoBoardService {
 	public int getSearchBoard(HashMap map);
 
 	public int insertBoard(BoardDTO dto);
+	
+	public int updateBoard(BoardDTO dto);
 
 	public BoardDTO updateViewcountAndGetDetail(int boardId);
 
 	public int insertFile(FileDTO dto);
+	
+	public int updateFile(FileDTO dto);
 
 	public int getGeneratedBoardId();
 
@@ -48,5 +52,13 @@ public interface InfoBoardService {
 	
 	public void deleteBoardLike(String memId, int boardId);
 
+	public int countLike(int boardId);
+	
+	public void deleteAllBoard(int boardId);
+	
+	public void deleteReply(int bcId);
+	
+	public void deleteComment(int bcId);
 
+	
 }
