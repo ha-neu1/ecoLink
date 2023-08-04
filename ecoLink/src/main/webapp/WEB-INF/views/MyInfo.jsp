@@ -57,6 +57,7 @@
 </script>
 <body>
 	<%@ include file="header.jsp"%>
+	<%@ include file="chatbot.jsp"%>
 	
 	<div class="containers">
 		<article>

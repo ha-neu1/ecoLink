@@ -1,13 +1,10 @@
 package dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class EnterpriseDTO {
 	String entCrn, entPhone, memId;
 	String entdMainPic, entdShort, entdURL, entdIntro, entdIntroPic,
 	entdPic1, entdPic2, entdPic3, entdExplain1, entdExplain2, entdExplain3;
 	boolean entdConfirm;
-	MultipartFile entdMainPicImg, entdIntroPicImg, entdPic1Img, entdPic2Img, entdPic3Img;
 
 	public String getEntCrn() {
 		return entCrn;
@@ -128,46 +125,7 @@ public class EnterpriseDTO {
 	public void setEntdConfirm(boolean entdConfirm) {
 		this.entdConfirm = entdConfirm;
 	}
-	
-	public MultipartFile getEntdMainPicImg() {
-		return entdMainPicImg;
-	}
 
-	public void setEntdMainPicImg(MultipartFile entdMainPicImg) {
-		this.entdMainPicImg = entdMainPicImg;
-	}
-
-	public MultipartFile getEntdIntroPicImg() {
-		return entdIntroPicImg;
-	}
-
-	public void setEntdIntroPicImg(MultipartFile entdIntroPicImg) {
-		this.entdIntroPicImg = entdIntroPicImg;
-	}
-
-	public MultipartFile getEntdPic1Img() {
-		return entdPic1Img;
-	}
-
-	public void setEntdPic1Img(MultipartFile entdPic1Img) {
-		this.entdPic1Img = entdPic1Img;
-	}
-
-	public MultipartFile getEntdPic2Img() {
-		return entdPic2Img;
-	}
-
-	public void setEntdPic2Img(MultipartFile entdPic2Img) {
-		this.entdPic2Img = entdPic2Img;
-	}
-
-	public MultipartFile getEntdPic3Img() {
-		return entdPic3Img;
-	}
-
-	public void setEntdPic3Img(MultipartFile entdPic3Img) {
-		this.entdPic3Img = entdPic3Img;
-	}
 
 	@Override
 	public String toString() {
