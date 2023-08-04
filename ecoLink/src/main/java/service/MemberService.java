@@ -12,7 +12,7 @@ public interface MemberService {
 	void addEnterprise(EnterpriseDTO enter);
 	
 	// 닉네임 설정
-	String generateNextMemNick(String memType);
+	//String generateNextMemNick(String memType);
 	
 	//로그인
 	public MemberDTO login(MemberDTO memberDTO);
@@ -22,19 +22,5 @@ public interface MemberService {
     
     //email중복여부
     public int isMemberEmailExist(String inputEmail);
-    	
-	
-    /*
-    // id 중복 여부 확인
-    boolean isMemberIdExist(String memberId);
-    
-    // email 중복 여부 확인
-    boolean isMemberEmailExist(String memberEmail);
-    
-    // 회원가입
-    void saveMemberInfo(MemberDTO memberDto);
-    
-    // nick 카운트
-    int isNickExists(String inputNick);
-    */
+ 
 }

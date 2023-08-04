@@ -33,9 +33,9 @@ public class MemberDAO {
     }
     
     //닉네임 설정
-    public String getLatestMemNickByType(String memType) {
-		return session.selectOne("getLatestMemNickByType", memType);
-	}
+    //public String getLatestMemNickByType(String memType) {
+	//	return session.selectOne("getLatestMemNickByType", memType);
+	//}
     
     //id 중복여부
     public int isMemberIdExist(String inputId) {
@@ -46,38 +46,5 @@ public class MemberDAO {
     public int isMemberEmailExist(String inputEmail) {
     	return session.selectOne("isMemberEmailExist", inputEmail);
     }	
-	
-	/*
-	//id 중복여부
-	public boolean isMemberIdExist(String memberId) {
-		int count = session.selectOne("member.isMemberIdExist", memberId);
-        return count > 0;
-	}
-
-	//email 중복여부
-    public boolean isMemberEmailExist(String memberEmail) {
-    	int count = session.selectOne("member.isMemberEmailExist", memberEmail);
-        return count > 0;
-	}
-
-    // 회원가입 / member 데이터 저장
-    public void saveMemberInfo(MemberDTO memberDto, EnterpriseDTO enterpriseDto) {
-        session.insert("member.saveMemberInfo", memberDto);
-        if (memberDto.getMemType().equals("buis")) {
-            session.insert("enterprise.saveEnterpriseInfo", enterpriseDto);
-        }
-    }
-
-    // 회원가입 / enterprise 데이터 저장
-    public void saveEnterpriseInfo(EnterpriseDTO enterpriseDto) {
-        session.insert("enterprise.saveEnterpriseInfo", enterpriseDto);
-    }
-
-
-    
-    //nick 카운트
-    public int isNickExists(String inputNick) {
-        return session.selectOne("isNickExists", inputNick);
-    }
-    */
+ 
 }

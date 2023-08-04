@@ -102,6 +102,9 @@ $(document).ready(function() {
 	      if (join_name.value.trim() === "") {
 	          emptyFields.push("이름");
 	      }
+	      if (join_name.value.trim() === "") {
+	          emptyFields.push("닉네임");
+	      }
 
 	      // 기업회원인 경우 추가 필드에 대한 빈칸 확인
 	      if (selected === "기업회원") {
@@ -179,7 +182,8 @@ $(document).ready(function() {
 	    	      'memPw': $('#memPw').val(),
 	    	      'memEmail': $('#memEmail').val(),
 	    	      'memType': $('#memType').val(),
-	    	      'memName': $('#memName').val()
+	    	      'memName': $('#memName').val(),
+	    	      'memNick': $('#memNick').val()
 	    	    },
 	    	    dataType: 'json',
 	    	    success: function(response) {
@@ -374,7 +378,14 @@ $(document).ready(function() {
                                             <th scope="row" id="nameTitle">이름*</th>
                                             <td>
                                                 <input id="memName" name="memName" class="ec-member-name" placeholder="" maxlength="30" value="" type="text">
-                                                <p class="help">14세 미만 사용자는 법정대리인 동의가 필요합니다.</p>
+                                                <p class="help">기업회원은 대표자 이름을 입력해주세요.</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">닉네임*</th>
+                                            <td>
+                                                <input id="memNick" name="memNick" class="ec-member-name" placeholder="" maxlength="30" value="" type="text">
+                                                <p class="help">기업회원은 상호명 혹은 기업명을 입력해주세요.</p>
                                             </td>
                                         </tr>
                                         <tr>
