@@ -20,4 +20,7 @@ public interface BoardService {
 
     // 게시물 삭제
     boolean deleteBoard(int boardId);
+
+    // 'share' 게시물 목록 조회
+    List<BoardDTO> getShareBoardList();
 }

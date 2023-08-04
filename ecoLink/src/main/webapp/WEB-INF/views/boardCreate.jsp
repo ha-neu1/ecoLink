@@ -1,48 +1,159 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/infowritingform.css">
     <title>게시물 작성</title>
-    <link rel="stylesheet" href="/css/board.css">
+    <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
+    <%@ include file="header.jsp"%>
 </head>
 <body>
-    <jsp:include page="header.jsp" />
-
-    <div class="board_area">
-        <div class="board_title">
-            <div class="page_name">
-                <strong>게시물 작성</strong>
-            </div>
+    <form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">
+        <div class="image_wrap">
+            <label for="image_file" class="image_file_zone" id="image_file_zone">
+                <div class="image_fileholder" id="image_fileholder">사진추가</div>
+            </label>
+            <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
         </div>
-        <hr class="hr_bold">
+        <div class="post_tit">
+            <input type="text" class="tit" name="boardTitle" placeholder="제목을 입력하세요.">
+        </div>
+        <div class="post_contents">
+            <textarea class="contents" name="boardContents" placeholder="내용을 입력하세요."></textarea>
+        </div>
+        <input type="hidden" name="boardType" value="share">
+        <div class="post_btn">
+            <button type="submit" id="submit_btn">작성하기</button>
+        </div>  
+    </form>
+   
+    <script>
+    
+        // 이미지 미리보기 관련 스크립트
+        (function imageView(image_fileholder, image_file) {
+            var fileHolder = document.getElementById(image_fileholder);
+            var imageFile = document.getElementById(image_file);
+            var sel_files = [];
 
-        <form id="createBoardForm" action="/createBoard" method="post" enctype="multipart/form-data">
-            <div class="input_box">
-                <label for="boardTitle" hidden>제목</label>
-                <input type="text" id="boardTitle" name="boardTitle" class="input_text" placeholder="제목을 입력해주세요">
-            </div>
-            <div class="input_box">
-                <label for="boardImage">이미지 첨부</label>
-                <br>
-                <input type="file" id="boardImage" name="boardImage" onchange="displayPreviewImage(event)">
-                <br>
-                <img id="preview" src="/images/logo2.png" alt="미리보기 이미지" class="preview_image">
-            </div>
-            <div class="input_box">
-                <label for="boardContents" hidden>내용</label>
-                <textarea id="boardContents" name="boardContents" class="input_textarea" placeholder="내용을 입력해주세요"></textarea>
-            </div>
-            <div class="input_box">
-                <button type="submit" id="submitBoardButton" class="submit_button">작성</button>
-            </div>
-        </form>
-    </div>
+            // 이미지와 체크 박스를 감싸고 있는 div 속성
+            var div_style =
+                'display:inline-block;position:relative;' +
+                'width:600px;height:400px;margin:5px;border:1px solid #00f;z-index:3';
+            // 미리보기 이미지 속성
+            var img_style = 'width:100%;height:100%;z-index:2';
+            // 이미지 안에 표시되는 체크박스의 속성
+            var chk_style =
+                'width:30px;height:30px;position:absolute;font-size:24px;' +
+                'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00;z-index:1';
 
-    <jsp:include page="footer.jsp" />
+            imageFile.onchange = function(e) {
+                var files = e.target.files;
+                sel_files = []; // 새로운 파일을 추가하기 전에 기존의 파일 배열 초기화
+                for (var f of files) {
+                    imageLoader(f);
+                }
+            };
 
-    <script src="/js/boardCreate.js" defer type="module"></script>
+            // 파일 드래그앤 드롭 사용
+            fileHolder.addEventListener(
+                'dragenter',
+                function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                },
+                false
+            );
+
+            fileHolder.addEventListener(
+                'dragover',
+                function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                },
+                false
+            );
+
+            fileHolder.addEventListener(
+                'drop',
+                function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    fileHolder.classList.remove('dragover'); // "dragover" 스타일 제거
+
+                    var files = e.dataTransfer.files;
+                    imageFile.files = files; // 드롭된 파일을 파일 입력 필드에 추가
+
+                    // 드롭된 파일을 hidden 입력 필드에 추가
+                    var formData = new FormData();
+                    for (var i = 0; i < files.length; i++) {
+                        formData.append('files', files[i]);
+                    }
+
+                    // 선택한 파일을 미리보기
+                    for (var f of files) {
+                        imageLoader(f);
+                    }
+                },
+                false
+            );
+
+            /* 첨부된 이미지를 배열에 넣고 미리보기 */
+            function imageLoader(file) {
+                var reader = new FileReader();
+                reader.onload = function (ee) {
+                    let img = document.createElement('img');
+                    img.setAttribute('style', img_style);
+                    img.src = ee.target.result;
+                    if (fileHolder.textContent == '사진추가') {
+                        fileHolder.textContent = '';
+                    }
+                    fileHolder.appendChild(makeDiv(img, file));
+                };
+                reader.readAsDataURL(file);
+
+                var formData = new FormData();
+                formData.append('files', file);
+                for (var f of formData.getAll('files')) {
+                    console.log("FormData에 추가된 파일:", f.name);
+                }
+            }
+
+            /* 첨부된 파일이 있는 경우 체크박스와 함께 fileHolder에 추가할 div를 만들어 반환 */
+            function makeDiv(img, file) {
+                var div = document.createElement('div');
+                div.setAttribute('style', div_style);
+
+                var btn = document.createElement('input');
+                btn.setAttribute('type', 'button');
+                btn.setAttribute('value', 'x');
+                btn.setAttribute('data-del-file', file.name || '');
+                btn.setAttribute('style', chk_style);
+                btn.onclick = function (ev) {
+                    ev.preventDefault(); 
+                    ev.stopPropagation(); // 이벤트 전파 중지
+                    var ele = ev.target;
+                    var delFile = ele.dataset.delFile || '';
+                    for (var i = 0; i < sel_files.length; i++) {
+                        if (delFile == sel_files[i].name) {
+                            sel_files.splice(i, 1);
+                            break; // 파일 찾았으면 반복문 종료
+                        }
+                    }
+                    var dt = new DataTransfer();
+                    for (var i = 0; i < sel_files.length; i++) {
+                        dt.items.add(new File([sel_files[i]], sel_files[i].name, { type: sel_files[i].type }));
+                    }
+                    imageFile.files = dt.files;
+                    var p = ele.parentNode;
+                    fileHolder.removeChild(p);
+                };
+                div.appendChild(img);
+                div.appendChild(btn);
+                return div;
+            }
+        })('image_fileholder', 'image_file');
+    </script>
 </body>
 </html>
