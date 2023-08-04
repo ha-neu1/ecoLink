@@ -57,6 +57,7 @@
 </script>
 <body>
 	<%@ include file="header.jsp"%>
+	<%@ include file="chatbot.jsp"%>
 	
 	<div class="containers">
 		<article>
@@ -69,7 +70,7 @@
 				</div>
 			</aside>
 			<div class='menuDivs' id='menuDiv1'>
-			<div class='myinfoheader'>
+			<div class='forminheader'>
 				<h2>기업 정보</h2>
 				<p>고객님이 등록한 기업정보를 확인하실 수 있습니다.</p>
 				</div>
