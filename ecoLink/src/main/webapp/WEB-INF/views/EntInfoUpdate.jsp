@@ -22,6 +22,8 @@
 							console.log(param1);
 							
 							let param2 = {
+									'memId' : $("#memId").val(),
+									'entCrn' : $("#entCrn").val(),
 									'entPhone' : $("#entPhone").val(),
 									'entdMainPic' : $("#entdMainPic").val(),
 									'entdShort' : $("#entdShort").val(),
@@ -38,12 +40,16 @@
 							console.log(param2);
 							
 							let fileImg = $('#logoPic')[0].files[0];
-							let fileImg2 = $('#introPic')[0].files[0];
-							let fileImg3 = $('#dPic1')[0].files[0];
-							let fileImg4 = $('#dPic2')[0].files[0];
-							let fileImg5 = $('#dPic3')[0].files[0];
+							let fileImg2 = $('#introPic')[0].files[1];
+							let fileImg3 = $('#dPic1')[0].files[2];
+							let fileImg4 = $('#dPic2')[0].files[3];
+							let fileImg5 = $('#dPic3')[0].files[4];
 							
 							console.log(fileImg);
+							console.log(fileImg2);
+							console.log(fileImg3);
+							console.log(fileImg4);
+							console.log(fileImg5);
 
 							let form = new FormData();
 
