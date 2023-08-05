@@ -49,13 +49,13 @@ public class MyInfoController {
 				mv.setViewName("MyInfo");
 			}
 		} else { // x
-			mv.setViewName("redirect:/logout");
+			mv.setViewName("login");
 		}
 
 		return mv;
 	}
 
-	// 유저 정보 수정
+	// 일반회원 정보 수정
 	@GetMapping("/updateUserInfo")
 	public ModelAndView myInfoupdate(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
 			HttpServletResponse response) {
@@ -67,32 +67,71 @@ public class MyInfoController {
 		mv.addObject("user", dto);
 
 		if (dto != null) {
-			if (dto.getMemType().equals("enter")) {
-				EnterpriseDTO edto = service.getEntUser(dto.getMemId());
-				mv.addObject("loginUser", dto);
-				mv.addObject("loginEnt", edto);
-				mv.setViewName("EntInfoUpdate");
-			} else {
 				mv.addObject("loginUser", dto);
 				mv.setViewName("MyInfoUpdate");
-			}
 		} else {
-			mv.setViewName("redirect:/logout");
+			mv.setViewName("login");
 		}
 
 		return mv;
 	}
-
+	
 	@PostMapping("/updateUserInfo")
-	public @ResponseBody String myInfoupdatesql(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, 
-			@RequestPart(name = "mem") MemberDTO mdto, @RequestPart(name = "ent") EnterpriseDTO edto, 
-			@RequestPart(name = "img1", required = false) MultipartFile file1, @RequestPart(name = "img2", required = false) MultipartFile file2, @RequestPart(name = "img3", required = false) MultipartFile file3,
-			@RequestPart(name = "img4", required = false) MultipartFile file4, @RequestPart(name = "img5", required = false) MultipartFile file5, HttpServletResponse response) throws IllegalStateException, IOException {
+	public @ResponseBody String myInfoupdatesql(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response, String memId, String memPw, String memNick) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		
+		MemberDTO updto = new MemberDTO();
+		updto.setMemId(memId);
+		updto.setMemPw(memPw);
+		updto.setMemNick(memNick);
+		
+		service.userUpdate(updto);
+		
+		return "";
+	}
+	
+	// 기업회원 정보 수정
+	@GetMapping("/updateEntInfo")
+	public ModelAndView entInfoupdate(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 
-		if (dto.getMemType().equals("enter")) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", dto);
+
+		if (dto != null) {
+				EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+				mv.addObject("loginUser", dto);
+				mv.addObject("loginEnt", edto);
+				mv.setViewName("EntInfoUpdate");
+		} else {
+			mv.setViewName("login");
+		}
+
+		return mv;
+	}
+	
+	@PostMapping("/updateEntInfo")
+	public @ResponseBody String entInfoupdatesql(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestPart(name = "mem") MemberDTO mdto, @RequestPart(name = "ent") EnterpriseDTO edto,
+			@RequestPart(name = "img1", required = false) MultipartFile file1,
+			@RequestPart(name = "img2", required = false) MultipartFile file2,
+			@RequestPart(name = "img3", required = false) MultipartFile file3,
+			@RequestPart(name = "img4", required = false) MultipartFile file4,
+			@RequestPart(name = "img5", required = false) MultipartFile file5, HttpServletResponse response)
+			throws IllegalStateException, IOException {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+
+		System.out.println("회원 아이디" + dto.toString());
+		System.out.println("회원 분류" + dto.getMemType());
+
 			String savePath = "c:/brand/";
 			// MultipartFile entdIntroPicImg o //view file upload o
 			// new file savepath -> newFileName
@@ -101,114 +140,104 @@ public class MyInfoController {
 			// view file upload x -> db entdPic1 o
 			// param : entdPic1 db data o
 			// eudto.setEntPic1(entdPic1);
+			System.out.println(file1 + "file1");
+
+			System.out.println(edto.getEntdMainPic() + "로고이미지");
+			System.out.println(edto.getEntdIntroPic());
+			System.out.println(edto.getEntdPic1());
+			System.out.println(edto.getEntdPic2());
+			System.out.println(edto.getEntdPic3());
 
 			if (edto.getEntdMainPic() != null || edto.getEntdIntroPic() != null || edto.getEntdPic1() != null
 					|| edto.getEntdPic2() != null || edto.getEntdPic3() != null) {
-				if (!file1.isEmpty()) {
-					if (edto.getEntdMainPic() == null) {
-						MultipartFile entdMainPicImg = file1;
-						String newFileName1 = null;
+				if (file1 != null) {
+					MultipartFile entdMainPicImg = file1;
+					String newFileName1 = null;
 
-						String originalName1 = entdMainPicImg.getOriginalFilename();
-						String beforeExt1 = originalName1.substring(0, originalName1.indexOf("."));
-						String ext1 = originalName1.substring(originalName1.indexOf("."));
+					String originalName1 = entdMainPicImg.getOriginalFilename();
+					String beforeExt1 = originalName1.substring(0, originalName1.indexOf("."));
+					String ext1 = originalName1.substring(originalName1.indexOf("."));
 
-						newFileName1 = beforeExt1 + "(" + UUID.randomUUID().toString() + ")" + ext1;
-						entdMainPicImg.transferTo(new File(savePath + newFileName1));
+					newFileName1 = beforeExt1 + "(" + UUID.randomUUID().toString() + ")" + ext1;
+					entdMainPicImg.transferTo(new File(savePath + newFileName1));
 
-						edto.setEntdMainPic("/brand/" + newFileName1);
-					} else {
-						edto.getEntdMainPic();
-					}
-
-				} else if (!file2.isEmpty()) {
-					if (edto.getEntdIntroPic() == null) {
-						MultipartFile entdIntroPicImg = file2;
-						String newFileName2 = null;
-
-						String originalName2 = entdIntroPicImg.getOriginalFilename();
-						String beforeExt2 = originalName2.substring(0, originalName2.indexOf("."));
-						String ext2 = originalName2.substring(originalName2.indexOf("."));
-
-						newFileName2 = beforeExt2 + "(" + UUID.randomUUID().toString() + ")" + ext2;
-						entdIntroPicImg.transferTo(new File(savePath + newFileName2));
-
-						edto.setEntdIntroPic("/brand/" + newFileName2);
-					} else {
-						edto.getEntdIntroPic();
-					}
-
-				} else if (!file3.isEmpty()) {
-					if (edto.getEntdPic1() == null) {
-						MultipartFile entdPic1Img = file3;
-						String newFileName3 = null;
-
-						String originalName3 = entdPic1Img.getOriginalFilename();
-						String beforeExt3 = originalName3.substring(0, originalName3.indexOf("."));
-						String ext3 = originalName3.substring(originalName3.indexOf("."));
-
-						newFileName3 = beforeExt3 + "(" + UUID.randomUUID().toString() + ")" + ext3;
-						entdPic1Img.transferTo(new File(savePath + newFileName3));
-
-						edto.setEntdPic1("/brand/" + newFileName3);
-					} else {
-						edto.getEntdPic1();
-					}
-
-				} else if (!file4.isEmpty()) {
-					if (edto.getEntdPic2() == null) {
-						MultipartFile entdPic2Img = file4;
-						String newFileName4 = null;
-
-						String originalName4 = entdPic2Img.getOriginalFilename();
-						String beforeExt4 = originalName4.substring(0, originalName4.indexOf("."));
-						String ext4 = originalName4.substring(originalName4.indexOf("."));
-
-						newFileName4 = beforeExt4 + "(" + UUID.randomUUID().toString() + ")" + ext4;
-						entdPic2Img.transferTo(new File(savePath + newFileName4));
-
-						edto.setEntdPic2("/brand/" + newFileName4);
-					} else {
-						edto.getEntdPic2();
-					}
-
-				} else if (!file5.isEmpty()) {
-					if (edto.getEntdPic3() == null) {
-						MultipartFile entdPic3Img = file5;
-						String newFileName5 = null;
-
-						String originalName5 = entdPic3Img.getOriginalFilename();
-						String beforeExt5 = originalName5.substring(0, originalName5.indexOf("."));
-						String ext5 = originalName5.substring(originalName5.indexOf("."));
-
-						newFileName5 = beforeExt5 + "(" + UUID.randomUUID().toString() + ")" + ext5;
-						entdPic3Img.transferTo(new File(savePath + newFileName5));
-
-						edto.setEntdPic3("/brand/" + newFileName5);
-					} else {
-						edto.getEntdPic3();
-					}
-
+					edto.setEntdMainPic("/brand/" + newFileName1);
 				}
+
+				if (file2 != null) {
+					MultipartFile entdIntroPicImg = file2;
+					String newFileName2 = null;
+
+					String originalName2 = entdIntroPicImg.getOriginalFilename();
+					String beforeExt2 = originalName2.substring(0, originalName2.indexOf("."));
+					String ext2 = originalName2.substring(originalName2.indexOf("."));
+
+					newFileName2 = beforeExt2 + "(" + UUID.randomUUID().toString() + ")" + ext2;
+					entdIntroPicImg.transferTo(new File(savePath + newFileName2));
+
+					edto.setEntdIntroPic("/brand/" + newFileName2);
+				}
+
+				if (file3 != null) {
+					MultipartFile entdPic1Img = file3;
+					String newFileName3 = null;
+
+					String originalName3 = entdPic1Img.getOriginalFilename();
+					String beforeExt3 = originalName3.substring(0, originalName3.indexOf("."));
+					String ext3 = originalName3.substring(originalName3.indexOf("."));
+
+					newFileName3 = beforeExt3 + "(" + UUID.randomUUID().toString() + ")" + ext3;
+					entdPic1Img.transferTo(new File(savePath + newFileName3));
+
+					edto.setEntdPic1("/brand/" + newFileName3);
+				}
+
+				if (file4 != null) {
+					MultipartFile entdPic2Img = file4;
+					String newFileName4 = null;
+
+					String originalName4 = entdPic2Img.getOriginalFilename();
+					String beforeExt4 = originalName4.substring(0, originalName4.indexOf("."));
+					String ext4 = originalName4.substring(originalName4.indexOf("."));
+
+					newFileName4 = beforeExt4 + "(" + UUID.randomUUID().toString() + ")" + ext4;
+					entdPic2Img.transferTo(new File(savePath + newFileName4));
+
+					edto.setEntdPic2("/brand/" + newFileName4);
+				}
+
+				if (file5 != null) {
+					MultipartFile entdPic3Img = file5;
+					String newFileName5 = null;
+
+					String originalName5 = entdPic3Img.getOriginalFilename();
+					String beforeExt5 = originalName5.substring(0, originalName5.indexOf("."));
+					String ext5 = originalName5.substring(originalName5.indexOf("."));
+
+					newFileName5 = beforeExt5 + "(" + UUID.randomUUID().toString() + ")" + ext5;
+					entdPic3Img.transferTo(new File(savePath + newFileName5));
+
+					edto.setEntdPic3("/brand/" + newFileName5);
+				}
+				
 				service.userUpdate(mdto);
 				service.entUpdate(edto);
 			}
-		} else {
-			service.userUpdate(mdto);
-		}
-		return "";
+
+		System.out.println(edto);
+		return "redirect:/logout";
 	}
-	
+
 	// 유저 삭제
 	@RequestMapping("/deleteUser")
 	public String deleteUser(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			HttpServletResponse response, EnterpriseDTO edto) {
+			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-
 		
 		if (dto.getMemType().equals("enter")) {
+			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
 			service.deleteEnt(edto);
 			service.deleteUser(dto);
 		} else {
