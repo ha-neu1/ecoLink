@@ -13,12 +13,13 @@
 			function() {
 				$("#updateBtn").on(
 						'click',
-						function() {
+						function() {			
 							let param1 = {
 									'memId' : $("#memId").val(),
 									'memPw' : $("#memPw").val(),
 									'memNick' : $("#memNick").val()
 							};
+							console.log(param1);
 							
 							let param2 = {
 									'entPhone' : $("#entPhone").val(),
@@ -26,7 +27,7 @@
 									'entdShort' : $("#entdShort").val(),
 									'entdURL' : $("#entdURL").val(),
 									'entdIntro' : $("#entdIntro").val(),
-									'file1' : $("#entdIntroPic").val(),
+									'entdIntroPic' : $("#entdIntroPic").val(),
 									'entdPic1' : $("#entdPic1").val(),
 									'entdPic2' : $("#entdPic2").val(),
 									'entdPic3' : $("#entdPic3").val(),
@@ -34,12 +35,15 @@
 									'entdExplain2' : $("#entdExplain2").val(),
 									'entdExplain3' : $("#entdExplain3").val()
 							};
+							console.log(param2);
 							
 							let fileImg = $('#logoPic')[0].files[0];
 							let fileImg2 = $('#introPic')[0].files[0];
 							let fileImg3 = $('#dPic1')[0].files[0];
 							let fileImg4 = $('#dPic2')[0].files[0];
 							let fileImg5 = $('#dPic3')[0].files[0];
+							
+							console.log(fileImg);
 
 							let form = new FormData();
 
@@ -53,14 +57,13 @@
 
 							$.ajax({
 								type : "POST",
-								url : "/updateUserInfo",
+								url : "/updateEntInfo",
 								contentType : false, //중요 : false 로 선언 시 content-type 헤더가 multipart/form-data로 전송되게 함
 								processData : false, //중요 : false로 선언 시 formData를 string으로 변환하지 않음
 								enctype : 'multipart/form-data',//중요
 								data : form,
 								success : function(res) {
 									alert("기업정보 수정이 완료되었습니다. 승인을 기다려 주세요.");
-									logout();
 								},
 								error : function(request, status, e) {
 									alert("코드=" + request.status + "\n메시지="
@@ -71,18 +74,7 @@
 						});
 			});
 
-	function logout() {
-		$.ajax({
-			type : "POST",
-			url : "/logout",
-			success : function() {
-				location.reload(); // 현재 페이지 리로드
-			},
-			error : function() {
-				alert("로그아웃 도중 오류가 발생했습니다.");
-			}
-		});
-	}
+
 
 	/* function chk_file_type(obj) {
 		 var file_kind = obj.value.lastIndexOf('.');
@@ -192,7 +184,7 @@
 						value="${loginEnt.entdMainPic}" disabled>
 					</c:if>
 					<input type="file" name="logoPic" id="logoPic"
-						accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)'>
+						accept='image/jpeg,image/gif,image/png' >
 				</div>
 				
 				<div class='formindiv'>
@@ -221,7 +213,7 @@
 						value="${loginEnt.entdIntroPic}" disabled>
 					</c:if>
 					<input type="file" name="introPic" id="introPic"
-					accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)'>
+					accept='image/jpeg,image/gif,image/png' >
 				</div>
 				
 				<div class='formindiv'>
@@ -231,7 +223,7 @@
 						value="${loginEnt.entdPic1}" disabled>
 					</c:if>
 					<input type="file" name="dPic1" id="dPic1"
-					accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)' required>
+					accept='image/jpeg,image/gif,image/png' required>
 				</div>
 				<div class='formindiv'>
 					<p>제품 이미지2</p>
@@ -240,7 +232,7 @@
 						value="${loginEnt.entdPic2}" disabled>
 					</c:if>
 					<input type="file" name="dPic2" id="dPic2"
-					accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)'>
+					accept='image/jpeg,image/gif,image/png' >
 				</div>
 				<div class='formindiv'>
 					<p>제품 이미지3</p>
@@ -249,7 +241,7 @@
 						value="${loginEnt.entdPic3}" disabled>
 					</c:if>
 					<input type="file" name="dPic3" id="dPic3"
-					accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)'>
+					accept='image/jpeg,image/gif,image/png' >
 				</div>
 				<div class='formindiv'>
 					<p>제품 설명1</p>

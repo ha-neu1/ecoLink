@@ -12,7 +12,7 @@
 	$(document).ready(
 			function() {
 				$("#updateUser").on('click', function() {
-					location.href = "/updateUserInfo"
+					location.href = "/updateEntInfo"
 				});
 
 				$("#deleteUser").on(
