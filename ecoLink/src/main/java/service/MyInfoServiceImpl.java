@@ -19,6 +19,10 @@ public class MyInfoServiceImpl implements MyInfoService {
 	public EnterpriseDTO getEntUser(String memId) {
 		return dao.getEntUser(memId);
 	}
+	
+	public MemberDTO getUser(String memId) {
+		return dao.getUser(memId);
+	}
 
 	public int userUpdate(MemberDTO dto) {
 		return dao.userUpdate(dto);

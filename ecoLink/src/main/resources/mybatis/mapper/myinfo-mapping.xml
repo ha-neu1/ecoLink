@@ -7,6 +7,10 @@
 		SELECT * FROM enterprise WHERE memId=#{memId};
 	</select>
 	
+	<select id="getUser" parameterType="String" resultType="memberDto">
+		SELECT * FROM member WHERE memId=#{memId};
+	</select>
+	
 	<update id="userUpdate" parameterType="memberDto">
 		UPDATE member SET memPw=#{memPw}, memNick=#{memNick} WHERE memId=#{memId};
 	</update>

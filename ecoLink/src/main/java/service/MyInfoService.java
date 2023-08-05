@@ -9,6 +9,8 @@ import dto.MemberDTO;
 
 public interface MyInfoService {
 	public EnterpriseDTO getEntUser(String memId);
+	
+	public MemberDTO getUser(String memId);
 
 	public int userUpdate(MemberDTO dto);
 

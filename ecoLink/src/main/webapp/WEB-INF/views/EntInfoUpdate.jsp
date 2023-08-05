@@ -252,20 +252,17 @@
 				</div>
 				<div class='formindiv'>
 					<p>제품 설명1</p>
-					<textarea name="entdExplain1" id="entdExplain1" class="inputTypeLong" maxlength="500" required>
-					${loginEnt.entdExplain1}</textarea>
+					<textarea name="entdExplain1" id="entdExplain1" class="inputTypeLong" maxlength="500" required>${loginEnt.entdExplain1}</textarea>
 					<div id="ExplaincharCount1" class="numCount">0/500</div>
 				</div>
 				<div class='formindiv'>
 					<p>제품 설명2</p>
-					<textarea name="entdExplain2" id="entdExplain2" class="inputTypeLong" maxlength="500">
-					${loginEnt.entdExplain2}</textarea>
+					<textarea name="entdExplain2" id="entdExplain2" class="inputTypeLong" maxlength="500">${loginEnt.entdExplain2}</textarea>
 						<div id="ExplaincharCount2" class="numCount">0/500</div>
 				</div>
 				<div class='formindiv'>
 					<p>제품 설명3</p>
-					<textarea name="entdExplain3" id="entdExplain3" class="inputTypeLong" maxlength="500">
-					${loginEnt.entdExplain3}</textarea>
+					<textarea name="entdExplain3" id="entdExplain3" class="inputTypeLong" maxlength="500">${loginEnt.entdExplain3}</textarea>
 						<div id="ExplaincharCount3" class="numCount">0/500</div>
 				</div>
 

@@ -14,6 +14,8 @@ import dto.MemberDTO;
 @Mapper
 public interface MyInfoDAO {
 	public EnterpriseDTO getEntUser(String memId);
+	
+	public MemberDTO getUser(String memId);
 
 	public int userUpdate(MemberDTO dto);
 

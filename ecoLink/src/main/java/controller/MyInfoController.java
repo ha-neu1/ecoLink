@@ -43,10 +43,16 @@ public class MyInfoController {
 		if (dto != null) {
 			if (dto.getMemType().equals("enter")) {
 				EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+				MemberDTO user = service.getUser(dto.getMemId());
+				dto.setMemPw(user.getMemPw());
+				dto.setMemNick(user.getMemNick());
 				mv.addObject("loginUser", dto);
 				mv.addObject("loginEnt", edto);
 				mv.setViewName("EntInfo");
 			} else {
+				MemberDTO user = service.getUser(dto.getMemId());
+				dto.setMemPw(user.getMemPw());
+				dto.setMemNick(user.getMemNick());
 				mv.addObject("loginUser", dto);
 				mv.setViewName("MyInfo");
 			}
