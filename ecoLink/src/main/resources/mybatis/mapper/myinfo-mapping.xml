@@ -18,7 +18,7 @@
 	<update id="entUpdate" parameterType="enterpriseDto">
 		UPDATE enterprise SET entPhone=#{entPhone}, entdMainPic=#{entdMainPic}, entdShort=#{entdShort}, entdURL=#{entdURL},
 		entdIntro=#{entdIntro}, entdIntroPic=#{entdIntroPic}, entdPic1=#{entdPic1}, entdPic2=#{entdPic2}, entdPic3=#{entdPic3},
-		entdExplain1=#{entdExplain1}, entdExplain2=#{entdExplain2}, entdExplain3=#{entdExplain3} WHERE memId=#{memId};
+		entdExplain1=#{entdExplain1}, entdExplain2=#{entdExplain2}, entdExplain3=#{entdExplain3}, entdConfirm=#{entdConfirm} WHERE memId=#{memId};
 	</update>
 
 	<update id="deleteUser" parameterType="memberDto">

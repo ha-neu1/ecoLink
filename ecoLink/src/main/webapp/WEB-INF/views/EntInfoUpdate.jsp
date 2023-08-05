@@ -69,7 +69,7 @@
 								enctype : 'multipart/form-data',//중요
 								data : form,
 								success : function(res) {
-									alert("기업정보 수정이 완료되었습니다. 승인을 기다려 주세요.")
+									alert("기업정보 수정이 완료되었습니다. 승인을 기다려 주세요.");
 									location.href="/userInfo";
 								},
 								error : function(request, status, e) {
