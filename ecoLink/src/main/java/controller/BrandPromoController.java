@@ -85,8 +85,8 @@ public class BrandPromoController {
 			totalPage = (totalList / 9) + 1;
 		}
 		int startpage = page / 9 * 9 + 1;
-		if (page % 5 == 0) {
-			startpage -= 5;
+		if (page % 9 == 0) {
+			startpage -= 9;
 		}
 		int endpage = startpage + 9 - 1;
 		if (endpage > totalPage) {
