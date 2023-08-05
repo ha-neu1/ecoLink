@@ -13,7 +13,7 @@
 			function() {
 				$("#updateBtn").on(
 						'click',
-						function() {
+						function() {			
 							let param1 = {
 									'memId' : $("#memId").val(),
 									'memPw' : $("#memPw").val(),
@@ -64,7 +64,6 @@
 								data : form,
 								success : function(res) {
 									alert("기업정보 수정이 완료되었습니다. 승인을 기다려 주세요.");
-									logout();
 								},
 								error : function(request, status, e) {
 									alert("코드=" + request.status + "\n메시지="
@@ -73,20 +72,6 @@
 								}
 							});
 						});
-				
-				function logout() {
-					alert("로그아웃");
-					$.ajax({
-						type : "get",
-						url : "/logout",
-						success : function() {
-							alert("로그아웃에 성공했습니다.");
-						},
-						error : function() {
-							alert("로그아웃 도중 오류가 발생했습니다.");
-						}
-					});
-				}
 			});
 
 
