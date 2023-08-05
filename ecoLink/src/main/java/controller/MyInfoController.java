@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -219,70 +221,159 @@ public class MyInfoController {
 	}
 
 	// 브랜드 북마크 조회
-
 	@GetMapping("/myBrandLike")
 	public ModelAndView myBrandLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("user", dto);
-		
-		if(dto != null) {
-			List<EnterpriseDTO> Bookmark =service.getBrandBookmark(dto.getMemId());
+
+		if (dto != null) {
+			int limitindex = (page - 1) * 9;
+			int limitcount = 9;
+			int totalBookmark = 0;
+
+			HashMap<String, Object> clistmap = new HashMap<String, Object>();
+			clistmap.put("limitindex", limitindex);
+			clistmap.put("limitcount", limitcount);
+			clistmap.put("memId", dto.getMemId()); // memId를 clistmap에 추가
+
+			List<EnterpriseDTO> Bookmark = service.getBrandBookmark(clistmap);
+			totalBookmark = service.getBookmarkCount(dto.getMemId());
+
+			int totalPage = 0;
+			if (totalBookmark % 9 == 0) {
+				totalPage = totalBookmark / 9;
+			} else {
+				totalPage = (totalBookmark / 9) + 1;
+			}
+			int startpage = page / 9 * 9 + 1;
+			if (page % 5 == 0 && page > 5) {
+				startpage -= 5;
+			}
+			int endpage = startpage + 9 - 1;
+			if (endpage > totalPage) {
+				endpage = totalPage;
+			}
+
+			mv.addObject("user", dto);
 			mv.addObject("Bookmark", Bookmark);
+			mv.addObject("currentpPage", page);
+			mv.addObject("totalPage", totalPage);
+			mv.addObject("startpage", startpage);
+			mv.addObject("endpage", endpage);
 			mv.setViewName("MyInfo2");
-		}else {
+		} else {
 			mv.setViewName("redirect:/logout");
 		}
-		
 		return mv;
 	}
 
 	// 좋아요한 글 조회
 	@RequestMapping("/myBoardLike")
 	public ModelAndView myBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		
+
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("user", dto);
-		
-		if(dto != null) {
-			List<BoardDTO> Boardlike =service.getBoardLike(dto.getMemId());
+
+		if (dto != null) {
+			int limitindex = (page - 1) * 10;
+			int limitcount = 10;
+			int totalBoardlike = 0;
+
+			HashMap<String, Object> clistmap = new HashMap<String, Object>();
+			clistmap.put("limitindex", limitindex);
+			clistmap.put("limitcount", limitcount);
+			clistmap.put("memId", dto.getMemId()); // memId를 clistmap에 추가
+
+			List<BoardDTO> Boardlike = service.getBoardLike(clistmap);
+			totalBoardlike = service.getBoardLikeCount(dto.getMemId());
+
+			int totalPage = 0;
+			if (totalBoardlike % 10 == 0) {
+				totalPage = totalBoardlike / 10;
+			} else {
+				totalPage = (totalBoardlike / 10) + 1;
+			}
+			int startpage = page / 10 * 10 + 1;
+			if (page % 5 == 0 && page > 5) {
+				startpage -= 5;
+			}
+			int endpage = startpage + 10 - 1;
+			if (endpage > totalPage) {
+				endpage = totalPage;
+			}
+
+			mv.addObject("user", dto);
 			mv.addObject("Boardlike", Boardlike);
+			mv.addObject("currentpPage", page);
+			mv.addObject("totalPage", totalPage);
+			mv.addObject("startpage", startpage);
+			mv.addObject("endpage", endpage);
 			mv.setViewName("MyInfo3");
-		}else {
+		} else {
 			mv.setViewName("redirect:/logout");
 		}
-		
 		return mv;
 	}
+
 
 	// 내가 쓴 글 조회
 	@RequestMapping("/myBoard")
 	public ModelAndView myBoard(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
-		
+
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("user", dto);
-		
-		if(dto != null) {
-			List<BoardDTO> MyBoard =service.getMyBoard(dto.getMemId());
+
+		if (dto != null) {
+			int limitindex = (page - 1) * 10;
+			int limitcount = 10;
+			int totalMyBoard = 0;
+
+			HashMap<String, Object> clistmap = new HashMap<String, Object>();
+			clistmap.put("limitindex", limitindex);
+			clistmap.put("limitcount", limitcount);
+			clistmap.put("memId", dto.getMemId()); // memId를 clistmap에 추가
+
+			List<BoardDTO> MyBoard = service.getMyBoard(clistmap);
+			totalMyBoard = service.getMyBoardCount(dto.getMemId());
+
+			int totalPage = 0;
+			if (totalMyBoard % 10 == 0) {
+				totalPage = totalMyBoard / 9;
+			} else {
+				totalPage = (totalMyBoard / 9) + 1;
+			}
+			int startpage = page / 10 * 10 + 1;
+			if (page % 5 == 0 && page > 5) {
+				startpage -= 5;
+			}
+			int endpage = startpage + 10 - 1;
+			if (endpage > totalPage) {
+				endpage = totalPage;
+			}
+
+			mv.addObject("user", dto);
 			mv.addObject("MyBoard", MyBoard);
+			mv.addObject("currentpPage", page);
+			mv.addObject("totalPage", totalPage);
+			mv.addObject("startpage", startpage);
+			mv.addObject("endpage", endpage);
 			mv.setViewName("MyInfo4");
-		}else {
+		} else {
 			mv.setViewName("redirect:/logout");
 		}
-		
 		return mv;
 	}
-
 }

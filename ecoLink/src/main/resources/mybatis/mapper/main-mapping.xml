@@ -8,31 +8,25 @@
 	</select>
 
 	<select id="getBrandList" resultType="maindto">
-		SELECT e.entCrn, e.memId,
-		e.entdMainPic, e.entdURL, m.memNick
-		FROM enterprise e
-		INNER JOIN member
-		m ON e.memId = m.memId
-		WHERE entdConfirm = true;
+		SELECT e.*, m.memNick FROM enterprise e
+		INNER JOIN member m ON e.memId = m.memId
+		WHERE entdConfirm = true
+		ORDER BY RAND();
 	</select>
 
 	<select id="getShareBoardList" resultType="maindto">
-		SELECT b.boardId, b.boardTitle, b.boardViewCount, b.boardRegtime, b.boardUpdateTime,
-		b.boardContents, b.memId, b.boardType, f.filePath
-		FROM board b
+		SELECT b.*, f.filePath FROM board b
 		LEFT JOIN file f ON b.boardId = f.boardId
 		WHERE b.boardType = 'share'
 		ORDER BY b.boardRegtime DESC;
 	</select>
 
 	<select id="getMemberCount" resultType="int">
-		SELECT COUNT(*) FROM
-		member
+		SELECT COUNT(*) FROM member
 	</select>
 
 	<select id="getEnterCount" resultType="int">
-		SELECT COUNT(*) FROM
-		enterprise
+		SELECT COUNT(*) FROM enterprise
 		WHERE entdConfirm = true;
 	</select>
 

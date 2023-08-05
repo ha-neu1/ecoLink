@@ -24,22 +24,49 @@
 	<delete id="deleteEnt" parameterType="enterpriseDto">
 		delete from enterprise WHERE memId=#{memId};
 	</delete>
-	
-	<select id="getBrandBookmark" resultType="enterpriseDto" parameterType="String">
-		SELECT e.* FROM enterprise_bookmark eb
+
+	<select id="getBrandBookmark" resultType="enterpriseDto" parameterType="hashmap">
+		SELECT e.*, m.memRegtime, m.memNick,
+		IFNULL(ROUND(AVG(bc.brcRate),1), 0) avgRate
+		FROM enterprise_bookmark eb
 		JOIN enterprise e ON eb.entCrn = e.entCrn
-		WHERE eb.memId = #{memId}
+		JOIN member m ON eb.memId = m.memId
+		LEFT JOIN brand_comment bc ON e.entCrn = bc.entCrn
+		WHERE e.entdConfirm = true AND eb.memId = #{memId}
+		GROUP BY e.entCrn
+		ORDER BY m.memRegtime DESC
+		LIMIT #{limitindex} , #{limitcount};
 	</select>
-    
-	<select id="getBoardLike" resultType="boardDto" parameterType="String">
+
+	<select id="getBookmarkCount" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM enterprise_bookmark
+		WHERE memId = #{memId};
+	</select>
+
+	<select id="getBoardLike" resultType="boardDto" parameterType="hashmap">
 		SELECT b.*, m.memNick FROM board_like bl
 		JOIN board b ON bl.boardId = b.boardId
 		JOIN member m ON bl.memId = m.memId
 		WHERE bl.memId = #{memId}
-	</select>
-    
-	<select id="getMyBoard" resultType="boardDto" parameterType="String">
-		SELECT * FROM board WHERE memId = #{memId}
+		ORDER BY b.boardRegtime DESC
+		LIMIT #{limitindex} , #{limitcount};
 	</select>
 
+	<select id="getBoardLikeCount" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM board_like
+		WHERE memId = #{memId};
+	</select>
+
+	<select id="getMyBoard" resultType="boardDto" parameterType="hashmap">
+		SELECT * FROM board
+		WHERE memId = #{memId}
+		ORDER BY
+		boardRegtime DESC
+		LIMIT #{limitindex} , #{limitcount};
+	</select>
+
+	<select id="getMyBoardCount" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM board
+		WHERE memId = #{memId};
+	</select>
 </mapper>

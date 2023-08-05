@@ -44,7 +44,7 @@
 							<c:otherwise>
 								<c:forEach items="${MyBoard}" var="myboard" varStatus="status">
 									<div class="myboardlist">
-										<div class="num" id="boardid">${status.index + 1}</div>
+										<div class="num" id="boardid">${status.index + 1 + (currentpPage - 1) * 9}</div>
 										<div class="title" id="title">
 											<c:choose>
 												<c:when test="${myboard.boardType eq 'share'}">
@@ -70,6 +70,38 @@
 						</c:choose>
 					</div>
 				</div>
+			</div>
+
+			<br> <br>
+			<div class="page_number">
+				<c:choose>
+					<c:when test="${currentpPage == 1}">
+						<a class="prev disabled" href="/myBoard?page=1" tabindex="-1"
+							aria-disabled="true">이전</a>
+					</c:when>
+					<c:otherwise>
+						<a class="prev" href="/myBoard?page=${currentpPage - 1}">이전</a>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${startpage}" end="${endpage}">
+					<c:choose>
+						<c:when test="${i == currentpPage}">
+							<a class="page active" href="/myBoard?page=${i}">${i}</a>
+						</c:when>
+						<c:otherwise>
+							<a class="page" href="/myBoard?page=${i}">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${currentpPage == endpage}">
+						<a class="next disabled" href="/myBoard?page=${endpage}"
+							aria-disabled="true">다음</a>
+					</c:when>
+					<c:otherwise>
+						<a class="next" href="/myBoard?page=${currentpPage + 1}">다음</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</article>
 	</div>
