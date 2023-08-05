@@ -227,7 +227,7 @@ public class MyInfoController {
 			}
 
 		System.out.println(edto);
-		return "redirect:/logout";
+		return "redirect:/userInfo";
 	}
 
 	// 유저 삭제

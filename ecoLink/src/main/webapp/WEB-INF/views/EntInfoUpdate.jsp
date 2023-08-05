@@ -40,10 +40,10 @@
 							console.log(param2);
 							
 							let fileImg = $('#logoPic')[0].files[0];
-							let fileImg2 = $('#introPic')[0].files[1];
-							let fileImg3 = $('#dPic1')[0].files[2];
-							let fileImg4 = $('#dPic2')[0].files[3];
-							let fileImg5 = $('#dPic3')[0].files[4];
+							let fileImg2 = $('#introPic')[0].files[0];
+							let fileImg3 = $('#dPic1')[0].files[0];
+							let fileImg4 = $('#dPic2')[0].files[0];
+							let fileImg5 = $('#dPic3')[0].files[0];
 							
 							console.log(fileImg);
 							console.log(fileImg2);
@@ -69,7 +69,8 @@
 								enctype : 'multipart/form-data',//중요
 								data : form,
 								success : function(res) {
-									alert("기업정보 수정이 완료되었습니다. 승인을 기다려 주세요.");
+									alert("기업정보 수정이 완료되었습니다. 승인을 기다려 주세요.")
+									location.href="/userInfo";
 								},
 								error : function(request, status, e) {
 									alert("코드=" + request.status + "\n메시지="
