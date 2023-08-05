@@ -12,6 +12,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
 <%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
 	<div class="board_area">
