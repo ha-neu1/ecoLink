@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>브랜드 북마크</title>
 <link rel="stylesheet" href="css/MyInfo.css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet" />
 </head>
 <script src="js/jquery-3.6.4.min.js"></script>
 <body>
@@ -34,20 +38,63 @@
 							<p>북마크가 없습니다.</p>
 						</c:when>
 						<c:otherwise>
-							<c:forEach items="${Bookmark }" var="enterprise">
-								<span class='likebrand'> <span class='imgcontainer'>
-										<a
-										href="http://localhost:8070/brandpromodetail?entCrn=${enterprise.entCrn}">
-											<img src="${enterprise.entdMainPic}"
-											onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';" />
-									</a>
-								</span>
-								</span>
+							<c:forEach items="${Bookmark}" var="enterprise">
+								<a
+									href="http://localhost:8070/brandpromodetail?entCrn=${enterprise.entCrn}">
+									<div class="likebrand">
+										<div class="brandTitle">
+											<div class='brandName'>${enterprise.memNick}</div>
+											<div class="brandStar">
+												<span class="fa fa-star star-active"></span>
+												${enterprise.avgRate}
+											</div>
+										</div>
+										<img class="brandImage" src="${enterprise.entdMainPic}"
+											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
+										<div class="entdShort">
+											<p class="brandCont">${enterprise.entdShort}
+											<p>
+										</div>
+									</div>
+								</a>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
 				</div>
 			</div>
+
+			<br> <br>
+			<div class="page_number">
+				<c:choose>
+					<c:when test="${currentpPage == 1}">
+						<a class="prev disabled" href="/myBrandLike?page=1" tabindex="-1"
+							aria-disabled="true">이전</a>
+					</c:when>
+					<c:otherwise>
+						<a class="prev" href="/myBrandLike?page=${currentpPage - 1}">이전</a>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${startpage}" end="${endpage}">
+					<c:choose>
+						<c:when test="${i == currentpPage}">
+							<a class="page active" href="/myBrandLike?page=${i}">${i}</a>
+						</c:when>
+						<c:otherwise>
+							<a class="page" href="/myBrandLike?page=${i}">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${currentpPage == endpage}">
+						<a class="next disabled" href="/myBrandLike?page=${endpage}"
+							aria-disabled="true">다음</a>
+					</c:when>
+					<c:otherwise>
+						<a class="next" href="/myBrandLike?page=${currentpPage + 1}">다음</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
+
 		</article>
 	</div>
 	<%@ include file="footer.jsp"%>

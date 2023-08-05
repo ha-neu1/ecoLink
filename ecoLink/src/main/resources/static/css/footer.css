@@ -39,19 +39,54 @@ footer {
 
 .fooIcon ul {
 	display: flex; /*가로 정렬하기 위해 사용*/
+	gap: 50px;
+	flex-wrap: wrap;
+	align-content: center;
 	justify-content: center; /*가운데 정렬*/
-}
-
-.fooIcon li {
-	margin-right: 50px; /*아이콘 사이 공간*/
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: 30px;
 }
 
 .fooIcon img {
 	width: 50px; /*아이콘 크기*/
+	padding: 10px;
+	transition: transform 0.3s;
+	border-radius: 10px;
+}
+
+.fooIcon li:hover img{
+	border: 2px solid #00D084;
+	transform: scale(1.2);
 }
 
 .fooIcon li:last-child {/*마지막 아이콘*/
 	margin-right: 0; /* 마진 제거 */
+}
+
+.fooIcon li {
+	position: relative;
+	display: inline-block;
+}
+
+.fooIcon .image-text {
+	position: absolute;
+	width: 80px;
+	bottom: -3.45px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	padding: 10px 2px;
+	border-radius: 10px;
+	font-size: 10px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.fooIcon li:hover .image-text {
+	opacity: 1;
 }
 
 .fooLogo img {

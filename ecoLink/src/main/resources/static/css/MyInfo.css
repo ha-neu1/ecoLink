@@ -38,7 +38,6 @@ article {
 	margin: 50px;
 	padding : 20px;
 	width: 700px;
-	height: 580px;
 	position: relative;
 }
 
@@ -129,20 +128,59 @@ table tr td:nth-child(2){
 
 .container {
 	display: flex;
-	justify-content: space-around;
-	align-content:flex-start;
 	flex-flow:wrap;
 	width:700px;
-	height: 400px;
-	overflow: scroll;
+	gap:5px;
 }
 
-.imgcontainer img{
-	border: 1px solid #00d084;
-	width:180px;
-	height: 180px;
+.container a {
+	display: flex;
+    position: relative;
+    flex: 0 0 calc(33.33% - 25.5px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
 }
 
+.brandTitle {
+	display: flex;
+	font-weight: bold;
+	font-size: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break:break-all;
+    white-space: nowrap;
+}
+
+.brandName {
+	flex: 4.5;
+}
+
+.star-active {
+	color: #FBC02D;
+}
+
+.brandStar {
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.brandImage {
+    width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.brandCont {
+	width: 208px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    word-break:break-all;
+    white-space: nowrap;
+}
 
 .board_list {
     width: 700px;
@@ -269,5 +307,51 @@ table tr td:nth-child(2){
 	padding: 15px 0;
     font-size: 12px;
     text-align: center;
+}
+
+/* 페이지 번호 스타일 */
+.page_number {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.page_number a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.page_number .prev, .page_number .next {
+    font-weight: bold;
+}
+
+.page_number .prev:hover {
+	background-color: #00D084;
+    color: #fff;
+}
+
+.page_number .next:hover {
+	background-color: #00D084;
+    color: #fff;
+}
+
+.disabled {
+	background-color: silver !important;
+	pointer-events: none !important;
+}
+
+.page_number .page:hover {
+    background-color: #00D084;
+    color: #fff;
+}
+
+.page_number .active {
+    background-color: #00D084;
+    color: #fff;
+    pointer-events: none !important;
 }
 

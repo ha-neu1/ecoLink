@@ -117,7 +117,7 @@ to {
 	border-radius: 10px;
 }
 
-.mainIcon img:hover {
+.image-container:hover img{
 	border: 2px solid #00d084;
 	transform: scale(1.2);
 	filter: brightness(70%);
@@ -178,6 +178,19 @@ to {
 	text-align: center;
 }
 
+/* 게시판 제목 및 페이지 이름 스타일 */
+.board_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.page_name strong {
+    font-size: 24px;
+    color: #00D084;
+}
+
 div.card {
 	background: white;
 	display: inline-block;
@@ -189,6 +202,7 @@ div.card {
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 	z-index: 1;
 	border-radius: 5px;
+	background-color: #defff2;
 }
 
 .card__image {
@@ -214,6 +228,10 @@ div.card-title {
 	border-bottom-right-radius: 5px;
 }
 
+.brandUrl:hover {
+	color : #008252;
+}
+
 h2 {
 	font-size: 24px;
 	font-weight: 700;
@@ -233,9 +251,10 @@ small {
 /*후기*/
 /* 게시물 목록 스타일 */
 .boardMain {
-	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
 	min-width: 1300px;
 	text-align: center;
+	background-color: #dcfff2;
+	padding: 40px 0px 80px 0px;
 }
 
 /* 개별 게시물 항목 스타일 */
@@ -249,6 +268,7 @@ small {
 	position: relative;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 	text-align: left;
+	background-color: #fff;
 }
 
 .boardTitle {

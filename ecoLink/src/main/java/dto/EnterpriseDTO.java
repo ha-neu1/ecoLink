@@ -1,10 +1,11 @@
 package dto;
 
 public class EnterpriseDTO {
-	String entCrn, entPhone, memId;
+	String entCrn, entPhone, memId, memRegtime, memNick;
 	String entdMainPic, entdShort, entdURL, entdIntro, entdIntroPic,
 	entdPic1, entdPic2, entdPic3, entdExplain1, entdExplain2, entdExplain3;
 	boolean entdConfirm;
+	double avgRate;
 
 	public String getEntCrn() {
 		return entCrn;
@@ -28,6 +29,22 @@ public class EnterpriseDTO {
 
 	public void setMemId(String memId) {
 		this.memId = memId;
+	}
+
+	public String getMemRegtime() {
+		return memRegtime;
+	}
+
+	public void setMemRegtime(String memRegtime) {
+		this.memRegtime = memRegtime;
+	}
+
+	public String getMemNick() {
+		return memNick;
+	}
+
+	public void setMemNick(String memNick) {
+		this.memNick = memNick;
 	}
 
 	public String getEntdMainPic() {
@@ -126,6 +143,13 @@ public class EnterpriseDTO {
 		this.entdConfirm = entdConfirm;
 	}
 
+	public double getAvgRate() {
+		return avgRate;
+	}
+
+	public void setAvgRate(double avgRate) {
+		this.avgRate = avgRate;
+	}
 
 	@Override
 	public String toString() {

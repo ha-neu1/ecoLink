@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,30 +28,24 @@
 
 	<div class="mainIcon">
 		<ul>
-			<li>
-				<a href="http://localhost:8070/introboard">
+			<li><a href="http://localhost:8070/introboard">
 					<div class="image-container">
-						<img alt="업사이클링 정보" src="images/information.png">
-						<span class="image-text">업사이클링 정보</span>
+						<img alt="업사이클링 정보" src="images/information.png"> <span
+							class="image-text">업사이클링 정보</span>
 					</div>
-				</a>
-			</li>
-			<li>
-				<a href="http://localhost:8070/brandpromolist">
+			</a></li>
+			<li><a href="http://localhost:8070/brandpromolist">
 					<div class="image-container">
-						<img alt="브랜드 소개" src="images/promotion.png">
-						<span class="image-text">브랜드 소개</span>
+						<img alt="브랜드 소개" src="images/promotion.png"> <span
+							class="image-text">브랜드 소개</span>
 					</div>
-				</a>
-			</li>
-			<li>
-				<a href="http://localhost:8070/board">
+			</a></li>
+			<li><a href="http://localhost:8070/board">
 					<div class="image-container">
-						<img alt="커뮤니티" src="images/community.png">
-						<span class="image-text">커뮤니티</span>
+						<img alt="커뮤니티" src="images/community.png"> <span
+							class="image-text">커뮤니티</span>
 					</div>
-				</a>
-			</li>
+			</a></li>
 		</ul>
 	</div>
 
@@ -64,38 +59,56 @@
 		</ul>
 	</div>
 
+
+
 	<div class="mainPromo">
+		<div class="board_title">
+			<div class="page_name">
+				<strong>브랜드 소개</strong>
+			</div>
+		</div>
 		<c:forEach var="brand" items="${brandlist}" varStatus="loop">
-    <c:if test="${loop.index < 3}">
-        <a href="http://localhost:8070/brandpromodetail?entCrn=${brand.entCrn }">
-            <div class="card">
-                <div class="card__image-holder">
-                    <img class="card__image"
-                        src="${brand.entdMainPic }" onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';" />
-                </div>
-                <div class="card-title">
-                    <h2>
-                        ${brand.memNick } <small>${brand.entdURL }</small>
-                    </h2>
-                </div>
-            </div>
-        </a>
-    </c:if>
-</c:forEach>
+			<c:if test="${loop.index < 3}">
+				<a
+					href="http://localhost:8070/brandpromodetail?entCrn=${brand.entCrn }">
+					<div class="card">
+						<div class="card__image-holder">
+							<img class="card__image" src="${brand.entdMainPic }"
+								onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';" />
+						</div>
+						<div class="card-title">
+							<h2>${brand.memNick }</h2>
+							<a class="brandUrl" href="${brand.entdURL }"><small>${brand.entdURL }</small></a>
+						</div>
+					</div>
+				</a>
+			</c:if>
+		</c:forEach>
 	</div>
 
 	<div class="boardMain">
-		<c:forEach var="board" items="${boardlist}">
-			<a href="http://localhost:8070/boardRead?boardId=${board.boardId }">
-				<div class="boardList">
-					<h3 class="memId">${board.memId}</h3>
-					<h4 class="boardTitle">${board.boardTitle}</h4>
-					<p class="boardDate">${board.boardRegtime}</p>
-					<img class="boardImage"
-						src="${board.filePath }" onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
-					<p class="boardCont">${board.boardContents}</p>
-				</div>
-			</a>
+		<div class="board_title">
+			<div class="page_name">
+				<strong>본인 제품 공유</strong>
+			</div>
+		</div>
+		<c:forEach var="board" items="${boardlist}" varStatus="loop">
+			<c:if test="${loop.index < 3}">
+				<a href="http://localhost:8070/boardRead?boardId=${board.boardId }">
+					<div class="boardList">
+						<h3 class="memId">${board.memId}</h3>
+						<h4 class="boardTitle">${board.boardTitle}</h4>
+						<p class="boardDate">
+							<fmt:parseDate value="${board.boardRegtime}"
+								pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+							<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
+						</p>
+						<img class="boardImage" src="${board.filePath }"
+							onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
+						<p class="boardCont">${board.boardContents}</p>
+					</div>
+				</a>
+			</c:if>
 		</c:forEach>
 	</div>
 	<%@ include file="footer.jsp"%>
