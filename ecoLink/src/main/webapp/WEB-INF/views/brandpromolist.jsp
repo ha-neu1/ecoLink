@@ -39,7 +39,7 @@
 
 			</div>
 			<div class="searchBox">
-				<input type="text" id="searchtext" placeholder="검색어를 입력하세요">
+				<input type="text" id="searchtext" placeholder="브랜드명으로 검색">
 				<button onclick="search()">검색</button>
 			</div>
 		</div>
@@ -47,17 +47,22 @@
 		<div class="boardMain">
 			<c:forEach items="${list}" var="dto">
 				<div class="boardList">
-					<h3 class="memId">
-						<a href="/brandpromodetail?entCrn=${dto.entCrn}">${dto.memNick}</a>
-					</h3>
-					<h4 class="boardTitle">
-						<span class="fa fa-star star-active"></span> ${dto.avgRate}
-					</h4>
+					<div class="titlerate">
+						<div class="titlenamediv">
+							<a class="titlename"
+								href="/brandpromodetail?entCrn=${dto.entCrn}">${dto.memNick}</a>
+						</div>
+						<div class="ratediv">
+							<span class="fa fa-star star-active"></span> ${dto.avgRate}
+						</div>
+					</div>
+					<hr style="margin-top: 3px; margin-bottom: 5px;">
 					<a href="/brandpromodetail?entCrn=${dto.entCrn}"><img
 						class="boardImage" src="${dto.entdMainPic}"
 						onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
+					<hr style="margin-bottom: 5px;">
 					<div class="entdShort">
-						<p class="boardCont">${dto.entdShort}</p>
+						<p class="boardCont" onclick="opendetail('${dto.entCrn}')">${dto.entdShort}</p>
 					</div>
 				</div>
 			</c:forEach>
@@ -69,29 +74,76 @@
 			<c:choose>
 				<c:when test="${startpage == 1}">
 					<a class="prev disabled"
-						href="/brandpromolist?page=${startpage - 1}" tabindex="-1"
-						aria-disabled="true">이전</a>
+						<c:choose>
+					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${startpage - 1}&order=${order}&search=${search}"</c:when>
+					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${startpage - 1}&order=${order}"</c:when>
+					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${startpage - 1}&order=latest&search=${search}"</c:when>
+					<c:otherwise>
+					href="/brandpromolist?page=${startpage - 1}"
+					</c:otherwise>
+					</c:choose>
+						tabindex="-1" aria-disabled="true">이전</a>
 				</c:when>
 				<c:otherwise>
-					<a class="prev" href="/brandpromolist?page=${startpage - 1}">이전</a>
+					<a class="prev"
+						<c:choose>
+					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${startpage - 1}&order=${order}&search=${search}"</c:when>
+					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${startpage - 1}&order=${order}"</c:when>
+					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${startpage - 1}&order=latest&search=${search}"</c:when>
+					<c:otherwise>
+					href="/brandpromolist?page=${startpage - 1}"
+					</c:otherwise>
+					</c:choose>>이전</a>
 				</c:otherwise>
 			</c:choose>
 			<c:forEach var="i" begin="${startpage}" end="${endpage}">
 				<c:choose>
 					<c:when test="${i == currentCpage}">
-						<a class="page active" href="/brandpromolist?page=${i}">${i}</a>
+						<a class="page active"
+							<c:choose>
+					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${i}&order=${order}&search=${search}"</c:when>
+					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${i}&order=${order}"</c:when>
+					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${i}&order=latest&search=${search}"</c:when>
+					<c:otherwise>
+					href="/brandpromolist?page=${i}"
+					</c:otherwise>
+					</c:choose>>${i}</a>
 					</c:when>
 					<c:otherwise>
-						<a class="page" href="/brandpromolist?page=${i}">${i}</a>
+						<a class="page"
+							<c:choose>
+					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${i}&order=${order}&search=${search}"</c:when>
+					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${i}&order=${order}"</c:when>
+					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${i}&order=latest&search=${search}"</c:when>
+					<c:otherwise>
+					href="/brandpromolist?page=${i}"
+					</c:otherwise>
+					</c:choose>>${i}</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:choose>
 				<c:when test="${totalPage != endpage}">
-					<a class="next" href="/brandpromolist?page=${endpage + 1}">다음</a>
+					<a class="next"
+						<c:choose>
+					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}&search=${search}"</c:when>
+					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}"</c:when>
+					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=latest&search=${search}"</c:when>
+					<c:otherwise>
+					href="/brandpromolist?page=${endpage + 1}"
+					</c:otherwise>
+					</c:choose>>다음</a>
 				</c:when>
 				<c:otherwise>
-					<a class="next disabled" href="/brandpromolist?page=${endpage + 1}">다음</a>
+					<a class="next disabled"
+						<c:choose>
+					<c:when test="${not empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}&search=${search}"</c:when>
+					<c:when test="${not empty order && empty search}">href="/brandpromolist?page=${endpage + 1}&order=${order}"</c:when>
+					<c:when test="${empty order && not empty search}">href="/brandpromolist?page=${endpage + 1}&order=latest&search=${search}"</c:when>
+					<c:otherwise>
+					href="/brandpromolist?page=${endpage + 1}"
+					</c:otherwise>
+					</c:choose>>다음</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -102,15 +154,20 @@
 		location.href = "/brandpromolist?page=1&order=" + $(this).val();
 
 	});
-	
+
 	function search() {
 		var value = $("#searchtext").val();
 		var order = $("#sortSelect").val();
 		if (!value) {
 			alert("검색어를 입력해주세요.");
 		} else {
-			location.href = "/brandpromolist?page=1&order=" + order + "&search=" + value;
+			location.href = "/brandpromolist?page=1&order=" + order
+					+ "&search=" + value;
 		}
+	}
+
+	function opendetail(e) {
+		location.href = "/brandpromodetail?entCrn=" + e;
 	}
 </script>
 <footer>

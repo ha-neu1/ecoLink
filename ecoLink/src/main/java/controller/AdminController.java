@@ -238,7 +238,15 @@ public class AdminController {
 		response.setDateHeader("Expires", 0); // Proxies.
 		ModelAndView mv = new ModelAndView();
 		if (dto != null && dto.getMemType().equals("admin")) {
-			String savePath = "c:/banner/";
+			String savePath = "";
+			String os = System.getProperty("os.name").toLowerCase();
+			if (os.contains("win")) {
+				savePath = "c:/banner/";
+			} else if (os.contains("linux")) {
+				savePath = "/usr/mydir/banner/";
+			} else {
+				savePath = "c:/banner/";
+			}
 			if (bdto.getFile() != null) {
 				if (!bdto.getFile().isEmpty()) {
 					MultipartFile file1 = bdto.getFile();
@@ -406,7 +414,16 @@ public class AdminController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 		if (dto != null && dto.getMemType().equals("admin")) {
-			File file = new File("c:" + bannerPic);
+			String savePath = "";
+			String os = System.getProperty("os.name").toLowerCase();
+			if (os.contains("win")) {
+				savePath = "c:";
+			} else if (os.contains("linux")) {
+				savePath = "/usr/mydir";
+			} else {
+				savePath = "c:";
+			}
+			File file = new File(savePath + bannerPic);
 			if (file.exists()) {
 				file.delete();
 			}

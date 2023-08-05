@@ -34,7 +34,6 @@ public class BrandPromoController {
 			@RequestParam(value = "order", required = false, defaultValue = "latest") String order,
 			@RequestParam(value = "search", required = false, defaultValue = "") String search) {
 		ModelAndView mv = new ModelAndView();
-
 		int limitindex = (page - 1) * 9;
 		int limitcount = 9;
 		int totalList = 0;
@@ -86,14 +85,13 @@ public class BrandPromoController {
 			totalPage = (totalList / 9) + 1;
 		}
 		int startpage = page / 9 * 9 + 1;
-		if (page % 5 == 0) {
-			startpage -= 5;
+		if (page % 9 == 0) {
+			startpage -= 9;
 		}
 		int endpage = startpage + 9 - 1;
 		if (endpage > totalPage) {
 			endpage = totalPage;
 		}
-
 		mv.addObject("currentCpage", page);
 		mv.addObject("totalPage", totalPage);
 		mv.addObject("startpage", startpage);
