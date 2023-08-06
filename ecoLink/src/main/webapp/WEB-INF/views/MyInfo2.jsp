@@ -85,12 +85,11 @@
 					</c:choose>
 				</c:forEach>
 				<c:choose>
-					<c:when test="${currentpPage == endpage}">
-						<a class="next disabled" href="/myBrandLike?page=${endpage}"
-							aria-disabled="true">다음</a>
+					<c:when test="${totalPage != currentpPage}">
+						<a class="next" href="/myBrandLike?page=${currentpPage + 1}">다음</a>
 					</c:when>
 					<c:otherwise>
-						<a class="next" href="/myBrandLike?page=${currentpPage + 1}">다음</a>
+						<a class="next disabled" href="/myBrandLike?page=${endpage + 1}">다음</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
