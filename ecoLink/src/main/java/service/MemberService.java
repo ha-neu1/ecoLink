@@ -22,5 +22,11 @@ public interface MemberService {
     
     //email중복여부
     public int isMemberEmailExist(String inputEmail);
- 
+    
+    //id 찾기
+    public String findId(String memType, String memEmail);
+
+    //pw 찾기
+    public String findPwByEmail(String memType, String memEmail);
+    public String findPwById(String memType, String memId);
 }

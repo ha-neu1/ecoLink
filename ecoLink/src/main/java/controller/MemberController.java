@@ -1,5 +1,9 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
@@ -107,7 +113,24 @@ public class MemberController {
     
     @PostMapping("/enterjoin")
     @ResponseBody
-    public String enterprisejoin(@ModelAttribute("enter") EnterpriseDTO enter) {
+    public String enterprisejoin(@ModelAttribute("enter") EnterpriseDTO enter,
+    		@RequestPart(name = "img1", required = false) MultipartFile file1,
+			@RequestPart(name = "img2", required = false) MultipartFile file2,
+			@RequestPart(name = "img3", required = false) MultipartFile file3,
+			@RequestPart(name = "img4", required = false) MultipartFile file4,
+			@RequestPart(name = "img5", required = false) MultipartFile file5, HttpServletResponse response)
+			throws IllegalStateException, IOException {
+    	
+    	String savePath = "C:/brand/";
+    	
+		System.out.println(file1 + "file1");
+
+		System.out.println(enter.getEntdMainPic() + "로고이미지");
+		System.out.println(enter.getEntdIntroPic());
+		System.out.println(enter.getEntdPic1());
+		System.out.println(enter.getEntdPic2());
+		System.out.println(enter.getEntdPic3());
+		
     	System.out.println("enter.getEntCrn() : " + enter.getEntCrn());
 
     	String modifiedIntro = convertToHtmlFormat(enter.getEntdIntro());
@@ -129,7 +152,75 @@ public class MemberController {
         //enter.toString() : EnterpriseDTO [entCrn=null, entPhone=null, 
         //memId=test3, entdMainPic=null, entdShort=null, entdURL=null, entdIntro=null, 
         //entdIntroPic=null, entdPic1=null, entdPic2=null, entdPic3=null, entdExplain1=null, entdExplain2=null, entdExplain3=null, entdConfirm=false]
-        
+        if (file1 != null) {
+			MultipartFile entdMainPicImg = file1;
+			String newFileName1 = null;
+
+			String originalName1 = entdMainPicImg.getOriginalFilename();
+			String beforeExt1 = originalName1.substring(0, originalName1.indexOf("."));
+			String ext1 = originalName1.substring(originalName1.indexOf("."));
+
+			newFileName1 = beforeExt1 + "(" + UUID.randomUUID().toString() + ")" + ext1;
+			entdMainPicImg.transferTo(new File(savePath + newFileName1));
+
+			enter.setEntdMainPic("/brand/" + newFileName1);
+		}
+
+		if (file2 != null) {
+			MultipartFile entdIntroPicImg = file2;
+			String newFileName2 = null;
+
+			String originalName2 = entdIntroPicImg.getOriginalFilename();
+			String beforeExt2 = originalName2.substring(0, originalName2.indexOf("."));
+			String ext2 = originalName2.substring(originalName2.indexOf("."));
+
+			newFileName2 = beforeExt2 + "(" + UUID.randomUUID().toString() + ")" + ext2;
+			entdIntroPicImg.transferTo(new File(savePath + newFileName2));
+
+			enter.setEntdIntroPic("/brand/" + newFileName2);
+		}
+
+		if (file3 != null) {
+			MultipartFile entdPic1Img = file3;
+			String newFileName3 = null;
+
+			String originalName3 = entdPic1Img.getOriginalFilename();
+			String beforeExt3 = originalName3.substring(0, originalName3.indexOf("."));
+			String ext3 = originalName3.substring(originalName3.indexOf("."));
+
+			newFileName3 = beforeExt3 + "(" + UUID.randomUUID().toString() + ")" + ext3;
+			entdPic1Img.transferTo(new File(savePath + newFileName3));
+
+			enter.setEntdPic1("/brand/" + newFileName3);
+		}
+
+		if (file4 != null) {
+			MultipartFile entdPic2Img = file4;
+			String newFileName4 = null;
+
+			String originalName4 = entdPic2Img.getOriginalFilename();
+			String beforeExt4 = originalName4.substring(0, originalName4.indexOf("."));
+			String ext4 = originalName4.substring(originalName4.indexOf("."));
+
+			newFileName4 = beforeExt4 + "(" + UUID.randomUUID().toString() + ")" + ext4;
+			entdPic2Img.transferTo(new File(savePath + newFileName4));
+
+			enter.setEntdPic2("/brand/" + newFileName4);
+		}
+
+		if (file5 != null) {
+			MultipartFile entdPic3Img = file5;
+			String newFileName5 = null;
+
+			String originalName5 = entdPic3Img.getOriginalFilename();
+			String beforeExt5 = originalName5.substring(0, originalName5.indexOf("."));
+			String ext5 = originalName5.substring(originalName5.indexOf("."));
+
+			newFileName5 = beforeExt5 + "(" + UUID.randomUUID().toString() + ")" + ext5;
+			entdPic3Img.transferTo(new File(savePath + newFileName5));
+
+			enter.setEntdPic3("/brand/" + newFileName5);
+		}
     	service.addEnterprise(enter);
    
         return "redirect:/login";
@@ -168,17 +259,41 @@ public class MemberController {
     	return "{\"result\" : \"" + result+ " \" }";
     }    
  
-    // 아이디 찾기
-    @RequestMapping("/findId")
+
+    //아이디 찾기
+    @GetMapping("/findId")
     public String findId() {
-        return "findId";
+    	return "findId";
+    }
+    
+    @PostMapping("/findId")
+    @ResponseBody
+    public String findId(@RequestParam String memType, @RequestParam String memEmail, Model model) {
+        String foundId = service.findId(memType, memEmail); // memType 추가
+        model.addAttribute("foundId", foundId);
+            
+        return foundId;
     }
 
     // 비밀번호 찾기
-    @RequestMapping("/findPw")
+    @GetMapping("/findPw")
     public String findPw() {
         return "findPw";
     }
     
-    
+    @PostMapping("/foundPw_Email")
+    @ResponseBody
+    public String foundPw_Email(@RequestParam String memType, @RequestParam String memEmail, Model model) {
+        String foundPw_Email = service.findPwByEmail(memType, memEmail); // 이메일로 찾기 로직 호출
+        model.addAttribute("foundPw_Email", foundPw_Email);
+        return foundPw_Email;
+    }
+
+    @PostMapping("/foundPw_Id")
+    @ResponseBody
+    public String foundPw_Id(@RequestParam String memType, @RequestParam String memId, Model model) {
+        String foundPw_Id = service.findPwById(memType, memId); // 아이디로 찾기 로직 호출
+        model.addAttribute("foundPw_Id", foundPw_Id);
+        return foundPw_Id;
+    }
 }

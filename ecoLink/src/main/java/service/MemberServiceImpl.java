@@ -33,20 +33,6 @@ public class MemberServiceImpl implements MemberService {
 	public void addEnterprise(EnterpriseDTO enter) {
 		  dao.addEnterprise(enter);
 		}
-	
-	// 닉네임 설정
-	/*@Override
-	public String generateNextMemNick(String memType) {
-	    String memTypePrefix = (memType.equals("normal") ? "일반회원" : "기업회원");
-	    String latestMemNick = dao.getLatestMemNickByType(memType);
-
-	    if (latestMemNick == null) {
-	        return memTypePrefix + "1";
-	    } else {
-	        int currentNumber = Integer.parseInt(latestMemNick.substring(memTypePrefix.length()));
-	        return memTypePrefix + (currentNumber + 1);
-	    }
-	}*/
     
     //id중복여부
     public int isMemberIdExist(String inputId) {
@@ -57,5 +43,22 @@ public class MemberServiceImpl implements MemberService {
     public int isMemberEmailExist(String inputEmail) {
     	return dao.isMemberEmailExist(inputEmail);
     }	
+    
+    //id 찾기
+    @Override
+    public String findId(String memType, String memEmail) {
+        return dao.findId(memType, memEmail);
+    }
+    
+    //pw 찾기
+    @Override
+    public String findPwByEmail(String memType, String memEmail) {
+        return dao.findPwByEmail(memType, memEmail);
+    }
+
+    @Override
+    public String findPwById(String memType, String memId) {
+        return dao.findPwById(memType, memId);
+    }
  
 }

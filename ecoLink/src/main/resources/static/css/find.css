@@ -8,3 +8,12 @@
 #container {
 	margin-top: 9rem;
 }
+table tr.mobile td [name^="crn"]:first-child {
+    margin-left: 0;
+    border-radius: 1rem;
+}
+table tr.mobile td [name^="crn"] {
+	margin: 0 0.5rem;
+    flex-grow: 1;
+    flex-basis: 25%;
+}
