@@ -46,6 +46,7 @@ public class MyInfoController {
 				MemberDTO user = service.getUser(dto.getMemId());
 				dto.setMemPw(user.getMemPw());
 				dto.setMemNick(user.getMemNick());
+				
 				mv.addObject("loginUser", dto);
 				mv.addObject("loginEnt", edto);
 				mv.setViewName("EntInfo");
@@ -53,6 +54,7 @@ public class MyInfoController {
 				MemberDTO user = service.getUser(dto.getMemId());
 				dto.setMemPw(user.getMemPw());
 				dto.setMemNick(user.getMemNick());
+				
 				mv.addObject("loginUser", dto);
 				mv.setViewName("MyInfo");
 			}
@@ -98,7 +100,7 @@ public class MyInfoController {
 		
 		service.userUpdate(updto);
 		
-		return "";
+		return "redirect:/userInfo";
 	}
 	
 	// 기업회원 정보 수정
@@ -137,10 +139,15 @@ public class MyInfoController {
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
 
-		System.out.println("회원 아이디" + dto.toString());
-		System.out.println("회원 분류" + dto.getMemType());
-
-			String savePath = "c:/brand/";
+		String savePath = "";
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			savePath = "c:/brand/";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir/brand/";
+		} else {
+			savePath = "c:/brand/";
+		}
 			// MultipartFile entdIntroPicImg o //view file upload o
 			// new file savepath -> newFileName
 			// eudto.setEntdIntroPic(newFileName)
@@ -148,13 +155,6 @@ public class MyInfoController {
 			// view file upload x -> db entdPic1 o
 			// param : entdPic1 db data o
 			// eudto.setEntPic1(entdPic1);
-			System.out.println(file1 + "file1");
-
-			System.out.println(edto.getEntdMainPic() + "로고이미지");
-			System.out.println(edto.getEntdIntroPic());
-			System.out.println(edto.getEntdPic1());
-			System.out.println(edto.getEntdPic2());
-			System.out.println(edto.getEntdPic3());
 
 			if (edto.getEntdMainPic() != null || edto.getEntdIntroPic() != null || edto.getEntdPic1() != null
 					|| edto.getEntdPic2() != null || edto.getEntdPic3() != null) {
@@ -228,11 +228,29 @@ public class MyInfoController {
 					edto.setEntdPic3("/brand/" + newFileName5);
 				}
 				
+				EnterpriseDTO en = service.getEntUser(dto.getMemId());
+				
+				
+				if (dto.getMemPw() == mdto.getMemPw() && dto.getMemNick() == mdto.getMemNick()
+						&& edto.getEntPhone() == en.getEntPhone() && edto.getEntdMainPic() == en.getEntdMainPic()
+						&& edto.getEntdShort() == en.getEntdShort() && edto.getEntdURL() == en.getEntdURL()
+						&& edto.getEntdIntro() == en.getEntdIntro() && edto.getEntdIntroPic() == en.getEntdIntroPic()
+						&& edto.getEntdPic1() == en.getEntdPic1() && edto.getEntdPic2() == en.getEntdPic2()
+						&& edto.getEntdPic3() == en.getEntdPic3() && edto.getEntdExplain1() == en.getEntdExplain1()
+						&& edto.getEntdExplain2() == en.getEntdExplain2()
+						&& edto.getEntdExplain3() == en.getEntdExplain3()) {
+					edto.setEntdConfirm(true);
+				} else {
+					edto.setEntdConfirm(false);
+				}
+				
+				edto.setEntdShort(edto.getEntdShort().replace("\r\n", "<br>"));
+				edto.setEntdIntro(edto.getEntdIntro().replace("\r\n", "<br>"));
+
 				service.userUpdate(mdto);
 				service.entUpdate(edto);
 			}
 
-		System.out.println(edto);
 		return "redirect:/userInfo";
 	}
 

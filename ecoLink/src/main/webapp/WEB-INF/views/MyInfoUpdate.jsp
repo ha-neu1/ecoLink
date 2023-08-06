@@ -9,20 +9,31 @@
 </head>
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
-	$(document).ready(
-			function() {
-				$("#updateBtn").on('click', function() {
+	$(document).ready(function() {
+				$("#updateBtn").on(
+						'click',
+						function(e) {
+							e.preventDefault();
+							
+							var memId = "${loginUser.memId}";
+							var memPw =  $("#pw").val();
+				            var memNick = $("#nickname").val();
+				            
+				            if (memPw === "" || memNick === "") {
+				                alert("비밀번호와 닉네임을 필수로 입력해 주세요.");
+				            } else {
+				            
 							$.ajax({
 								url : '/updateUserInfo',
 								data : {
-									'memId' : "${loginUser.memId}",
-									'memPw' : $("#pw").val(),
-									'memNick' : $("#nickname").val()
+									'memId' : memId,
+									'memPw' : memPw,
+									'memNick' : memNick
 								},
 								type : 'post',
 								success : function(res) {
 									alert("회원정보 수정이 완료되었습니다.");
-									logout();
+									location.href = "/userInfo";
 								},
 								error : function(request, status, e) {
 									alert("코드=" + request.status + "\n메시지="
@@ -30,23 +41,9 @@
 											+ e);
 								}
 							});
+				            }
 						});
-			}
-			
-		
-	);
-	function logout() {
-		$.ajax({
-			type: "POST",
-			url: "/logout",
-			success: function() {
-				location.reload(); // 현재 페이지 리로드
-			},
-			error: function() {
-				alert("로그아웃 도중 오류가 발생했습니다.");
-			}
-		});
-	}
+			});
 </script>
 <body>
 	<%@ include file="header.jsp"%>
