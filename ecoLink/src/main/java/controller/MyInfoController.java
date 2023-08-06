@@ -286,8 +286,8 @@ public class MyInfoController {
 				totalPage = (totalBookmark / 9) + 1;
 			}
 			int startpage = page / 9 * 9 + 1;
-			if (page % 5 == 0 && page > 5) {
-				startpage -= 5;
+			if (page % 9 == 0) {
+				startpage -= 9;
 			}
 			int endpage = startpage + 9 - 1;
 			if (endpage > totalPage) {
@@ -338,8 +338,8 @@ public class MyInfoController {
 				totalPage = (totalBoardlike / 10) + 1;
 			}
 			int startpage = page / 10 * 10 + 1;
-			if (page % 5 == 0 && page > 5) {
-				startpage -= 5;
+			if (page % 10 == 0) {
+				startpage -= 10;
 			}
 			int endpage = startpage + 10 - 1;
 			if (endpage > totalPage) {
@@ -386,13 +386,13 @@ public class MyInfoController {
 
 			int totalPage = 0;
 			if (totalMyBoard % 10 == 0) {
-				totalPage = totalMyBoard / 9;
+				totalPage = totalMyBoard / 10;
 			} else {
-				totalPage = (totalMyBoard / 9) + 1;
+				totalPage = (totalMyBoard / 10) + 1;
 			}
 			int startpage = page / 10 * 10 + 1;
-			if (page % 5 == 0 && page > 5) {
-				startpage -= 5;
+			if (page % 10 == 0) {
+				startpage -= 10;
 			}
 			int endpage = startpage + 10 - 1;
 			if (endpage > totalPage) {

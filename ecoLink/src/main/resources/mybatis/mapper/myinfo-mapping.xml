@@ -34,7 +34,7 @@
 		IFNULL(ROUND(AVG(bc.brcRate),1), 0) avgRate
 		FROM enterprise_bookmark eb
 		JOIN enterprise e ON eb.entCrn = e.entCrn
-		JOIN member m ON eb.memId = m.memId
+		JOIN member m ON e.memId = m.memId
 		LEFT JOIN brand_comment bc ON e.entCrn = bc.entCrn
 		WHERE e.entdConfirm = true AND eb.memId = #{memId}
 		GROUP BY e.entCrn
@@ -50,7 +50,7 @@
 	<select id="getBoardLike" resultType="boardDto" parameterType="hashmap">
 		SELECT b.*, m.memNick FROM board_like bl
 		JOIN board b ON bl.boardId = b.boardId
-		JOIN member m ON bl.memId = m.memId
+		JOIN member m ON b.memId = m.memId
 		WHERE bl.memId = #{memId}
 		ORDER BY b.boardRegtime DESC
 		LIMIT #{limitindex} , #{limitcount};
