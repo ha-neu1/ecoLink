@@ -26,7 +26,11 @@
 	</update>
 	
 	<delete id="deleteEnt" parameterType="enterpriseDto">
-		delete from enterprise WHERE memId=#{memId};
+		DELETE enterprise, brand_comment, enterprise_bookmark
+  		FROM enterprise
+  		LEFT JOIN brand_comment ON enterprise.entCrn = brand_comment.entCrn
+  		LEFT JOIN enterprise_bookmark ON enterprise.entCrn = enterprise_bookmark.entCrn
+  		WHERE enterprise.memId = #{memId};
 	</delete>
 
 	<select id="getBrandBookmark" resultType="enterpriseDto" parameterType="hashmap">
