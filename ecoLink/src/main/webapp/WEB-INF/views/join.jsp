@@ -80,6 +80,7 @@ $(document).ready(function() {
 	      $("#entd_Explain3").hide();
 	    }
 	  });
+	  
 	// join_submit_btn 클릭 시 이벤트 처리
 	  $("#join_submit_btn").on('click', function(event) {
 	      event.preventDefault();
@@ -196,35 +197,72 @@ $(document).ready(function() {
 	  }
  
 	  function addEnterprise() {
-		  //alert("addEnterprise");
-		  $.ajax({
-	    	    url: 'enterjoin',
-	    	    type: 'post',
-	    	    data: {
-	    	      'entCrn': $('#crn1').val() + '-' + $('#crn2').val() + '-' + $('#crn3').val(),
-	    	      'entPhone': $('#mobile1').val() + '-' + $('#mobile2').val() + '-' + $('#mobile3').val(),
-	    	      'memId': $('#memId').val(),
-	    	      'entdMainPic': $('#entdMainPic').val(),
-	    	      'entdShort': $('#entdShort').val(),
-	    	      'entdURL': $('#entdURL').val(),
-	    	      'entdIntro': $('#entdIntro').val(),
-	    	      'entdIntroPic': $('#entdIntroPic').val(),
-	    	      'entdPic1': $('#entdPic1').val(),
-	    	      'entdPic2': $('#entdPic2').val(),
-	    	      'entdPic3': $('#entdPic3').val(),
-	    	      'entdExplain1': $('#entdExplain1').val(),
-	    	      'entdExplain2': $('#entdExplain2').val(),
-	    	      'entdExplain3': $('#entdExplain3').val()
-	    	    },
-	    	    dataType: 'json',
-	    	    success: function(response) {
-	    	    	console.log("Enterprise added successfully");
-	    	    },
-	    	    error: function(request, status, e) {
-	    	    	console.log("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
-	    	    }
-	    	  });
-	  }
+/*			let param1 = {
+					'memId' : $("#memId").val(),
+					'memPw' : $("#memPw").val(),
+					'memEmail' : $("#memEmail").val(),
+					'memType' : $("#memType").val(),
+					'memName' : $("#memName").val(),
+					'memNick' : $("#memNick").val()
+			};
+			console.log(param1);*/
+			
+			let param2 = {
+					'entCrn' : $("#entCrn").val(),
+					'entPhone' : $("#entPhone").val(),
+					'memId' : $("#memId").val(),
+					'entdMainPic' : $("#entdMainPic").val(),
+					'entdShort' : $("#entdShort").val(),
+					'entdURL' : $("#entdURL").val(),
+					'entdIntro' : $("#entdIntro").val(),
+					'entdIntroPic' : $("#entdIntroPic").val(),
+					'entdPic1' : $("#entdPic1").val(),
+					'entdPic2' : $("#entdPic2").val(),
+					'entdPic3' : $("#entdPic3").val(),
+					'entdExplain1' : $("#entdExplain1").val(),
+					'entdExplain2' : $("#entdExplain2").val(),
+					'entdExplain3' : $("#entdExplain3").val()
+			};
+			console.log(param2);
+			
+			let fileImg = $('#entdMainPic')[0].files[0];
+			let fileImg2 = $('#entdIntroPic')[0].files[0];
+			let fileImg3 = $('#entdPic1')[0].files[0];
+			let fileImg4 = $('#entdPic2')[0].files[0];
+			let fileImg5 = $('#entdPic3')[0].files[0];
+			
+			console.log(fileImg);
+			console.log(fileImg2);
+			console.log(fileImg3);
+			console.log(fileImg4);
+			console.log(fileImg5);
+
+			let form = new FormData();
+
+			//form.append("member", new Blob([ JSON.stringify(param1) ], {type : "application/json"}))
+			form.append("enter", new Blob([ JSON.stringify(param2) ], {type : "application/json"}))
+			form.append("img1", fileImg);
+			form.append("img2", fileImg2);
+			form.append("img3", fileImg3);
+			form.append("img4", fileImg4);
+			form.append("img5", fileImg5);
+			
+		    $.ajax({
+		        url: 'enterjoin',
+		        type: 'post',
+		        data: form,
+		        processData: false,
+		        contentType: false,
+		        //enctype : 'multipart/form-data',
+		        success: function(response) {
+		            console.log('Enterprise added successfully');
+		        },
+		        error: function(request, status, e) {
+		            console.log('코드=' + request.status + '\n' + '메시지=' + request.responseText + '\n' + 'error=' + e);
+		        }
+		    });
+		}
+	  
 	  $(document.body).on('input', 'textarea', function() {
 	        const textareaId = $(this).attr('id');
 	        const divId = textareaId + 'charCount';

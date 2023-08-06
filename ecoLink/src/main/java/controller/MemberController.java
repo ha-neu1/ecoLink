@@ -113,7 +113,7 @@ public class MemberController {
     
     @PostMapping("/enterjoin")
     @ResponseBody
-    public String enterprisejoin(@ModelAttribute("enter") EnterpriseDTO enter,
+    public String enterprisejoin(@RequestPart(name = "enter") EnterpriseDTO enter,
     		@RequestPart(name = "img1", required = false) MultipartFile file1,
 			@RequestPart(name = "img2", required = false) MultipartFile file2,
 			@RequestPart(name = "img3", required = false) MultipartFile file3,
@@ -121,38 +121,17 @@ public class MemberController {
 			@RequestPart(name = "img5", required = false) MultipartFile file5, HttpServletResponse response)
 			throws IllegalStateException, IOException {
     	
-    	String savePath = "C:/brand/";
-    	
-		System.out.println(file1 + "file1");
-
-		System.out.println(enter.getEntdMainPic() + "로고이미지");
-		System.out.println(enter.getEntdIntroPic());
-		System.out.println(enter.getEntdPic1());
-		System.out.println(enter.getEntdPic2());
-		System.out.println(enter.getEntdPic3());
+		String savePath = "";
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			savePath = "c:/brand/";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir/brand/";
+		} else {
+			savePath = "c:/brand/";
+		}
 		
-    	System.out.println("enter.getEntCrn() : " + enter.getEntCrn());
-
-    	String modifiedIntro = convertToHtmlFormat(enter.getEntdIntro());
-        enter.setEntdIntro(modifiedIntro);
-        
-    	String modifiedShort = convertToHtmlFormat(enter.getEntdShort());
-        enter.setEntdShort(modifiedShort);
-        
-        String modifiedExplain1 = convertToHtmlFormat(enter.getEntdExplain1());
-        enter.setEntdExplain1(modifiedExplain1);
-
-        String modifiedExplain2 = convertToHtmlFormat(enter.getEntdExplain2());
-        enter.setEntdExplain2(modifiedExplain2);
-
-        String modifiedExplain3 = convertToHtmlFormat(enter.getEntdExplain3());
-        enter.setEntdExplain3(modifiedExplain3);
-        
-        System.out.println("enter.toString() : " + enter.toString());
-        //enter.toString() : EnterpriseDTO [entCrn=null, entPhone=null, 
-        //memId=test3, entdMainPic=null, entdShort=null, entdURL=null, entdIntro=null, 
-        //entdIntroPic=null, entdPic1=null, entdPic2=null, entdPic3=null, entdExplain1=null, entdExplain2=null, entdExplain3=null, entdConfirm=false]
-        if (file1 != null) {
+		if (file1 != null) {
 			MultipartFile entdMainPicImg = file1;
 			String newFileName1 = null;
 
@@ -221,6 +200,29 @@ public class MemberController {
 
 			enter.setEntdPic3("/brand/" + newFileName5);
 		}
+		
+    	System.out.println("enter.getEntCrn() : " + enter.getEntCrn());
+
+    	String modifiedIntro = convertToHtmlFormat(enter.getEntdIntro());
+        enter.setEntdIntro(modifiedIntro);
+        
+    	String modifiedShort = convertToHtmlFormat(enter.getEntdShort());
+        enter.setEntdShort(modifiedShort);
+        
+        String modifiedExplain1 = convertToHtmlFormat(enter.getEntdExplain1());
+        enter.setEntdExplain1(modifiedExplain1);
+
+        String modifiedExplain2 = convertToHtmlFormat(enter.getEntdExplain2());
+        enter.setEntdExplain2(modifiedExplain2);
+
+        String modifiedExplain3 = convertToHtmlFormat(enter.getEntdExplain3());
+        enter.setEntdExplain3(modifiedExplain3);
+        
+        System.out.println("enter.toString() : " + enter.toString());
+        //enter.toString() : EnterpriseDTO [entCrn=null, entPhone=null, 
+        //memId=test3, entdMainPic=null, entdShort=null, entdURL=null, entdIntro=null, 
+        //entdIntroPic=null, entdPic1=null, entdPic2=null, entdPic3=null, entdExplain1=null, entdExplain2=null, entdExplain3=null, entdConfirm=false]
+		
     	service.addEnterprise(enter);
    
         return "redirect:/login";
