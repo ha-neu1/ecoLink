@@ -11,31 +11,53 @@
 <script>
 	$(document).ready(
 			function() {
-				$("#updateBtn").on(
-						'click',
-						function() {			
+				$("#updateBtn").on('click',
+						function(e) {
+					e.preventDefault();
+					
+					var memId = $("#memId").val();
+					var memPw = $("#memPw").val();
+					var memNick = $("#memNick").val();
+					var entCrn = $("#entCrn").val();
+					var entPhone = $("#entPhone").val();
+					var entdMainPic = $("#entdMainPic").val();
+					var entdShort = $("#entdShort").val();
+					var entdURL = $("#entdURL").val();
+					var entdIntro = $("#entdIntro").val();
+					var entdIntroPic = $("#entdIntroPic").val();
+					var entdPic1 = $("#entdPic1").val();
+					var entdPic2 = $("#entdPic2").val();
+					var entdPic3 = $("#entdPic3").val();
+					var entdExplain1 = $("#entdExplain1").val();
+					var entdExplain2 = $("#entdExplain2").val();
+					var entdExplain3 = $("#entdExplain3").val();
+							
+					if (memPw === "" || memNick === "" || entPhone === "" || entdExplain1 === "") {
+		                alert("비밀번호, 브랜드 이름, 연락처, 제품1 이미지, 제품1 설명을 필수로 입력해 주세요.");
+		            } else {
+					
 							let param1 = {
-									'memId' : $("#memId").val(),
-									'memPw' : $("#memPw").val(),
-									'memNick' : $("#memNick").val()
+									'memId' : memId,
+									'memPw' : memPw,
+									'memNick' : memNick
 							};
 							console.log(param1);
 							
 							let param2 = {
-									'memId' : $("#memId").val(),
-									'entCrn' : $("#entCrn").val(),
-									'entPhone' : $("#entPhone").val(),
-									'entdMainPic' : $("#entdMainPic").val(),
-									'entdShort' : $("#entdShort").val(),
-									'entdURL' : $("#entdURL").val(),
-									'entdIntro' : $("#entdIntro").val(),
-									'entdIntroPic' : $("#entdIntroPic").val(),
-									'entdPic1' : $("#entdPic1").val(),
-									'entdPic2' : $("#entdPic2").val(),
-									'entdPic3' : $("#entdPic3").val(),
-									'entdExplain1' : $("#entdExplain1").val(),
-									'entdExplain2' : $("#entdExplain2").val(),
-									'entdExplain3' : $("#entdExplain3").val()
+									'memId' : memId,
+									'entCrn' : entCrn,
+									'entPhone' : entPhone,
+									'entdMainPic' : entdMainPic,
+									'entdShort' : entdShort,
+									'entdURL' : entdURL,
+									'entdIntro' : entdIntro,
+									'entdIntroPic' : entdIntroPic,
+									'entdPic1' : entdPic1,
+									'entdPic2' : entdPic2,
+									'entdPic3' : entdPic3,
+									'entdExplain1' : entdExplain1,
+									'entdExplain2' : entdExplain2,
+									'entdExplain3' : entdExplain3
 							};
 							console.log(param2);
 							
@@ -78,6 +100,7 @@
 											+ e);
 								}
 							});
+		            }
 						});
 			});
 
@@ -149,7 +172,7 @@
 				</div>
 
 				<div class='formindiv'>
-					<p>비밀번호</p>
+					<p>비밀번호*</p>
 					<label><input type="password" name="memPw" id="memPw"
 						value="${loginUser.memPw}" maxlength="16"></label>
 				</div>
@@ -161,7 +184,7 @@
 				</div>
 
 				<div class='formindiv'>
-					<p>브랜드 이름</p>
+					<p>브랜드 이름*</p>
 					<input type="text" name="memNick" id="memNick"
 						value="${loginUser.memNick}">
 				</div>
@@ -179,7 +202,7 @@
 				</div>
 				
 				<div class='formindiv'>
-					<p>사업자 연락처</p>
+					<p>사업자 연락처*</p>
 					<input type="tel" name="entPhone" id="entPhone"
 						value="${loginEnt.entPhone}">
 				</div>
@@ -224,7 +247,7 @@
 				</div>
 				
 				<div class='formindiv'>
-					<p>제품 이미지1</p>
+					<p>제품 이미지1*</p>
 					<c:if test="${loginEnt.entdPic1 ne null}">
 					<input type="text" name="entdPic1" id="entdPic1"
 						value="${loginEnt.entdPic1}" disabled>
@@ -251,7 +274,7 @@
 					accept='image/jpeg,image/gif,image/png' >
 				</div>
 				<div class='formindiv'>
-					<p>제품 설명1</p>
+					<p>제품 설명1*</p>
 					<textarea name="entdExplain1" id="entdExplain1" class="inputTypeLong" maxlength="500" required>${loginEnt.entdExplain1}</textarea>
 					<div id="ExplaincharCount1" class="numCount">0/500</div>
 				</div>
