@@ -6,6 +6,21 @@
     font-style: normal;
 }
 
+/*초기화*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none; /*밑줄 없애기*/
+	color: inherit; /*색변화x*/
+}
+
+ul, li {
+	list-style: none; /*구분점 없애기*/
+}
+
 aside {
 	position: absolute;
 	text-align:center;
@@ -168,8 +183,8 @@ table tr td:nth-child(2){
 }
 
 .brandImage {
-    width: 100%;
-    height: auto;
+    width: 208px;
+    height: 156px;
     margin-bottom: 5px;
     border-bottom: 1px solid #ccc;
 }
