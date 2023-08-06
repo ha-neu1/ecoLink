@@ -98,15 +98,7 @@
 		#{fileName}, #{fileType}, #{boardId})
 	</insert>
 
-	<update id="updateFile" parameterType="filedto">
-		UPDATE file
-		SET filePath =
-		#{filePath},
-		fileName = #{fileName},
-		fileType = #{fileType}
-		WHERE fileIdx
-		= #{fileIdx}
-	</update>
+
 
 	<select id="getGeneratedBoardId" resultType="int">
 		select

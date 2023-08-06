@@ -317,4 +317,12 @@
 	cursor: pointer;
 	background-color: transparent;
 }
+.pagination{
+	display: flex;
+	justify-content: center;
+	padding:  10px;
+}
+.pagination li{
+	padding: 10px;
+}
 

@@ -106,10 +106,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	}
 
 	
-	@Override
-	public int updateFile(FileDTO dto) {
-		return dao.updateFile(dto);
-	}
+	
 
 	@Override
 	public int getGeneratedBoardId() {
@@ -224,6 +221,12 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		dao.deleteLike(boardId);
 		dao.deleteFile(boardId);
 		dao.deleteBoard(boardId);
+	}
+	
+
+	@Override
+	public void deleteFile(int boardId) {
+		dao.deleteFile(boardId);
 	}
 
 	@Override

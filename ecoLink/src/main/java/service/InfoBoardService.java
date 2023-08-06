@@ -28,7 +28,7 @@ public interface InfoBoardService {
 
 	public int insertFile(FileDTO dto);
 	
-	public int updateFile(FileDTO dto);
+	
 
 	public int getGeneratedBoardId();
 
@@ -55,6 +55,8 @@ public interface InfoBoardService {
 	public int countLike(int boardId);
 	
 	public void deleteAllBoard(int boardId);
+	
+	public void deleteFile(int boardId);
 	
 	public void deleteReply(int bcId);
 	

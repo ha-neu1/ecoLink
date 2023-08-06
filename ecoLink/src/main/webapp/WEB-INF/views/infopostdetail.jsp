@@ -125,7 +125,7 @@
 										<c:choose>
 											<c:when test="${not dto.deleted}">
 												<div class="commentReply">
-													<button class="replyWrite">답글쓰기</button>
+													<button type="button" class="replyWrite">답글쓰기</button>
 												</div>
 												<input type="hidden" name="boardId"
 													value="${detaildto.boardId}" />
@@ -133,7 +133,7 @@
 											</c:when>
 										</c:choose>
 								</div>
-								<div class="replyContents">
+								<div class="replyContents" style="display: none;">
 									<input type="text" placeholder="답글을 입력해 주세요." class="reply"
 										name="reply">
 									<button class="replyBtn">등록</button>
@@ -173,7 +173,7 @@
 		</c:forEach>
 	</div>
 	<div class="mt-3">
-		<ul class="pagination justify-content-center">
+		<ul class="pagination">
 			<c:choose>
 				<c:when test="${startpage == 1}">
 					<li class="page-item disabled"><a class="page-link"
@@ -238,9 +238,15 @@ $(document).ready(function() {
   });
 
   // Code for handling reply comment form submission
-  $('#replyComment').submit(function(e) {
+ $('.replyWrite').click(function() {
+	 var replyContents = $(this).closest('.commentContentRight').find('.replyContents');
+	    replyContents.toggle();
+	    var buttonText = replyContents.is(':visible') ? '답글 닫기' : '답글쓰기';
+	    $(this).text(buttonText);
+  });	
+  $('.replyBtn').click(function(e) {
     e.preventDefault();
-    var formData = $(this).serialize();
+    var formData = $('#replyComment').serialize();
     $.ajax({
       url: '/insertReplyComment',
       type: 'POST',

@@ -35,7 +35,7 @@ public interface InfoBoardDAO {
 
 	public int insertFile(FileDTO dto);
 	
-	public int updateFile(FileDTO dto);
+	
 
 	public int getGeneratedBoardId();
 
