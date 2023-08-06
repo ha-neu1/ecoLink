@@ -35,18 +35,17 @@
 		</div>
 
 		<div class="boardMain"></div>
-
 		<c:forEach items="${boardList}" var="board">
-                <div class="boardList">
-                    <h3 class="memId">${board.memId}</h3>
-                    <h4 class="boardTitle">${board.boardTitle}</h4>
-                    <p class="boardDate">${board.boardDate}</p>
-                    <button class="like_button" onclick="toggleLike(event)"></button>
-                    <img class="boardImage" src="${board.boardImageUrl}" alt="게시물 이미지">
-                    <p class="boardCont">${board.boardContents}</p>
-                </div>
-            </c:forEach>
-		
+			<div class="boardList">
+				<h3 class="memId">${board.memId}</h3>
+				<h4 class="boardTitle">${board.boardTitle}</h4>
+				<p class="boardDate">${board.boardDate}</p>
+				<button class="like_button" onclick="toggleLike(event)"></button>
+				<img class="boardImage" src="${board.boardImageUrl}" alt="게시물 이미지">
+				<p class="boardCont">${board.boardContents}</p>
+			</div>
+		</c:forEach>
+
 		<br> <br>
 		<div class="page_number">
 			<a href="#" class="prev">&lt;</a> <a href="#" class="page">1</a> <a

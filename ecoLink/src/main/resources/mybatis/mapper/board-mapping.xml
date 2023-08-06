@@ -3,179 +3,146 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.BoardDAO">
 
-	<!-- 전체 게시물 수 조회 -->
-	<select id="getBoardList" resultType="int">
-		select count(*) from board
-		where boardType = 'share'
-	</select>
+    <!-- 모든 게시물 조회 -->
+    <select id="getAllBoardList" resultType="dto.BoardDTO">
+        SELECT * FROM board
+    </select>
 
-	<!-- 최근 게시물 조회 -->
-	<select id="recentBoardList" resultType="boardDto"
-		parameterType="int">
-		select * from board where boardType = 'share' order by boardRegtime
-		desc limit
-		<foreach collection="array" item="num" separator=",">
-			#{num}
-		</foreach>
-	</select>
+    <!-- 'share' 게시물만 조회 -->
+    <select id="getShareBoardList" resultType="dto.BoardDTO">
+        SELECT * FROM board WHERE boardType = 'share'
+    </select>
 
-	<!-- 조회수 기준으로 게시물 조회 -->
-	<select id="viCntBoardList" resultType="boardDto"
-		parameterType="int">
-		select * from board where boardType = 'share' order by boardViewCount
-		desc, boardRegtime DESC
-		limit
-		<foreach collection="array" item="num" separator=",">
-			#{num}
-		</foreach>
-	</select>
-	
-	<!-- 게시물 검색 -->
-	<select id="searchBoard" parameterType="hashmap"
-		resultType="boarddto">
-		select * from board
-		<where>
-			<if test="colname != null">
-				${colname} like #{colvalue}
-			</if>
-			<if test="colname == null">
-				(boardTitle like #{colvalue} or boardContents like
-				#{colvalue})
-			</if>
-			and boardType = 'share'
-		</where>
-		order by boardRegtime desc
-		limit #{limitindex}, #{limitcount}
-	</select>
+    <!-- 최근 게시물 조회 -->
+    <select id="recentBoardList" resultType="BoardDTO" parameterType="int">
+        SELECT * FROM board WHERE boardType = 'share' ORDER BY boardRegtime DESC LIMIT #{num}
+    </select>
 
-	<!-- 검색된 게시물의 수 조회 -->
-	<select id="searchBoardView" parameterType="hashmap"
-		resultType="int">
-		select count(*) from board
-		<where>
-			<if test="colname != null">
-				${colname} like #{colvalue}
-			</if>
-			<if test="colname == null">
-				(boardTitle like #{colvalue} or boardContents like
-				#{colvalue})
-			</if>
-			and boardType = 'share'
-		</where>
-	</select>
+    <!-- 조회수 기준으로 게시물 조회 -->
+    <select id="viCntBoardList" resultType="BoardDTO" parameterType="int">
+        SELECT * FROM board WHERE boardType = 'share' ORDER BY boardViewCount DESC, boardRegtime DESC LIMIT #{num}
+    </select>
 
-	<!-- 게시물 등록 -->
-	<insert id="createBoard" parameterType="boarddto">
-		insert into
-		board(boardTitle, boardContents, boardViewCount, boardRegtime,
-		memId,
-		boardType)
-		values(#{boardTitle}, #{boardContents}, 0, now(), #{memId},
-		'share')
-	</insert>
+    <!-- 게시물 검색 -->
+    <select id="searchBoard" parameterType="hashmap" resultType="dto.BoardDTO">
+        SELECT * FROM board
+        <where>
+            <if test="colname != null">
+                ${colname} LIKE #{colvalue}
+            </if>
+            <if test="colname == null">
+                (boardTitle LIKE #{colvalue} OR boardContents LIKE #{colvalue})
+            </if>
+            AND boardType = 'share'
+        </where>
+        ORDER BY boardRegtime DESC
+        LIMIT #{limitindex}, #{limitcount}
+    </select>
 
-	<!-- 조회수 업데이트 -->
-	<update id="addViewcount" parameterType="int">
-		update board set
-		boardViewCount = boardViewCount + 1 where boardId =
-		#{boardId}
-	</update>
+    <!-- 검색된 게시물의 수 조회 -->
+    <select id="searchBoardView" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) FROM board
+        <where>
+            <if test="colname != null">
+                ${colname} LIKE #{colvalue}
+            </if>
+            <if test="colname == null">
+                (boardTitle LIKE #{colvalue} OR boardContents LIKE #{colvalue})
+            </if>
+            AND boardType = 'share'
+        </where>
+    </select>
 
-	<!-- 게시물 상세 정보 조회 -->
-	<select id="readBoard" resultType="boarddto" parameterType="int">
-		select * from board where boardId=#{boardId}
-	</select>
+    <!-- 게시물 등록 -->
+    <insert id="createBoard" parameterType="BoardDTO">
+        INSERT INTO board (boardTitle, boardContents, boardViewCount, boardRegtime, memId, boardType)
+        VALUES (#{boardTitle}, #{boardContents}, 0, now(), #{memId}, 'share')
+    </insert>
 
-	<!-- 첨부파일 정보 등록 -->
-	<insert id="insertimage" parameterType="filedto">
-		insert into file (fileIdx,
-		filePath, fileName, fileType, boardId)
-		values (#{fileIdx}, #{filePath},
-		#{fileName}, #{fileType}, #{boardId})
-	</insert>
+    <!-- 조회수 업데이트 -->
+    <update id="addViewcount" parameterType="int">
+        UPDATE board SET boardViewCount = boardViewCount + 1 WHERE boardId = #{boardId}
+    </update>
 
-	<!-- 새로 생성된 게시물의 ID 조회 -->
-	<select id="getCreateBoardId" resultType="int">
-		select
-		last_insert_id()
-	</select>
+    <!-- 게시물 상세 정보 조회 -->
+    <select id="getBoardById" resultType="dto.BoardDTO" parameterType="int">
+        SELECT * FROM board WHERE boardId=#{boardId}
+    </select>
 
-	<!-- 게시물에 첨부된 파일 조회 -->
-	<select id="getImageByBoardId" parameterType="int"
-		resultType="dto.FileDTO">
-		select * from file where boardId = #{boardId};
-	</select>
+    <!-- 첨부파일 정보 등록 -->
+    <insert id="insertimage" parameterType="filedto">
+        INSERT INTO file (fileIdx, filePath, fileName, fileType, boardId)
+        VALUES (#{fileIdx}, #{filePath}, #{fileName}, #{fileType}, #{boardId})
+    </insert>
 
-	<!-- 게시물 댓글 등록 -->
-	<insert id="createBoardCom" parameterType="boardCommentDto"
-		useGeneratedKeys="true" keyProperty="bcId">
-		INSERT INTO board_comment
-		(boardId, bcContents, memId, bcRef, bcReLevel)
-		VALUES
-		(#{boardId},
-		#{bcContents}, #{memId}, 0, 0)
-	</insert>
+    <!-- 새로 생성된 게시물의 ID 조회 -->
+    <select id="getCreateBoardId" resultType="int">
+        SELECT last_insert_id()
+    </select>
 
-	<!-- 댓글의 bcRef 값 업데이트 -->
-	<update id="updateComBcRef" parameterType="boardCommentDto">
-		UPDATE board_comment
-		SET
-		bcRef = #{bcRef}
-		WHERE bcId = #{bcId}
-	</update>
-	
-	<!-- 게시물의 댓글 수 조회 -->
-	<select id="getBoardComCount" parameterType="int"
-		resultType="int">
-		SELECT COUNT(*) FROM board_comment WHERE boardId = #{boardId}
-	</select>
+    <!-- 게시물에 첨부된 파일 조회 -->
+    <select id="getImageByBoardId" parameterType="int" resultType="dto.FileDTO">
+        SELECT * FROM file WHERE boardId = #{boardId}
+    </select>
 
-	<!-- 모든 댓글 조회 -->
-	<select id="getAllBoardCom" parameterType="hashmap"
-		resultType="boardCommentDto">
-		select b.bcId, b.boardId, b.bcContents, b.memId,
-		b.bcRegtime, b.bcUpdatedtime,
-		b.bcRef, b.bcReLevel, m.memNickname
-		from board_comment b
-		join member m on b.memId = m.memId
-		where b.boardId = #{boardId} and b.bcReLevel=0
-		ORDER BY b.bcRef DESC, b.bcId ASC
-	</select>
+    <!-- 게시물 댓글 등록 -->
+    <insert id="createBoardCom" parameterType="boardCommentDto" useGeneratedKeys="true" keyProperty="bcId">
+        INSERT INTO board_comment (boardId, bcContents, memId, bcRef, bcReLevel)
+        VALUES (#{boardId}, #{bcContents}, #{memId}, 0, 0)
+    </insert>
 
-	<!-- 대댓글 조회 -->
-	<select id="getBoardReCom" parameterType="int"
-		resultType="boardCommentDto">
-		select *
-		from board_comment
-		where bcRef = #{bcRef}
-		and bcReLevel > 0
-		ORDER BY bcRef ASC, bcReLevel ASC, bcId ASC
-	</select>
+    <!-- 댓글의 bcRef 값 업데이트 -->
+    <update id="updateComBcRef" parameterType="boardCommentDto">
+        UPDATE board_comment SET bcRef = #{bcRef} WHERE bcId = #{bcId}
+    </update>
 
-	<!-- 게시물 삭제 -->
-	<delete id="deleteBoard" parameterType="int">
-		delete from board where boardId = #{boardId}
-	</delete>
+    <!-- 게시물의 댓글 수 조회 -->
+    <select id="getBoardComCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM board_comment WHERE boardId = #{boardId}
+    </select>
 
-	<!-- 게시물에 첨부된 파일 삭제 -->
-	<delete id="deleteBoardImage" parameterType="int">
-		delete from file where boardId = #{boardId}
-	</delete>
+    <!-- 모든 댓글 조회 -->
+    <select id="getAllBoardCom" parameterType="hashmap" resultType="boardCommentDto">
+        SELECT b.bcId, b.boardId, b.bcContents, b.memId, b.bcRegtime, b.bcUpdatedtime,
+        b.bcRef, b.bcReLevel, m.memNickname
+        FROM board_comment b
+        JOIN member m ON b.memId = m.memId
+        WHERE b.boardId = #{boardId} AND b.bcReLevel = 0
+        ORDER BY b.bcRef DESC, b.bcId ASC
+    </select>
 
-	<!-- 게시물의 댓글 삭제 -->
-	<delete id="deleteBoardCom" parameterType="int">
-		delete from board_comment where boardId = #{boardId}
-	</delete>
+    <!-- 대댓글 조회 -->
+    <select id="getBoardReCom" parameterType="int" resultType="boardCommentDto">
+        SELECT *
+        FROM board_comment
+        WHERE bcRef = #{bcRef}
+        AND bcReLevel > 0
+        ORDER BY bcRef ASC, bcReLevel ASC, bcId ASC
+    </select>
 
-	<!-- 대댓글 삭제 -->
-	<delete id="deleteBoardReCom" parameterType="int">
-		delete from board_comment where bcRef = #{bcRef}
-	</delete>
+    <!-- 게시물 삭제 -->
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM board WHERE boardId = #{boardId}
+    </delete>
 
-	<!-- 게시물 수정 -->
-	<update id="updateBoard" parameterType="boarddto">
-		update board set boardTitle = #{boardTitle}, boardContents =
-		#{boardContents} where boardId = #{boardId}
-	</update>
-	
+    <!-- 게시물에 첨부된 파일 삭제 -->
+    <delete id="deleteBoardImage" parameterType="int">
+        DELETE FROM file WHERE boardId = #{boardId}
+    </delete>
+
+    <!-- 게시물의 댓글 삭제 -->
+    <delete id="deleteBoardCom" parameterType="int">
+        DELETE FROM board_comment WHERE boardId = #{boardId}
+    </delete>
+
+    <!-- 대댓글 삭제 -->
+    <delete id="deleteBoardReCom" parameterType="int">
+        DELETE FROM board_comment WHERE bcRef = #{bcRef}
+    </delete>
+
+    <!-- 게시물 수정 -->
+    <update id="updateBoard" parameterType="BoardDTO">
+        UPDATE board SET boardTitle = #{boardTitle}, boardContents = #{boardContents} WHERE boardId = #{boardId}
+    </update>
+    
 </mapper>

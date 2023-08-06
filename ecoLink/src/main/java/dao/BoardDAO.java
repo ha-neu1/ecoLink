@@ -2,13 +2,16 @@ package dao;
 
 import dto.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 @Mapper
 public interface BoardDAO {
+	
+	List<BoardDTO> getAllBoardList();
 
-    // 게시물 목록 조회
-    List<BoardDTO> getBoardList();
+    // 'share' 게시물 목록 조회
+	List<BoardDTO> getShareBoardList();
 
     // 게시물 작성
     int createBoard(BoardDTO boardDTO);
@@ -21,7 +24,4 @@ public interface BoardDAO {
 
     // 게시물 삭제
     int deleteBoard(int boardId);
-
-    // 'share' 게시물 목록 조회
-    List<BoardDTO> getShareBoardList();
 }

@@ -98,7 +98,7 @@ hr.hr_bold {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
+    background-color: #00D084;
 }
 
 /* 글쓰기 버튼 스타일 */
@@ -109,7 +109,7 @@ hr.hr_bold {
     border-radius: 5px;
     cursor: pointer;
     margin-left: 5px;
-    background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
+    background-color: #00D084;
 }
 
 /* 좋아요 버튼 스타일 */
