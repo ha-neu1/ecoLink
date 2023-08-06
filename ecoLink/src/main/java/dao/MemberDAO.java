@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,5 +49,26 @@ public class MemberDAO {
     public int isMemberEmailExist(String inputEmail) {
     	return session.selectOne("isMemberEmailExist", inputEmail);
     }	
- 
+    
+    //id 찾기
+    public String findId(String memType, String memEmail) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("memType", memType);
+        parameters.put("memEmail", memEmail);
+        return session.selectOne("findId", parameters);
+    }
+    
+    //pw 찾기
+    public String findPwByEmail(String memType, String memEmail) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("memType", memType);
+        parameters.put("memEmail", memEmail);
+        return session.selectOne("findPwByEmail", parameters);
+    };
+    public String findPwById(String memType, String memId) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("memType", memType);
+        parameters.put("memId", memId);
+        return session.selectOne("findPwById", parameters);
+        };
 }

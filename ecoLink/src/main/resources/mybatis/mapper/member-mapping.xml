@@ -26,15 +26,6 @@ select * from member where memId=#{memId}
 			#{entdPic1}, #{entdPic2}, #{entdPic3}, #{entdExplain1}, #{entdExplain2}, #{entdExplain3}, 0)
 </insert>
 
-<!-- 닉네임 설정 -->
-<select id="getLatestMemNickByType" resultType="java.lang.String" parameterType="java.lang.String">
-    SELECT memNick
-    FROM member
-    WHERE memType = #{memType}
-    ORDER BY memNick DESC
-    LIMIT 1
-</select>
-
 <!-- id 중복 여부 -->
 <select id="isMemberIdExist" resultType="int" parameterType="String">
 	select count(*) from member where memId = #{inputId}
@@ -43,6 +34,20 @@ select * from member where memId=#{memId}
 <!-- email 중복 여부 -->
 <select id="isMemberEmailExist" resultType="int" parameterType="String">
 	select count(*) from member where memEmail = #{inputEmail}
+</select>
+
+<!-- id 찾기 -->
+<select id="findId" resultType="String" parameterType="Map">
+    select memId from member where memType = #{memType} and memEmail = #{memEmail}
+</select>
+
+<!-- pw 찾기 -->
+<select id="findPwByEmail" resultType="String" parameterType="String">
+    select memPw from member where memType = #{memType} and memEmail = #{memEmail}
+</select>
+
+<select id="findPwById" resultType="String" parameterType="String">
+    select memPw from member where memType = #{memType} and memId = #{memId}
 </select>
 
 </mapper>
