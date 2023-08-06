@@ -40,6 +40,7 @@ input[type="checkbox"] + label {
 }
 .xans-member-login .find li:nth-child(2) {
     border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
 }
 .xans-member-login .find li {
     padding: 0 1.6rem;
