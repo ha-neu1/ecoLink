@@ -208,8 +208,8 @@ $(document).ready(function() {
 			console.log(param1);*/
 			
 			let param2 = {
-					'entCrn' : $("#entCrn").val(),
-					'entPhone' : $("#entPhone").val(),
+					'entCrn' : $('#crn1').val() + '-' + $('#crn2').val() + '-' + $('#crn3').val(),
+		    	    'entPhone': $('#mobile1').val() + '-' + $('#mobile2').val() + '-' + $('#mobile3').val(),
 					'memId' : $("#memId").val(),
 					'entdMainPic' : $("#entdMainPic").val(),
 					'entdShort' : $("#entdShort").val(),
