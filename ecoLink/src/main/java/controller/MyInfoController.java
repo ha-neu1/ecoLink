@@ -244,8 +244,20 @@ public class MyInfoController {
 					edto.setEntdConfirm(false);
 				}
 				
-				edto.setEntdShort(edto.getEntdShort().replace("\r\n", "<br>"));
-				edto.setEntdIntro(edto.getEntdIntro().replace("\r\n", "<br>"));
+				String modifiedIntro = convertToHtmlFormat(edto.getEntdIntro());
+				edto.setEntdIntro(modifiedIntro);
+		        
+		    	String modifiedShort = convertToHtmlFormat(edto.getEntdShort());
+		    	edto.setEntdShort(modifiedShort);
+		        
+		        String modifiedExplain1 = convertToHtmlFormat(edto.getEntdExplain1());
+		        edto.setEntdExplain1(modifiedExplain1);
+
+		        String modifiedExplain2 = convertToHtmlFormat(edto.getEntdExplain2());
+		        edto.setEntdExplain2(modifiedExplain2);
+
+		        String modifiedExplain3 = convertToHtmlFormat(edto.getEntdExplain3());
+		        edto.setEntdExplain3(modifiedExplain3);
 
 				service.userUpdate(mdto);
 				service.entUpdate(edto);
@@ -253,6 +265,14 @@ public class MyInfoController {
 
 		return "redirect:/userInfo";
 	}
+	
+	public String convertToHtmlFormat(String text) {
+        String htmlText = text.replace("\r\n", "<br>")
+                              .replace("\n", "<br>")
+                              .replace("\r", "<br>");
+        
+        return htmlText;
+    }
 
 	// 유저 삭제
 	@RequestMapping("/deleteUser")
