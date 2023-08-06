@@ -2,7 +2,6 @@ package service;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +50,7 @@ public class BoardServiceImpl implements BoardService {
             }
         }
 
-        int result = sqlSession.insert("dao.BoardDAO.insertBoard", boardDTO);
+        int result = sqlSession.insert("dao.BoardDAO.createBoard", boardDTO);
         return result > 0;
     }
 

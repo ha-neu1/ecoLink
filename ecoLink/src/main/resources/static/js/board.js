@@ -2,48 +2,49 @@ let boardData = []; // 게시물 데이터를 저장할 배열
 
 // 게시물 목록 렌더링 함수
 function renderBoardList() {
-	const boardMain = document.querySelector(".boardMain");
-	boardMain.innerHTML = "";
+    const boardMain = document.querySelector(".boardMain");
+    boardMain.innerHTML = "";
 
-	boardData.forEach((item, index) => {
-		const boardList = document.createElement("div");
-		boardList.className = "boardList";
+    boardData.forEach((item, index) => {
+        const boardList = document.createElement("div");
+        boardList.className = "boardList";
 
-		const memId = document.createElement("h3");
-		memId.className = "memId";
-		memId.textContent = item.memId;
+        const memId = document.createElement("h3");
+        memId.className = "memId";
+        memId.textContent = item.memId;
 
-		const boardTitle = document.createElement("h4");
-		boardTitle.className = "boardTitle";
-		boardTitle.textContent = item.boardTitle;
+        const boardTitle = document.createElement("h4");
+        boardTitle.className = "boardTitle";
+        boardTitle.textContent = item.boardTitle;
 
-		const boardDate = document.createElement("p");
-		boardDate.className = "boardDate";
-		boardDate.textContent = item.boardDate;
+        const boardDate = document.createElement("p");
+        boardDate.className = "boardDate";
+        boardDate.textContent = item.boardDate;
 
-		const likeButton = document.createElement("button");
-		likeButton.className = "like_button";
-		likeButton.addEventListener("click", toggleLike);
+        const likeButton = document.createElement("button");
+        likeButton.className = "like_button";
+        likeButton.addEventListener("click", toggleLike);
 
-		const boardImage = document.createElement("img");
-		boardImage.className = "boardImage";
-		boardImage.src = "/images/logo2.png";
-		boardImage.alt = "게시물 이미지";
+        const boardImage = document.createElement("img");
+        boardImage.className = "boardImage";
+        boardImage.src = item.boardImageUrl; // 이미지 경로 추가
+        boardImage.alt = "게시물 이미지";
 
-		const boardCont = document.createElement("p");
-		boardCont.className = "boardCont";
-		boardCont.textContent = item.boardCont;
+        const boardCont = document.createElement("p");
+        boardCont.className = "boardCont";
+        boardCont.textContent = item.boardContents;
 
-		boardList.appendChild(memId);
-		boardList.appendChild(boardTitle);
-		boardList.appendChild(boardDate);
-		boardList.appendChild(likeButton);
-		boardList.appendChild(boardImage);
-		boardList.appendChild(boardCont);
+        boardList.appendChild(memId);
+        boardList.appendChild(boardTitle);
+        boardList.appendChild(boardDate);
+        boardList.appendChild(likeButton);
+        boardList.appendChild(boardImage);
+        boardList.appendChild(boardCont);
 
-		boardMain.appendChild(boardList);
-	});
+        boardMain.appendChild(boardList);
+    });
 }
+
 
 // 좋아요 버튼 클릭 이벤트 처리 함수
 function toggleLike(event) {

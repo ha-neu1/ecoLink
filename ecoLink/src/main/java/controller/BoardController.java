@@ -13,7 +13,7 @@ import dto.BoardDTO;
 @Controller
 public class BoardController {
 
-    private final BoardService boardService;
+	private final BoardService boardService;
 
     @Autowired
     public BoardController(BoardService boardService) {
@@ -27,8 +27,8 @@ public class BoardController {
     }
 
     @GetMapping("/boardCreate")
-    public String boardCreateForm() {
-        return "boardCreateForm";
+    public String boardCreateForm(Model model) {
+        return "boardCreate";
     }
 
     @PostMapping("/boardCreate")
@@ -37,11 +37,11 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    @GetMapping("/boardDetail")
-    public String boardDetail(@RequestParam("boardId") int boardId, Model model) {
+    @GetMapping("/boardRead")
+    public String boardRead(@RequestParam("boardId") int boardId, Model model) {
         BoardDTO boardDTO = boardService.getBoardById(boardId);
         model.addAttribute("board", boardDTO);
-        return "boardDetail";
+        return "boardRead";
     }
 
     @PostMapping("/boardUpdate")
