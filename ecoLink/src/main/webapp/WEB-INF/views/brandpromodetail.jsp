@@ -14,6 +14,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
 <%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
 	<!-- Modal -->
@@ -136,7 +137,7 @@
 							<div class="col-md-4 mb-5">
 								<div class="card h-100">
 									<div class="card-body text-center">
-										<img class="img-fluid rounded mb-2 mb-lg-0"
+										<img class="img-fluid rounded"
 											src="${bpd.entdPic1}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
 										<p class="card-text">${bpd.entdExplain1}</p>
@@ -148,7 +149,7 @@
 							<div class="col-md-4 mb-5">
 								<div class="card h-100">
 									<div class="card-body text-center">
-										<img class="img-fluid rounded mb-4 mb-lg-0"
+										<img class="img-fluid rounded"
 											src="${bpd.entdPic2}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
 										<p class="card-text">${bpd.entdExplain2}</p>
@@ -161,7 +162,7 @@
 							<div class="col-md-4 mb-5">
 								<div class="card h-100">
 									<div class="card-body text-center">
-										<img class="img-fluid rounded mb-4 mb-lg-0"
+										<img class="img-fluid rounded"
 											src="${bpd.entdPic3}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
 										<p class="card-text">${bpd.entdExplain3}</p>

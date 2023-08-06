@@ -93,6 +93,7 @@ public class BrandPromoController {
 			endpage = totalPage;
 		}
 		mv.addObject("currentCpage", page);
+		mv.addObject("user", dto);
 		mv.addObject("totalPage", totalPage);
 		mv.addObject("startpage", startpage);
 		mv.addObject("endpage", endpage);
