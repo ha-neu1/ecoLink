@@ -195,6 +195,12 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		return dao.getAllBoardComment(clistmap);
 	}
 
+	
+	@Override
+	public List<BoardCommentDTO> getAllBoardReply(int boardId) {
+		return dao.getAllBoardReply(boardId);
+	}
+
 	@Override
 	public int insertBoardLike(BoardLikeDTO likedto) {
 		return dao.insertBoardLike(likedto);
@@ -239,6 +245,8 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	public void deleteComment(int bcId) {
 		dao.deleteComment(bcId);
 	}
+
+	
 	
 
 	

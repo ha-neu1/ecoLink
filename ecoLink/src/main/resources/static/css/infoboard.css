@@ -86,14 +86,20 @@
     font-size: 16px;
 }
 .pagination{
-	    text-align: center;
-		margin-top: 50px;
-		
+	display: flex;
+	justify-content: center;
+	padding:  10px;
 }
-.pagenumber{
-	margin-right: calc( 10px/2 );
-	margin-left: calc( 10px/2 );
-	text-decoration: none;
-	color: #9E9E9E;
-	font-size: 20px;
+.pagination li{
+	padding: 10px;
+}
+.page-item.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.pagination .page-item.activeNumber .page-link {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
 }

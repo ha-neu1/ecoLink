@@ -76,20 +76,45 @@
 	
 	
 
-<div class="pagination">
-    <%
-    Integer totalBoard = (Integer) request.getAttribute("totalBoard");
-    if (totalBoard != null) {
-        int totalPage = (totalBoard % 5 == 0) ? totalBoard / 5 : totalBoard / 5 + 1;
+<ul class="pagination">
+		<c:choose>
+			<c:when test="${currentCpage == 1}">
+				<li class="page-item disabled"><a class="page-link"
+					href="/infoboardlist?page=${currentCpage - 1}&selectValue=${param.selectValue}"
+					tabindex="-1" aria-disabled="true">이전</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item active"><a class="page-link"
+					id="nextPageLink"
+					href="/infoboardlist?page=${currentCpage - 1}&selectValue=${param.selectValue}">이전</a></li>
+			</c:otherwise>
+		</c:choose>
+		<c:forEach var="i" begin="${startpage}" end="${endpage}">
+			<c:choose>
+				<c:when test="${i == currentCpage}">
+					<li class="page-item activeNumber"><a class="page-link"
+						id="nextPageLink"
+						href="/infoboardlist?page=${i}&selectValue=${param.selectValue}">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item"><a class="page-link" id="nextPageLink"
+						href="/infoboardlist?page=${i}&selectValue=${param.selectValue}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${totalPage == currentCpage}">
+				<li class="page-item disabled" id="endNextPage"><a
+					class="page-link" id="nextPageLink"
+					href="/infoboardlist?page=${currentCpage + 1}&selectValue=${param.selectValue}">다음</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item active"><a class="page-link"
+					href="/infoboardlist?page=${currentCpage + 1}&selectValue=${param.selectValue}">다음</a></li>
+			</c:otherwise>
+		</c:choose>
 
-        for (int i = 1; i <= totalPage; i++) {
-    %>
-    <a class="pagenumber" href="infoboardlist?page=<%=i%>&selectValue=${param.selectValue}"><%=i%></a>
-    <%
-        }
-    }
-    %>
-</div>
+	</ul>
 
 
 

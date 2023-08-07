@@ -61,7 +61,27 @@ public class IntroController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
+
+		
+		if (page == 0) {
+			page = 1;
+		}
 		int totalBoard = service.getTotalBoard();
+		int totalPage = 0;
+		if (totalBoard % 5 == 0) {
+			totalPage = totalBoard / 5;
+		} else {
+			totalPage = (totalBoard / 5) + 1;
+		}
+		
+		int startpage = page / 5 * 5 + 1;
+		if (page % 5 == 0) {
+			startpage -= 5;
+		}
+		int endpage = startpage + 5 - 1;
+		if (endpage > totalPage) {
+			endpage = totalPage;
+		}
 
 		int limitcount = 5;
 		int limitindex = (page - 1) * limitcount;
@@ -100,8 +120,11 @@ public class IntroController {
 		}
 
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("currentCpage", page);
+		mv.addObject("totalPage", totalPage);
+		mv.addObject("startpage", startpage);
+		mv.addObject("endpage", endpage);
 		mv.addObject("user", dto);
-		mv.addObject("totalBoard", totalBoard);
 		mv.addObject("boardList", boardList);
 		mv.addObject("imageMap", imageMap);
 		mv.setViewName("infoarticle");
@@ -133,6 +156,25 @@ public class IntroController {
 		map.put("limitcount", limitcount);
 		List<BoardDTO> searchlist = service.searchList(map);
 		int searchcount = service.getSearchBoard(map);
+		if (page == 0) {
+			page = 1;
+		}
+		int totalBoard = searchcount;
+		int totalPage = 0;
+		if (totalBoard % 5 == 0) {
+			totalPage = totalBoard / 5;
+		} else {
+			totalPage = (totalBoard / 5) + 1;
+		}
+		
+		int startpage = page / 5 * 5 + 1;
+		if (page % 5 == 0) {
+			startpage -= 5;
+		}
+		int endpage = startpage + 5 - 1;
+		if (endpage > totalPage) {
+			endpage = totalPage;
+		}
 		Map<Integer, String> imageMap = new HashMap<>();
 		for (BoardDTO boarddto : searchlist) {
 			List<FileDTO> files = service.getFilesByBoardId(boarddto.getBoardId());
@@ -155,6 +197,10 @@ public class IntroController {
 		}
 
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("currentCpage", page);
+		mv.addObject("totalPage", totalPage);
+		mv.addObject("startpage", startpage);
+		mv.addObject("endpage", endpage);
 		mv.addObject("user", dto);
 		mv.addObject("boardList", searchlist);
 		mv.addObject("totalBoard", searchcount);
@@ -379,11 +425,10 @@ public class IntroController {
 	public ModelAndView infopostdetail(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
 			@RequestParam(name = "boardId") Integer boardId,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpServletResponse response,
-			HttpSession session, HttpServletRequest request, String focus) {
+			HttpSession session) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
-
 		ModelAndView mv = new ModelAndView();
 
 		if (boardId == null) {
@@ -391,7 +436,7 @@ public class IntroController {
 			mv.setViewName("error-page"); // 오류 페이지로 이동하도록 설정
 			return mv;
 		}
-
+		
 		BoardDTO boarddto = service.updateViewcountAndGetDetail(boardId);
 		mv.addObject("detaildto", boarddto);
 		List<FileDTO> files = service.getFilesByBoardId(boardId);
@@ -402,7 +447,7 @@ public class IntroController {
 
 		}
 		int totalComment = service.getCommentCountForBoard(boardId);
-
+		
 		if (page == 0) {
 			page = 1;
 		}
@@ -413,12 +458,17 @@ public class IntroController {
 		clistmap.put("limitindex", limitindex);
 		clistmap.put("limitcount", limitcount);
 		List<BoardCommentDTO> clist = service.getAllBoardComment(clistmap);
+		
+		List<BoardCommentDTO> replyList = service.getAllBoardReply(boardId);
+		
+		
 		int totalPage = 0;
 		if (totalComment % 5 == 0) {
 			totalPage = totalComment / 5;
 		} else {
 			totalPage = (totalComment / 5) + 1;
 		}
+		
 		int startpage = page / 5 * 5 + 1;
 		if (page % 5 == 0) {
 			startpage -= 5;
@@ -427,16 +477,7 @@ public class IntroController {
 		if (endpage > totalPage) {
 			endpage = totalPage;
 		}
-		session = request.getSession();
-		if (focus != null) {
-			if (focus.equals("true")) {
-				session.setAttribute("focus", "true");
-			} else {
-				session.setAttribute("focus", "false");
-			}
-		} else {
-			session.setAttribute("focus", "false");
-		}
+		
 		if (dto != null) {
 			boolean hasLiked = service.hasUserLikedBoard(dto.getMemId(), boardId);
 			logger.info("Value of hasLiked: " + hasLiked);
@@ -445,7 +486,8 @@ public class IntroController {
 			mv.addObject("hasLiked", false);
 		}
 		int countLike = service.countLike(boardId);
-
+		
+		mv.addObject("replyList", replyList);
 		mv.addObject("countLike", countLike);
 		mv.addObject("currentCpage", page);
 		mv.addObject("totalPage", totalPage);
@@ -470,7 +512,7 @@ public class IntroController {
 
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
 		model.addAttribute("user", user); // Model에 사용자 정보를 추가) {
-
+		
 		if (dto != null) {
 			BoardCommentDTO boarddto = new BoardCommentDTO();
 			boarddto.setBcContents(comment.replace("\r\n", "<br>"));
@@ -508,7 +550,7 @@ public class IntroController {
 
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
 		model.addAttribute("user", user); // Model에 사용자 정보를 추가) {
-
+		
 		if (dto != null) {
 			BoardCommentDTO boarddto = new BoardCommentDTO();
 			boarddto.setBcContents(reply.replace("\r\n", "<br>"));

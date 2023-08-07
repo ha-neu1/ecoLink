@@ -48,6 +48,8 @@ public interface InfoBoardDAO {
 	public int getCommentCountForBoard(int boardId);
 
 	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap);
+	
+	public List<BoardCommentDTO> getAllBoardReply(int boardId);
 
 	public int insertReplyComment(BoardCommentDTO boarddto);
 
@@ -70,5 +72,6 @@ public interface InfoBoardDAO {
 	public void deleteReply(int bcId);
 	
 	public void deleteComment(int bcId);
+	
 
 }

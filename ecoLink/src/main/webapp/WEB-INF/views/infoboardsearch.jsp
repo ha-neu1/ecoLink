@@ -73,27 +73,47 @@
 		
 	
 	
-<%
-    int totalBoard = (Integer) request.getAttribute("totalBoard");
-    int totalPage = 0;
+<ul class="pagination">
+		<c:choose>
+			<c:when test="${currentCpage == 1}">
+				<li class="page-item disabled"><a class="page-link"
+					href="//infoboardsearch?page=${currentCpage - 1}&item=${param.item}&word=${param.word}"
+					tabindex="-1" aria-disabled="true">이전</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item active"><a class="page-link"
+					id="nextPageLink"
+					href="/infoboardsearch?page=${currentCpage - 1}&item=${param.item}&word=${param.word}">이전</a></li>
+			</c:otherwise>
+		</c:choose>
+		<c:forEach var="i" begin="${startpage}" end="${endpage}">
+			<c:choose>
+				<c:when test="${i == currentCpage}">
+					<li class="page-item activeNumber"><a class="page-link"
+						id="nextPageLink"
+						href="/infoboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item"><a class="page-link" id="nextPageLink"
+						href="/infoboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${totalPage == currentCpage}">
+				<li class="page-item disabled" id="endNextPage"><a
+					class="page-link" id="nextPageLink"
+					href="/infoboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item active"><a class="page-link"
+					href="/infoboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
+			</c:otherwise>
+		</c:choose>
 
-    if (totalBoard % 5 == 0) {
-        totalPage = totalBoard / 5;
-    } else {
-        totalPage = totalBoard / 5 + 1;
-    }
-%>
+	</ul>
 
-<div class="pagination">
-    <%-- 페이지 링크 생성 --%>
-    <% for (int i = 1; i <= totalPage; i++) { %>
-        <%-- 페이지 URL 생성 --%>
-        <% String selectedValue = request.getParameter("item"); %>
-        <% String inputValue = request.getParameter("word"); %>
-        <% String pageUrl = "infoboardsearch?page=" + i + "&item=" + selectedValue + "&word=" + inputValue; %>
-        <a class="pagenumber" href="<%= pageUrl %>"><%= i %></a>
-    <% } %>
-</div>
+
 
 
 
