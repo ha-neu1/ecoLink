@@ -26,6 +26,8 @@ public interface MyInfoDAO {
 	public int deleteUser(MemberDTO dto);
 	
 	public int deleteLike(String memId);
+	
+	public int deleteUBM(String memId);
 
 	public int deleteEnt(EnterpriseDTO edto);
 	

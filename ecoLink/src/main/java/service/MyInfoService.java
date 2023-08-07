@@ -22,6 +22,8 @@ public interface MyInfoService {
 
 	public int deleteLike(String memId);
 	
+	public int deleteUBM(String memId);
+	
 	public int deleteEnt(EnterpriseDTO edto);
 	
 	public int deleteBC(String memId);

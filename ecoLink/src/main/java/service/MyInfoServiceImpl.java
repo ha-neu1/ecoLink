@@ -42,6 +42,10 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return dao.deleteLike(memId);
 	}
 
+	public int deleteUBM(String memId) {
+		return dao.deleteUBM(memId);
+	}
+	
 	public int deleteEnt(EnterpriseDTO edto) {
 		return dao.deleteEnt(edto);
 	}

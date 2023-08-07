@@ -292,6 +292,7 @@ public class MyInfoController {
 			service.deleteEnt(edto);
 			service.deleteUser(dto);
 		} else {
+			service.deleteUBM(dto.getMemId());
 			service.deleteLike(dto.getMemId());
 			service.deleteUser(dto);
 		}

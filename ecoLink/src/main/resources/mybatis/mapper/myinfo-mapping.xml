@@ -29,6 +29,10 @@
 		DELETE FROM board_like WHERE memId = #{memId};
 	</delete>
 	
+	<delete id="deleteUBM" parameterType="String">
+		DELETE FROM enterprise_bookmark WHERE memId = #{memId};
+	</delete>
+	
 	<delete id="deleteEnt" parameterType="enterpriseDto">
 		DELETE FROM enterprise WHERE memId = #{memId};
 	</delete>
