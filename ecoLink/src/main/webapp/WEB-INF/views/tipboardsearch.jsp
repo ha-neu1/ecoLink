@@ -8,16 +8,14 @@
 <link rel="stylesheet" href="css/infoboard.css">
 <title>Insert title here</title>
 
-<script src="js/infoarticle.js" ></script>
 <script src="https://kit.fontawesome.com/7aca531ae5.js"
 	crossorigin="anonymous"></script>
 <script src="js/jquery-3.6.4.min.js"></script>
 <%@ include file="header.jsp"%>
 </head>
 
-
 <body>
-	<div class="info_title">NEWS</div>
+	<div class="info_title">Tip</div>
 	<div class="info_cata">
 		<div class="view_recent_wrap">
 			<select id="select_value" class="view_recent" onchange="ChangeValue(this.value);">
@@ -28,13 +26,13 @@
 		</div>
 		
 		<div class="info_search">
-			<form action="infoboardsearch">
-				<select class="search_form" name="item" >
-					<option value="search_all"<c:if test="${param.selectValue == 'search_all'}">selected="selected"</c:if>>모두</option>
-					<option value="boardTitle"<c:if test="${param.selectValue == 'boardTitle'}">selected="selected"</c:if>>제목</option>
-					<option value="boardContents"<c:if test="${param.selectValue == 'boardContents'}">selected="selected"</c:if>>내용</option>
+			<form id="search_form" onsubmit="submitForm(); return false;">
+				<select class="search_form" name="item">
+					<option value="search_all"<% if ("search_all".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>모두</option>
+					<option value="boardTitle"<% if ("boardTitle".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>제목</option>
+					<option value="boardContents" <% if ("boardContents".equals(request.getParameter("item"))) { %>selected="selected"<% } %>>내용</option>
 				</select> <input type="search" class="searchbar" name="word">
-				<button type="submit" class="searchbtn">
+				<button type="submit" class="searchbtn" id="searchbtn">
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</form>
@@ -42,8 +40,8 @@
 	</div>
 	<div class="writingform">
 		<c:choose>
-			<c:when test="${logininfo.memId eq 'admin'}">
-				<a href="infowriting"><input type="button" value="글쓰기"></a>
+			<c:when test="${logininfo.memId != null}">
+				<a href="tipwriting"><input type="button" value="글쓰기"></a>
 			</c:when>
 			
 		</c:choose>
@@ -52,7 +50,7 @@
 			<c:forEach items="${boardList }" var="dto">
 				<div class="post_container ">
 					<div class="post_image_wrap">
-						<a class="post_link" href="/infopostdetail?boardId=${dto.boardId}">
+						<a class="post_link" href="tippostdetail?boardId=${dto.boardId }" >
 							<div class="post_image">
 								<img src="${dto.firstImageUrl}" alt="Image">
 							</div>
@@ -60,7 +58,7 @@
 					</div>
 					<div class="post_text">
 						<h3 class="post_tit">
-							<a href="/infopostdetail?boardId=${dto.boardId}">${dto.boardTitle}</a>
+							<a href="tippostdetail?boardId=${dto.boardId }"> ${dto.boardTitle } </a>
 						</h3>
 						<div class="post_date_wrap">
 							<span class="post_date"> ${dto.boardRegtime }</span>
@@ -75,18 +73,17 @@
 		
 	
 	
-
 <ul class="pagination">
 		<c:choose>
 			<c:when test="${currentCpage == 1}">
 				<li class="page-item disabled"><a class="page-link"
-					href="/infoboardlist?page=${currentCpage - 1}&selectValue=${param.selectValue}"
+					href="/tipboardsearch?page=${currentCpage - 1}&item=${param.item}&word=${param.word}"
 					tabindex="-1" aria-disabled="true">이전</a></li>
 			</c:when>
 			<c:otherwise>
 				<li class="page-item active"><a class="page-link"
 					id="nextPageLink"
-					href="/infoboardlist?page=${currentCpage - 1}&selectValue=${param.selectValue}">이전</a></li>
+					href="/tipboardsearch?page=${currentCpage - 1}&item=${param.item}&word=${param.word}">이전</a></li>
 			</c:otherwise>
 		</c:choose>
 		<c:forEach var="i" begin="${startpage}" end="${endpage}">
@@ -94,11 +91,11 @@
 				<c:when test="${i == currentCpage}">
 					<li class="page-item activeNumber"><a class="page-link"
 						id="nextPageLink"
-						href="/infoboardlist?page=${i}&selectValue=${param.selectValue}">${i}</a></li>
+						href="/tipboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item "><a class="page-link" id="nextPageLink"
-						href="/infoboardlist?page=${i}&selectValue=${param.selectValue}">${i}</a></li>
+					<li class="page-item"><a class="page-link" id="nextPageLink"
+						href="/tipboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -106,11 +103,11 @@
 			<c:when test="${totalPage == currentCpage}">
 				<li class="page-item disabled" id="endNextPage"><a
 					class="page-link" id="nextPageLink"
-					href="/infoboardlist?page=${currentCpage + 1}&selectValue=${param.selectValue}">다음</a></li>
+					href="/tipboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
 			</c:when>
 			<c:otherwise>
 				<li class="page-item active"><a class="page-link"
-					href="/infoboardlist?page=${currentCpage + 1}&selectValue=${param.selectValue}">다음</a></li>
+					href="/tipboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
 			</c:otherwise>
 		</c:choose>
 
@@ -122,5 +119,6 @@
 
 
 
+<script src="js/tipboardlist.js" ></script>
 </body>
 </html>

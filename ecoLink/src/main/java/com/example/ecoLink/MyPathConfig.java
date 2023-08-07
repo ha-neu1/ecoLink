@@ -17,7 +17,7 @@ public class MyPathConfig implements WebMvcConfigurer {
 			registry.addResourceHandler("/brand/**").addResourceLocations("file:///c:/brand/");
 		} else if (os.contains("linux")) {
 			registry.addResourceHandler("/banner/**").addResourceLocations("file:/usr/mydir/banner/");
-			registry.addResourceHandler("/upload/**").addResourceLocations("file:///c:/kdt/upload/")
+			registry.addResourceHandler("/upload/**").addResourceLocations("file:/usr/mydir/upload/")
 					.resourceChain(true);
 			registry.addResourceHandler("/brand/**").addResourceLocations("file:/usr/mydir/brand/");
 		} else {

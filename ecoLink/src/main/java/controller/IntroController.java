@@ -82,13 +82,15 @@ public class IntroController {
 		if (endpage > totalPage) {
 			endpage = totalPage;
 		}
-
+		if(totalPage == 0) {
+			totalPage = 1;
+		}
 		int limitcount = 5;
 		int limitindex = (page - 1) * limitcount;
 		int limit[] = new int[2];
 		limit[0] = limitindex;
 		limit[1] = limitcount;
-
+		
 		List<BoardDTO> boardList;
 		if (selectValue.equals("recent")) {
 			boardList = service.boardListRecent(limit);
@@ -97,21 +99,15 @@ public class IntroController {
 		} else {
 			boardList = service.boardListRecent(limit); // recent가 디폴트
 		}
-
+		
 		Map<Integer, String> imageMap = new HashMap<>();
 		for (BoardDTO boarddto : boardList) {
 			List<FileDTO> files = service.getFilesByBoardId(boarddto.getBoardId());
 			if (files != null && !files.isEmpty()) {
 				FileDTO firstFile = files.get(0);
-				String imageUrl = firstFile.getFilePath() + "/" + firstFile.getFileName();
-
-				// c:/kdt/upload/를 "/upload/"로 바꿈
-				if (imageUrl.startsWith("c:/kdt/upload/")) {
-					imageUrl = imageUrl.replaceFirst("c:/kdt/upload/", "/upload/");
-				} else {
-					imageUrl = "/upload/" + imageUrl;
-				}
-
+				String imageUrl = firstFile.getFilePath();
+				
+				
 				imageMap.put(boarddto.getBoardId(), imageUrl);
 			} else {
 				// 이미지 없을 떄
@@ -175,20 +171,16 @@ public class IntroController {
 		if (endpage > totalPage) {
 			endpage = totalPage;
 		}
+		if(totalPage == 0) {
+			totalPage = 1;
+		}
 		Map<Integer, String> imageMap = new HashMap<>();
 		for (BoardDTO boarddto : searchlist) {
 			List<FileDTO> files = service.getFilesByBoardId(boarddto.getBoardId());
 			if (files != null && !files.isEmpty()) {
 				FileDTO firstFile = files.get(0);
-				String imageUrl = firstFile.getFilePath() + "/" + firstFile.getFileName();
-
-				// c:/kdt/upload/를 "/upload/"로 바꿈
-				if (imageUrl.startsWith("c:/kdt/upload/")) {
-					imageUrl = imageUrl.replaceFirst("c:/kdt/upload/", "/upload/");
-				} else {
-					imageUrl = "/upload/" + imageUrl;
-				}
-
+				String imageUrl = firstFile.getFilePath();
+				
 				imageMap.put(boarddto.getBoardId(), imageUrl);
 			} else {
 				// 이미지 없을 때
@@ -228,7 +220,16 @@ public class IntroController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
-		String savePath = "c:/kdt/upload/";
+		
+		String savePath = "";
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			savePath = "c:/kdt/upload/";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir/upload/";
+		} else {
+			savePath = "c:/kdt/upload/";
+		}
 
 		List<MultipartFile> files = boarddto.getFiles();
 		List<MultipartFile> draggedFiles = boarddto.getDraggedFiles();
@@ -260,7 +261,7 @@ public class IntroController {
 
 					FileDTO fileDTO = new FileDTO();
 					fileDTO.setFileIdx(UUID.randomUUID().toString());
-					fileDTO.setFilePath("c:/kdt/upload/" + newFilename);
+					fileDTO.setFilePath(savePath + newFilename);
 					fileDTO.setFileName(originalName);
 					fileDTO.setFileType(file.getContentType());
 
@@ -282,7 +283,7 @@ public class IntroController {
 
 					FileDTO fileDTO = new FileDTO();
 					fileDTO.setFileIdx(UUID.randomUUID().toString());
-					fileDTO.setFilePath("c:/kdt/upload/" + newFilename);
+					fileDTO.setFilePath(savePath + newFilename);
 					fileDTO.setFileName(originalName);
 					fileDTO.setFileType(file.getContentType());
 
@@ -311,7 +312,7 @@ public class IntroController {
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", insertcount);
 		mv.addObject("boardList", boardList);
-		mv.setViewName("infoarticle");
+		mv.setViewName("redirect:/infoboardlist");
 		return mv;
 	}
 	@GetMapping("/infoeditform")
@@ -335,7 +336,15 @@ public class IntroController {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 		service.deleteFile(boardId);
-		String savePath = "c:/kdt/upload/";
+		String savePath = "";
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			savePath = "c:/kdt/upload/";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir/upload/";
+		} else {
+			savePath = "c:/kdt/upload/";
+		}
 
 		List<MultipartFile> files = boarddto.getFiles();
 		List<MultipartFile> draggedFiles = boarddto.getDraggedFiles();
@@ -367,7 +376,7 @@ public class IntroController {
 
 					FileDTO fileDTO = new FileDTO();
 					fileDTO.setFileIdx(UUID.randomUUID().toString());
-					fileDTO.setFilePath("c:/kdt/upload/" + newFilename);
+					fileDTO.setFilePath(savePath + newFilename);
 					fileDTO.setFileName(originalName);
 					fileDTO.setFileType(file.getContentType());
 
@@ -389,7 +398,7 @@ public class IntroController {
 
 					FileDTO fileDTO = new FileDTO();
 					fileDTO.setFileIdx(UUID.randomUUID().toString());
-					fileDTO.setFilePath("c:/kdt/upload/" + newFilename);
+					fileDTO.setFilePath(savePath + newFilename);
 					fileDTO.setFileName(originalName);
 					fileDTO.setFileType(file.getContentType());
 
@@ -418,7 +427,7 @@ public class IntroController {
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", updatecount);
 		mv.addObject("boardList", boardList);
-		mv.setViewName("infoarticle");
+		mv.setViewName("redirect:/infoboardlist");
 		return mv;
 	}
 	@RequestMapping("/infopostdetail")
@@ -477,7 +486,9 @@ public class IntroController {
 		if (endpage > totalPage) {
 			endpage = totalPage;
 		}
-		
+		if(totalPage == 0) {
+			totalPage = 1;
+		}
 		if (dto != null) {
 			boolean hasLiked = service.hasUserLikedBoard(dto.getMemId(), boardId);
 			logger.info("Value of hasLiked: " + hasLiked);
@@ -501,9 +512,9 @@ public class IntroController {
 		return mv;
 	}
 
-	@RequestMapping("/insertBoardComment")
+	@RequestMapping("/insertInfoBoardComment")
 	@ResponseBody
-	public ResponseEntity<String> insertBoardComment(
+	public ResponseEntity<String> insertInfoBoardComment(
 			@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String comment, String boardId,
 			HttpServletResponse response, HttpSession session, Model model) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -539,9 +550,9 @@ public class IntroController {
 		}
 	}
 
-	@RequestMapping("/insertReplyComment")
+	@RequestMapping("/insertInfoReplyComment")
 	@ResponseBody
-	public ResponseEntity<String> insertReplyComment(
+	public ResponseEntity<String> insertInfoReplyComment(
 			@SessionAttribute(name = "logininfo", required = false) MemberDTO dto, String reply, String boardId,
 			int bcRef, HttpServletResponse response, HttpSession session, Model model) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -567,9 +578,9 @@ public class IntroController {
 		}
 	}
 
-	@RequestMapping("/insertBoardLike")
+	@RequestMapping("/insertInfoBoardLike")
 	@ResponseBody
-	public int insertBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+	public int insertInfoBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
 			@RequestParam("boardId") int boardId, HttpServletResponse response, HttpSession session, Model model) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
@@ -601,8 +612,8 @@ public class IntroController {
 		}
 
 	}
-	@RequestMapping("/deleteBoard")
-	public String deleteBoard(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+	@RequestMapping("/infodeleteBoard")
+	public String infodeleteBoard(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
 			int boardId, String memId , HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
@@ -618,8 +629,8 @@ public class IntroController {
 			return "/login";
 		}
 	}
-	@RequestMapping("/deleteComment")
-	public String deleteComment(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	@RequestMapping("/infodeleteComment")
+	public String infodeleteComment(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			int bcId,int boardId, String memId , HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
@@ -635,8 +646,8 @@ public class IntroController {
 			return "/login";
 		}
 	}
-	@RequestMapping("/deleteReply")
-	public String deleteReply(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	@RequestMapping("/infodeleteReply")
+	public String infodeleteReply(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			int bcId,int boardId, String memId , HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
