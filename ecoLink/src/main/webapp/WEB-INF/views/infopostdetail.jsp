@@ -77,8 +77,8 @@
 	<div class="post_comment">
 		<form id="boardComment">
 			<input type="text" placeholder="댓글을 입력해 주세요." class="comment"
-				name="comment">
-			<button class="commentbtn">등록</button>
+				name="comment" id="newComment">
+			<button class="commentbtn" >등록</button>
 			<input type="hidden" name="boardId" value="${detaildto.boardId}" />
 		</form>
 	</div>
@@ -139,77 +139,88 @@
 									<button class="replyBtn">등록</button>
 								</div>
 								</form>
+								
+								
 							</div>
 						</div>
 					</div>
-				</c:when>
-			</c:choose>
-			<c:choose>
-				<c:when test="${dto.bcReLevel == 1 }">
-					<div class="replyWrap">
-						<div class="commentContentProfile">
-							<i class="fa-regular fa-user"></i>
-						</div>
-						<div class="commentContentRight">
-							<div class="commentNickName">${dto.memNick}
-								<c:choose>
-									<c:when
-										test="${logininfo.memId eq dto.memId || logininfo.memId eq 'admin'}">
-										<button class="deleteReplyBtn"
-											onclick="deleteReply(${dto.bcId },${dto.boardId }, '${dto.memId}');">
-											<i class="fa-solid fa-xmark"></i>
-										</button>
-									</c:when>
-								</c:choose>
-							</div>
-							<div class="commentContents">${dto.bcContents}</div>
-							<div class="commentContentFooter">
-								<div class="commentDate">${dto.bcRegtime}</div>
-							</div>
-						</div>
-					</div>
+					  <c:set var="hasReplies" value="false" />
+					<c:forEach items="${replyList}" var="replyDto">
+						<c:choose>
+							<c:when test="${replyDto.bcRef == dto.bcRef}">
+							 <c:set var="hasReplies" value="true" />
+								<div class="replyWrap" data-bcRef="${replyDto.bcRef}"style="display: none;">
+									<div class="commentContentProfile">
+										<i class="fa-regular fa-user"></i>
+									</div>
+									<div class="commentContentRight">
+										<div class="commentNickName">${replyDto.memNick}
+											<c:choose>
+												<c:when
+													test="${logininfo.memId eq replyDto.memId || logininfo.memId eq 'admin'}">
+													<button class="deleteReplyBtn"
+														onclick="deleteReply(${replyDto.bcId },${replyDto.boardId }, '${replyDto.memId}');">
+														<i class="fa-solid fa-xmark"></i>
+													</button>
+												</c:when>
+											</c:choose>
+										</div>
+										<div class="commentContents">${replyDto.bcContents}</div>
+										<div class="commentContentFooter">
+											<div class="commentDate">${replyDto.bcRegtime}</div>
+										</div>
+									</div>
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					 <c:if test="${hasReplies}">
+                <button onclick="onDisplay(${dto.bcRef})">답글 더 보기</button>
+                	</c:if>
+					<button onclick="offDisplay(${dto.bcRef})" style="display: none;">답글 접기</button>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 	</div>
-	<div class="mt-3">
+	
+	
 		<ul class="pagination">
 			<c:choose>
-				<c:when test="${startpage == 1}">
+				<c:when test="${currentCpage == 1}">
 					<li class="page-item disabled"><a class="page-link"
-						href="/infopostdetail?boardId=${bId}&page=${startpage - 1}&focus=true"
+						href="/infopostdetail?boardId=${bId}&page=${currentCpage - 1}"
 						tabindex="-1" aria-disabled="true">이전</a></li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item"><a class="page-link"
-						href="/infopostdetail?boardId=${bId}&page=${startpage - 1}&focus=true">이전</a></li>
+					<li class="page-item active"><a class="page-link" id="nextPageLink"
+						href="/infopostdetail?boardId=${bId}&page=${currentCpage - 1}">이전</a></li>
 				</c:otherwise>
 			</c:choose>
 			<c:forEach var="i" begin="${startpage}" end="${endpage}">
 				<c:choose>
 					<c:when test="${i == currentCpage}">
-						<li class="page-item active"><a class="page-link"
-							href="/infopostdetail?boardId=${bId}&page=${i}&focus=true">${i}</a></li>
+						<li class="page-item activeNumber"><a class="page-link" id="nextPageLink"
+							href="/infopostdetail?boardId=${bId}&page=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="/infopostdetail?boardId=${bId}&page=${i}&focus=true">${i}</a></li>
+						<li class="page-item"><a class="page-link" id="nextPageLink"
+							href="/infopostdetail?boardId=${bId}&page=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:choose>
-				<c:when test="${totalPage != endpage}">
-					<li class="page-item"><a class="page-link"
-						href="/infopostdetail?boardId=${bId}&page=${endpage + 1}&focus=true">다음</a></li>
+				<c:when test="${totalPage == currentCpage}">
+						<li class="page-item disabled" id="endNextPage"><a class="page-link" id="nextPageLink"
+						href="/infopostdetail?boardId=${bId}&page=${currentCpage + 1}">다음</a></li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item disabled"><a class="page-link"
-						href="/infopostdetail?boardId=${bId}&page=${endpage + 1}&focus=true">다음</a></li>
+					<li class="page-item active"><a class="page-link"
+						href="/infopostdetail?boardId=${bId}&page=${currentCpage + 1}">다음</a></li>
 				</c:otherwise>
 			</c:choose>
 
 		</ul>
-	</div>
+	
 	<script>
 $(document).ready(function() {
 
@@ -217,6 +228,8 @@ $(document).ready(function() {
   $('#boardComment').submit(function(e) {
     e.preventDefault();
     var formData = $(this).serialize();
+    
+   
     $.ajax({
       url: '/insertBoardComment',
       type: 'POST',
@@ -224,6 +237,7 @@ $(document).ready(function() {
       success: function(response) {
         $('.comment').val('');
         alert("댓글이 작성되었습니다.");
+        
         location.reload();
       },
       error: function(xhr, status, error) {
@@ -239,34 +253,36 @@ $(document).ready(function() {
 
   // Code for handling reply comment form submission
  $('.replyWrite').click(function() {
-	 var replyContents = $(this).closest('.commentContentRight').find('.replyContents');
-	    replyContents.toggle();
-	    var buttonText = replyContents.is(':visible') ? '답글 닫기' : '답글쓰기';
-	    $(this).text(buttonText);
-  });	
-  $('.replyBtn').click(function(e) {
-    e.preventDefault();
-    var formData = $('#replyComment').serialize();
-    $.ajax({
-      url: '/insertReplyComment',
-      type: 'POST',
-      data: formData,
-      success: function(response) {
-        $('.reply').val('');
-        alert("답글이 작성되었습니다.");
-        location.reload();
-       
-      },
-      error: function(xhr, status, error) {
-        if (xhr.status === 401) {
-          alert("로그인을 해주세요");
-          window.location.href = '/login'; // Redirect to the login page
-        } else {
-          alert("답글이 작성되지 않았습니다.: " + xhr.responseText);
-        }
+  var commentContentRight = $(this).closest('.commentContentRight');
+  var replyContents = commentContentRight.find('.replyContents');
+  replyContents.toggle();
+  var buttonText = replyContents.is(':visible') ? '답글닫기' : '답글쓰기';
+  $(this).text(buttonText);
+});
+
+$('.replyBtn').click(function(e) {
+  e.preventDefault();
+  var replyForm = $(this).closest('.commentContentRight').find('form'); // Get the closest form
+  var formData = replyForm.serialize(); // Serialize the form data
+  $.ajax({
+    url: '/insertReplyComment',
+    type: 'POST',
+    data: formData,
+    success: function(response) {
+      replyForm.find('.reply').val(''); // Clear the reply input field
+      alert("답글이 작성되었습니다.");
+      location.reload();
+    },
+    error: function(xhr, status, error) {
+      if (xhr.status === 401) {
+        alert("Please login");
+        window.location.href = '/login'; // Redirect to the login page
+      } else {
+        alert("답글이 작성되지 않았습니다.: " + xhr.responseText);
       }
-    });
+    }
   });
+});
 
   // Code for handling like button click using jQuery
   $('#likeBoard').click(function() {
@@ -334,7 +350,16 @@ function deleteReply(bc,b, m) {
         location.href="/deleteReply?bcId=" + bc + " &boardId=" + b + "&memId=" + m;
     }
 }
-
+function onDisplay(bcRef) {
+    $('.replyWrap[data-bcRef="' + bcRef + '"]').show();
+    $('[onclick="onDisplay(' + bcRef + ')"]').hide(); // Hide "More replies" button
+    $('[onclick="offDisplay(' + bcRef + ')"]').show(); // Show "Collapse Reply" button
+}
+function offDisplay(bcRef) {
+    $('.replyWrap[data-bcRef="' + bcRef + '"]').hide();
+    $('[onclick="onDisplay(' + bcRef + ')"]').show(); // Show "More replies" button
+    $('[onclick="offDisplay(' + bcRef + ')"]').hide(); // Hide "Collapse Reply" button
+}
 </script>
 	<script src="js/infopostdetail.js"></script>
 
