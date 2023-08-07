@@ -13,6 +13,7 @@ public class BoardDTO {
     String firstImageUrl;
     List<MultipartFile> draggedFiles;
     List<MultipartFile> files;
+    String filePath;
 
     public int getBoardId() {
         return boardId;
@@ -117,11 +118,19 @@ public class BoardDTO {
         this.files = files;
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public String toString() {
         return "BoardDTO [boardId=" + boardId + ", boardTitle=" + boardTitle + ", boardViewCount=" + boardViewCount
                 + ", boardRegtime=" + boardRegtime + ", boardUpdateTime=" + boardUpdateTime + ", boardContents="
                 + boardContents + ", memId=" + memId + ", boardType=" + boardType + ", files=" + files
-                + ", firstImageUrl=" + firstImageUrl + ", draggedFiles=" + draggedFiles + "]";
+                + ", firstImageUrl=" + firstImageUrl + ", draggedFiles=" + draggedFiles + ", filePath=" + filePath + "]";
     }
 }

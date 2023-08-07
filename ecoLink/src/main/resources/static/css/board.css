@@ -145,16 +145,16 @@ hr.hr_bold {
     padding: 10px;
 }
 
-.boardList h3, .boardList h4, .boardList p {
+.boardMain h3, .boardMain h4, .boardMain p {
     margin: 0;
     padding: 0;
 }
 
-.boardList .memId {
+.boardMain .memId {
     font-weight: bold;
 }
 
-.boardList .boardImage {
+.boardMain .boardImage {
     width: 100%;
     height: auto;
     margin-bottom: 10px;
@@ -162,7 +162,7 @@ hr.hr_bold {
 }
 
 /* 작성일 표시 스타일 */
-.boardList .boardDate {
+.boardDate {
     font-size: 14px;
     color: #888;
 }

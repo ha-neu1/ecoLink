@@ -16,6 +16,14 @@ import dto.BoardDTO;
 public class BoardController {
 
 	private final BoardService boardService;
+	
+	@GetMapping("/example")
+    public String example(@RequestParam int boardId, @RequestParam String memId, @RequestParam String boardTitle) {
+        System.out.println("boardId: " + boardId);
+        System.out.println("memId: " + memId);
+        System.out.println("boardTitle: " + boardTitle);
+        return "example";
+    }
 
 	@Autowired
 	public BoardController(BoardService boardService) {
