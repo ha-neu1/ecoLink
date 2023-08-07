@@ -111,8 +111,8 @@ select {
 
 #updateBtn {
 	font-family: 'NanumSquareNeo-Variable';
-	background-color: #00d084;
-	border: 1px solid #00d084;
+	background-color: #198754;
+	border: 1px solid #198754;
 	border-radius: 1rem;
 	color: white;
 	padding: 10px 40px;
@@ -124,6 +124,6 @@ select {
 
 #updateBtn:hover {
 	background-color: white;
-	border: 1px solid #00d084;
-	color: #00d084;
+	border: 1px solid #157347;
+	color: #157347;
 }

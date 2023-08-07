@@ -99,8 +99,8 @@ table tr td:nth-child(2){
 
 #updateUser {
 	font-family: 'NanumSquareNeo-Variable';
-	background-color: #00d084;
-	border: 1px solid #00d084;
+	background-color: #198754;
+	border: 1px solid #198754;
 	border-radius: 1rem;
 	color: white;
 	padding: 10px 40px;
@@ -111,9 +111,9 @@ table tr td:nth-child(2){
 
 #updateUser:hover {
 	background-color: white;
-	border: 1px solid #00d084;
+	border: 1px solid #157347;
 	border-radius: 1rem;
-	color: #00d084;
+	color: #157347;
 }
 
 #deleteUser {

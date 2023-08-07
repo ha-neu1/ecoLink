@@ -9,14 +9,70 @@
 </head>
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
-	$(document).ready(
-			function() {
-				$("#updateBtn").on('click',
-						function(e) {
+	$(document).ready(function() {
+		
+		// 파일 선택(input type="file") 요소에 대한 이벤트 리스너를 추가하여 이미지 미리 보기 기능 구현
+	      function addImagePreviewListener(inputId, previewId) {
+	          document.getElementById(inputId).addEventListener("change", function(event) {
+	              const file = event.target.files[0]; // 선택된 파일 가져오기
+
+	              // FileReader 객체를 생성하여 파일을 읽어옴
+	              const reader = new FileReader();
+
+	              // 파일을 성공적으로 읽었을 때의 이벤트 처리
+	              reader.onload = function() {
+	                  // 미리 보기 영역에 이미지를 삽입하여 미리 보기
+	                  const previewArea = document.getElementById(previewId);
+	                  previewArea.innerHTML = ""; // 기존 이미지 초기화
+	                  const imgElement = document.createElement("img");
+	                  imgElement.src = reader.result;
+	                  imgElement.alt = "미리 보기 이미지";
+	                  imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+
+	                  // 이미지 삭제 버튼 생성
+	                  const deleteBtn = document.createElement("button");
+	                  deleteBtn.textContent = "등록된 이미지 삭제";
+	                  deleteBtn.addEventListener("click", function() {
+	                      // 이미지 삭제 버튼이 클릭되면 미리 보기 영역에서 이미지 제거
+	                      previewArea.innerHTML = "";
+	                      // 선택한 파일도 초기화
+	                      document.getElementById(inputId).value = "";
+	                  });
+
+	                  // 이미지와 삭제 버튼을 미리 보기 영역에 추가
+	                  previewArea.appendChild(imgElement);
+	                  previewArea.appendChild(deleteBtn);
+	              };
+
+	              // 파일 읽기 작업 실행
+	              if (file) {
+	                  reader.readAsDataURL(file);
+	              }
+	          });
+	      }
+
+	      // 각 파일 선택 요소에 대해 함수를 호출하여 이벤트 리스너를 추가
+	      addImagePreviewListener("entdMainPic", "preview1");
+	      addImagePreviewListener("entdIntroPic", "preview2");
+	      addImagePreviewListener("entdPic1", "preview3");
+	      addImagePreviewListener("entdPic2", "preview4");
+	      addImagePreviewListener("entdPic3", "preview5");
+		
+	   // 비밀번호 일치 여부 확인
+	      $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
+	         var pwConfirmValue = $('#memPw_confirm').val();
+	         var pwValue = $('#memPw').val();
+	         if (pwValue !== '' && pwConfirmValue !== '' && pwConfirmValue !== pwValue) {
+	             alert("비밀번호가 일치하지 않습니다.");
+	         }
+	      });
+		
+				$("#updateBtn").on('click', function(e) {
 					e.preventDefault();
 					
 					var memId = $("#memId").val();
 					var memPw = $("#memPw").val();
+					var memPw_confirm = $('#memPw_confirm').val();
 					var memNick = $("#memNick").val();
 					var entCrn = $("#entCrn").val();
 					var entPhone = $("#entPhone").val();
@@ -31,10 +87,13 @@
 					var entdExplain1 = $("#entdExplain1").val();
 					var entdExplain2 = $("#entdExplain2").val();
 					var entdExplain3 = $("#entdExplain3").val();
+					
 							
 					if (memPw === "" || memNick === "" || entPhone === "" || entdExplain1 === "") {
 		                alert("비밀번호, 브랜드 이름, 연락처, 제품1 이미지, 제품1 설명을 필수로 입력해 주세요.");
-		            } else {
+		            } else if(memPw !== memPw_confirm) {
+		            	alert("비밀번호가 일치하지 않습니다.");
+	            	} else {
 					
 							let param1 = {
 									'memId' : memId,
@@ -102,25 +161,8 @@
 							});
 		            }
 						});
+				
 			});
-
-
-
-	/* function chk_file_type(obj) {
-		 var file_kind = obj.value.lastIndexOf('.');
-		 var file_name = obj.value.substring(file_kind+1,obj.length);
-		 var file_type = file_name.toLowerCase();
-
-		 var check_file_type=new Array();​
-		 check_file_type=['jpg','gif','png','jpeg','bmp'];
-
-		 if(check_file_type.indexOf(file_type)==-1){
-		  alert('이미지 파일만 선택할 수 있습니다.');
-		  var parent_Obj=obj.parentNode
-		  var node=parent_Obj.replaceChild(obj.cloneNode(true),obj);
-		  return false;
-		 }
-		} */
 		
 		$(document).ready(function() {
 		      // 새로운 함수: 문자 수 표시 함수
@@ -146,6 +188,7 @@
 		    	  showCharacterCount(textareaId, divId); // 최초 페이지 로드 시 문자 수 표시를 위해 호출
 		      }
 	      });
+		
 </script>
 <body>
 	<%@ include file="header.jsp"%>
@@ -166,15 +209,19 @@
 				<div class='formindiv'>
 					<p>아이디</p>
 					<div id=id_div>
-						<input type="text" name="memId" id="memId"
-							value="${loginUser.memId}" disabled>
+						<input type="text" name="memId" id="memId" value="${loginUser.memId}" disabled>
 					</div>
 				</div>
 
 				<div class='formindiv'>
 					<p>비밀번호*</p>
-					<label><input type="password" name="memPw" id="memPw"
-						value="${loginUser.memPw}" maxlength="16"></label>
+					<label><input type="password" name="memPw" id="memPw" value="${loginUser.memPw}" autocomplete="off" maxlength="16"></label>
+					<p class="help">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</p>
+				</div>
+				
+				<div class='formindiv'>
+					<p>비밀번호 확인*</p>
+					<label><input type="password" name="memPw_confirm" id="memPw_confirm" value="" autocomplete="off" maxlength="16"></label>
 				</div>
 
 				<div class='formindiv'>
@@ -210,24 +257,21 @@
 				<div class='formindiv'>
 					<p>회사 로고 이미지</p>
 					<c:if test="${loginEnt.entdMainPic ne null}">
-					<input type="text" name="entdMainPic" id="entdMainPic"
-						value="${loginEnt.entdMainPic}" disabled>
+					<input type="text" name="entdMainPic" id="entdMainPic" value="${loginEnt.entdMainPic}" disabled>
 					</c:if>
-					<input type="file" name="logoPic" id="logoPic"
-						accept='image/jpeg,image/gif,image/png' >
+					<input type="file" name="logoPic" id="logoPic" accept="image/*">
+						<div id="preview1"></div>
 				</div>
 				
 				<div class='formindiv'>
 					<p>간단한 회사 설명</p>
-					<textarea type="text" name="entdShort" id="entdShort" class="inputTypeLong" maxlength="255"
-						>${loginEnt.entdShort}</textarea>
+					<textarea type="text" name="entdShort" id="entdShort" class="inputTypeLong" maxlength="255">${loginEnt.entdShort}</textarea>
 						<div id="shortCharCount" class="numCount" >0/255</div>
 				</div>
 				
 				<div class='formindiv'>
 					<p>회사 홈페이지 URL</p>
-					<input type="url" name="entdURL" id="entdURL"
-						value="${loginEnt.entdURL}">
+					<input type="url" name="entdURL" id="entdURL" value="${loginEnt.entdURL}">
 				</div>
 				
 				<div class='formindiv'>
@@ -239,56 +283,51 @@
 				<div class='formindiv'>
 					<p>회사 설명 이미지</p>
 					<c:if test="${loginEnt.entdIntroPic ne null}">
-					<input type="text" name="entdIntroPic" id="entdIntroPic"
-						value="${loginEnt.entdIntroPic}" disabled>
+					<input type="text" name="entdIntroPic" id="entdIntroPic" value="${loginEnt.entdIntroPic}" disabled>
 					</c:if>
-					<input type="file" name="introPic" id="introPic"
-					accept='image/jpeg,image/gif,image/png' >
+					<input type="file" name="introPic" id="introPic" accept="image/*" >
+					<div id="preview2"></div>
 				</div>
 				
 				<div class='formindiv'>
 					<p>제품 이미지1*</p>
 					<c:if test="${loginEnt.entdPic1 ne null}">
-					<input type="text" name="entdPic1" id="entdPic1"
-						value="${loginEnt.entdPic1}" disabled>
+					<input type="text" name="entdPic1" id="entdPic1" value="${loginEnt.entdPic1}" disabled>
 					</c:if>
-					<input type="file" name="dPic1" id="dPic1"
-					accept='image/jpeg,image/gif,image/png' required>
+					<input type="file" name="dPic1" id="dPic1" accept="image/*" required>
+					<div id="preview3"></div>
+				</div>
+				<div class='formindiv'>
+					<p>제품 이름1*</p>
+					<textarea name="entdExplain1" id="entdExplain1" class="inputTypeLong" maxlength="15" required>${loginEnt.entdExplain1}</textarea>
+					<div id="ExplaincharCount1" class="numCount">0/15</div>
 				</div>
 				<div class='formindiv'>
 					<p>제품 이미지2</p>
 					<c:if test="${loginEnt.entdPic2 ne null}">
-					<input type="text" name="entdPic2" id="entdPic2"
-						value="${loginEnt.entdPic2}" disabled>
+					<input type="text" name="entdPic2" id="entdPic2" value="${loginEnt.entdPic2}" disabled>
 					</c:if>
-					<input type="file" name="dPic2" id="dPic2"
-					accept='image/jpeg,image/gif,image/png' >
+					<input type="file" name="dPic2" id="dPic2" accept="image/*" >
+					<div id="preview4"></div>
+				</div>
+				<div class='formindiv'>
+					<p>제품 이름2</p>
+					<textarea name="entdExplain2" id="entdExplain2" class="inputTypeLong" maxlength="15">${loginEnt.entdExplain2}</textarea>
+						<div id="ExplaincharCount2" class="numCount">0/15</div>
 				</div>
 				<div class='formindiv'>
 					<p>제품 이미지3</p>
 					<c:if test="${loginEnt.entdPic3 ne null}">
-					<input type="text" name="entdPic3" id="entdPic3"
-						value="${loginEnt.entdPic3}" disabled>
+					<input type="text" name="entdPic3" id="entdPic3" value="${loginEnt.entdPic3}" disabled>
 					</c:if>
-					<input type="file" name="dPic3" id="dPic3"
-					accept='image/jpeg,image/gif,image/png' >
+					<input type="file" name="dPic3" id="dPic3" accept="image/*" >
+					<div id="preview5"></div>
 				</div>
 				<div class='formindiv'>
-					<p>제품 설명1*</p>
-					<textarea name="entdExplain1" id="entdExplain1" class="inputTypeLong" maxlength="500" required>${loginEnt.entdExplain1}</textarea>
-					<div id="ExplaincharCount1" class="numCount">0/500</div>
+					<p>제품 이름3</p>
+					<textarea name="entdExplain3" id="entdExplain3" class="inputTypeLong" maxlength="15">${loginEnt.entdExplain3}</textarea>
+						<div id="ExplaincharCount3" class="numCount">0/15</div>
 				</div>
-				<div class='formindiv'>
-					<p>제품 설명2</p>
-					<textarea name="entdExplain2" id="entdExplain2" class="inputTypeLong" maxlength="500">${loginEnt.entdExplain2}</textarea>
-						<div id="ExplaincharCount2" class="numCount">0/500</div>
-				</div>
-				<div class='formindiv'>
-					<p>제품 설명3</p>
-					<textarea name="entdExplain3" id="entdExplain3" class="inputTypeLong" maxlength="500">${loginEnt.entdExplain3}</textarea>
-						<div id="ExplaincharCount3" class="numCount">0/500</div>
-				</div>
-
 				<div class='formindiv'>
 					<button type="button" id="updateBtn">수정하기</button>
 				</div>
