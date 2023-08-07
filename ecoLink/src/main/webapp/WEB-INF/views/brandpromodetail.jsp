@@ -63,6 +63,10 @@
 			</div>
 		</div>
 	</div>
+	<!-- img modal -->
+	<div class="modals">
+		<div class="modalBoxes"></div>
+	</div>
 	<div class="container">
 		<div class="container px-4 px-lg-5">
 			<div class="row gx-4 gx-lg-5 align-items-start my-5">
@@ -135,10 +139,9 @@
 					<div class="row gx-4 gx-lg-5">
 						<c:if test="${not empty bpd.entdPic1}">
 							<div class="col-md-4 mb-5">
-								<div class="card h-100">
+								<div class="card-custom h-100">
 									<div class="card-body text-center">
-										<img class="img-fluid rounded"
-											src="${bpd.entdPic1}"
+										<img class="img-fluid rounded entdPic" src="${bpd.entdPic1}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
 										<p class="card-text">${bpd.entdExplain1}</p>
 									</div>
@@ -147,10 +150,9 @@
 						</c:if>
 						<c:if test="${not empty bpd.entdPic2}">
 							<div class="col-md-4 mb-5">
-								<div class="card h-100">
+								<div class="card-custom h-100">
 									<div class="card-body text-center">
-										<img class="img-fluid rounded"
-											src="${bpd.entdPic2}"
+										<img class="img-fluid rounded entdPic" src="${bpd.entdPic2}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
 										<p class="card-text">${bpd.entdExplain2}</p>
 									</div>
@@ -160,10 +162,9 @@
 						</c:if>
 						<c:if test="${not empty bpd.entdPic3}">
 							<div class="col-md-4 mb-5">
-								<div class="card h-100">
+								<div class="card-custom h-100">
 									<div class="card-body text-center">
-										<img class="img-fluid rounded"
-											src="${bpd.entdPic3}"
+										<img class="img-fluid rounded entdPic" src="${bpd.entdPic3}"
 											onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';" />
 										<p class="card-text">${bpd.entdExplain3}</p>
 									</div>
@@ -491,12 +492,28 @@
 
 	}
 	
+	$(function(){
+	    // 이미지 클릭시 해당 이미지 모달
+	    $(".entdPic").click(function(){
+	        let img = new Image();
+	        img.src = $(this).attr("src")
+	        $('.modalBoxes').html(img);
+	        $(".modals").show();
+	    });
+	    // 모달 클릭할때 이미지 닫음
+	    $(".modals").click(function (e) {
+	    	$(".modals").toggle();
+	    });
+	});
+	
 	$(document).ready(function() {
 		var focus = '<%=session.getAttribute("focus")%>';
 		if (focus == "true") {
 			window.scrollBy({ top: document.getElementById('commentdiv').getBoundingClientRect().top, behavior: 'smooth' });
 		}
 	});
+	
+	
 	</script>
 </body>
 <footer>
