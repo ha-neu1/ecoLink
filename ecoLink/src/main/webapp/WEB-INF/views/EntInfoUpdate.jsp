@@ -102,27 +102,7 @@
 							});
 		            }
 						});
-			});
-
-
-
-	/* function chk_file_type(obj) {
-		 var file_kind = obj.value.lastIndexOf('.');
-		 var file_name = obj.value.substring(file_kind+1,obj.length);
-		 var file_type = file_name.toLowerCase();
-
-		 var check_file_type=new Array();​
-		 check_file_type=['jpg','gif','png','jpeg','bmp'];
-
-		 if(check_file_type.indexOf(file_type)==-1){
-		  alert('이미지 파일만 선택할 수 있습니다.');
-		  var parent_Obj=obj.parentNode
-		  var node=parent_Obj.replaceChild(obj.cloneNode(true),obj);
-		  return false;
-		 }
-		} */
-		
-		$(document).ready(function() {
+				
 		      // 새로운 함수: 문자 수 표시 함수
 		      function showCharacterCount(textareaId, divId) {
 		    	  const charCount = document.getElementById(divId);
@@ -145,7 +125,55 @@
 		    	  });
 		    	  showCharacterCount(textareaId, divId); // 최초 페이지 로드 시 문자 수 표시를 위해 호출
 		      }
-	      });
+		      
+		      
+		      // 파일 선택(input type="file") 요소에 대한 이벤트 리스너를 추가하여 이미지 미리 보기 기능 구현
+		      function addImagePreviewListener(inputId, previewId) {
+		          document.getElementById(inputId).addEventListener("change", function(event) {
+		              const file = event.target.files[0]; // 선택된 파일 가져오기
+
+		              // FileReader 객체를 생성하여 파일을 읽어옴
+		              const reader = new FileReader();
+
+		              // 파일을 성공적으로 읽었을 때의 이벤트 처리
+		              reader.onload = function() {
+		                  // 미리 보기 영역에 이미지를 삽입하여 미리 보기
+		                  const previewArea = document.getElementById(previewId);
+		                  previewArea.innerHTML = ""; // 기존 이미지 초기화
+		                  const imgElement = document.createElement("img");
+		                  imgElement.src = reader.result;
+		                  imgElement.alt = "미리 보기 이미지";
+		                  imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+
+		                  // 이미지 삭제 버튼 생성
+		                  const deleteBtn = document.createElement("button");
+		                  deleteBtn.textContent = "등록된 이미지 삭제";
+		                  deleteBtn.addEventListener("click", function() {
+		                      // 이미지 삭제 버튼이 클릭되면 미리 보기 영역에서 이미지 제거
+		                      previewArea.innerHTML = "";
+		                      // 선택한 파일도 초기화
+		                      document.getElementById(inputId).value = "";
+		                  });
+
+		                  // 이미지와 삭제 버튼을 미리 보기 영역에 추가
+		                  previewArea.appendChild(imgElement);
+		                  previewArea.appendChild(deleteBtn);
+		              };
+
+		              // 파일 읽기 작업 실행
+		              if (file) {
+		                  reader.readAsDataURL(file);
+		              }
+		          });
+		      }
+
+		      // 각 파일 선택 요소에 대해 함수를 호출하여 이벤트 리스너를 추가
+		      addImagePreviewListener("logoPic", "preview1");
+		      addImagePreviewListener("introPic", "preview2");
+		      addImagePreviewListener("dPic1", "preview3");
+		      addImagePreviewListener("dPic2", "preview4");
+		      addImagePreviewListener("dPic3", "preview5");
+		});
 </script>
 <body>
 	<%@ include file="header.jsp"%>
@@ -215,6 +243,7 @@
 					</c:if>
 					<input type="file" name="logoPic" id="logoPic"
 						accept='image/jpeg,image/gif,image/png' >
+						<div id="preview1"></div>
 				</div>
 				
 				<div class='formindiv'>
@@ -244,6 +273,7 @@
 					</c:if>
 					<input type="file" name="introPic" id="introPic"
 					accept='image/jpeg,image/gif,image/png' >
+					<div id="preview2"></div>
 				</div>
 				
 				<div class='formindiv'>
@@ -254,6 +284,7 @@
 					</c:if>
 					<input type="file" name="dPic1" id="dPic1"
 					accept='image/jpeg,image/gif,image/png' required>
+					<div id="preview3"></div>
 				</div>
 				<div class='formindiv'>
 					<p>제품 이미지2</p>
@@ -263,6 +294,7 @@
 					</c:if>
 					<input type="file" name="dPic2" id="dPic2"
 					accept='image/jpeg,image/gif,image/png' >
+					<div id="preview4"></div>
 				</div>
 				<div class='formindiv'>
 					<p>제품 이미지3</p>
@@ -272,6 +304,7 @@
 					</c:if>
 					<input type="file" name="dPic3" id="dPic3"
 					accept='image/jpeg,image/gif,image/png' >
+					<div id="preview5"></div>
 				</div>
 				<div class='formindiv'>
 					<p>제품 설명1*</p>

@@ -171,6 +171,8 @@ input[type=file]::file-selector-button {
 	cursor: pointer;
 	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
 	margin-right: 1rem;
+	margin-bottom: 1rem;
+	margin-top: 3px;
 }
 
 .numCount {
@@ -197,4 +199,17 @@ input[type=file]::file-selector-button {
 	background-color: white;
 	border: 1px solid #00d084;
 	color: #00d084;
+}
+
+/*미리보기 이미지 삭제 버튼*/
+button {
+	font-family: 'NanumSquareNeo-Variable';
+	font-size: 13px;
+	height: 40px;
+	width: 100%;
+	border: 1px solid #ddd;
+	border-radius: 15px;
+	cursor: pointer;
+	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
+	margin-right: 15px;
 }
