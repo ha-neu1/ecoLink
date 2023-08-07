@@ -10336,6 +10336,11 @@ td {
     max-height: 50%;
     position : sticky;
 }
+
+.entdPic{
+    height: 300px; 
+}
+
 .entdPic:hover{
     cursor: -webkit-zoom-in;
 }
