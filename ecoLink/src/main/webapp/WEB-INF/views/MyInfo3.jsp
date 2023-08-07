@@ -45,7 +45,7 @@
 							<c:otherwise>
 								<c:forEach items="${Boardlike}" var="board" varStatus="status">
 									<div class="likeboardlist">
-										<div class="num" id="boardid">${status.index + 1 + (currentpPage - 1) * 9}</div>
+										<div class="num" id="boardid">${status.index + 1 + (currentpPage - 1) * 10}</div>
 										<div class="title" id="title">
 											<c:choose>
 												<c:when test="${board.boardType eq 'share'}">
@@ -54,6 +54,11 @@
 														style="text-decoration: none; color: black">${board.boardTitle}</a>
 												</c:when>
 												<c:when test="${board.boardType eq 'review'}">
+													<a
+														href="http://localhost:8070/reviewRead?boardId=${board.boardId}"
+														style="text-decoration: none; color: black">${board.boardTitle}</a>
+												</c:when>
+												<c:when test="${board.boardType eq 'tip'}">
 													<a
 														href="http://localhost:8070/reviewRead?boardId=${board.boardId}"
 														style="text-decoration: none; color: black">${board.boardTitle}</a>
@@ -96,12 +101,11 @@
 					</c:choose>
 				</c:forEach>
 				<c:choose>
-					<c:when test="${currentpPage == endpage}">
-						<a class="next disabled" href="/myBoardLike?page=${endpage}"
-							aria-disabled="true">다음</a>
+					<c:when test="${totalPage != currentpPage}">
+						<a class="next" href="/myBoardLike?page=${currentpPage + 1}">다음</a>
 					</c:when>
 					<c:otherwise>
-						<a class="next" href="/myBoardLike?page=${currentpPage + 1}">다음</a>
+						<a class="next disabled" href="/myBoardLike?page=${endpage + 1}">다음</a>
 					</c:otherwise>
 				</c:choose>
 			</div>

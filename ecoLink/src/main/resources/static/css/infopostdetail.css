@@ -325,4 +325,13 @@
 .pagination li{
 	padding: 10px;
 }
-
+.page-item.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.pagination .page-item.activeNumber .page-link {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}

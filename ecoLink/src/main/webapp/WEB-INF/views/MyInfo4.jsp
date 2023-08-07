@@ -44,7 +44,7 @@
 							<c:otherwise>
 								<c:forEach items="${MyBoard}" var="myboard" varStatus="status">
 									<div class="myboardlist">
-										<div class="num" id="boardid">${status.index + 1 + (currentpPage - 1) * 9}</div>
+										<div class="num" id="boardid">${status.index + 1 + (currentpPage - 1) * 10}</div>
 										<div class="title" id="title">
 											<c:choose>
 												<c:when test="${myboard.boardType eq 'share'}">
@@ -54,6 +54,9 @@
 													<a href="http://localhost:8070/reviewRead?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
 												</c:when>
 												<c:when test="${myboard.boardType eq 'news'}">
+													<a href="http://localhost:8070/infopostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
+												</c:when>
+												<c:when test="${myboard.boardType eq 'tip'}">
 													<a href="http://localhost:8070/infopostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
 												</c:when>
 											</c:choose>
@@ -93,12 +96,11 @@
 					</c:choose>
 				</c:forEach>
 				<c:choose>
-					<c:when test="${currentpPage == endpage}">
-						<a class="next disabled" href="/myBoard?page=${endpage}"
-							aria-disabled="true">다음</a>
+					<c:when test="${totalPage != currentpPage}">
+						<a class="next" href="/myBoard?page=${currentpPage + 1}">다음</a>
 					</c:when>
 					<c:otherwise>
-						<a class="next" href="/myBoard?page=${currentpPage + 1}">다음</a>
+						<a class="next disabled" href="/myBoard?page=${endpage + 1}">다음</a>
 					</c:otherwise>
 				</c:choose>
 			</div>

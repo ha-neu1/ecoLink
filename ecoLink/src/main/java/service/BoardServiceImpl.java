@@ -2,10 +2,11 @@ package service;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
-import org.apache.ibatis.session.SqlSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,16 +17,36 @@ import java.util.UUID;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-    private final SqlSession sqlSession;
+    private final BoardDAO boardDAO;
 
     @Autowired
-    public BoardServiceImpl(SqlSession sqlSession) {
-        this.sqlSession = sqlSession;
+    public BoardServiceImpl(BoardDAO boardDAO) {
+        this.boardDAO = boardDAO;
     }
 
     @Override
-    public List<BoardDTO> getBoardList() {
-        return sqlSession.selectList("dao.BoardDAO.getBoardList");
+    public List<BoardDTO> getAllBoardList() {
+        return boardDAO.getAllBoardList();
+    }
+
+    @Override
+    public List<BoardDTO> getShareBoardList() {
+        return boardDAO.getShareBoardList();
+    }
+
+    @Override
+    public List<BoardDTO> getSortedBoardListByRecent() {
+        return boardDAO.getSortedBoardListByRecent();
+    }
+
+    @Override
+    public List<BoardDTO> getSortedBoardListByViews() {
+        return boardDAO.getSortedBoardListByViews();
+    }
+
+    @Override
+    public List<BoardDTO> searchBoardsByKeyword(String keyword) {
+        return boardDAO.searchBoardsByKeyword(keyword);
     }
 
     @Override
@@ -50,29 +71,21 @@ public class BoardServiceImpl implements BoardService {
             }
         }
 
-        int result = sqlSession.insert("dao.BoardDAO.createBoard", boardDTO);
-        return result > 0;
+        return boardDAO.createBoard(boardDTO) > 0;
     }
 
     @Override
     public BoardDTO getBoardById(int boardId) {
-        return sqlSession.selectOne("dao.BoardDAO.getBoardById", boardId);
+        return boardDAO.getBoardById(boardId);
     }
 
     @Override
     public boolean updateBoard(BoardDTO boardDTO) {
-        int result = sqlSession.update("dao.BoardDAO.updateBoard", boardDTO);
-        return result > 0;
+        return boardDAO.updateBoard(boardDTO) > 0;
     }
 
     @Override
     public boolean deleteBoard(int boardId) {
-        int result = sqlSession.delete("dao.BoardDAO.deleteBoard", boardId);
-        return result > 0;
-    }
-
-    @Override
-    public List<BoardDTO> getShareBoardList() {
-        return sqlSession.selectList("dao.BoardDAO.getShareBoardList");
+        return boardDAO.deleteBoard(boardId) > 0;
     }
 }

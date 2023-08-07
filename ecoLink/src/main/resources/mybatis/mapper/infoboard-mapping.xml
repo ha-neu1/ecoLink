@@ -135,7 +135,7 @@
 	<select id="getCommentCountForBoard" parameterType="int"
 		resultType="int">
 		SELECT COUNT(*) FROM board_comment WHERE boardId =
-		#{boardId}
+		#{boardId} and bcReLevel = 0
 	</select>
 
 	<select id="getAllBoardComment" parameterType="hashmap"
@@ -145,11 +145,28 @@
 		from
 		board_comment as b
 		join member as m on m.memId = b.memId
-		where boardId =
-		#{boardId}
-		order by b.bcRef asc, b.bcReLevel asc, b.bcRegTime asc
+		where
+		boardId =
+		#{boardId} and bcReLevel = 0
+		order by b.bcRef asc, b.bcReLevel
+		asc, b.bcRegTime asc
 		limit
 		#{limitindex}, #{limitcount};
+	</select>
+
+	<select id="getAllBoardReply" parameterType="int"
+		resultType="boardCommentDto">
+		select b.bcId, b.boardId, b.bcContents, b.memId,
+		b.bcRegTime, b.bcUpdateTime, b.bcRef, b.bcReLevel,b.deleted, m.memNick
+		from
+		board_comment as b
+		join member as m on m.memId = b.memId
+		where
+		boardId =
+		#{boardId} and bcReLevel = 1
+		order by b.bcRef asc, b.bcReLevel
+		asc, b.bcRegTime asc
+
 	</select>
 
 	<insert id="insertReplyComment" parameterType="boardCommentDto"
@@ -216,7 +233,7 @@
 		where
 		bcId = #{bcId}
 	</delete>
-
+	
 
 
 
