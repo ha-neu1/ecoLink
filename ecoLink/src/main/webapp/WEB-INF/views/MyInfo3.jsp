@@ -58,6 +58,11 @@
 														href="http://localhost:8070/reviewRead?boardId=${board.boardId}"
 														style="text-decoration: none; color: black">${board.boardTitle}</a>
 												</c:when>
+												<c:when test="${board.boardType eq 'tip'}">
+													<a
+														href="http://localhost:8070/reviewRead?boardId=${board.boardId}"
+														style="text-decoration: none; color: black">${board.boardTitle}</a>
+												</c:when>
 											</c:choose>
 										</div>
 										<div class="writer" id="nickname">${board.memNick }</div>

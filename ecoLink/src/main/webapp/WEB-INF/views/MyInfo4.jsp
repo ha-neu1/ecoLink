@@ -56,6 +56,9 @@
 												<c:when test="${myboard.boardType eq 'news'}">
 													<a href="http://localhost:8070/infopostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
 												</c:when>
+												<c:when test="${myboard.boardType eq 'tip'}">
+													<a href="http://localhost:8070/infopostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
+												</c:when>
 											</c:choose>
 										</div>
 										<div class="date" id="creatAt">

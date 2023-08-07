@@ -19,8 +19,9 @@
 		<ul class="navbarMenu">
 			<li><a href="/introboard">업사이클링</a>
 				<ul class="navbarSub">
-					<li><a href="/introboard">정보</a></li>
-					<li><a href="/infoboardlist">뉴스</a></li>
+					<li><a href="/introboard">정 보</a></li>
+					<li><a href="/infoboardlist">뉴 스</a></li>
+					<li><a href="/infoboardlist">꿀 팁</a></li>
 				</ul></li>
 			<li><a href="/brandpromolist">브랜드</a>
 				<ul class="navbarSub">
