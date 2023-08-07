@@ -61,27 +61,33 @@ window.addEventListener("DOMContentLoaded", function() {
   var backgroundUrlOn = "/images/icon_input_checkbox_on.svg";
   var inputId = document.getElementById("memId");
 
-  checkbox.addEventListener("change", function() {
+  // 아이디 정보를 로컬 스토리지에 저장하는 함수
+  function saveIdToLocalStorage() {
     if (checkbox.checked) {
-      checkbox.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-      // 아이디 정보를 저장
       var savedId = inputId.value;
       localStorage.setItem("savedId", savedId);
     } else {
-      checkbox.style.backgroundImage = "url(" + backgroundUrlOff + ")";
-      // 저장된 아이디 정보를 제거
       localStorage.removeItem("savedId");
     }
+  }
+
+  checkbox.addEventListener("change", function() {
+    checkbox.style.backgroundImage = checkbox.checked ? "url(" + backgroundUrlOn + ")" : "url(" + backgroundUrlOff + ")";
+    saveIdToLocalStorage(); // 아이디 정보 저장 함수 호출
   });
 
-  // 페이지 로드 시 저장된 아이디 정보가 있으면 입력란에 설정
+  // 페이지 로드 시 로컬 스토리지에서 아이디 정보를 불러와서 입력란에 설정
   var savedId = localStorage.getItem("savedId");
   if (savedId) {
     inputId.value = savedId;
     checkbox.checked = true;
     checkbox.style.backgroundImage = "url(" + backgroundUrlOn + ")";
   }
+
+  // 아이디 입력란 값이 변경될 때마다 로컬 스토리지 업데이트
+  inputId.addEventListener("input", saveIdToLocalStorage);
 });
+
 
 </script>
 </head>
