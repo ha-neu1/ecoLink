@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.TipBoardDAO">
+
+	<select id="getTotalBoard" resultType="int">
+		select count(*) from board
+		where boardType = 'tip'
+	</select>
+
+	<select id="boardListRecent" resultType="boardDto"
+		parameterType="int">
+		select * from board where boardType = 'tip' order by boardRegtime
+		desc limit
+		<foreach collection="array" item="num" separator=",">
+			#{num}
+		</foreach>
+	</select>
+
+	<select id="boardListView" resultType="boardDto"
+		parameterType="int">
+		select * from board where boardType = 'tip' order by boardViewCount
+		desc, boardRegtime DESC
+		limit
+		<foreach collection="array" item="num" separator=",">
+			#{num}
+		</foreach>
+	</select>
+	<select id="searchList" parameterType="hashmap"
+		resultType="boarddto">
+		select * from board
+		<where>
+			<if test="colname != null">
+				${colname} like #{colvalue}
+			</if>
+			<if test="colname == null">
+				(boardTitle like #{colvalue} or boardContents like
+				#{colvalue})
+			</if>
+			and boardType = 'tip'
+		</where>
+		order by boardRegtime desc
+		limit #{limitindex}, #{limitcount}
+	</select>
+
+	<select id="getSearchBoard" parameterType="hashmap"
+		resultType="int">
+		select count(*) from board
+		<where>
+			<if test="colname != null">
+				${colname} like #{colvalue}
+			</if>
+			<if test="colname == null">
+				(boardTitle like #{colvalue} or boardContents like
+				#{colvalue})
+			</if>
+			and boardType = 'tip'
+		</where>
+	</select>
+
+	<insert id="insertBoard" parameterType="boarddto">
+		insert into
+		board(boardTitle, boardContents, boardViewCount, boardRegtime,
+		memId,
+		boardType)
+		values(#{boardTitle}, #{boardContents}, 0, now(), #{memId},
+		'tip')
+	</insert>
+
+	<update id="updateBoard" parameterType="boarddto">
+		UPDATE board
+		SET
+		boardTitle = #{boardTitle},
+		boardContents = #{boardContents},
+		boardRegtime = now(),
+		memId = #{memId}
+		WHERE boardId = #{boardId}
+	</update>
+
+	<update id="updateViewcount" parameterType="int">
+		update board set
+		boardViewCount = boardViewCount + 1 where boardId =
+		#{boardId}
+	</update>
+
+	<select id="getDetail" resultType="boarddto" parameterType="int">
+		SELECT b.*, m.memNick
+		FROM board AS b
+		JOIN member AS m ON b.memId =
+		m.memId
+		WHERE b.boardId = #{boardId}
+	</select>
+
+	<insert id="insertFile" parameterType="filedto">
+		insert into file (fileIdx,
+		filePath, fileName, fileType, boardId)
+		values (#{fileIdx}, #{filePath},
+		#{fileName}, #{fileType}, #{boardId})
+	</insert>
+
+
+
+	<select id="getGeneratedBoardId" resultType="int">
+		select
+		last_insert_id()
+	</select>
+
+	<select id="getFilesByBoardId" parameterType="int"
+		resultType="dto.FileDTO">
+		select * from file where boardId = #{boardId};
+	</select>
+
+	<select id="getCommentCount" parameterType="string"
+		resultType="int">
+		select COUNT(*) from board_comment where boardId =
+		#{boardId};
+	</select>
+
+	<insert id="insertBoardComment" parameterType="boardCommentDto"
+		useGeneratedKeys="true" keyProperty="bcId">
+		INSERT INTO board_comment
+		(boardId, bcContents, memId, bcRef, bcReLevel)
+		VALUES
+		(#{boardId},
+		#{bcContents}, #{memId}, 0, 0)
+	</insert>
+
+	<update id="updateBcRef" parameterType="boardCommentDto">
+		UPDATE board_comment
+		SET
+		bcRef = #{bcRef}
+		WHERE bcId = #{bcId}
+	</update>
+
+	<select id="getCommentCountForBoard" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) FROM board_comment WHERE boardId =
+		#{boardId} and bcReLevel = 0
+	</select>
+
+	<select id="getAllBoardComment" parameterType="hashmap"
+		resultType="boardCommentDto">
+		select b.bcId, b.boardId, b.bcContents, b.memId,
+		b.bcRegTime, b.bcUpdateTime, b.bcRef, b.bcReLevel,b.deleted, m.memNick
+		from
+		board_comment as b
+		join member as m on m.memId = b.memId
+		where
+		boardId =
+		#{boardId} and bcReLevel = 0
+		order by b.bcRef asc, b.bcReLevel
+		asc, b.bcRegTime asc
+		limit
+		#{limitindex}, #{limitcount};
+	</select>
+
+	<select id="getAllBoardReply" parameterType="int"
+		resultType="boardCommentDto">
+		select b.bcId, b.boardId, b.bcContents, b.memId,
+		b.bcRegTime, b.bcUpdateTime, b.bcRef, b.bcReLevel,b.deleted, m.memNick
+		from
+		board_comment as b
+		join member as m on m.memId = b.memId
+		where
+		boardId =
+		#{boardId} and bcReLevel = 1
+		order by b.bcRef asc, b.bcReLevel
+		asc, b.bcRegTime asc
+
+	</select>
+
+	<insert id="insertReplyComment" parameterType="boardCommentDto"
+		useGeneratedKeys="true" keyProperty="bcId">
+		INSERT INTO board_comment
+		(boardId, bcContents, memId, bcRef, bcReLevel)
+		VALUES
+		(#{boardId},
+		#{bcContents}, #{memId},#{bcRef}, 1)
+	</insert>
+
+	<insert id="insertBoardLike" parameterType="boardLikeDto">
+		insert into
+		board_like(memId,boardId) values (#{memId}, #{boardId})
+	</insert>
+
+	<select id="hasUserLikedBoard" parameterType="hashmap"
+		resultType="boolean">
+		select exists(select 1 from board_like where memId =
+		#{memId} and boardId =
+		#{boardId})
+	</select>
+
+	<delete id="deleteBoardLike" parameterType="hashmap">
+		delete from
+		board_like where memId = #{memId} and boardId = #{boardId}
+	</delete>
+
+	<select id="countLike" parameterType="int" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM board_like
+		WHERE boardId = #{boardId}
+	</select>
+
+	<delete id="deleteComments" parameterType="int">
+		DELETE FROM
+		board_comment WHERE boardId = #{boardId}
+	</delete>
+
+	<delete id="deleteLike" parameterType="int">
+		DELETE FROM board_like
+		WHERE boardId = #{boardId}
+	</delete>
+
+	<delete id="deleteFile" parameterType="int">
+		DELETE FROM file WHERE
+		boardId = #{boardId}
+	</delete>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board WHERE
+		boardId = #{boardId}
+	</delete>
+
+	<update id="deleteComment" parameterType="int">
+		UPDATE board_comment
+		SET bcContents = "삭제된 댓글입니다.",
+		deleted = 1
+		WHERE bcId = #{bcId}
+	</update>
+	<delete id="deleteReply" parameterType="int">
+		delete from board_comment
+		where
+		bcId = #{bcId}
+	</delete>
+	
+
+
+
+
+
+
+
+
+</mapper>

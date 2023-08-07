@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dao.InfoBoardDAO;
+import dao.TipBoardDAO;
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
 import dto.BoardLikeDTO;
@@ -15,9 +15,9 @@ import dto.FileDTO;
 import jakarta.servlet.ServletContext;
 
 @Service
-public class InfoBoardServiceImpl implements InfoBoardService {
+public class TipBoardServiceImpl implements TipBoardService {
 	@Autowired
-	InfoBoardDAO dao;
+	TipBoardDAO dao;
 	private ServletContext servletContext;
 
 	@Override
@@ -249,17 +249,5 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		dao.deleteComment(bcId);
 	}
 
-	
-	
-
-	
-	
-
-	
-	
-	
-	
-	
-	
 
 }

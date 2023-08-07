@@ -196,12 +196,19 @@ hr.hr_bold {
 	font-weight: bold;
 }
 
-.boardList .boardImage {
+.boardList {
 	width: 100%;
 	height: auto;
 	margin-bottom: 5px;
 	border-bottom: 1px solid #ccc;
 }
+
+ .boardImage {
+	width: 100%;
+	height: 150px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+ }
 
 /* 작성일 표시 스타일 */
 .boardList .boardDate {
