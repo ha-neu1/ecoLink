@@ -113,7 +113,7 @@ input, select {
     border: 1px solid #00d084;
     display: inline-block;
     height: 4.8rem;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     line-height: 4.8rem;
     text-align: center;
     border-radius: 1rem;
@@ -134,9 +134,10 @@ a {
 /*로그인, 회원가입창 공통/ 회원정보찾기창은 여기서 text만 사용*/
 input[type="text"], 
 input[type="password"] {
+	font-family: 'NanumSquareNeo-Variable';
 	width: 100%;
 	height: 4.8rem;
-	font-size: 1.8rem;
+	font-size: 1.5rem;
 	border: 1px solid #ddd;
 	border-radius: 1rem;
 	padding: 0 1.2rem;
@@ -151,7 +152,7 @@ table:not(.ui-datepicker-calendar) span {
 select {
     width: 100%;
     height: 4.8rem;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     border-radius: 1rem;
     border: 1px solid #ddd;
     background: url(/images/icon_select_arrow.svg) no-repeat 99% 50%;
