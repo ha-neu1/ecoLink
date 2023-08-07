@@ -216,7 +216,7 @@
 				<div class='formindiv'>
 					<p>비밀번호*</p>
 					<label><input type="password" name="memPw" id="memPw" value="${loginUser.memPw}" autocomplete="off" maxlength="16"></label>
-					<p class="help">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</p>
+					<a class="help">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</a>
 				</div>
 				
 				<div class='formindiv'>
@@ -234,6 +234,7 @@
 					<p>브랜드 이름*</p>
 					<input type="text" name="memNick" id="memNick"
 						value="${loginUser.memNick}">
+					<a class="help">상호명 혹은 기업명을 입력해주세요.</a>
 				</div>
 
 				<div class='formindiv'>
@@ -261,6 +262,7 @@
 					</c:if>
 					<input type="file" name="logoPic" id="logoPic" accept="image/*">
 						<div id="preview1"></div>
+						<a class="help">대표 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				
 				<div class='formindiv'>
@@ -299,7 +301,7 @@
 				</div>
 				<div class='formindiv'>
 					<p>제품 이름1*</p>
-					<textarea name="entdExplain1" id="entdExplain1" class="inputTypeLong" maxlength="15" required>${loginEnt.entdExplain1}</textarea>
+					<textarea name="entdExplain1" id="entdExplain1" class="inputType" maxlength="15" required>${loginEnt.entdExplain1}</textarea>
 					<div id="ExplaincharCount1" class="numCount">0/15</div>
 				</div>
 				<div class='formindiv'>
@@ -312,7 +314,7 @@
 				</div>
 				<div class='formindiv'>
 					<p>제품 이름2</p>
-					<textarea name="entdExplain2" id="entdExplain2" class="inputTypeLong" maxlength="15">${loginEnt.entdExplain2}</textarea>
+					<textarea name="entdExplain2" id="entdExplain2" class="inputType" maxlength="15">${loginEnt.entdExplain2}</textarea>
 						<div id="ExplaincharCount2" class="numCount">0/15</div>
 				</div>
 				<div class='formindiv'>
@@ -325,7 +327,7 @@
 				</div>
 				<div class='formindiv'>
 					<p>제품 이름3</p>
-					<textarea name="entdExplain3" id="entdExplain3" class="inputTypeLong" maxlength="15">${loginEnt.entdExplain3}</textarea>
+					<textarea name="entdExplain3" id="entdExplain3" class="inputType" maxlength="15">${loginEnt.entdExplain3}</textarea>
 						<div id="ExplaincharCount3" class="numCount">0/15</div>
 				</div>
 				<div class='formindiv'>
