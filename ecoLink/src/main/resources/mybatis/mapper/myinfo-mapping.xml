@@ -25,12 +25,24 @@
 		UPDATE member SET memPw="deleting@acount", memNick=#{memNick}, memEmail=#{memEmail}, memType="withdrawal", memRegtime=#{memRegtime}, memName=#{memName} WHERE memId=#{memId};
 	</update>
 	
+	<delete id="deleteLike" parameterType="String">
+		DELETE FROM board_like WHERE memId = #{memId};
+	</delete>
+	
+	<delete id="deleteUBM" parameterType="String">
+		DELETE FROM enterprise_bookmark WHERE memId = #{memId};
+	</delete>
+	
 	<delete id="deleteEnt" parameterType="enterpriseDto">
-		DELETE enterprise, brand_comment, enterprise_bookmark
-  		FROM enterprise
-  		LEFT JOIN brand_comment ON enterprise.entCrn = brand_comment.entCrn
-  		LEFT JOIN enterprise_bookmark ON enterprise.entCrn = enterprise_bookmark.entCrn
-  		WHERE enterprise.memId = #{memId};
+		DELETE FROM enterprise WHERE memId = #{memId};
+	</delete>
+	
+	<delete id="deleteBC" parameterType="String" >
+		DELETE FROM brand_comment WHERE entCrn IN (SELECT entCrn FROM enterprise WHERE memId = #{memId});
+	</delete>
+	
+	<delete id="deleteEBM" parameterType="String">
+		DELETE FROM enterprise_bookmark WHERE entCrn IN (SELECT entCrn FROM enterprise WHERE memId = #{memId});
 	</delete>
 
 	<select id="getBrandBookmark" resultType="enterpriseDto" parameterType="hashmap">
