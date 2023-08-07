@@ -24,8 +24,8 @@ public class BoardController {
 
 	@GetMapping("/board")
 	public String board(Model model) {
-		List<BoardDTO> shareBoardList = boardService.getShareBoardList();
-		model.addAttribute("boardData", shareBoardList);
+		List<BoardDTO> boardlist = boardService.getShareBoardList();
+		model.addAttribute("boardlist", boardlist);
 		return "board";
 	}
 
@@ -63,10 +63,14 @@ public class BoardController {
 	}
 
 	@GetMapping("/boardRead")
-	public String boardRead(@RequestParam("boardId") int boardId, Model model) {
-		BoardDTO boardDTO = boardService.getBoardById(boardId);
-		model.addAttribute("board", boardDTO);
-		return "boardRead";
+	public String boardRead(@RequestParam(value = "boardId", required = false, defaultValue = "0") int boardId, Model model) {
+	    if (boardId <= 0) {
+	    	model.addAttribute("error", "해당 게시물을 찾을 수 없습니다.");
+	    } else {
+	        BoardDTO boardDTO = boardService.getBoardById(boardId);
+	        model.addAttribute("board", boardDTO);
+	    }
+	    return "boardRead";
 	}
 
 	@PostMapping("/boardUpdate")

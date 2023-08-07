@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,12 +31,12 @@
 			<div class="searchBox">
 				<input type="text" placeholder="검색어를 입력하세요">
 				<button>검색</button>
-				<a href="/boardCreate" id="addButton"><button>글쓰기</button></a>
+				<a href="/boardCreate"><button id="addButton">글쓰기</button></a>
 			</div>
 		</div>
 
 		<div class="boardMain"></div>
-		<c:forEach items="${boardList}" var="board">
+		<%-- <c:forEach items="${boardData}" var="board">
 			<div class="boardList">
 				<h3 class="memId">${board.memId}</h3>
 				<h4 class="boardTitle">${board.boardTitle}</h4>
@@ -44,6 +45,25 @@
 				<img class="boardImage" src="${board.boardImageUrl}" alt="게시물 이미지">
 				<p class="boardCont">${board.boardContents}</p>
 			</div>
+		</c:forEach> --%>
+
+		<c:forEach var="board" items="${boardlist}" varStatus="loop">
+			<c:if test="${loop.index < 3}">
+				<a href="http://localhost:8070/boardRead?boardId=${board.boardId }">
+					<div class="boardList">
+						<h3 class="memId">${board.memId}</h3>
+						<h4 class="boardTitle">${board.boardTitle}</h4>
+						<p class="boardDate">
+							<fmt:parseDate value="${board.boardRegtime}"
+								pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+							<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
+						</p>
+						<img class="boardImage" src="${board.filePath}"
+							onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
+						<p class="boardCont">${board.boardContents}</p>
+					</div>
+				</a>
+			</c:if>
 		</c:forEach>
 
 		<br> <br>
