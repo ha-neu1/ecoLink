@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,23 +32,30 @@
 			<div class="searchBox">
 				<input type="text" placeholder="검색어를 입력하세요">
 				<button>검색</button>
-				<a href="/boardCreate" id="addButton"><button>글쓰기</button></a>
+				<a href="/boardCreate"><button id="addButton">글쓰기</button></a>
 			</div>
 		</div>
+		<div class="boardMain">
+			<c:forEach var="board" items="${boardlist}" varStatus="loop">
+				<div class="boardList">
+					<a href="http://localhost:8070/boardRead?boardId=${board.boardId}">
+						<h3 class="memId">${board.memId}</h3>
+						<h4 class="boardTitle">${board.boardTitle}</h4>
+					</a>
+					<button class="like_button"></button>
+					<a href="http://localhost:8070/boardRead?boardId=${board.boardId}">
+						<p class="boardDate">
+							<fmt:parseDate value="${board.boardRegtime}"
+								pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+							<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
+						</p> <img class="boardImage" src="${board.filePath}"
+						onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
+						<p class="boardCont">${board.boardContents}</p>
+					</a>
+				</div>
+			</c:forEach>
+		</div>
 
-		<div class="boardMain"></div>
-
-		<c:forEach items="${boardList}" var="board">
-                <div class="boardList">
-                    <h3 class="memId">${board.memId}</h3>
-                    <h4 class="boardTitle">${board.boardTitle}</h4>
-                    <p class="boardDate">${board.boardDate}</p>
-                    <button class="like_button" onclick="toggleLike(event)"></button>
-                    <img class="boardImage" src="${board.boardImageUrl}" alt="게시물 이미지">
-                    <p class="boardCont">${board.boardContents}</p>
-                </div>
-            </c:forEach>
-		
 		<br> <br>
 		<div class="page_number">
 			<a href="#" class="prev">&lt;</a> <a href="#" class="page">1</a> <a
