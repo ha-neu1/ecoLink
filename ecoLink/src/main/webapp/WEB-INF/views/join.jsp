@@ -330,6 +330,9 @@ $(document).ready(function() {
                   imgElement.src = reader.result;
                   imgElement.alt = "미리 보기 이미지";
                   imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+                  imgElement.style.marginTop = "1rem"; // 위쪽 여백 1rem
+                  imgElement.style.marginBottom = "1rem"; // 아래쪽 여백 1rem
+                  imgElement.style.borderRadius = "1rem"; // 둥근 테두리 반지름 1rem
 
                   // 이미지 삭제 버튼 생성
                   const deleteBtn = document.createElement("button");
@@ -505,10 +508,10 @@ $(document).ready(function() {
                                             </td>
                                         </tr>
                                         <tr id="entd_MainPic" style="display: none">
-                                            <th>대표 이미지</th>
+                                            <th>회사 로고 이미지</th>
                                             <td>
                                                 <input id="entdMainPic" name="entdMainPic" class="inputTypeImage" type="file" accept="image/*">
-                                                <p class="help">대표 이미지 해상도 (680 x  280) 권장</p>
+                                                <p class="help">회사 로고 이미지 해상도 (680 x  280) 권장</p>
                                                 <div id="preview1"></div>
                                             </td>
                                         </tr>
@@ -533,7 +536,7 @@ $(document).ready(function() {
                                             </td>
                                         </tr>
                                         <tr id="entd_IntroPic" style="display: none">
-                                            <th>회사 로고 이미지</th>
+                                            <th>회사 설명 이미지</th>
                                             <td>
                                                 <input id="entdIntroPic" name="entdIntroPic" class="inputTypeImage" type="file" accept="image/*">
                                                 <div id="preview2"></div>

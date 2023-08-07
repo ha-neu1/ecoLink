@@ -11,53 +11,6 @@
 <script>
 	$(document).ready(function() {
 		
-		// 파일 선택(input type="file") 요소에 대한 이벤트 리스너를 추가하여 이미지 미리 보기 기능 구현
-	      function addImagePreviewListener(inputId, previewId) {
-	          document.getElementById(inputId).addEventListener("change", function(event) {
-	              const file = event.target.files[0]; // 선택된 파일 가져오기
-
-	              // FileReader 객체를 생성하여 파일을 읽어옴
-	              const reader = new FileReader();
-
-	              // 파일을 성공적으로 읽었을 때의 이벤트 처리
-	              reader.onload = function() {
-	                  // 미리 보기 영역에 이미지를 삽입하여 미리 보기
-	                  const previewArea = document.getElementById(previewId);
-	                  previewArea.innerHTML = ""; // 기존 이미지 초기화
-	                  const imgElement = document.createElement("img");
-	                  imgElement.src = reader.result;
-	                  imgElement.alt = "미리 보기 이미지";
-	                  imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
-
-	                  // 이미지 삭제 버튼 생성
-	                  const deleteBtn = document.createElement("button");
-	                  deleteBtn.textContent = "등록된 이미지 삭제";
-	                  deleteBtn.addEventListener("click", function() {
-	                      // 이미지 삭제 버튼이 클릭되면 미리 보기 영역에서 이미지 제거
-	                      previewArea.innerHTML = "";
-	                      // 선택한 파일도 초기화
-	                      document.getElementById(inputId).value = "";
-	                  });
-
-	                  // 이미지와 삭제 버튼을 미리 보기 영역에 추가
-	                  previewArea.appendChild(imgElement);
-	                  previewArea.appendChild(deleteBtn);
-	              };
-
-	              // 파일 읽기 작업 실행
-	              if (file) {
-	                  reader.readAsDataURL(file);
-	              }
-	          });
-	      }
-
-	      // 각 파일 선택 요소에 대해 함수를 호출하여 이벤트 리스너를 추가
-	      addImagePreviewListener("entdMainPic", "preview1");
-	      addImagePreviewListener("entdIntroPic", "preview2");
-	      addImagePreviewListener("entdPic1", "preview3");
-	      addImagePreviewListener("entdPic2", "preview4");
-	      addImagePreviewListener("entdPic3", "preview5");
-		
 	   // 비밀번호 일치 여부 확인
 	      $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
 	         var pwConfirmValue = $('#memPw_confirm').val();
@@ -89,7 +42,7 @@
 					var entdExplain3 = $("#entdExplain3").val();
 					
 							
-					if (memPw === "" || memNick === "" || entPhone === "" || entdExplain1 === "") {
+					if (memPw === "" || memPw_confirm === "" || memNick === "" || entPhone === "" || entdExplain1 === "") {
 		                alert("비밀번호, 브랜드 이름, 연락처, 제품1 이미지, 제품1 설명을 필수로 입력해 주세요.");
 		            } else if(memPw !== memPw_confirm) {
 		            	alert("비밀번호가 일치하지 않습니다.");
@@ -162,9 +115,6 @@
 		            }
 						});
 				
-			});
-		
-		$(document).ready(function() {
 		      // 새로운 함수: 문자 수 표시 함수
 		      function showCharacterCount(textareaId, divId) {
 		    	  const charCount = document.getElementById(divId);
@@ -174,7 +124,7 @@
 		          charCount.textContent = currentLength + "/" + maxLength;
 		      }
 		
-		      // 새로운 기능: 각 textarea에 대한 문자 수 표시를 위한 이벤트 핸들러 추가
+		   // 새로운 기능: 각 textarea에 대한 문자 수 표시를 위한 이벤트 핸들러 추가
 		      const textareaIds = ["entdShort", "entdIntro", "entdExplain1", "entdExplain2", "entdExplain3"]; // 문자 수를 표시할 textarea 요소들의 ID 목록
 		      const divIds = ["shortCharCount", "IntrocharCount", "ExplaincharCount1", "ExplaincharCount2", "ExplaincharCount3"]; // 문자 수를 표시할 div 요소들의 ID 목록
 		
@@ -187,8 +137,55 @@
 		    	  });
 		    	  showCharacterCount(textareaId, divId); // 최초 페이지 로드 시 문자 수 표시를 위해 호출
 		      }
-	      });
-		
+		      
+		      
+		      // 파일 선택(input type="file") 요소에 대한 이벤트 리스너를 추가하여 이미지 미리 보기 기능 구현
+		      function addImagePreviewListener(inputId, previewId) {
+		          document.getElementById(inputId).addEventListener("change", function(event) {
+		              const file = event.target.files[0]; // 선택된 파일 가져오기
+
+		              // FileReader 객체를 생성하여 파일을 읽어옴
+		              const reader = new FileReader();
+
+		              // 파일을 성공적으로 읽었을 때의 이벤트 처리
+		              reader.onload = function() {
+		                  // 미리 보기 영역에 이미지를 삽입하여 미리 보기
+		                  const previewArea = document.getElementById(previewId);
+		                  previewArea.innerHTML = ""; // 기존 이미지 초기화
+		                  const imgElement = document.createElement("img");
+		                  imgElement.src = reader.result;
+		                  imgElement.alt = "미리 보기 이미지";
+		                  imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+
+		                  // 이미지 삭제 버튼 생성
+		                  const deleteBtn = document.createElement("button");
+		                  deleteBtn.textContent = "등록된 이미지 삭제";
+		                  deleteBtn.addEventListener("click", function() {
+		                      // 이미지 삭제 버튼이 클릭되면 미리 보기 영역에서 이미지 제거
+		                      previewArea.innerHTML = "";
+		                      // 선택한 파일도 초기화
+		                      document.getElementById(inputId).value = "";
+		                  });
+
+		                  // 이미지와 삭제 버튼을 미리 보기 영역에 추가
+		                  previewArea.appendChild(imgElement);
+		                  previewArea.appendChild(deleteBtn);
+		              };
+
+		              // 파일 읽기 작업 실행
+		              if (file) {
+		                  reader.readAsDataURL(file);
+		              }
+		          });
+		      }
+
+		      // 각 파일 선택 요소에 대해 함수를 호출하여 이벤트 리스너를 추가
+		      addImagePreviewListener("logoPic", "preview1");
+		      addImagePreviewListener("introPic", "preview2");
+		      addImagePreviewListener("dPic1", "preview3");
+		      addImagePreviewListener("dPic2", "preview4");
+		      addImagePreviewListener("dPic3", "preview5");
+		});
 </script>
 <body>
 	<%@ include file="header.jsp"%>
@@ -262,7 +259,7 @@
 					</c:if>
 					<input type="file" name="logoPic" id="logoPic" accept="image/*">
 						<div id="preview1"></div>
-						<a class="help">대표 이미지 해상도 (680 x  280) 권장</a>
+						<a class="help">이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				
 				<div class='formindiv'>
@@ -323,6 +320,7 @@
 					<input type="text" name="entdPic3" id="entdPic3" value="${loginEnt.entdPic3}" disabled>
 					</c:if>
 					<input type="file" name="dPic3" id="dPic3" accept="image/*" >
+
 					<div id="preview5"></div>
 				</div>
 				<div class='formindiv'>

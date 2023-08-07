@@ -84,16 +84,20 @@ table tr td:nth-child(1){
 	padding:10px;
 	border: 3px solid ligthgrey;
 	width:150px;
+	color: #414141;
 }
 
 table tr td:nth-child(2){
 	padding:10px;
 	width:500px;
+	color: #414141;
 }
 
 .bt_wrap{
 	width:500px;
 	padding: 0px 0px 0px 130px;/*위 우 아래 좌*/
+	margin-bottom: 20px;
+	margin-top: -10px;
 	
 }
 
@@ -101,7 +105,7 @@ table tr td:nth-child(2){
 	font-family: 'NanumSquareNeo-Variable';
 	background-color: #198754;
 	border: 1px solid #198754;
-	border-radius: 1rem;
+	border-radius: 8px;
 	color: white;
 	padding: 10px 40px;
 	margin: auto 10px;
@@ -112,7 +116,6 @@ table tr td:nth-child(2){
 #updateUser:hover {
 	background-color: white;
 	border: 1px solid #157347;
-	border-radius: 1rem;
 	color: #157347;
 }
 
@@ -120,7 +123,7 @@ table tr td:nth-child(2){
 	font-family: 'NanumSquareNeo-Variable';
 	background-color: #e7e7e7;
 	border: 1px solid #e7e7e7;
-	border-radius: 1rem;
+	border-radius: 8px;
 	color: white;
 	padding: 10px 40px;
 	margin: auto 10px;
@@ -137,7 +140,6 @@ table tr td:nth-child(2){
 #deleteUser:hover {
 	background-color: #b2b2b2;
 	border: 1px solid #b2b2b2;
-	border-radius: 1rem;
 	color: black;
 }
 

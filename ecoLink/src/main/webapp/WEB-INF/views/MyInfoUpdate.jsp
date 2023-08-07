@@ -10,6 +10,15 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
 	$(document).ready(function() {
+		// 비밀번호 일치 여부 확인
+	      $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
+	         var pwConfirmValue = $('#memPw_confirm').val();
+	         var pwValue = $('#memPw').val();
+	         if (pwValue !== '' && pwConfirmValue !== '' && pwConfirmValue !== pwValue) {
+	             alert("비밀번호가 일치하지 않습니다.");
+	         }
+	      });
+		
 				$("#updateBtn").on(
 						'click',
 						function(e) {
@@ -17,11 +26,14 @@
 							
 							var memId = "${loginUser.memId}";
 							var memPw =  $("#pw").val();
+							var memPw_confirm = $('#memPw_confirm').val();
 				            var memNick = $("#nickname").val();
 				            
-				            if (memPw === "" || memNick === "") {
+				            if (memPw === "" || memPw_confirm === "" || memNick === "") {
 				                alert("비밀번호와 닉네임을 필수로 입력해 주세요.");
-				            } else {
+				            } else if(memPw !== memPw_confirm) {
+				            	alert("비밀번호가 일치하지 않습니다.");
+			            	} else {
 				            
 							$.ajax({
 								url : '/updateUserInfo',
@@ -68,33 +80,34 @@
 				<div class='formindiv'>
 					<p>아이디</p>
 					<div id=id_div>
-						<input type="text" name="userid" id="userid"
-							value="${loginUser.memId}" disabled>
+						<input type="text" name="userid" id="userid" value="${loginUser.memId}" disabled>
 					</div>
 				</div>
 
 				<div class='formindiv'>
 					<p>비밀번호</p>
-					<label><input type="password" name="pw" id="pw"
-						value="${loginUser.memPw}" maxlength="16"></label>
+					<label><input type="password" name="pw" id="pw" value="${loginUser.memPw}" maxlength="16"></label>
+					<a class="help">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</a>
+				</div>
+				
+				<div class='formindiv'>
+					<p>비밀번호 확인*</p>
+					<label><input type="password" name="memPw_confirm" id="memPw_confirm" value="" autocomplete="off" maxlength="16"></label>
 				</div>
 
 				<div class='formindiv'>
 					<p>이름</p>
-					<input type="text" name="name" id="name"
-						value="${loginUser.memName}" maxlength="30" disabled>
+					<input type="text" name="name" id="name" value="${loginUser.memName}" maxlength="30" disabled>
 				</div>
 
 				<div class='formindiv'>
 					<p>닉네임</p>
-					<input type="text" name="nickname" id="nickname"
-						value="${loginUser.memNick}">
+					<input type="text" name="nickname" id="nickname" value="${loginUser.memNick}">
 				</div>
 
 				<div class='formindiv'>
 					<p>E-mail</p>
-					<input type="tel" name="email" id="email"
-						value="${loginUser.memEmail}" disabled>
+					<input type="tel" name="email" id="email" value="${loginUser.memEmail}" disabled>
 				</div>
 
 				<div class='formindiv'>

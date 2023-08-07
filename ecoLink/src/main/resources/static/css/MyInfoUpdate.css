@@ -40,13 +40,13 @@ article {
 	margin: 50px;
 	padding : 20px;
 	width: 700px;
-	height: 650px;
+	height: auto;
 	position: relative;
 }
 
 .forminheader {
 	border-bottom: 1px solid lightgrey;
-	margin-bottom: 35px;
+	margin-bottom: 60px;
 }
 
 .forminheader h2{
@@ -62,23 +62,25 @@ article {
 }
 
 .formindiv {
-	margin : 15px auto;
+	margin : 20px auto;
 	width : 400px;
 }
 
 .formindiv>p {
 	font-size : 13px;
 	line-height : 12px;
-	margin:8px 0px 8px 9px; /*위 우 아래 좌*/
+	margin:8px 0px 8px 2px; /*위 우 아래 좌*/
+	color: #666;
 }
 
 input {
 	font-family: 'NanumSquareNeo-Variable';
 	border: 1px solid lightgrey;
-	border-radius: 1rem;
-	height: 25px;
+	border-radius: 8px;
+	height: 30px;
 	padding: 5px 10px;
 	width: 378px;
+	margin-bottom: 9px;
 }
 
 input:focus {
@@ -104,16 +106,27 @@ select {
 	border: 1px solid lightgrey;
 	margin-bottom: 10px;
 	margin-top: 10px;
-	padding: 5px 10px;
+	padding: 5px 15px;
 	width: 125px;
 	height: 37px;
+}
+
+.help {
+    font-size: 11px;
+    color: #999;
+    background: url(/images/icon_table_help.svg) no-repeat 0 1px;
+    background-size: 20px 10px;
+    padding-left: 20px;
+    margin-top: 10px;
+    width: 100%;
+    height: 20px;
 }
 
 #updateBtn {
 	font-family: 'NanumSquareNeo-Variable';
 	background-color: #198754;
 	border: 1px solid #198754;
-	border-radius: 1rem;
+	border-radius: 8px;
 	color: white;
 	padding: 10px 40px;
 	width:400px;

@@ -39,13 +39,13 @@ article {
 	margin: 50px;
 	padding : 20px;
 	width: 700px;
-	height: 580px;
+	height: 550px;
 	position: relative;
 }
 
 .forminheader {
 	border-bottom: 1px solid lightgrey;
-	margin-bottom: 70px;
+	margin-bottom: 35px;
 }
 
 .forminheader h2{
