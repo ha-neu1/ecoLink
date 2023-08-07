@@ -18,7 +18,7 @@ $(document).ready(function() {
 	  const join_email = document.getElementById("memEmail");
 	  const join_name = document.getElementById("memName");
 
-	  // memberPw 입력란 클릭 시 이벤트 처리
+    // memberPw 입력란 클릭 시 이벤트 처리
 	  $(document).on('click', '#memPw', function(e) {
 	    e.stopPropagation();
 	    $(this).next('.ec-base-tooltip').fadeIn(100);
@@ -31,6 +31,20 @@ $(document).ready(function() {
 	      $('.ec-base-tooltip').fadeOut(100);
 	    }
 	  });
+
+     function isPasswordValid(password) {
+         // 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자
+         const regex = /^(?=.*[a-zA-Z])(?=.*\d|\W).{8,16}$/;
+         return regex.test(password);
+     }
+     
+	 // 다른 곳 클릭 시 비밀번호 유효성 검사
+	$(join_pw).on('blur', function() {
+	    var pwValue = $(this).val();
+	    if (!isPasswordValid(pwValue)) {
+	        alert("비밀번호 입력 조건을 만족해주세요.");
+	    }
+	});
 	  
 	 // 비밀번호 일치 여부 확인
      $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
@@ -40,7 +54,7 @@ $(document).ready(function() {
             alert("비밀번호가 일치하지 않습니다.");
         }
      });
-
+	 
 	  // btnClose 클릭 시 이벤트 처리
 	  $(document).on('click', '.btnClose', function(e) {
 	    e.preventDefault();
@@ -86,6 +100,8 @@ $(document).ready(function() {
 	      event.preventDefault();
 	      var selected = $('#memType').val();
 	      var emptyFields = []; // 빈칸인 필드들을 저장하는 배열
+	      var pwValue = $('#memPw').val();
+          var pwConfirmValue = $('#memPw_confirm').val();
 
 	      // 아이디, 비밀번호, 이메일, 이름에 빈칸 입력 시 배열에 추가
 	      if (join_id.value.trim() === "") {
@@ -132,12 +148,16 @@ $(document).ready(function() {
 	              emptyFields.push("제품1 설명");
 	          }
 	      }
-
+          
 	      // 빈칸인 필드가 있을 경우 메시지 출력
 	      if (emptyFields.length > 0) {
 	          var fieldsMessage = emptyFields.join(", ");
 	          alert(fieldsMessage + "란을 입력해주세요.");
-	      } else {
+	      } else if (!isPasswordValid(pwValue)) {
+              alert("비밀번호 입력 조건을 만족해주세요.");
+          } else if (pwValue !== pwConfirmValue) {
+              alert("비밀번호가 일치하지 않습니다.");
+          } else {
 	    	  $.ajax({
 		            url: 'ismemberexist',
 		            type: 'post',
@@ -386,7 +406,7 @@ $(document).ready(function() {
                                             <td>
                                                 <div class="eTooltip">
                                                     <input id="memPw" name="memPw" autocomplete="off" maxlength="16" 0="disabled" value="" type="password">
-                                                    <div class="ec-base-tooltip typeUpper">
+                                                    <!-- <div class="ec-base-tooltip typeUpper">
                                                         <div class="content">
                                                             <strong class="txtWarn">※ 비밀번호 입력 조건</strong>
                                                             <ul class="ec-base-help typeDash gBlank10 txtWarn">
@@ -401,7 +421,7 @@ $(document).ready(function() {
                                                         </div>
                                                         <a href="#none" class="btnClose" tabindex="-1"><img src="images/btn_close_tip.gif" alt="닫기"></a>
                                                         <span class="edge"></span>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <p class="help">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</p>
                                             </td>
@@ -488,6 +508,7 @@ $(document).ready(function() {
                                             <th>대표 이미지</th>
                                             <td>
                                                 <input id="entdMainPic" name="entdMainPic" class="inputTypeImage" type="file" accept="image/*">
+                                                <p class="help">대표 이미지 해상도 (680 x  280) 권장</p>
                                                 <div id="preview1"></div>
                                             </td>
                                         </tr>
