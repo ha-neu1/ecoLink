@@ -46,6 +46,7 @@
 				<p class="boardCont">${board.boardContents}</p>
 			</div>
 		</c:forEach> --%>
+		
 
 		<c:forEach var="board" items="${boardlist}" varStatus="loop">
 			<c:if test="${loop.index < 3}">
