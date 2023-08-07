@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import dto.BoardDTO;
+import dto.BrandCommentDTO;
+import dto.EnterpriseBookmarkDTO;
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
@@ -22,8 +24,14 @@ public interface MyInfoDAO {
 	public int entUpdate(EnterpriseDTO edto);
 
 	public int deleteUser(MemberDTO dto);
+	
+	public int deleteLike(String memId);
 
 	public int deleteEnt(EnterpriseDTO edto);
+	
+	public int deleteBC(String memId);
+	
+	public int deleteEBM(String memId);
 
 	public List<EnterpriseDTO> getBrandBookmark(HashMap<String, Object> clistmap);
 

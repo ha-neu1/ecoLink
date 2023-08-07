@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import dao.MyInfoDAO;
 import dto.BoardDTO;
+import dto.BrandCommentDTO;
+import dto.EnterpriseBookmarkDTO;
 import dto.EnterpriseDTO;
 import dto.MemberDTO;
 
@@ -35,9 +37,21 @@ public class MyInfoServiceImpl implements MyInfoService {
 	public int deleteUser(MemberDTO dto) {
 		return dao.deleteUser(dto);
 	}
+	
+	public int deleteLike(String memId) {
+		return dao.deleteLike(memId);
+	}
 
 	public int deleteEnt(EnterpriseDTO edto) {
 		return dao.deleteEnt(edto);
+	}
+
+	public int deleteBC(String memId) {
+		return dao.deleteBC(memId);
+	}
+
+	public int deleteEBM(String memId) {
+		return dao.deleteEBM(memId);
 	}
 
 	public List<EnterpriseDTO> getBrandBookmark(HashMap<String, Object> clistmap) {

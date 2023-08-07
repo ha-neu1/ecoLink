@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.BoardDTO;
+import dto.BrandCommentDTO;
 import dto.EnterpriseDTO;
+import dto.EnterpriseBookmarkDTO;
 import dto.MemberDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import service.MyInfoService;
@@ -284,9 +286,13 @@ public class MyInfoController {
 		
 		if (dto.getMemType().equals("enter")) {
 			EnterpriseDTO edto = service.getEntUser(dto.getMemId());
+			
+			service.deleteBC(dto.getMemId());
+			service.deleteEBM(dto.getMemId());
 			service.deleteEnt(edto);
 			service.deleteUser(dto);
 		} else {
+			service.deleteLike(dto.getMemId());
 			service.deleteUser(dto);
 		}
 
