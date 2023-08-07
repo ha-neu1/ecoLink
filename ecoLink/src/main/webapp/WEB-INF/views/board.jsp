@@ -10,9 +10,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게시판</title>
 <link rel="stylesheet" href="/css/board.css">
+<script src="https://kit.fontawesome.com/7aca531ae5.js"
+	crossorigin="anonymous"></script>
+<%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
-	<jsp:include page="header.jsp" />
 
 	<div class="board_area">
 		<div class="board_title">
@@ -31,8 +34,8 @@
 			</div>
 			<div class="searchBox">
 				<input type="text" placeholder="검색어를 입력하세요">
-				<button>검색</button>
-				<a href="/boardCreate"><button id="addButton">글쓰기</button></a>
+				<button class="button">검색</button>
+				<a href="/boardCreate"><button class="button">글쓰기</button></a>
 			</div>
 		</div>
 		<div class="boardMain">
@@ -65,8 +68,8 @@
 		</div>
 	</div>
 
-	<jsp:include page="footer.jsp" />
-
-	<script src="/js/board.js" defer type="module"></script>
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>

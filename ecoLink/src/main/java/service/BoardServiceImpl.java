@@ -80,6 +80,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public BoardDTO getBoardUpdate(int boardId) {
+        return boardDAO.getBoardById(boardId);
+    }
+
+    @Override
     public boolean updateBoard(BoardDTO boardDTO) {
         return boardDAO.updateBoard(boardDTO) > 0;
     }
@@ -87,5 +92,15 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public boolean deleteBoard(int boardId) {
         return boardDAO.deleteBoard(boardId) > 0;
+    }
+
+    @Override
+    public void increaseViewCount(int boardId) {
+        boardDAO.increaseViewCount(boardId);
+    }
+
+    @Override
+    public int getBoardViewCount(int boardId) {
+        return boardDAO.getBoardViewCount(boardId);
     }
 }

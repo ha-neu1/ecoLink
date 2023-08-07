@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +10,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게시물 상세보기</title>
 <link rel="stylesheet" href="/css/board.css">
+<script src="https://kit.fontawesome.com/7aca531ae5.js"
+	crossorigin="anonymous"></script>
+<%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
-	<jsp:include page="header.jsp" />
 
 	<div class="board_area">
 		<div class="board_title">
@@ -32,12 +36,18 @@
 			<h3 class="memId">${board.memId}</h3>
 			<h4 class="boardTitle">${board.boardTitle}</h4>
 			<button class="like_button"></button>
+
 			<p class="boardDate">
 				<fmt:parseDate value="${board.boardRegtime}"
 					pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
 				<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
 			</p>
 			<div class="viewCnt">조회수${board.boardViewCount}</div>
+			<%-- <c:if test="${board.memId eq user.memId}"> --%>
+			<!-- 로그인한 사용자와 게시물 작성자가 같을 경우에만 표시 -->
+			<button class="button" onclick="boardUpdate(${board.boardId})">수정</button>
+			<button class="button" onclick="boardDelete(${board.boardId})">삭제</button>
+			<%-- </c:if> --%>
 			<img class="boardImage" src="${board.filePath}"
 				onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
 			<p class="boardCont">${board.boardContents}</p>
@@ -45,8 +55,24 @@
 
 	</div>
 
-	<jsp:include page="footer.jsp" />
+	<script src="/js/board.js" defer type="module"></script>
+	<script>
+	function boardUpdate(boardId) {
+	    if (boardId) {
+	        window.location.href = `/boardUpdate?boardId=${boardId}`;
+	    } else {
+	        alert("게시물 ID가 유효하지 않습니다.");
+	    }
+	}
 
-	<script src="/js/boardRead.js" defer type="module"></script>
+function boardDelete(boardId) {
+    if (confirm("게시물을 삭제하시겠습니까?")) {
+    	location.href = `/boardDelete/${boardId}`;
+    }
+}
+</script>
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>

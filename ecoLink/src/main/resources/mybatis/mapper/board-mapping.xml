@@ -144,5 +144,10 @@
     <update id="updateBoard" parameterType="BoardDTO">
         UPDATE board SET boardTitle = #{boardTitle}, boardContents = #{boardContents} WHERE boardId = #{boardId}
     </update>
+
+    <!-- 조회수 증가 -->
+    <update id="increaseViewCount" parameterType="int">
+        UPDATE board SET boardViewCount = boardViewCount + 1 WHERE boardId = #{boardId}
+    </update>
     
 </mapper>
