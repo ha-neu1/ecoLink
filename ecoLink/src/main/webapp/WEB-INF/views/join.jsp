@@ -330,6 +330,9 @@ $(document).ready(function() {
                   imgElement.src = reader.result;
                   imgElement.alt = "미리 보기 이미지";
                   imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+                  imgElement.style.marginTop = "1rem"; // 위쪽 여백 1rem
+                  imgElement.style.marginBottom = "1rem"; // 아래쪽 여백 1rem
+                  imgElement.style.borderRadius = "1rem"; // 둥근 테두리 반지름 1rem
 
                   // 이미지 삭제 버튼 생성
                   const deleteBtn = document.createElement("button");
