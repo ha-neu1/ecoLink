@@ -199,10 +199,9 @@ div.card {
 	position: relative;
 	text-align: left;
 	width: 350px;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 	z-index: 1;
 	border-radius: 5px;
-	background-color: #defff2;
 }
 
 .card__image {
@@ -214,18 +213,18 @@ div.card {
 }
 
 .card__image-holder {
-	background: rgba(0, 0, 0, 0.1);
 	height: 150px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
 
 div.card-title {
-	background: #defff2;
 	padding: 6px 15px 10px;
 	position: relative;
+	border-top : 1px solid gray;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+	
 }
 
 .brandUrl:hover {
