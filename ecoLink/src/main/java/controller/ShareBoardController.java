@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 import dto.BoardDTO;
 import dto.FileDTO;
@@ -79,12 +83,12 @@ public class ShareBoardController {
 	@PostMapping("/boardCreate")
 	public String createBoard(@RequestParam BoardDTO boardDTO) {
 		shareBoardService.createBoard(boardDTO);
-		return "redirect:/board";
+		return "redirect:/share/board";
 	}
 
 	@GetMapping("/boardRead")
 	public String boardRead(@RequestParam(value = "boardId", required = false, defaultValue = "0") int boardId,
-			Model model) {
+			Model model, HttpSession session) {
 		if (boardId <= 0) {
 			model.addAttribute("error", "해당 게시물을 찾을 수 없습니다.");
 		} else {
@@ -96,6 +100,9 @@ public class ShareBoardController {
 				model.addAttribute("error", "해당 게시물을 찾을 수 없습니다.");
 			}
 		}
+		
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가)
 		return "boardRead";
 	}
 
@@ -112,18 +119,54 @@ public class ShareBoardController {
 	}
 
 	@GetMapping("/boardUpdate/{boardId}")
-	public String showUpdateForm(@PathVariable int boardId, Model model) {
-		BoardDTO board = shareBoardService.getBoardUpdate(boardId); // 수정된 부분
-		model.addAttribute("board", board);
+    public String showUpdateForm(@PathVariable int boardId, Model model, HttpSession session) {
+		BoardDTO board = shareBoardService.getBoardById(boardId);
+        model.addAttribute("board", board);
+        
+        MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가)
+		
 		return "boardUpdate";
 	}
 
 	@PostMapping("/boardUpdate/{boardId}")
-	public String updateBoard(@PathVariable int boardId, @ModelAttribute BoardDTO boardDTO) {
-		boardDTO.setBoardId(boardId);
-		shareBoardService.updateBoard(boardDTO);
-		return "redirect:/boardRead?boardId=" + boardId;
-	}
+    public String updateBoard(@PathVariable int boardId, @ModelAttribute("boardDTO") @Validated BoardDTO boardDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            // 유효성 검사 오류가 있는 경우에 대한 처리
+            return "error";
+        }
+
+        // 파일 업로드 처리
+        List<MultipartFile> files = boardDTO.getFiles();
+        List<String> fileNames = new ArrayList<>();
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                String fileName = file.getOriginalFilename();
+                String uploadPath = "/your/upload/directory/path/"; // 파일 업로드 경로 설정
+                String fullPath = uploadPath + fileName;
+                
+                try {
+                    // 파일 저장 처리
+                    file.transferTo(new File(fullPath));
+                    fileNames.add(fileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // 파일 업로드 실패 처리
+                }
+            }
+        }
+
+        // 게시물 업데이트 처리
+        BoardDTO updatedBoard = shareBoardService.getBoardById(boardId); // 게시물 조회
+        updatedBoard.setBoardTitle(boardDTO.getBoardTitle());
+        updatedBoard.setBoardContents(boardDTO.getBoardContents());
+        updatedBoard.setFiles(files); // 업로드된 파일 이름 설정
+
+        shareBoardService.updateBoard(updatedBoard); // 게시물 업데이트
+
+        // 게시물 업데이트 후 리다이렉트
+        return "redirect:/share/boardRead?boardId=" + boardId;
+    }
 
 	@GetMapping("/confirmDelete/{boardId}")
 	public String showDeleteConfirm(@PathVariable int boardId, Model model) {
@@ -132,10 +175,16 @@ public class ShareBoardController {
 		return "confirmDelete";
 	}
 
-	@PostMapping("/boardDelete/{boardId}")
-	public String deleteBoard(@PathVariable int boardId) {
-		shareBoardService.deleteBoard(boardId);
-		return "redirect:/board";
+	@PostMapping("/deleteBoard")
+	@ResponseBody
+	public ResponseEntity<String> deleteBoard(@RequestParam Long boardId) {
+	    try {
+	        shareBoardService.deleteBoard(boardId);
+	        return ResponseEntity.ok("게시물이 삭제되었습니다.");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	            .body("게시물 삭제 오류: " + e.getMessage());
+	    }
 	}
 
 	@GetMapping("/sharewriting")
@@ -238,7 +287,7 @@ public class ShareBoardController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", insertcount);
-		mv.setViewName("redirect:/shareboard");
+		mv.setViewName("redirect:/share/shareboard");
 		return mv;
 	}
 }

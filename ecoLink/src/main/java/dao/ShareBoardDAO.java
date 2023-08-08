@@ -29,7 +29,7 @@ public interface ShareBoardDAO {
 	int updateBoard(BoardDTO boardDTO);
 
 	// 게시물 삭제
-	int deleteBoard(int boardId);
+	int deleteBoard(long boardId);
 
 	// 조회수 증가
 	void increaseViewCount(int boardId);
