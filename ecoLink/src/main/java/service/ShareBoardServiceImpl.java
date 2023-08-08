@@ -90,8 +90,8 @@ public class ShareBoardServiceImpl implements ShareBoardService{
 	    }
 
 	    @Override
-	    public boolean deleteBoard(int boardId) {
-	        return ShareboardDAO.deleteBoard(boardId) > 0;
+	    public void deleteBoard(Long boardId) {
+	        ShareboardDAO.deleteBoard(boardId);
 	    }
 
 	    @Override

@@ -40,9 +40,12 @@ public class BoardController {
 	}
 
 	@GetMapping("/reviewboard")
-	public String board(Model model) {
+	public String board(Model model, HttpSession session) {
 		List<BoardDTO> boardlist = boardService.getShareBoardList();
 		model.addAttribute("boardlist", boardlist);
+		
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가) {
 		return "board";
 	}
 

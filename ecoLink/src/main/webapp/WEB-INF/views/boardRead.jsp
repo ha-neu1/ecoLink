@@ -219,6 +219,29 @@
     });
 </script>
 
+<script>
+    function boardUpdate(boardId) {
+    	window.location.href = '/share/boardUpdate/' + boardId;
+    }
+    function deleteConfirmation(boardId) {
+        // 게시물 삭제를 처리합니다.
+        $.ajax({
+            type: 'POST',
+            url: '/share/deleteBoard',
+            data: { boardId: boardId },
+            success: function(response) {
+                // 게시물이 성공적으로 삭제되었습니다.
+                console.log('게시물이 성공적으로 삭제되었습니다.');
+            },
+            error: function(xhr, status, error) {
+                // 게시물 삭제 중 오류를 처리합니다.
+                console.error('게시물 삭제 오류: ' + xhr.responseText);
+            }
+        });
+    }
+</script>
+
+
 	<script src="/js/board.js" defer type="module"></script>
 	<script src="/js/boardRead.js" defer type="module"></script>
 </body>

@@ -25,7 +25,7 @@ public interface ShareBoardService {
 	boolean updateBoard(BoardDTO boardDTO);
 
 	// 게시물 삭제
-	boolean deleteBoard(int boardId);
+	void deleteBoard(Long boardId);
 
 	// 조회수 증가
 	void increaseViewCount(int boardId);

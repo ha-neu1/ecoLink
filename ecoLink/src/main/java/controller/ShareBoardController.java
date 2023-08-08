@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,12 +81,12 @@ public class ShareBoardController {
 	@PostMapping("/boardCreate")
 	public String createBoard(@RequestParam BoardDTO boardDTO) {
 		shareBoardService.createBoard(boardDTO);
-		return "redirect:/board";
+		return "redirect:/share/board";
 	}
 
 	@GetMapping("/boardRead")
 	public String boardRead(@RequestParam(value = "boardId", required = false, defaultValue = "0") int boardId,
-			Model model) {
+			Model model, HttpSession session) {
 		if (boardId <= 0) {
 			model.addAttribute("error", "해당 게시물을 찾을 수 없습니다.");
 		} else {
@@ -96,6 +98,9 @@ public class ShareBoardController {
 				model.addAttribute("error", "해당 게시물을 찾을 수 없습니다.");
 			}
 		}
+		
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가)
 		return "boardRead";
 	}
 
@@ -122,7 +127,7 @@ public class ShareBoardController {
 	public String updateBoard(@PathVariable int boardId, @ModelAttribute BoardDTO boardDTO) {
 		boardDTO.setBoardId(boardId);
 		shareBoardService.updateBoard(boardDTO);
-		return "redirect:/boardRead?boardId=" + boardId;
+		return "redirect:/share/boardRead?boardId=" + boardId;
 	}
 
 	@GetMapping("/confirmDelete/{boardId}")
@@ -132,10 +137,16 @@ public class ShareBoardController {
 		return "confirmDelete";
 	}
 
-	@PostMapping("/boardDelete/{boardId}")
-	public String deleteBoard(@PathVariable int boardId) {
-		shareBoardService.deleteBoard(boardId);
-		return "redirect:/board";
+	@PostMapping("/deleteBoard")
+	@ResponseBody
+	public ResponseEntity<String> deleteBoard(@RequestParam Long boardId) {
+	    try {
+	        shareBoardService.deleteBoard(boardId);
+	        return ResponseEntity.ok("게시물이 삭제되었습니다.");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	            .body("게시물 삭제 오류: " + e.getMessage());
+	    }
 	}
 
 	@GetMapping("/sharewriting")
@@ -238,7 +249,7 @@ public class ShareBoardController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", insertcount);
-		mv.setViewName("redirect:/shareboard");
+		mv.setViewName("redirect:/share/shareboard");
 		return mv;
 	}
 }
