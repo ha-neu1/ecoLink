@@ -284,46 +284,76 @@ public class TipController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("insertcount", insertcount);
 
-		int totalBoard = service.getTotalBoard();
-		mv.addObject("totalBoard", totalBoard);
+		
+		
 
-		// 게시물 목록 조회 로직
-		int limitcount = 5;
-		int limitindex = (page - 1) * limitcount;
-		int limit[] = new int[2];
-		limit[0] = limitindex;
-		limit[1] = limitcount;
-		List<BoardDTO> boardList = service.boardListRecent(limit);
+		
+		
 		// 최신순으로 게시물 목록을 가져오는 로직
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", insertcount);
-		mv.addObject("boardList", boardList);
+		
 		mv.setViewName("redirect:/tipboardlist");
 		return mv;
 	}
+	
 	@GetMapping("/tipeditform")
-	public String tipeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,
-			HttpServletResponse response, HttpSession session, Model model) {
+	public String tipeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam(name = "boardId") Integer boardId, HttpServletResponse response, HttpSession session,
+			Model model) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
-		System.out.println(boardId);
+
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+
+		BoardDTO boarddto = service.updateViewcountAndGetDetail(boardId);
+		model.addAttribute("detaildto", boarddto);
+		List<FileDTO> files = service.getFilesByBoardId(boardId);
+		List<String> imageUrls = new ArrayList<>();
+
+		for (FileDTO file : files) {
+			imageUrls.add(file.getFilePath());
+
+		}
+		model.addAttribute("imageUrls", imageUrls);
+
 		model.addAttribute("user", user);
 		model.addAttribute("boardId", boardId);// Model에 사용자 정보를 추가) {
 		return "tipeditform";
 	}
-	
+
 	@PostMapping("/tipeditform")
-	public ModelAndView tipeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,String boardContents,
-			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			HttpServletResponse response, HttpSession session) throws IOException {
+	public ModelAndView tipeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
+			@RequestParam(name = "boardId") Integer boardId, String boardContents, BoardDTO boarddto,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpServletResponse response,
+			HttpSession session) throws IOException {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
-		service.deleteFile(boardId);
+
 		String savePath = "";
 		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			savePath = "c:/kdt";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir";
+		} else {
+			savePath = "c:/kdt";
+		}
+		List<FileDTO> deletefiles = service.getFilesByBoardId(boardId);
+		System.out.println(deletefiles);
+		for (FileDTO fileDTO : deletefiles) {
+			File file = new File(savePath + fileDTO.getFilePath());
+			System.out.println(file);
+			if (file.exists()) {
+				file.delete();
+			}
+		}
+		service.deleteFile(boardId);
+		
+		savePath = "";
+		os = System.getProperty("os.name").toLowerCase();
 		if (os.contains("win")) {
 			savePath = "c:/kdt/upload/";
 		} else if (os.contains("linux")) {
@@ -331,10 +361,10 @@ public class TipController {
 		} else {
 			savePath = "c:/kdt/upload/";
 		}
-
+		
 		List<MultipartFile> files = boarddto.getFiles();
 		List<MultipartFile> draggedFiles = boarddto.getDraggedFiles();
-		
+
 		String loggedInUserId = dto != null ? dto.getMemId() : null;
 		if (loggedInUserId == null) {
 
@@ -342,9 +372,19 @@ public class TipController {
 			mv.addObject("message", "로그인을 하시기 바랍니다.");
 			return mv;
 		}
+		ModelAndView mv = new ModelAndView();
+		BoardDTO alreadyboarddto = service.updateViewcountAndGetDetail(boardId);
+		mv.addObject("detaildto", alreadyboarddto);
+		List<FileDTO> alreadyfiles = service.getFilesByBoardId(boardId);
+		List<String> imageUrls = new ArrayList<>();
 
+		for (FileDTO file : alreadyfiles) {
+			imageUrls.add(file.getFilePath());
+
+		}
 		// Set the memId in the boarddto before inserting into the database
 		boarddto.setMemId(loggedInUserId);
+
 		boarddto.setBoardContents(boardContents.replace("\r\n", "<br>"));
 		int updatecount = service.updateBoard(boarddto);
 
@@ -370,6 +410,7 @@ public class TipController {
 					fileDTO.setBoardId(boardId);
 					fileDTOList.add(fileDTO);
 				}
+
 			}
 		}
 		if (draggedFiles != null && !draggedFiles.isEmpty()) {
@@ -397,7 +438,7 @@ public class TipController {
 		for (FileDTO fileDTO : fileDTOList) {
 			int insertfile = service.insertFile(fileDTO);
 		}
-		ModelAndView mv = new ModelAndView();
+		
 		mv.addObject("insertcount", updatecount);
 
 		int totalBoard = service.getTotalBoard();

@@ -5,7 +5,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 .info_title {
     display: flex;
     align-items: center;
@@ -168,9 +167,7 @@ textarea{
 }
 
 
-
 .post_btn{
-	font-family: 'NanumSquareNeo-Variable';
     display: flex;
     justify-content: end;
     width: 600px;

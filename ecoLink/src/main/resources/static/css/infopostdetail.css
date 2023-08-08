@@ -98,20 +98,24 @@
 }
 
 .controller span {
-	position: absolute;
-	background-color: transparent;
-	color: black;
-	text-align: center;
-	border-radius: 50%;
-	padding: 0px 20px;
-	top: 50%;
-	font-size: 1.5em;
-	cursor: pointer;
+	    width: auto;
+    position: absolute;
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px 20px;
+    top: 43%;
+    font-size: 1.5em;
+    cursor: pointer;
+   
 }
 
 /* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
 .controller span:hover {
-	background-color: rgba(128, 128, 128, 0.11);
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
 .prev {

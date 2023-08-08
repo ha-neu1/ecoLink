@@ -12,22 +12,30 @@
 <%@ include file="chatbot.jsp"%>
 </head>
 <body>
+<div class="info_title">게시글 작성하기</div>
+
     <form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
+    <div class="hasImages">
+    	
+    </div>
          <label for="image_file" class="image_file_zone" id="image_file_zone">
             <div class="image_fileholder" id="image_fileholder">사진추가</div>
          </label>
          <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
     </div>
     <div class="post_tit">
-        <input type="text" class="tit" name="boardTitle" placeholder=" 제목을 입력하세요.">
-    </div>
-    <div class="post_contents">
-        <textarea class="contents" name="boardContents" placeholder=" 내용을 입력하세요."></textarea>
-    </div>
-    <div class="post_btn">
-    <button type="submit" id="submit_btn">작성하기</button>
-    </div>  
+                <p>제목</p>
+                <input type="text" class="tit" name="boardTitle"
+                   placeholder="제목을 입력해주세요.">
+            </div>
+            <div class="post_contents">
+                <p>본문 내용</p>
+                <textarea class="contents" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
+            </div>
+            <div class="post_btn">
+                <button type="submit" id="submit_btn">작성하기</button>
+            </div> 
     </form>
    
     <script>
@@ -40,7 +48,7 @@
   // 이미지와 체크 박스를 감싸고 있는 div 속성
   var div_style =
     'display:inline-block;position:relative;' +
-    'width:600px;height:400px;margin:5px;border:1px solid #00f;z-index:3';
+    'width:600px;height:380px;margin:5px;border:1px solid #c5c5c5;z-index:3;  border-radius: 8px;';
   // 미리보기 이미지 속성
   var img_style = 'width:100%;height:100%;z-index:2';
   // 이미지안에 표시되는 체크박스의 속성
