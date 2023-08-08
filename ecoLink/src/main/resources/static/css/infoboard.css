@@ -20,7 +20,6 @@ select option:checked {
 	background-color: #00D084;
 	color: #fff;
 }
-
 /* 검색 상자 스타일 */
 .searchBox {
 	display: flex;
