@@ -37,7 +37,7 @@
             <div class="post_img">
                 <p>수정할 이미지</p>
             </div> 
-    <form id="post_form" action="tipeditform" method="post" enctype="multipart/form-data">
+    <form id="post_form" action="shareeditform" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
          <label for="image_file" class="image_file_zone" id="image_file_zone">
             <div class="image_fileholder" id="image_fileholder">클릭하거나 이미지를 드래그하세요.</div>
@@ -192,7 +192,7 @@
       }
 
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'tipeditform', true);
+      xhr.open('POST', 'shareeditform', true);
       xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
               if (xhr.status === 200) {

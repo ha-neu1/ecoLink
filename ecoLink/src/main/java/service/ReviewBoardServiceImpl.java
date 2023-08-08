@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dao.InfoBoardDAO;
+import dao.ReviewBoardDAO;
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
 import dto.BoardLikeDTO;
@@ -15,29 +15,10 @@ import dto.FileDTO;
 import jakarta.servlet.ServletContext;
 
 @Service
-public class InfoBoardServiceImpl implements InfoBoardService {
+public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Autowired
-	InfoBoardDAO dao;
+	ReviewBoardDAO dao;
 	private ServletContext servletContext;
-
-	@Override
-	public int getTotalBoard() {
-		return dao.getTotalBoard();
-	}
-
-	@Override
-	public List<BoardDTO> boardListRecent(int[] limit) {
-		List<BoardDTO> boardList = dao.boardListRecent(limit);
-		setFirstImageUrls(boardList);
-		return boardList;
-	}
-
-	@Override
-	public List<BoardDTO> boardListView(int[] limit) {
-		List<BoardDTO> boardList = dao.boardListView(limit);
-		setFirstImageUrls(boardList);
-		return boardList;
-	}
 
 	@Override
 	public List<FileDTO> getFilesByBoardId(int boardId) {
@@ -56,8 +37,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 				// "c:/kdt/upload/", "/upload/"
 				if (imagePath.startsWith("c:/kdt/upload/")) {
 					imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
-				}
-				else if (imagePath.startsWith("/usr/mydir/upload/")) {
+				} else if (imagePath.startsWith("/usr/mydir/upload/")) {
 					imagePath = imagePath.replaceFirst("/usr/mydir/upload/", "/upload/");
 				}
 
@@ -67,20 +47,6 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 
 		return files;
 	}
-	
-
-	@Override
-	public List<BoardDTO> searchList(HashMap map) {
-		List<BoardDTO> boardList = dao.searchList(map);
-		setFirstImageUrls(boardList);
-		return boardList;
-
-	}
-
-	@Override
-	public int getSearchBoard(HashMap map) {
-		return dao.getSearchBoard(map);
-	}
 
 	@Override
 	public int insertBoard(BoardDTO dto) {
@@ -89,12 +55,10 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		dto.setBoardId(boardId); // 나중에 파일 삽입에 사용할 수 있도록 DTO에 boardId를 설정
 		return insertCount;
 	}
-	
-	
 
 	@Override
 	public int updateBoard(BoardDTO dto) {
-		
+
 		return dao.updateBoard(dto);
 	}
 
@@ -124,8 +88,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 
 				if (imagePath.startsWith("c:/kdt/upload/")) {
 					imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
-				}
-				else if(imagePath.startsWith("/usr/mydir/upload/")) {
+				} else if (imagePath.startsWith("/usr/mydir/upload/")) {
 					imagePath = imagePath.replaceFirst("/usr/mydir/upload/", "/upload/");
 				}
 
@@ -195,11 +158,10 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 
 	@Override
 	public List<BoardCommentDTO> getAllBoardComment(HashMap<String, Object> clistmap) {
-		 
+
 		return dao.getAllBoardComment(clistmap);
 	}
 
-	
 	@Override
 	public List<BoardCommentDTO> getAllBoardReply(int boardId) {
 		return dao.getAllBoardReply(boardId);
@@ -232,7 +194,6 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		dao.deleteFile(boardId);
 		dao.deleteBoard(boardId);
 	}
-	
 
 	@Override
 	public void deleteFile(int boardId) {
@@ -242,25 +203,12 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	@Override
 	public void deleteReply(int bcId) {
 		dao.deleteReply(bcId);
-		
+
 	}
 
 	@Override
 	public void deleteComment(int bcId) {
 		dao.deleteComment(bcId);
 	}
-
-	
-	
-
-	
-	
-
-	
-	
-	
-	
-	
-	
 
 }

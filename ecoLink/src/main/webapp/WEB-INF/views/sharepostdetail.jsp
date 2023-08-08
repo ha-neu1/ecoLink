@@ -67,7 +67,7 @@
 	<div class="post_edit_delete">
 		<c:choose>
 			<c:when test="${logininfo.memId eq detaildto.memId || logininfo.memId eq 'admin'}">
-				<form id="tipeditform" action="tipeditform"> 
+				<form id="shareeditform" action="shareeditform"> 
 				<input type="hidden" name="boardId" value="${detaildto.boardId}" />
 				<button type="submit" class="postEditBtn">수정</button>
 				</form>
@@ -196,34 +196,34 @@
 			<c:choose>
 				<c:when test="${currentCpage == 1}">
 					<li class="page-item disabled"><a class="page-link"
-						href="/tippostdetail?boardId=${bId}&page=${currentCpage - 1}"
+						href="/sharepostdetail?boardId=${bId}&page=${currentCpage - 1}"
 						tabindex="-1" aria-disabled="true">이전</a></li>
 				</c:when>
 				<c:otherwise>
 					<li class="page-item active"><a class="page-link" id="nextPageLink"
-						href="/tippostdetail?boardId=${bId}&page=${currentCpage - 1}">이전</a></li>
+						href="/sharepostdetail?boardId=${bId}&page=${currentCpage - 1}">이전</a></li>
 				</c:otherwise>
 			</c:choose>
 			<c:forEach var="i" begin="${startpage}" end="${endpage}">
 				<c:choose>
 					<c:when test="${i == currentCpage}">
 						<li class="page-item activeNumber"><a class="page-link" id="nextPageLink"
-							href="/tippostdetail?boardId=${bId}&page=${i}">${i}</a></li>
+							href="/sharepostdetail?boardId=${bId}&page=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item"><a class="page-link" id="nextPageLink"
-							href="/tippostdetail?boardId=${bId}&page=${i}">${i}</a></li>
+							href="/sharepostdetail?boardId=${bId}&page=${i}">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:choose>
 				<c:when test="${totalPage == currentCpage}">
 						<li class="page-item disabled" id="endNextPage"><a class="page-link" id="nextPageLink"
-						href="/tippostdetail?boardId=${bId}&page=${currentCpage + 1}">다음</a></li>
+						href="/sharepostdetail?boardId=${bId}&page=${currentCpage + 1}">다음</a></li>
 				</c:when>
 				<c:otherwise>
 					<li class="page-item active"><a class="page-link"
-						href="/tippostdetail?boardId=${bId}&page=${currentCpage + 1}">다음</a></li>
+						href="/sharepostdetail?boardId=${bId}&page=${currentCpage + 1}">다음</a></li>
 				</c:otherwise>
 			</c:choose>
 
@@ -239,7 +239,7 @@ $(document).ready(function() {
     
    
     $.ajax({
-      url: '/insertTipBoardComment',
+      url: '/insertShareBoardComment',
       type: 'POST',
       data: formData,
       success: function(response) {
@@ -273,7 +273,7 @@ $('.replyBtn').click(function(e) {
   var replyForm = $(this).closest('.commentContentRight').find('form'); // Get the closest form
   var formData = replyForm.serialize(); // Serialize the form data
   $.ajax({
-    url: '/insertTipReplyComment',
+    url: '/insertShareReplyComment',
     type: 'POST',
     data: formData,
     success: function(response) {
@@ -303,7 +303,7 @@ $('.replyBtn').click(function(e) {
     if (${not empty user}) {
       // Make the AJAX request to insertBoardLike only if the user is logged in
       $.ajax({
-        url: '/insertTipBoardLike',
+        url: '/insertShareBoardLike',
         type: 'POST',
         data: {
           boardId: boardId,
@@ -337,7 +337,7 @@ function deleteBoard(s, a) {
         
     } else {
         alert("게시물이 삭제되었습니다.");
-        location.href="/tipdeleteBoard?boardId=" + s + "&memId=" + a;
+        location.href="/sharedeleteBoard?boardId=" + s + "&memId=" + a;
     }
 }
 function deleteComment(bc,b, m) {
@@ -345,7 +345,7 @@ function deleteComment(bc,b, m) {
         
     } else {
         alert("댓글이 삭제되었습니다.");
-        location.href="/tipdeleteComment?bcId=" + bc + " &boardId=" + b + "&memId=" + m;
+        location.href="/sharedeleteComment?bcId=" + bc + " &boardId=" + b + "&memId=" + m;
     }
 }
 
@@ -355,7 +355,7 @@ function deleteReply(bc,b, m) {
         
     } else {
         alert("답글이 삭제되었습니다.");
-        location.href="/tipdeleteReply?bcId=" + bc + " &boardId=" + b + "&memId=" + m;
+        location.href="/sharedeleteReply?bcId=" + bc + " &boardId=" + b + "&memId=" + m;
     }
 }
 function onDisplay(bcRef) {

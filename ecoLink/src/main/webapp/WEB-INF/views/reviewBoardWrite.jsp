@@ -16,6 +16,7 @@
     <form id="post_form" action="reviewwriting" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
     <div class="hasImages">	
+
     </div>
          <label for="image_file" class="image_file_zone" id="image_file_zone">
             <div class="image_fileholder" id="image_fileholder">사진추가</div>

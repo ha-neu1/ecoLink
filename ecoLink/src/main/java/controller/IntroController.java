@@ -452,20 +452,13 @@ public class IntroController {
 		
 		mv.addObject("insertcount", updatecount);
 
-		int totalBoard = service.getTotalBoard();
-		mv.addObject("totalBoard", totalBoard);
+		
 
-		// 게시물 목록 조회 로직
-		int limitcount = 5;
-		int limitindex = (page - 1) * limitcount;
-		int limit[] = new int[2];
-		limit[0] = limitindex;
-		limit[1] = limitcount;
-		List<BoardDTO> boardList = service.boardListRecent(limit);
+	
 		// 최신순으로 게시물 목록을 가져오는 로직
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", updatecount);
-		mv.addObject("boardList", boardList);
+	
 		mv.setViewName("redirect:/infoboardlist");
 		return mv;
 	}
@@ -568,7 +561,6 @@ public class IntroController {
 			boarddto.setBcContents(comment.replace("\r\n", "<br>"));
 			boarddto.setMemId(dto.getMemId());
 			boarddto.setBoardId(Integer.parseInt(boardId));
-			logger.info("Inserting comment: " + boarddto.toString());
 			int result = service.insertBoardComment(boarddto);
 			if (result > 0) {
 				// Update bcRef value for the newly inserted comment
@@ -604,7 +596,6 @@ public class IntroController {
 			boarddto.setMemId(dto.getMemId());
 			boarddto.setBoardId(Integer.parseInt(boardId));
 			boarddto.setBcRef(bcRef);
-			logger.info("Inserting comment: " + boarddto.toString());
 			int result = service.insertReplyComment(boarddto);
 
 			return ResponseEntity.ok().build();

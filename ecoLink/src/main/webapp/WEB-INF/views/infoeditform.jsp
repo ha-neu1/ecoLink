@@ -24,39 +24,45 @@
 					</c:forEach>
 				</ul>
 				<p class="controller">
+                <div class="post_image">
+                    <ul class="slides">
+                        <c:forEach var="imageUrl" items="${imageUrls}">
+                            <li><img src="${imageUrl}" alt=""></li>
+                        </c:forEach>
+                    </ul>
+                    <p class="controller">
 
-					<!-- &lang: 왼쪽 방향 화살표 &rang: 오른쪽 방향 화살표 -->
-					<span class="prev">&lang;</span> <span class="next">&rang;</span>
-				</p>
-			</div>
-		</div>
-		<div class="post_img">
-			<p>수정할 이미지</p>
-		</div>
-		<form id="post_form" action="infowriting" method="post"
-			enctype="multipart/form-data">
-			<div class="image_wrap">
-				<label for="image_file" class="image_file_zone" id="image_file_zone">
-					<div class="image_fileholder" id="image_fileholder">사진추가</div>
-				</label> <input type="file" id="image_file" class="image_file" name="files"
-					multiple="multiple" accept="image/*" hidden>
-			</div>
-			<div class="post_tit">
-				<p>제목</p>
-				<input type="text" class="tit" name="boardTitle"
-					value="${detaildto.boardTitle}">
-			</div>
-			<div class="post_contents">
-				<p>본문 내용</p>
-				<textarea class="contents" name="boardContents">${detaildto.boardContents}</textarea>
-			</div>
-			<div class="post_btn">
-				<input type="hidden" name="boardId" value="${boardId}" />
-				<button type="submit" id="submit_btn">수정하기</button>
-			</div>
-		</form>
-	</div>
-	<script>
+                        <!-- &lang: 왼쪽 방향 화살표 &rang: 오른쪽 방향 화살표 -->
+                        <span class="prev">&lang;</span> <span class="next">&rang;</span>
+                    </p>
+                </div>
+            </div>
+            <div class="post_img">
+                <p>수정할 이미지</p>
+            </div> 
+    <form id="post_form" action="infoeditform" method="post" enctype="multipart/form-data">
+    <div class="image_wrap">
+         <label for="image_file" class="image_file_zone" id="image_file_zone">
+            <div class="image_fileholder" id="image_fileholder">클릭하거나 이미지를 드래그하세요.</div>
+         </label>
+         <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
+    </div>
+    <div class="post_tit">
+                <p>제목</p>
+                <input type="text" class="tit" name="boardTitle"
+                    value="${detaildto.boardTitle}">
+            </div>
+            <div class="post_contents">
+                <p>본문 내용</p>
+                <textarea class="contents" name="boardContents">${detaildto.boardContents}</textarea>
+            </div>
+            <div class="post_btn">
+                <input type="hidden" name="boardId" value="${boardId}" />
+                <button type="submit" id="submit_btn">수정하기</button>
+            </div> 
+    </form>
+   </div>
+    <script>
     
         (function imageView(image_fileholder, image_file) {
   var fileHolder = document.getElementById(image_fileholder);

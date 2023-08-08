@@ -13,8 +13,7 @@
 </head>
 <body>
 <div class="info_title">게시글 작성하기</div>
-
-    <form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">
+    <form id="post_form" action="sharewriting" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
     <div class="hasImages">
     	
