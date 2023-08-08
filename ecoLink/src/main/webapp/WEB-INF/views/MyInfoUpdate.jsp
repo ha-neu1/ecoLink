@@ -10,10 +10,26 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
 	$(document).ready(function() {
+		const pw = document.getElementById("memPw");
+		
+		function isPasswordValid(password) {
+	         // 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자
+	         const regex = /^(?=.*[a-zA-Z])(?=.*\d|\W).{8,16}$/;
+	         return regex.test(password);
+	     }
+		
+		// 다른 곳 클릭 시 비밀번호 유효성 검사
+		$(pw).on('blur', function() {
+		    var pwValue = $(this).val();
+		    if (!isPasswordValid(pwValue)) {
+		        alert("비밀번호 입력 조건을 만족해주세요.");
+		    }
+		});
+		
 		// 비밀번호 일치 여부 확인
 	      $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
-	         var pwConfirmValue = $('#memPw_confirm').val();
-	         var pwValue = $('#memPw').val();
+	         var pwConfirmValue = $("#memPw_confirm").val();
+	         var pwValue = $("#memPw").val();
 	         if (pwValue !== '' && pwConfirmValue !== '' && pwConfirmValue !== pwValue) {
 	             alert("비밀번호가 일치하지 않습니다.");
 	         }
@@ -24,13 +40,17 @@
 						function(e) {
 							e.preventDefault();
 							
-							var memId = "${loginUser.memId}";
-							var memPw =  $("#pw").val();
-							var memPw_confirm = $('#memPw_confirm').val();
-				            var memNick = $("#nickname").val();
+							var memId = $("#memId").val();
+							var memPw =  $("#memPw").val();
+							var memPw_confirm = $("#memPw_confirm").val();
+				            var memNick = $("#memNick").val();
 				            
-				            if (memPw === "" || memPw_confirm === "" || memNick === "") {
-				                alert("비밀번호와 닉네임을 필수로 입력해 주세요.");
+				            if (memPw === "") {
+				                alert("비밀번호를 입력해 주세요.");
+				            } else if(memPw_confirm === ""){
+				            	alert("비밀번호를 확인해 주세요.");
+				            } else if(memNick === ""){
+				            	alert("닉네임을 입력해 주세요.");
 				            } else if(memPw !== memPw_confirm) {
 				            	alert("비밀번호가 일치하지 않습니다.");
 			            	} else {
@@ -80,13 +100,13 @@
 				<div class='formindiv'>
 					<p>아이디</p>
 					<div id=id_div>
-						<input type="text" name="userid" id="userid" value="${loginUser.memId}" disabled>
+						<input type="text" name="memId" id="memId" value="${loginUser.memId}" disabled>
 					</div>
 				</div>
 
 				<div class='formindiv'>
-					<p>비밀번호</p>
-					<label><input type="password" name="pw" id="pw" value="${loginUser.memPw}" maxlength="16"></label>
+					<p>비밀번호*</p>
+					<label><input type="password" name="memPw" id="memPw" value="${loginUser.memPw}" maxlength="16"></label>
 					<a class="help">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</a>
 				</div>
 				
@@ -97,17 +117,18 @@
 
 				<div class='formindiv'>
 					<p>이름</p>
-					<input type="text" name="name" id="name" value="${loginUser.memName}" maxlength="30" disabled>
+					<input type="text" name="memName" id="memName" value="${loginUser.memName}" maxlength="30" disabled>
 				</div>
 
 				<div class='formindiv'>
-					<p>닉네임</p>
-					<input type="text" name="nickname" id="nickname" value="${loginUser.memNick}">
+					<p>닉네임*</p>
+					<input type="text" name="memNick" id="memNick" value="${loginUser.memNick}">
+					<a class="help">(최대 자)</a>
 				</div>
 
 				<div class='formindiv'>
 					<p>E-mail</p>
-					<input type="tel" name="email" id="email" value="${loginUser.memEmail}" disabled>
+					<input type="tel" name="memEmail" id="memEmail" value="${loginUser.memEmail}" disabled>
 				</div>
 
 				<div class='formindiv'>

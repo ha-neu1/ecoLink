@@ -23,7 +23,6 @@ aside li{
 }
 
 aside li:hover{
-	font-size: 15.5px;
 	color: #00d084;
 }
 
@@ -62,7 +61,7 @@ article {
 }
 
 .formindiv {
-	margin : 20px auto;
+	margin : 20px auto 25px auto;
 	width : 400px;
 }
 
@@ -133,6 +132,8 @@ select {
 	height: 40px;
 	margin-top:15px;
 	margin-bottom:40px;
+	cursor: pointer;
+	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
 }
 
 #updateBtn:hover {

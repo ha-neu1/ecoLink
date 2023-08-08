@@ -109,6 +109,8 @@ table tr td:nth-child(2){
 	margin: auto 10px;
 	width:200px;
 	height: 40px;
+	cursor: pointer;
+	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
 }
 
 #updateUser:hover {
@@ -127,12 +129,11 @@ table tr td:nth-child(2){
 	margin: auto 10px;
 	width:200px;
 	height: 40px;
-	
-	text-decoration:none;
+	cursor: pointer;
+	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
 	text-align:center;
 	color: #b2b2b2;
 	font-size: 13px;
-	margin: 0px auto;
 }
 
 #deleteUser:hover {

@@ -72,7 +72,7 @@ article p{
 }
 
 .formindiv {
-	margin : 20px auto;
+	margin : 20px auto 25px auto;
 	width : 400px;
 }
 
@@ -131,6 +131,25 @@ input:focus {
 input:disabled {
     background: #F0F0F0;
 }
+
+/* .input-btn-box > #mobile1 {
+	outline: none;
+	width: 90px;
+	height: 43px;
+	border-radius: 8px;
+}
+
+.input-btn-box > #mobile1:focus {
+	border: 2px solid #00d084;
+}
+
+.input-btn-box > input {
+	width: 29.3%;
+}
+
+.input-btn-box > input:focus {
+	border: 2px solid #00d084;
+} */
 
 #emailinner {
 	display:inline-block;
@@ -200,7 +219,7 @@ input[type=file]::file-selector-button {
 
 input[type=file]::file-selector-button:hover {
 	background: #fff;
-	border: 1px solid #00d084;
+	border: 2px solid #00d084;
 	color: #00d084;
 }
 
@@ -237,6 +256,8 @@ img {
 	height: 40px;
 	margin-top:15px;
 	margin-bottom:40px;
+	cursor: pointer;
+	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
 }
 
 #updateBtn:hover {
@@ -252,10 +273,18 @@ button {
 	font-size: 13px;
 	height: 40px;
 	width: 100%;
-	border: 1px solid #ddd;
+	color: #fff;
+    background: #00d084;
+    border: 1px solid #00d084;
 	border-radius: 8px;
 	cursor: pointer;
 	box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.1);
 	margin-right: 15px;
 	margin-top: -10px;
+}
+
+button:hover {
+	background: #fff;
+	border: 1px solid #00d084;
+	color: #00d084;
 }

@@ -10,6 +10,21 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
 	$(document).ready(function() {
+		const pw = document.getElementById("memPw");
+		
+		function isPasswordValid(password) {
+	         // 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자
+	         const regex = /^(?=.*[a-zA-Z])(?=.*\d|\W).{8,16}$/;
+	         return regex.test(password);
+	     }
+		
+		// 다른 곳 클릭 시 비밀번호 유효성 검사
+		$(pw).on('blur', function() {
+		    var pwValue = $(this).val();
+		    if (!isPasswordValid(pwValue)) {
+		        alert("비밀번호 입력 조건을 만족해주세요.");
+		    }
+		});
 		
 	   // 비밀번호 일치 여부 확인
 	      $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
@@ -25,10 +40,10 @@
 					
 					var memId = $("#memId").val();
 					var memPw = $("#memPw").val();
-					var memPw_confirm = $('#memPw_confirm').val();
+					var memPw_confirm = $("#memPw_confirm").val();
 					var memNick = $("#memNick").val();
 					var entCrn = $("#entCrn").val();
-					var entPhone = $("#entPhone").val();
+					var entPhone = $('#entPhone').val();
 					var entdMainPic = $("#entdMainPic").val();
 					var entdShort = $("#entdShort").val();
 					var entdURL = $("#entdURL").val();
@@ -41,9 +56,18 @@
 					var entdExplain2 = $("#entdExplain2").val();
 					var entdExplain3 = $("#entdExplain3").val();
 					
+					console.log();
 							
-					if (memPw === "" || memPw_confirm === "" || memNick === "" || entPhone === "" || entdExplain1 === "") {
-		                alert("비밀번호, 브랜드 이름, 연락처, 제품1 이미지, 제품1 설명을 필수로 입력해 주세요.");
+					if (memPw === "") {
+		                alert("비밀번호를 입력해 주세요.");
+		            } else if(memPw_confirm === ""){
+		            	alert("비밀번호를 확인해 주세요.");
+		            } else if(memNick === ""){
+		            	alert("브랜드 이름을 입력해 주세요.");
+		            } else if(entPhone === ""){
+		            	alert("연락처를 입력해 주세요.");
+		            } else if(entdExplain1 === ""){
+		            	alert("제품1 이름을 입력해 주세요.");
 		            } else if(memPw !== memPw_confirm) {
 		            	alert("비밀번호가 일치하지 않습니다.");
 	            	} else {
@@ -156,6 +180,9 @@
 		                  imgElement.src = reader.result;
 		                  imgElement.alt = "미리 보기 이미지";
 		                  imgElement.style.maxWidth = "100%"; // 미리 보기 이미지의 최대 너비 설정
+		                  imgElement.style.marginTop = "8px"; // 위쪽 여백
+		                  imgElement.style.marginBottom = "8px"; // 아래쪽 여백
+		                  imgElement.style.borderRadius = "8px"; // 둥근 테두리 반지름
 
 		                  // 이미지 삭제 버튼 생성
 		                  const deleteBtn = document.createElement("button");
@@ -223,33 +250,30 @@
 
 				<div class='formindiv'>
 					<p>대표 사업자 이름</p>
-					<input type="text" name="memName" id="memName"
-						value="${loginUser.memName}" disabled>
+					<input type="text" name="memName" id="memName" value="${loginUser.memName}" disabled>
 				</div>
 
 				<div class='formindiv'>
 					<p>브랜드 이름*</p>
-					<input type="text" name="memNick" id="memNick"
-						value="${loginUser.memNick}">
-					<a class="help">상호명 혹은 기업명을 입력해주세요.</a>
+					<input type="text" name="memNick" id="memNick" value="${loginUser.memNick}">
+					<a class="help">상호명 혹은 기업명을 입력해주세요.(최대 자)</a>
 				</div>
 
 				<div class='formindiv'>
 					<p>E-mail</p>
-					<input type="tel" name="memEmail" id="memEmail"
-						value="${loginUser.memEmail}" disabled>
+					<input type="tel" name="memEmail" id="memEmail" value="${loginUser.memEmail}" disabled>
 				</div>
 				
 				<div class='formindiv'>
 					<p>사업자 등록번호</p>
-					<input type="text" name="entCrn" id="entCrn"
-						value="${loginEnt.entCrn}" disabled>
+					<input type="text" name="entCrn" id="entCrn" value="${loginEnt.entCrn}" disabled>
 				</div>
 				
 				<div class='formindiv'>
 					<p>사업자 연락처*</p>
 					<input type="tel" name="entPhone" id="entPhone"
 						value="${loginEnt.entPhone}">
+						<a class="help">'-' 포함해서 작성해주세요.</a>
 				</div>
 				
 				<div class='formindiv'>
@@ -259,7 +283,7 @@
 					</c:if>
 					<input type="file" name="logoPic" id="logoPic" accept="image/*">
 						<div id="preview1"></div>
-						<a class="help">이미지 해상도 (680 x  280) 권장</a>
+						<a class="help">회사 로고 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				
 				<div class='formindiv'>
@@ -277,6 +301,7 @@
 					<p>자세한 회사 설명</p>
 						<textarea id="entdIntro" name="entdIntro" class="inputTypeLong" maxlength="1000">${loginEnt.entdIntro}</textarea>
                         <div id="IntrocharCount" class="numCount">0/1000</div>
+                        <a class="help">회사 설명에 대한 이미지가 없을 경우 작성해주세요.</a>
 				</div>
 				
 				<div class='formindiv'>
@@ -286,45 +311,48 @@
 					</c:if>
 					<input type="file" name="introPic" id="introPic" accept="image/*" >
 					<div id="preview2"></div>
+					<a class="help">회사 설명 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				
 				<div class='formindiv'>
-					<p>제품 이미지1*</p>
+					<p>제품1 이미지*</p>
 					<c:if test="${loginEnt.entdPic1 ne null}">
 					<input type="text" name="entdPic1" id="entdPic1" value="${loginEnt.entdPic1}" disabled>
 					</c:if>
 					<input type="file" name="dPic1" id="dPic1" accept="image/*" required>
 					<div id="preview3"></div>
+					<a class="help">제품1 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				<div class='formindiv'>
-					<p>제품 이름1*</p>
+					<p>제품1 이름*</p>
 					<textarea name="entdExplain1" id="entdExplain1" class="inputType" maxlength="15" required>${loginEnt.entdExplain1}</textarea>
 					<div id="ExplaincharCount1" class="numCount">0/15</div>
 				</div>
 				<div class='formindiv'>
-					<p>제품 이미지2</p>
+					<p>제품2 이미지</p>
 					<c:if test="${loginEnt.entdPic2 ne null}">
 					<input type="text" name="entdPic2" id="entdPic2" value="${loginEnt.entdPic2}" disabled>
 					</c:if>
 					<input type="file" name="dPic2" id="dPic2" accept="image/*" >
 					<div id="preview4"></div>
+					<a class="help">제품2 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				<div class='formindiv'>
-					<p>제품 이름2</p>
+					<p>제품2 이름</p>
 					<textarea name="entdExplain2" id="entdExplain2" class="inputType" maxlength="15">${loginEnt.entdExplain2}</textarea>
 						<div id="ExplaincharCount2" class="numCount">0/15</div>
 				</div>
 				<div class='formindiv'>
-					<p>제품 이미지3</p>
+					<p>제품3 이미지</p>
 					<c:if test="${loginEnt.entdPic3 ne null}">
 					<input type="text" name="entdPic3" id="entdPic3" value="${loginEnt.entdPic3}" disabled>
 					</c:if>
 					<input type="file" name="dPic3" id="dPic3" accept="image/*" >
-
 					<div id="preview5"></div>
+					<a class="help">제품3 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				<div class='formindiv'>
-					<p>제품 이름3</p>
+					<p>제품3 이름</p>
 					<textarea name="entdExplain3" id="entdExplain3" class="inputType" maxlength="15">${loginEnt.entdExplain3}</textarea>
 						<div id="ExplaincharCount3" class="numCount">0/15</div>
 				</div>
