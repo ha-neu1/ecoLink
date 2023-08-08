@@ -31,8 +31,15 @@
     
     
 }
+
+.image_wrap label{
+    width:600px;
+    height:400px;
+}
+
 .post_tit{
     width: 600px;
+    height: 30px;
     padding-bottom: 20px;
     margin: 0 auto;   
 }

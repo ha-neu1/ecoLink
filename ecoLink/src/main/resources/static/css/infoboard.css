@@ -6,53 +6,12 @@
     font-style: normal;
 }
 
-select {
-	color: #333;
-	margin-right: 10px;
-	padding: 5px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px;
-	font-size: 14px;
-}
-
-select option:checked {
-	background-color: #00D084;
-	color: #fff;
-}
-/* 검색 상자 스타일 */
-.searchBox {
-	display: flex;
-	align-items: center;
-}
-
-.searchbar select {
-	margin-right: 5px;
-	padding: 5px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-}
-
-.searchbar button {
-	margin-left: 5px;
-	padding: 5px 10px;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
-}
-
-.searchbar {
+.searchbar{
 	width: 240px;
 	padding: 5px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
-
-/* .searchbar{
-	width: 200px;
-} */
 .searchbtn{
 	border: none;
 	cursor: pointer;
@@ -68,17 +27,17 @@ select option:checked {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 1200px;
-    height: 150px;
-    font-size: 44px;
-    color: #212529;
-    border-bottom: 1px solid #212529
+    width: 1000px;
+    height: 100px;
+    font-size: 28px;
+    color:  #198754;
+    border-bottom: 3.5px solid #00D084
  
 }
 .info_cata{
     display: flex;
     flex-direction: row;
-    width: 1200px;
+    width: 1000px;
     height: 50px;
     margin: 0 auto;
     justify-content: space-between;
@@ -86,11 +45,18 @@ select option:checked {
     align-items: center;
 }
 
+select {
+	margin-right: 5px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
 .writingform{
 	 display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 1200px;
+    width: 1000px;
     margin: 0 auto;
 }
 
@@ -110,7 +76,7 @@ select option:checked {
 .post_container{
     display: flex;
     align-items: center;
-    width: 1200px;
+    width: 1000px;
     height: 220px;
     margin: 0 auto;
     padding-bottom: 40px;
@@ -120,7 +86,7 @@ select option:checked {
     
 }
 .post_image img{
-    width: 350px;
+    width: 280px;
     height: 175px;
     border-radius: 15px;
 }
@@ -129,7 +95,7 @@ select option:checked {
     
 }
 .post_tit{
-	width:850px;
+	width:650px;
 	
 	margin: 7px 0px;
 }

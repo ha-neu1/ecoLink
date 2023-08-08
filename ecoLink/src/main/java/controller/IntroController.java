@@ -319,6 +319,18 @@ public class IntroController {
 		response.setDateHeader("Expires", 0);
 		
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		
+		BoardDTO boarddto = service.updateViewcountAndGetDetail(boardId);
+        model.addAttribute("detaildto", boarddto);
+        List<FileDTO> files = service.getFilesByBoardId(boardId);
+        List<String> imageUrls = new ArrayList<>();
+
+        for (FileDTO file : files) {
+            imageUrls.add(file.getFilePath());
+
+        }
+        model.addAttribute("imageUrls", imageUrls);
+		
 		model.addAttribute("user", user);
 		model.addAttribute("boardId", boardId);// Model에 사용자 정보를 추가) {
 		return "infoeditform";
