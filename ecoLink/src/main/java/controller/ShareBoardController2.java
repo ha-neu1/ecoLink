@@ -89,6 +89,7 @@ public class ShareBoardController2 {
 		if (endpage > totalPage) {
 			endpage = totalPage;
 		}
+		mv.addObject("logininfo", dto);
 		mv.addObject("currentCpage", page);
 		mv.addObject("user", dto);
 		mv.addObject("totalPage", totalPage);

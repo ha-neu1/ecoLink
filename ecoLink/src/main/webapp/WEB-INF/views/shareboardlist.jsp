@@ -41,6 +41,7 @@
 			<div class="searchBox">
 				<input type="text" id="searchtext" placeholder="제목으로 검색">
 				<button onclick="search()">검색</button>
+				<c:if test="${not empty logininfo}"><button onclick="gowrite()">글 작성</button></c:if>
 			</div>
 		</div>
 
@@ -166,7 +167,11 @@
 					+ "&search=" + value;
 		}
 	}
-
+	
+	function gowrite() {
+		location.href = "/sharewriting";
+	}
+	
 	function opendetail(e) {
 		location.href = "/sharepostdetail?boardId=" + e;
 	}
