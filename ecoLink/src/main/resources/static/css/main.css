@@ -171,140 +171,96 @@ to {
 	display: block;
 }
 
-/* 카드리스트 */
-.mainPromo {
-	margin: 80px auto; /*위아래 마진80px 좌우 자동*/
-	min-width: 1300px;
-	text-align: center;
-}
-
 /* 게시판 제목 및 페이지 이름 스타일 */
 .board_title {
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    align-items: center;
+    margin: 20px auto;
+    width: 1000px;
+    height: 100px;
+    font-size: 28px;
+    color: #198754;
+    border-bottom: 3.5px solid #00D084;
 }
 
-.page_name strong {
-    font-size: 24px;
-    color: #00D084;
+.board_area {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 20px;
 }
 
-div.card {
-	background: white;
-	display: inline-block;
-	margin: 8px;
-	max-width: 350px;
-	position: relative;
-	text-align: left;
-	width: 350px;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-	z-index: 1;
-	border-radius: 5px;
-}
-
-.card__image {
-	max-width: 350px;
-	height: 150px;
-	object-fit: cover; /* 비율을 유지하면서 이미지를 표시 */
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-}
-
-.card__image-holder {
-	height: 150px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-}
-
-div.card-title {
-	padding: 6px 15px 10px;
-	position: relative;
-	border-top : 1px solid gray;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-	
-}
-
-.brandUrl:hover {
-	color : #008252;
-}
-
-h2 {
-	font-size: 24px;
-	font-weight: 700;
-	letter-spacing: -0.05em;
-	margin: 0;
-	padding: 0;
-}
-
-small {
-	display: block;
-	font-size: 15px;
-	font-weight: 300;
-	letter-spacing: -0.025em;
-	margin-top: 5px;
-}
-
-/*후기*/
-/* 게시물 목록 스타일 */
 .boardMain {
-	min-width: 1300px;
-	text-align: center;
-	background-color: #dcfff2;
-	padding: 40px 0px 80px 0px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+	position: relative;
+	margin-bottom: 50px;
 }
 
-/* 개별 게시물 항목 스타일 */
 .boardList {
-	display: inline-block;
-	max-width: 280px;
+	position: relative;
+	flex: 0 0 calc(33.33% - 25.5px);
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px;
-	margin: 8px;
-	position: relative;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-	text-align: left;
-	background-color: #fff;
 }
 
-.boardTitle {
-	padding-bottom: 5px;
-	font-size: 25px;
-	white-space: nowrap;
+.entdShort p {
+	width: 296px;
 	overflow: hidden;
 	text-overflow: ellipsis;
-}
-
-.boardDate {
-	font-size: 13px;
-	border-bottom: 1px solid #ccc;	
-}
-
-.boardCont {
-	overflow: hidden;
-	text-overflow: ellipsis;
+	word-break: break-all;
 	white-space: normal;
-	line-height: 1.2;
-	height: 2.4em;
 	word-wrap: break-word;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	border-top: 1px solid #ccc;
-	padding-top: 15px;
+}
+
+.entdShort p:hover {
+	color: #00D084;
+	cursor: pointer;
+}
+
+.boardList h3, .boardList h4, .boardList p {
+	margin: 0;
+	padding: 0;
+}
+
+.titlerate {
+	display: flex;
+	padding: 0;
+}
+
+.titlerate a {
+	font-weight: bold;
+	font-size: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.titlerate a:hover {
+	color: #00D084;
 }
 
 .boardList .memId {
-	font-size: 15px;
 	font-weight: bold;
-	padding-bottom: 5px;
 }
 
-.boardList .boardImage {
-	width: 280px;
-	height: 320px;
+.boardList {
+	width: 100%;
+	height: auto;
 	margin-bottom: 5px;
+	border-bottom: 1px solid #ccc;
 }
+
+ .boardImage {
+	width: 100%;
+	height: 150px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+ }

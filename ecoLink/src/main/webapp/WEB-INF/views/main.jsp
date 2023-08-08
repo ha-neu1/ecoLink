@@ -28,19 +28,19 @@
 
 	<div class="mainIcon">
 		<ul>
-			<li><a href="http://localhost:8070/introboard">
+			<li><a href="/introboard">
 					<div class="image-container">
 						<img alt="업사이클링 정보" src="images/information.png"> <span
 							class="image-text">업사이클링 정보</span>
 					</div>
 			</a></li>
-			<li><a href="http://localhost:8070/brandpromolist">
+			<li><a href="/brandpromolist">
 					<div class="image-container">
 						<img alt="브랜드 소개" src="images/promotion.png"> <span
 							class="image-text">브랜드 소개</span>
 					</div>
 			</a></li>
-			<li><a href="http://localhost:8070/board">
+			<li><a href="/sharepostdetail">
 					<div class="image-container">
 						<img alt="커뮤니티" src="images/community.png"> <span
 							class="image-text">커뮤니티</span>
@@ -60,57 +60,68 @@
 	</div>
 
 
+		
 
-	<div class="mainPromo">
-		<div class="board_title">
-			<div class="page_name">
-				<strong>브랜드 소개</strong>
-			</div>
-		</div>
-		<c:forEach var="brand" items="${brandlist}" varStatus="loop">
+	<div class="board_area">
+		<div class="board_title">BRANDS</div>
+		<div class="boardMain">
+			<c:forEach items="${brandlist}" var="brand" varStatus="loop">
 			<c:if test="${loop.index < 3}">
-				<a
-					href="http://localhost:8070/brandpromodetail?entCrn=${brand.entCrn }">
-					<div class="card">
-						<div class="card__image-holder">
-							<img class="card__image" src="${brand.entdMainPic }"
-								onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';" />
-						</div>
-						<div class="card-title">
-							<h2>${brand.memNick }</h2>
-							<a class="brandUrl" href="${brand.entdURL }"><small>${brand.entdURL }</small></a>
+				<div class="boardList">
+					<div class="titlerate">
+						<div class="titlenamediv">
+							<a class="titlename"
+								href="/brandpromodetail?entCrn=${brand.entCrn }">${brand.memNick}</a>
 						</div>
 					</div>
-				</a>
-			</c:if>
-		</c:forEach>
+					<hr style="margin-top: 3px; margin-bottom: 5px;">
+					<a href="/brandpromodetail?entCrn=${brand.entCrn}"><img
+						class="boardImage" src="${brand.entdMainPic}"
+						onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
+					<hr style="margin-bottom: 5px;">
+					<div class="entdShort">
+						<p class="boardCont" onclick="opendetail('${brand.entCrn}')">${brand.entdShort}</p>
+					</div>
+				</div>
+				</c:if>
+			</c:forEach>
 	</div>
-
-	<div class="boardMain">
-		<div class="board_title">
-			<div class="page_name">
-				<strong>본인 제품 공유</strong>
-			</div>
-		</div>
-		<c:forEach var="board" items="${boardlist}" varStatus="loop">
-			<c:if test="${loop.index < 3}">
-				<a href="http://localhost:8070/boardRead?boardId=${board.boardId }">
+	
+		<div class="board_title">SHARE</div>
+		<div class="boardMain">
+			<c:forEach items="${boardlist}" var="board" varStatus="loop">
+				<c:if test="${loop.index < 3}">
 					<div class="boardList">
-						<h3 class="memId">${board.memId}</h3>
-						<h4 class="boardTitle">${board.boardTitle}</h4>
-						<p class="boardDate">
-							<fmt:parseDate value="${board.boardRegtime}"
-								pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
-							<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
-						</p>
-						<img class="boardImage" src="${board.filePath }"
-							onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
-						<p class="boardCont">${board.boardContents}</p>
+						<div class="titlerate">
+							<div class="titlenamediv">
+								<a class="titlename"
+									href="/sharepostdetail?boardId=${board.boardId }">${board.boardTitle}</a>
+							</div>
+						</div>
+						<hr style="margin-top: 3px; margin-bottom: 5px;">
+						<a href="/sharepostdetail?boardId=${board.boardId}"><img
+							class="boardImage" src="${board.filePath}"
+							onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
+						<hr style="margin-bottom: 5px;">
+						<div class="entdShort">
+							<p class="boardCont" onclick="opendetail('${board.boardId}')">${board.boardContents}</p>
+						</div>
 					</div>
-				</a>
-			</c:if>
-		</c:forEach>
+				</c:if>
+			</c:forEach>
+		</div>
 	</div>
-	<%@ include file="footer.jsp"%>
+		<script type="text/javascript">
+			function opendetail(e) {
+				location.href = "/brandpromodetail?entCrn=" + e;
+			}
+			function opendetail(b) {
+				location.href = "/sharepostdetail?boardId=" + b;
+			}
+		</script>
+
+
+
+		<%@ include file="footer.jsp"%>
 </body>
 </html>

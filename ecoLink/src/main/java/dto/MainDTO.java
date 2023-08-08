@@ -1,7 +1,7 @@
 package dto;
 
 public class MainDTO {
-	String entCrn, memId, entdMainPic, memNick, entdURL;
+	String entCrn, memId, entdMainPic, entdShort, memNick, entdURL;
 
 	int boardId;
 	String boardTitle, filePath;
@@ -30,6 +30,14 @@ public class MainDTO {
 
 	public void setEntdMainPic(String entdMainPic) {
 		this.entdMainPic = entdMainPic;
+	}
+
+	public String getEntdShort() {
+		return entdShort;
+	}
+
+	public void setEntdShort(String entdShort) {
+		this.entdShort = entdShort;
 	}
 
 	public String getMemNick() {
@@ -72,6 +80,14 @@ public class MainDTO {
 		this.filePath = filePath;
 	}
 
+	public int getBoardViewCount() {
+		return boardViewCount;
+	}
+
+	public void setBoardViewCount(int boardViewCount) {
+		this.boardViewCount = boardViewCount;
+	}
+
 	public String getBoardContents() {
 		return boardContents;
 	}
@@ -86,6 +102,14 @@ public class MainDTO {
 
 	public void setBoardRegtime(String boardRegtime) {
 		this.boardRegtime = boardRegtime;
+	}
+
+	public String getBoardUpdateTime() {
+		return boardUpdateTime;
+	}
+
+	public void setBoardUpdateTime(String boardUpdateTime) {
+		this.boardUpdateTime = boardUpdateTime;
 	}
 
 	public String getBoardType() {
