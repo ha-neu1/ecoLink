@@ -525,7 +525,7 @@ $(document).ready(function() {
                                             </td>
                                         </tr>
                                         <tr id="entd_Short" style="display: none">
-                                            <th>간단한 회사 설명</th>
+                                            <th>간단한 회사 소개</th>
                                             <td>
                                                 <textarea id="entdShort" name="entdShort" class="inputTypeLong" maxlength="255"></textarea>
                                                 <div id="shortCharCount">0/255</div>
@@ -538,17 +538,18 @@ $(document).ready(function() {
                                             </td>
                                         </tr>
                                         <tr id="entd_IntroPic" style="display: none">
-                                            <th>회사 설명 이미지</th>
+                                            <th>회사 소개 이미지</th>
                                             <td>
                                                 <input id="entdIntroPic" name="entdIntroPic" class="inputTypeImage" type="file" accept="image/*">
                                                 <div id="preview2"></div>
                                             </td>
                                         </tr>
                                         <tr id="entd_Intro" style="display: none">
-                                            <th>자세한 회사 설명</th>
+                                            <th>자세한 회사 소개</th>
                                             <td>
                                                 <textarea id="entdIntro" name="entdIntro" class="inputTypeLong" maxlength="1000"></textarea>
                                                 <div id="IntrocharCount">0/1000</div>
+                                                <p class="help">회사 소개 이미지가 없을 경우 작성해주세요.</p>
                                             </td>
                                         </tr>
                                         <tr id="entd_Pic1" style="display: none">

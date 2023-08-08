@@ -13,10 +13,15 @@
 		const pw = document.getElementById("memPw");
 		
 		function isPasswordValid(password) {
-	         // 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자
-	         const regex = /^(?=.*[a-zA-Z])(?=.*\d|\W).{8,16}$/;
-	         return regex.test(password);
-	     }
+			// 조건 1: 영문대소문자 + 숫자 조합
+			const regex1 = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+			// 조건 2: 영문대소문자 + 특수문자 조합
+			const regex2 = /^(?=.*[a-zA-Z])(?=.*[\W_]).{8,16}$/;
+			// 조건 3: 숫자 + 특수문자 조합
+			const regex3 = /^(?=.*\d)(?=.*[\W_]).{8,16}$/;
+			
+			return regex1.test(password) || regex2.test(password) || regex3.test(password);
+		}
 		
 		// 다른 곳 클릭 시 비밀번호 유효성 검사
 		$(pw).on('blur', function() {
