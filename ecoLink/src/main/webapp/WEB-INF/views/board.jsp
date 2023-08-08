@@ -35,7 +35,7 @@
 			<div class="searchBox">
 				<input type="text" placeholder="검색어를 입력하세요">
 				<button class="button">검색</button>
-				<a href="/boardCreate"><button class="button">글쓰기</button></a>
+				<a href="reviewwriting"><button class="button">글쓰기</button></a>
 			</div>
 		</div>
 		<div class="boardMain">

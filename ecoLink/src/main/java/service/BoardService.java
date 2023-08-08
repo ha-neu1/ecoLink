@@ -1,6 +1,7 @@
 package service;
 
 import dto.BoardDTO;
+import dto.FileDTO;
 
 import java.util.List;
 
@@ -32,4 +33,13 @@ public interface BoardService {
 
 	// 조회수 조회
 	int getBoardViewCount(int boardId);
+	
+	public int insertBoard(BoardDTO boardDTO);
+
+	public int insertFile(FileDTO dto);
+
+	public int getGeneratedBoardId();
+
+	public List<FileDTO> getFilesByBoardId(int boardId);
+
 }

@@ -2,6 +2,7 @@ package service;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
+import dto.FileDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -103,4 +105,85 @@ public class BoardServiceImpl implements BoardService {
     public int getBoardViewCount(int boardId) {
         return boardDAO.getBoardViewCount(boardId);
     }
+
+	
+	@Override
+	public int insertBoard(BoardDTO dto) {
+		int insertCount = boardDAO.insertBoard(dto);
+		int boardId = boardDAO.getGeneratedBoardId(); // 보드를 삽입한 후 생성된 boardId 가져오기
+		dto.setBoardId(boardId); // 나중에 파일 삽입에 사용할 수 있도록 DTO에 boardId를 설정
+		return insertCount;
+	}
+	@Override
+	public int insertFile(FileDTO dto) {
+		return boardDAO.insertFile(dto);
+	}
+
+	@Override
+	public int getGeneratedBoardId() {
+		return boardDAO.getGeneratedBoardId();
+	}
+
+	private void setFirstImageUrls(List<BoardDTO> boardList) {
+		for (BoardDTO dto : boardList) {
+			List<FileDTO> files = boardDAO.getFilesByBoardId(dto.getBoardId());
+			if (files != null && !files.isEmpty()) {
+				FileDTO firstFile = files.get(0);
+				String imagePath = firstFile.getFilePath();
+				String imageName = firstFile.getFileName();
+
+				if (imagePath.startsWith("c:/kdt/upload/")) {
+					imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
+				}
+				else if(imagePath.startsWith("/usr/mydir/upload/")) {
+					imagePath = imagePath.replaceFirst("/usr/mydir/upload/", "/upload/");
+				}
+
+				//// 이미지 이름에서 "(UUID)" 부분을 제거합니다
+				int indexOfOpeningParenthesis = imageName.indexOf("(");
+				if (indexOfOpeningParenthesis != -1) {
+					imageName = imageName.substring(0, indexOfOpeningParenthesis);
+				}
+
+				String imageUrl = imagePath + "/";
+				dto.setFirstImageUrl(imageUrl);
+			} else {
+				// 이미지 없을때
+				dto.setFirstImageUrl("/upload/noimage.png");
+			}
+		}
+	}
+
+	
+	@Override
+	public List<FileDTO> getFilesByBoardId(int boardId) {
+		List<FileDTO> files = boardDAO.getFilesByBoardId(boardId);
+
+		if (files == null || files.isEmpty()) {
+			// 이미지없을때
+			FileDTO defaultImage = new FileDTO();
+			defaultImage.setFilePath("/upload/noimage.png");
+			files = Collections.singletonList(defaultImage);
+		} else {
+
+			for (FileDTO file : files) {
+				String imagePath = file.getFilePath();
+
+				// "c:/kdt/upload/", "/upload/"
+				if (imagePath.startsWith("c:/kdt/upload/")) {
+					imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
+				}
+				else if (imagePath.startsWith("/usr/mydir/upload/")) {
+					imagePath = imagePath.replaceFirst("/usr/mydir/upload/", "/upload/");
+				}
+
+				file.setFilePath(imagePath);
+			}
+		}
+
+		return files;
+	}
+	
+    
+    
 }

@@ -15,7 +15,7 @@
 <%@ include file="chatbot.jsp"%>
 </head>
 <body>
-	<form id="post_form" action="infowriting" method="post"
+	<form id="post_form" action="boardcrate" method="post"
 		enctype="multipart/form-data">
 		<div class="image_wrap">
 			<label for="image_file" class="image_file_zone" id="image_file_zone">

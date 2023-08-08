@@ -108,9 +108,6 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		return dao.insertFile(dto);
 	}
 
-	
-	
-
 	@Override
 	public int getGeneratedBoardId() {
 		return dao.getGeneratedBoardId();
