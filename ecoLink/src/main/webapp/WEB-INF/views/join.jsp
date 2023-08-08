@@ -17,6 +17,7 @@ $(document).ready(function() {
 	  const join_pw_confirm = document.getElementById("memPw_confirm");
 	  const join_email = document.getElementById("memEmail");
 	  const join_name = document.getElementById("memName");
+	  const join_nick = document.getElementById("memNick");
 
     // memberPw 입력란 클릭 시 이벤트 처리
 	  $(document).on('click', '#memPw', function(e) {
@@ -32,11 +33,18 @@ $(document).ready(function() {
 	    }
 	  });
 
-     function isPasswordValid(password) {
-         // 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자
-         const regex = /^(?=.*[a-zA-Z])(?=.*\d|\W).{8,16}$/;
-         return regex.test(password);
-     }
+	function isPasswordValid(password) {
+		// 조건 1: 영문대소문자 + 숫자 조합
+		const regex1 = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+		
+		// 조건 2: 영문대소문자 + 특수문자 조합
+		const regex2 = /^(?=.*[a-zA-Z])(?=.*[\W_]).{8,16}$/;
+		
+		// 조건 3: 숫자 + 특수문자 조합
+		const regex3 = /^(?=.*\d)(?=.*[\W_]).{8,16}$/;
+		
+		return regex1.test(password) || regex2.test(password) || regex3.test(password);
+	}
      
 	 // 다른 곳 클릭 시 비밀번호 유효성 검사
 	$(join_pw).on('blur', function() {
@@ -113,14 +121,14 @@ $(document).ready(function() {
 	      if (join_pw_confirm.value.trim() === "") {
 	          emptyFields.push("비밀번호 확인");
 	      }
-	      if (join_email.value.trim() === "") {
-	          emptyFields.push("이메일");
-	      }
 	      if (join_name.value.trim() === "") {
 	          emptyFields.push("이름");
 	      }
-	      if (join_name.value.trim() === "") {
+	      if (join_nick.value.trim() === "") {
 	          emptyFields.push("닉네임");
+	      }
+	      if (join_email.value.trim() === "") {
+	          emptyFields.push("이메일");
 	      }
 
 	      // 기업회원인 경우 추가 필드에 대한 빈칸 확인
@@ -408,7 +416,7 @@ $(document).ready(function() {
                                             <th scope="row">비밀번호*</th>
                                             <td>
                                                 <div class="eTooltip">
-                                                    <input id="memPw" name="memPw" autocomplete="off" maxlength="16" 0="disabled" value="" type="password">
+                                                    <input id="memPw" name="memPw" autocomplete="off" maxlength="16" value="" type="password">
                                                     <!-- <div class="ec-base-tooltip typeUpper">
                                                         <div class="content">
                                                             <strong class="txtWarn">※ 비밀번호 입력 조건</strong>

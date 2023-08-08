@@ -196,3 +196,32 @@ table tr.mobile td [name^="mobile"] {
     margin-bottom: 1rem;
 }
 /*여기까지 회원가입, 회원정보찾기창 공통*/
+
+input[type="text"]:focus {
+	border: 2px solid #00d084;
+	outline: 0;
+}
+input[type="text"]:disabled {
+    background: #F0F0F0;
+}
+input[type="password"]:focus {
+	border: 2px solid #00d084;
+	outline: 0;
+}
+input[type="password"]:disabled {
+    background: #F0F0F0;
+}
+select:focus {
+	border: 2px solid #00d084;
+	outline: 0;
+}
+selecet:disabled {
+    background: #F0F0F0;
+}
+textarea:focus {
+	border: 2px solid #00d084;
+	outline: 0;
+}
+textarea:disabled {
+    background: #F0F0F0;
+}
