@@ -91,18 +91,8 @@ hr.hr_bold {
     border-radius: 5px;
 }
 
-.searchBox button {
-    margin-left: 5px;
-    padding: 5px 10px;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #00D084;
-}
-
 /* 글쓰기 버튼 스타일 */
-#addButton {
+.button {
     padding: 5px 10px;
     color: #fff;
     border: none;

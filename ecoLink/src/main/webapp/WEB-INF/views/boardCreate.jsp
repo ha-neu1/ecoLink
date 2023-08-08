@@ -1,35 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/infowritingform.css">
-    <title>게시물 작성</title>
-    <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
-    <%@ include file="header.jsp"%>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/infowritingform.css">
+<title>게시물 작성</title>
+<script src="https://kit.fontawesome.com/7aca531ae5.js"
+	crossorigin="anonymous"></script>
+<%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
-    <form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">
-        <div class="image_wrap">
-            <label for="image_file" class="image_file_zone" id="image_file_zone">
-                <div class="image_fileholder" id="image_fileholder">사진추가</div>
-            </label>
-            <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
-        </div>
-        <div class="post_tit">
-            <input type="text" class="tit" name="boardTitle" placeholder="제목을 입력하세요.">
-        </div>
-        <div class="post_contents">
-            <textarea class="contents" name="boardContents" placeholder="내용을 입력하세요."></textarea>
-        </div>
-        <input type="hidden" name="boardType" value="share">
-        <div class="post_btn">
-            <button type="submit" id="submit_btn">작성하기</button>
-        </div>  
-    </form>
-   
-    <script>
+	<form id="post_form" action="infowriting" method="post"
+		enctype="multipart/form-data">
+		<div class="image_wrap">
+			<label for="image_file" class="image_file_zone" id="image_file_zone">
+				<div class="image_fileholder" id="image_fileholder">사진추가</div>
+			</label> <input type="file" id="image_file" class="image_file" name="files"
+				multiple="multiple" accept="image/*" hidden>
+		</div>
+		<div class="post_tit">
+			<input type="text" class="tit" name="boardTitle"
+				placeholder="제목을 입력하세요.">
+		</div>
+		<div class="post_contents">
+			<textarea class="contents" name="boardContents"
+				placeholder="내용을 입력하세요."></textarea>
+		</div>
+		<input type="hidden" name="boardType" value="share">
+		<div class="post_btn">
+			<button class="button" type="submit" id="submit_btn">작성하기</button>
+		</div>
+	</form>
+
+	<script>
     
         // 이미지 미리보기 관련 스크립트
         (function imageView(image_fileholder, image_file) {
@@ -156,4 +164,7 @@
         })('image_fileholder', 'image_file');
     </script>
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>

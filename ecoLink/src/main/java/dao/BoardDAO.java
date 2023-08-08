@@ -30,4 +30,10 @@ public interface BoardDAO {
 
 	// 게시물 삭제
 	int deleteBoard(int boardId);
+	
+	// 조회수 증가
+	void increaseViewCount(int boardId);
+	
+	// 조회수 조회
+	int getBoardViewCount(int boardId);
 }
