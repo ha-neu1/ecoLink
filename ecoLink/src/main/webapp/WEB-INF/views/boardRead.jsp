@@ -43,11 +43,11 @@
 				<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
 			</p>
 			<div class="viewCnt">조회수${board.boardViewCount}</div>
-			<%-- <c:if test="${board.memId eq user.memId}"> --%>
+			<c:if test="${board.memId eq user.memId}">
 			<!-- 로그인한 사용자와 게시물 작성자가 같을 경우에만 표시 -->
 			<button class="button" onclick="boardUpdate(${board.boardId})">수정</button>
-			<button class="button" onclick="boardDelete(${board.boardId})">삭제</button>
-			<%-- </c:if> --%>
+			<button class="button" onClick="deleteConfirmation(${board.boardId})">삭제</button>
+			</c:if>
 			<img class="boardImage" src="${board.filePath}"
 				onerror="this.onerror=null; this.src='https://source.unsplash.com/300x225/?beach';">
 			<p class="boardCont">${board.boardContents}</p>
@@ -58,18 +58,35 @@
 	<script src="/js/board.js" defer type="module"></script>
 	<script>
 	function boardUpdate(boardId) {
-	    if (boardId) {
-	        window.location.href = `/boardUpdate?boardId=${boardId}`;
+	    if (boardId != 0) {
+	    	window.location.href = "/boardUpdate/" + boardId;
 	    } else {
 	        alert("게시물 ID가 유효하지 않습니다.");
 	    }
 	}
 
-function boardDelete(boardId) {
-    if (confirm("게시물을 삭제하시겠습니까?")) {
-    	location.href = `/boardDelete/${boardId}`;
-    }
-}
+	function deleteConfirmation(boardId) {
+	    if (confirm("게시물을 삭제하시겠습니까?")) {
+	        deleteBoard(boardId);
+	    }
+	}
+
+	function deleteConfirmation(boardId) {
+	    if (confirm("게시물을 삭제하시겠습니까?")) {
+	        $.ajax({
+	            type: "POST",
+	            url: "/deleteBoard/" + boardId,
+	            success: function () {
+	                alert("게시물이 삭제되었습니다.");
+	                location.href = "/board";
+	            },
+	            error: function () {
+	                alert("게시물 삭제에 실패했습니다.");
+	            }
+	        });
+	    }
+	}
+
 </script>
 </body>
 <footer>

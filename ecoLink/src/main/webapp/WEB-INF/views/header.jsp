@@ -5,15 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="../js/jquery-3.6.4.min.js"></script>
-<script src="js/header.js" defer></script>
-<link rel="stylesheet" href="css/header.css">
+<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="/js/header.js" defer></script>
+<link rel="stylesheet" href="/css/header.css">
 <title>Insert title here</title>
 </head>
 <body>
 	<nav class="navbar">
 		<div class="navbarLogo">
-			<a href="/main"> <img alt="로고" src="images/logo1.png">
+			<a href="/main"> <img alt="로고" src="/images/logo1.png">
 			</a>
 		</div>
 		<ul class="navbarMenu">
