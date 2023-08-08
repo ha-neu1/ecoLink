@@ -31,6 +31,16 @@ public class ReviewBoardController2 {
 		int limitindex = (page - 1) * 9;
 		int limitcount = 9;
 		int totalList = 0;
+		String os = System.getProperty("os.name").toLowerCase();
+
+		String savePath = "";
+		if (os.contains("win")) {
+			savePath = "SUBSTRING_INDEX(filepath, 'c:/kdt', -1)";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir";
+		} else {
+			savePath = "c:";
+		}
 		HashMap<String, Object> clistmap = new HashMap<String, Object>();
 		clistmap.put("limitindex", limitindex);
 		clistmap.put("limitcount", limitcount);
