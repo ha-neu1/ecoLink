@@ -23,26 +23,34 @@
 	align-items: center;
 }
 
-.date_views {
-	display: flex;
-	flex-direction: row;
-}
-
 .user_image {
-	font-size: 30px;
+	font-size: 35px;
 	padding: 10px;
 }
 
+.nickname_date_views {
+	width: 200px;
+	margin-top: -3px;
+}
+
 .nickname {
-	font-size: 15px;
+	font-size: 17px;
 }
 
 .date_views {
+	display: flex;
+	flex-direction: row;
 	font-size: 12px;
+	margin-top:3px;
 }
 
 .date {
 	padding-right: 5px;
+}
+
+.views {
+	width: 40px;
+	margin-left: 10px;
 }
 
 .like button {
