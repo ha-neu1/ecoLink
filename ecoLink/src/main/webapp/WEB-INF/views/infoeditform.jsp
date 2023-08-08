@@ -15,15 +15,20 @@
     <form id="post_form" action="infoeditform" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
          <label for="image_file" class="image_file_zone" id="image_file_zone">
-            <div class="image_fileholder" id="image_fileholder">사진추가</div>
+            <div class="image_fileholder" id="image_fileholder">
+
+            
          </label>
-         <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
+         <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden />
+         <c:forEach var="imageUrl" items="${imageUrls}">
+				<li><img src="${imageUrl}" alt=""></li>
+			</c:forEach>
     </div>
     <div class="post_tit">
-        <input type="text" class="tit" name="boardTitle" placeholder=" 제목을 입력하세요.">
+        <input type="text" class="tit" name="boardTitle" value="${detaildto.boardTitle}">
     </div>
     <div class="post_contents">
-        <textarea class="contents" name="boardContents" placeholder=" 내용을 입력하세요."></textarea>
+        <textarea class="contents" name="boardContents">${detaildto.boardContents}</textarea>
     </div>
     <div class="post_btn">
     <input type="hidden" name="boardId" value="${boardId}" />

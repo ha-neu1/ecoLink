@@ -127,6 +127,17 @@
 		join member as m on e.memId = m.memId
 		where e.entdConfirm = true and m.memNick like CONCAT('%',#{memNick},'%');
 	</select>
+	
+	<select id="getAllBrandComments" parameterType="hashmap"
+		resultType="brandCommentDto">
+		select b.brcId, b.brcRate, b.brcContents, b.brcRegtime,
+		b.brcUpdateTime, b.entCrn, b.memId, m.memNick
+		from brand_comment as b
+		join member as m on m.memId = b.memId
+		where entCrn = #{entCrn}
+		order by
+		b.brcRegtime desc;
+	</select>
 
 
 </mapper>

@@ -41,12 +41,12 @@
 		<div class="boardMain">
 			<c:forEach var="board" items="${boardlist}" varStatus="loop">
 				<div class="boardList">
-					<a href="http://localhost:8070/boardRead?boardId=${board.boardId}">
+					<a href="http://localhost:8070/share/boardRead?boardId=${board.boardId}">
 						<h3 class="memId">${board.memId}</h3>
 						<h4 class="boardTitle">${board.boardTitle}</h4>
 					</a>
 					<button class="like_button"></button>
-					<a href="http://localhost:8070/boardRead?boardId=${board.boardId}">
+					<a href="http://localhost:8070/share/boardRead?boardId=${board.boardId}">
 						<p class="boardDate">
 							<fmt:parseDate value="${board.boardRegtime}"
 								pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />

@@ -2,6 +2,7 @@ package service;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
+import dto.BoardLikeDTO;
 import dto.FileDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,6 +185,24 @@ public class BoardServiceImpl implements BoardService {
 		return files;
 	}
 	
-    
+	@Override
+    public int countLikes(int boardId) {
+        return boardDAO.countLikes(boardId);
+    }
+
+    @Override
+    public void deleteLike(BoardLikeDTO likeDTO) {
+        boardDAO.deleteLike(likeDTO);
+    }
+
+    @Override
+    public boolean hasLiked(BoardLikeDTO likeDTO) {
+        return boardDAO.hasLiked(likeDTO);
+    }
+
+    @Override
+    public void insertLike(BoardLikeDTO likeDTO) {
+        boardDAO.insertLike(likeDTO);
+    }
     
 }

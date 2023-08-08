@@ -15,13 +15,12 @@
 <%@ include file="chatbot.jsp"%>
 </head>
 <body>
+	<div class="board_title">
+		<div class="info_title">BRANDS</div>
+	</div>
 	<div class="board_area">
-		<div class="board_title">
-			<div class="page_name">
-				<strong>브랜드 홍보 게시판</strong>
-			</div>
-		</div>
-		<hr class="hr_bold">
+		
+		<!-- <hr class="hr_bold"> -->
 
 		<div class="search_container">
 			<div class="boardSort">

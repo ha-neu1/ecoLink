@@ -52,6 +52,11 @@ public class BrandPromoServiceImpl implements BrandPromoService {
 	public List<BrandCommentDTO> getAllBrandComment(HashMap<String, Object> clistmap) {
 		return dao.getAllBrandComment(clistmap);
 	}
+	
+	@Override
+	public List<BrandCommentDTO> getAllBrandComments(HashMap<String, Object> clistmap) {
+		return dao.getAllBrandComments(clistmap);
+	}
 
 	@Override
 	public int getCommentCount(String entCrn) {

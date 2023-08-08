@@ -10337,6 +10337,10 @@ td {
     position : sticky;
 }
 
+.modalBoxes img {
+	height:700px;
+}
+
 .entdPic{
     height: 300px; 
 }

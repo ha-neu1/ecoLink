@@ -15,6 +15,7 @@ public interface BrandPromoService {
 	public double getCommentAvgRate(String entCrn);
 	public int insertBrandComment(BrandCommentDTO bdto);
 	public List<BrandCommentDTO> getAllBrandComment(HashMap<String, Object> clistmap);
+	public List<BrandCommentDTO> getAllBrandComments(HashMap<String, Object> clistmap);
 	public int getCommentCount(String entCrn);
 	public int deleteBrandComment(String entCrn, String memId);
 	public int updateBrandComment(BrandCommentDTO bdto);
