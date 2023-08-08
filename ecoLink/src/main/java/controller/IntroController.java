@@ -50,7 +50,7 @@ public class IntroController {
 		response.setDateHeader("Expires", 0);
 
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
-		model.addAttribute("user", user); // Model에 사용자 정보를 추가) {
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가)
 		return "introboard";
 	}
 
@@ -302,22 +302,12 @@ public class IntroController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("insertcount", insertcount);
 
-		int totalBoard = service.getTotalBoard();
-		mv.addObject("totalBoard", totalBoard);
-
-		// 게시물 목록 조회 로직
-		int limitcount = 5;
-		int limitindex = (page - 1) * limitcount;
-		int limit[] = new int[2];
-		limit[0] = limitindex;
-		limit[1] = limitcount;
 		
-		List<BoardDTO> boardList = service.boardListRecent(limit);
 		
 		// 최신순으로 게시물 목록을 가져오는 로직
 		mv.addObject("user", dto);
-		mv.addObject("insertcount", insertcount);
-		mv.addObject("boardList", boardList);
+		
+		
 		mv.setViewName("redirect:/infoboardlist");
 		return mv;
 	}
@@ -329,6 +319,18 @@ public class IntroController {
 		response.setDateHeader("Expires", 0);
 		
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		
+		BoardDTO boarddto = service.updateViewcountAndGetDetail(boardId);
+        model.addAttribute("detaildto", boarddto);
+        List<FileDTO> files = service.getFilesByBoardId(boardId);
+        List<String> imageUrls = new ArrayList<>();
+
+        for (FileDTO file : files) {
+            imageUrls.add(file.getFilePath());
+
+        }
+        model.addAttribute("imageUrls", imageUrls);
+		
 		model.addAttribute("user", user);
 		model.addAttribute("boardId", boardId);// Model에 사용자 정보를 추가) {
 		return "infoeditform";

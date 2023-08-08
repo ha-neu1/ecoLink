@@ -1,43 +1,105 @@
-/*document.addEventListener("DOMContentLoaded", function() {
-    // 현재 URL에서 'id' 파라미터 값을 가져옴
-    const url = new URL(window.location.href);
-    const postQueStr = url.searchParams;
-    const i = postQueStr.get('id');
+document.addEventListener('DOMContentLoaded', () => {
+    const commentForm = document.getElementById('boardComment');
+    commentForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        
+        const formData = new FormData(commentForm);
+        const boardId = formData.get('boardId');
+        const newComment = formData.get('comment');
+        
+        if (newComment.trim() === '') {
+            alert('댓글 내용을 입력해주세요.');
+            return;
+        }
+        
+        // 서버로 댓글 등록 요청 및 처리
+        const response = await fetch(`/createComment/${boardId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ bcContents: newComment }),
+        });
+        
+        if (response.ok) {
+            // 댓글 등록 성공 시 화면 갱신
+            location.reload();
+        } else {
+            alert('댓글 등록에 실패하였습니다.');
+        }
+    });
 
-    // 로컬 스토리지에서 게시물 정보 가져오기
-    let postJson = localStorage.getItem("post");
-    let postInfo = JSON.parse(postJson);
+    const replyForms = document.querySelectorAll('#replyComment');
+    replyForms.forEach((form) => {
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const formData = new FormData(form);
+            const boardId = formData.get('boardId');
+            const bcRef = formData.get('bcRef');
+            const newReply = formData.get('reply');
+            
+            if (newReply.trim() === '') {
+                alert('답글 내용을 입력해주세요.');
+                return;
+            }
+            
+            // 서버로 답글 등록 요청 및 처리
+            const response = await fetch(`/createReply/${boardId}/${bcRef}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ bcContents: newReply }),
+            });
+            
+            if (response.ok) {
+                // 답글 등록 성공 시 화면 갱신
+                location.reload();
+            } else {
+                alert('답글 등록에 실패하였습니다.');
+            }
+        });
+    });
 
-    // 해당 게시물의 조회수 증가
-    postInfo[i].viewCnt++;
+    // 답글 더 보기 및 접기 로직 추가
+    function onDisplay(bcRef) {
+        const replyWraps = document.querySelectorAll(`.replyWrap[data-bcRef="${bcRef}"]`);
+        replyWraps.forEach((replyWrap) => {
+            replyWrap.style.display = 'block';
+        });
 
-    // 수정된 게시물 정보를 로컬 스토리지에 저장
-    localStorage.setItem("post", JSON.stringify(postInfo));
-
-    // 게시물이 없을 경우, 빈 배열로 초기화
-    if (postInfo == null) {
-        postInfo = [];
+        const showButton = document.querySelector(`button[data-show="${bcRef}"]`);
+        const hideButton = document.querySelector(`button[data-hide="${bcRef}"]`);
+        showButton.style.display = 'none';
+        hideButton.style.display = 'block';
     }
 
-    // 게시물을 표시할 영역 선택
-    let listArea = document.getElementById("postRead");
-    let postList = document.createElement("div");
+    function offDisplay(bcRef) {
+        const replyWraps = document.querySelectorAll(`.replyWrap[data-bcRef="${bcRef}"]`);
+        replyWraps.forEach((replyWrap) => {
+            replyWrap.style.display = 'none';
+        });
 
-    // 게시물 화면 구성
-    postList.innerHTML = '<div class="board_title">'
-    + '<div class="page_name"><strong>공지사항</strong></div>'
-    + '<input type="button" onclick="location.href=' + "'/board'" + '" value="목록">' // "목록" 버튼
-    + '<input type="button" onclick="location.href=' + "'/boardUpdate" + '?id=' + i + "'" + '" value="수정"></input>' // "수정" 버튼
-    + '</div>'
-    + '<hr class="hr_bold"></hr>'
-    + '<div class="post_area">'
-    + '<div class="post_name">' + postInfo[i].post_name + '</div>' // 게시물 제목
-    + '<div class="post_info">' + postInfo[i].postDate + ' ' + postInfo[i].postTime + ' / 조회 ' + postInfo[i].viewCnt + '</div>' // 작성일, 조회수
-    + '<hr class="hr_light">'
-    + '<div class="post_content">' + postInfo[i].post_cont + '</div>' // 게시물 내용
-    + '</div>'
+        const showButton = document.querySelector(`button[data-show="${bcRef}"]`);
+        const hideButton = document.querySelector(`button[data-hide="${bcRef}"]`);
+        showButton.style.display = 'block';
+        hideButton.style.display = 'none';
+    }
 
-    // 게시물 화면을 페이지에 추가
-    listArea.appendChild(postList);
+    const showButtons = document.querySelectorAll('[data-show]');
+    showButtons.forEach((showButton) => {
+        showButton.addEventListener('click', () => {
+            const bcRef = showButton.getAttribute('data-show');
+            onDisplay(bcRef);
+        });
+    });
+
+    const hideButtons = document.querySelectorAll('[data-hide]');
+    hideButtons.forEach((hideButton) => {
+        hideButton.addEventListener('click', () => {
+            const bcRef = hideButton.getAttribute('data-hide');
+            offDisplay(bcRef);
+        });
+    });
 });
-*/

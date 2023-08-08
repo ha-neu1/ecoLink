@@ -19,26 +19,24 @@ body {
 	padding: 20px;
 }
 
-/* 게시판 제목 및 페이지 이름 스타일 */
-.board_title {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 20px;
-}
-
 .page_name strong {
 	font-size: 24px;
 	color: #00D084;
 }
 
-/* 두꺼운 구분선 스타일 */
-hr.hr_bold {
-	border: none;
-	height: 3px;
-	background-color: #00D084;
-	margin-bottom: 20px;
+.info_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 1000px;
+    height: 100px;
+    font-size: 28px;
+    color:  #198754;
+    border-bottom: 3.5px solid #00D084
+ 
 }
+
 
 /* 검색 정렬 관련 스타일 */
 .search_container {

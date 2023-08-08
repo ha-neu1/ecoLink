@@ -7,7 +7,10 @@
 }
 
 .searchbar{
-	width: 200px;
+	width: 240px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
 }
 .searchbtn{
 	border: none;
@@ -24,17 +27,17 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 1200px;
-    height: 150px;
-    font-size: 44px;
-    color: #212529;
-    border-bottom: 1px solid #212529
+    width: 1000px;
+    height: 100px;
+    font-size: 28px;
+    color:  #198754;
+    border-bottom: 3.5px solid #00D084
  
 }
 .info_cata{
     display: flex;
     flex-direction: row;
-    width: 1200px;
+    width: 1000px;
     height: 50px;
     margin: 0 auto;
     justify-content: space-between;
@@ -42,11 +45,18 @@
     align-items: center;
 }
 
+select {
+	margin-right: 5px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
 .writingform{
 	 display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 1200px;
+    width: 1000px;
     margin: 0 auto;
 }
 
@@ -66,7 +76,7 @@
 .post_container{
     display: flex;
     align-items: center;
-    width: 1200px;
+    width: 1000px;
     height: 220px;
     margin: 0 auto;
     padding-bottom: 40px;
@@ -76,7 +86,7 @@
     
 }
 .post_image img{
-    width: 350px;
+    width: 280px;
     height: 175px;
     border-radius: 15px;
 }
@@ -85,7 +95,7 @@
     
 }
 .post_tit{
-	width:850px;
+	width:650px;
 	
 	margin: 7px 0px;
 }

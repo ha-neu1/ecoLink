@@ -1,6 +1,9 @@
 package dao;
 
 import dto.BoardDTO;
+import dto.BoardLikeDTO;
+import dto.FileDTO;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,7 +24,6 @@ public interface BoardDAO {
 
 	// 게시물 작성
 	int createBoard(BoardDTO boardDTO);
-	int getLastCreatedBoardId();
 
 	// 게시물 상세 조회
 	BoardDTO getBoardById(int boardId);
@@ -31,13 +33,26 @@ public interface BoardDAO {
 
 	// 게시물 삭제
 	int deleteBoard(int boardId);
-	void deleteComments(int boardId);
-	void deleteFile(int boardId);
-	void deleteLike(int boardId);
 
 	// 조회수 증가
 	void increaseViewCount(int boardId);
 
 	// 조회수 조회
 	int getBoardViewCount(int boardId);
+
+	public int insertBoard(BoardDTO boardDTO);
+
+	public int insertFile(FileDTO dto);
+
+	public int getGeneratedBoardId();
+
+	public List<FileDTO> getFilesByBoardId(int boardId);
+	
+	// 좋아요
+	
+	int countLikes(int boardId);
+    void deleteLike(BoardLikeDTO likeDTO);
+    boolean hasLiked(BoardLikeDTO likeDTO);
+    void insertLike(BoardLikeDTO likeDTO);
+
 }

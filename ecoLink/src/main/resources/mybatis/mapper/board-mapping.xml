@@ -151,4 +151,55 @@
         UPDATE board SET boardViewCount = boardViewCount + 1 WHERE boardId = #{boardId}
     </update>
     
+    <insert id="insertBoard" parameterType="boarddto">
+		insert into
+		board(boardTitle, boardContents, boardViewCount, boardRegtime,
+		memId,
+		boardType)
+		values(#{boardTitle}, #{boardContents}, 0, now(), #{memId},
+		'review')
+	</insert>
+	
+	<insert id="insertFile" parameterType="filedto">
+		insert into file (fileIdx,
+		filePath, fileName, fileType, boardId)
+		values (#{fileIdx}, #{filePath},
+		#{fileName}, #{fileType}, #{boardId})
+	</insert>
+
+
+
+	<select id="getGeneratedBoardId" resultType="int">
+		select
+		last_insert_id()
+	</select>
+
+	<select id="getFilesByBoardId" parameterType="int"
+		resultType="dto.FileDTO">
+		select * from file where boardId = #{boardId};
+	</select>
+
+<!-- 좋아요 기능 추가 -->
+<insert id="insertLike" parameterType="dto.BoardLikeDTO">
+    INSERT INTO board_like (memId, boardId)
+    VALUES (#{memId}, #{boardId})
+</insert>
+
+<delete id="deleteLike" parameterType="dto.BoardLikeDTO">
+    DELETE FROM board_like
+    WHERE memId = #{memId} AND boardId = #{boardId}
+</delete>
+
+<select id="hasLiked" parameterType="dto.BoardLikeDTO" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM board_like
+    WHERE memId = #{memId} AND boardId = #{boardId}
+</select>
+
+<select id="countLikes" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM board_like
+    WHERE boardId = #{boardId}
+</select>
+
 </mapper>
