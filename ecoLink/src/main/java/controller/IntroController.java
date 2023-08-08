@@ -306,8 +306,8 @@ public class IntroController {
 		
 		// 최신순으로 게시물 목록을 가져오는 로직
 		mv.addObject("user", dto);
-		
-		
+		mv.addObject("insertcount", insertcount);
+	
 		mv.setViewName("redirect:/infoboardlist");
 		return mv;
 	}
