@@ -145,7 +145,7 @@ $(document).ready(function() {
 	        	  emptyFields.push("제품1 이미지");
 	          }
 	          if ($('#entdExplain1').val().trim() === "") {
-	              emptyFields.push("제품1 설명");
+	              emptyFields.push("제품1 이름");
 	          }
 	      }
           
