@@ -82,6 +82,7 @@
     border-bottom: 1px solid #e6e6e6;
     
     
+    
 }
 .post_image img{
     width: 350px;
@@ -93,6 +94,8 @@
     
 }
 .post_tit{
+	width:850px;
+	
 	margin: 7px 0px;
 }
 .post_tit a{
@@ -104,13 +107,23 @@
 	margin: 15px 0px;
 }
 .post_date{
+	width:850px;
     color: #9E9E9E;
     font-size: 18px;
 }
 .post_contents{
+	width:850px;
+	height:105px;
     color: #363636;
     font-size: 16px;
+    white-space: normal;
+   overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
 }
+
 .pagination{
 	display: flex;
 	justify-content: center;

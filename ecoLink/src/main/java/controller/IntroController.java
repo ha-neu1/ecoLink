@@ -215,7 +215,7 @@ public class IntroController {
 
 	@PostMapping("/infowriting")
 	public ModelAndView writeprocess(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page, String boardContents,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
@@ -244,6 +244,7 @@ public class IntroController {
 
 		// Set the memId in the boarddto before inserting into the database
 		boarddto.setMemId(loggedInUserId);
+		boarddto.setBoardContents(boardContents.replace("\r\n", "<br>"));
 		int insertcount = service.insertBoard(boarddto);
 
 		List<FileDTO> fileDTOList = new ArrayList<>();
@@ -293,7 +294,9 @@ public class IntroController {
 			}
 		}
 		for (FileDTO fileDTO : fileDTOList) {
-			int insertfile = service.insertFile(fileDTO);
+			
+ 			int insertfile = service.insertFile(fileDTO);
+			
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("insertcount", insertcount);
@@ -307,7 +310,9 @@ public class IntroController {
 		int limit[] = new int[2];
 		limit[0] = limitindex;
 		limit[1] = limitcount;
+		
 		List<BoardDTO> boardList = service.boardListRecent(limit);
+		
 		// 최신순으로 게시물 목록을 가져오는 로직
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", insertcount);
