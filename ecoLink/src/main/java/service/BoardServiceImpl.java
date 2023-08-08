@@ -5,6 +5,7 @@ import dto.BoardDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -51,18 +52,16 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public boolean createBoard(BoardDTO boardDTO) {
-        // 이미지 업로드 처리
         List<MultipartFile> draggedFiles = boardDTO.getDraggedFiles();
         if (draggedFiles != null && !draggedFiles.isEmpty()) {
             for (MultipartFile file : draggedFiles) {
                 try {
                     String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-                    Path filePath = Paths.get("c:/kdt/upload/" + fileName); // 이미지를 upload 폴더에 저장
+                    Path filePath = Paths.get("c:/kdt/upload/" + fileName);
                     Files.write(filePath, file.getBytes());
 
-                    // 첫 번째 이미지의 경로를 firstImageUrl로 설정
                     if (boardDTO.getFirstImageUrl() == null) {
-                        boardDTO.setFirstImageUrl("/upload/" + fileName); // 이미지 경로 설정
+                        boardDTO.setFirstImageUrl("/upload/" + fileName);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -71,7 +70,14 @@ public class BoardServiceImpl implements BoardService {
             }
         }
 
+        boardDTO.setBoardType("share"); // 게시물 타입을 'share'로 설정
+
         return boardDAO.createBoard(boardDTO) > 0;
+    }
+
+    @Override
+    public int getLastCreatedBoardId() {
+        return boardDAO.getLastCreatedBoardId();
     }
 
     @Override
@@ -90,8 +96,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public boolean deleteBoard(int boardId) {
-        return boardDAO.deleteBoard(boardId) > 0;
+    @Transactional
+    public void deleteBoard(int boardId) {
+        boardDAO.deleteComments(boardId);
+        boardDAO.deleteLike(boardId);
+        boardDAO.deleteFile(boardId);
+        boardDAO.deleteBoard(boardId);
     }
 
     @Override

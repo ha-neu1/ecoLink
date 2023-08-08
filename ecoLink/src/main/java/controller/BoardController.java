@@ -3,8 +3,10 @@ package controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +16,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import service.BoardService;
 import dto.BoardDTO;
+import dto.MemberDTO;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class BoardController {
 
 	private final BoardService boardService;
+	private final HttpSession session;
 
 	@Autowired
-	public BoardController(BoardService boardService) {
+	public BoardController(BoardService boardService, HttpSession session) {
 		this.boardService = boardService;
+		this.session = session;
 	}
 
 	@GetMapping("/board")
 	public String board(Model model) {
 		List<BoardDTO> boardlist = boardService.getShareBoardList();
 		model.addAttribute("boardlist", boardlist);
+
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo");
+		model.addAttribute("user", user);
+
 		return "board";
 	}
 
@@ -56,13 +66,23 @@ public class BoardController {
 
 	@GetMapping("/boardCreate")
 	public String boardCreateForm(Model model) {
+
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo");
+		model.addAttribute("user", user);
+		
 		return "boardCreate";
 	}
 
 	@PostMapping("/boardCreate")
-	public String createBoard(@RequestParam BoardDTO boardDTO) {
-		boardService.createBoard(boardDTO);
-		return "redirect:/board";
+	public String createBoard(@ModelAttribute BoardDTO boardDTO) {
+		boolean isCreated = boardService.createBoard(boardDTO);
+
+		if (isCreated) {
+			int createdBoardId = boardService.getLastCreatedBoardId();
+			return "redirect:/boardRead?boardId=" + createdBoardId;
+		} else {
+			return "error-page";
+		}
 	}
 
 	@GetMapping("/boardRead")
@@ -79,6 +99,10 @@ public class BoardController {
 				model.addAttribute("error", "해당 게시물을 찾을 수 없습니다.");
 			}
 		}
+		
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo");
+        model.addAttribute("user", user);
+		
 		return "boardRead";
 	}
 
@@ -95,29 +119,26 @@ public class BoardController {
 	}
 
 	@GetMapping("/boardUpdate/{boardId}")
-    public String showUpdateForm(@PathVariable int boardId, Model model) {
-        BoardDTO board = boardService.getBoardUpdate(boardId); // 수정된 부분
-        model.addAttribute("board", board);
-        return "boardUpdate";
-    }
+	public String showUpdateForm(@PathVariable int boardId, Model model) {
+		BoardDTO board = boardService.getBoardById(boardId);
+		model.addAttribute("board", board);
+		
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo");
+        model.addAttribute("user", user);
+		
+		return "boardUpdate";
+	}
 
-    @PostMapping("/boardUpdate/{boardId}")
-    public String updateBoard(@PathVariable int boardId, @ModelAttribute BoardDTO boardDTO) {
-        boardDTO.setBoardId(boardId);
-        boardService.updateBoard(boardDTO);
-        return "redirect:/boardRead?boardId=" + boardId;
-    }
+	@PostMapping("/boardUpdate/{boardId}")
+	public String updateBoard(@PathVariable int boardId, @ModelAttribute BoardDTO boardDTO) {
+		boardDTO.setBoardId(boardId);
+		boardService.updateBoard(boardDTO);
+		return "redirect:/boardUpdate/" + boardId;
+	}
 
-    @GetMapping("/confirmDelete/{boardId}")
-    public String showDeleteConfirm(@PathVariable int boardId, Model model) {
-        BoardDTO board = boardService.getBoardById(boardId);
-        model.addAttribute("board", board);
-        return "confirmDelete";
-    }
-
-    @PostMapping("/boardDelete/{boardId}")
-    public String deleteBoard(@PathVariable int boardId) {
-        boardService.deleteBoard(boardId);
-        return "redirect:/board";
-    }
+	@DeleteMapping("/boardDelete/{boardId}")
+	public ResponseEntity<String> deleteBoard(@PathVariable int boardId) {
+		boardService.deleteBoard(boardId);
+		return ResponseEntity.ok("Board deleted successfully");
+	}
 }
