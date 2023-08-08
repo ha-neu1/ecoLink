@@ -26,6 +26,16 @@ public class MainController {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 		
+		String os = System.getProperty("os.name").toLowerCase();
+
+        String savePath = "";
+        if (os.contains("win")) {
+            savePath = "c:/kdt";
+        } else if (os.contains("linux")) {
+            savePath = "/usr/mydir";
+        } else {
+            savePath = "c:/kdt";
+        }
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
 		model.addAttribute("user", user); // Model에 사용자 정보를 추가
 
@@ -35,7 +45,7 @@ public class MainController {
 		List<MainDTO> brandlist = mainService.getBrandList();
 		model.addAttribute("brandlist", brandlist);
 
-		List<MainDTO> boardlist = mainService.getShareBoardList();
+		List<MainDTO> boardlist = mainService.getShareBoardList(savePath);
 		model.addAttribute("boardlist", boardlist);
 
 		int memberCount = mainService.getMemberCount();

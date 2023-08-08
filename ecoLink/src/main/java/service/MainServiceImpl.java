@@ -40,8 +40,8 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<MainDTO> getShareBoardList() {
-		return maindao.getShareBoardList();
+	public List<MainDTO> getShareBoardList(String savePath) {
+		return maindao.getShareBoardList(savePath);
 	}
 
 	@Override

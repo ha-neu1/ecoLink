@@ -60,68 +60,72 @@
 	</div>
 
 
-		
+
 
 	<div class="board_area">
 		<div class="board_title">BRANDS</div>
 		<div class="boardMain">
 			<c:forEach items="${brandlist}" var="brand" varStatus="loop">
-			<c:if test="${loop.index < 3}">
-				<div class="boardList">
-					<div class="titlerate">
-						<div class="titlenamediv">
-							<a class="titlename"
-								href="/brandpromodetail?entCrn=${brand.entCrn }">${brand.memNick}</a>
-						</div>
-					</div>
-					<hr style="margin-top: 3px; margin-bottom: 5px;">
-					<a href="/brandpromodetail?entCrn=${brand.entCrn}"><img
-						class="boardImage" src="${brand.entdMainPic}"
-						onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
-					<hr style="margin-bottom: 5px;">
-					<div class="entdShort">
-						<p class="boardCont" onclick="opendetail('${brand.entCrn}')">${brand.entdShort}</p>
-					</div>
-				</div>
-				</c:if>
-			</c:forEach>
-	</div>
-	
-		<div class="board_title">SHARE</div>
-		<div class="boardMain">
-			<c:forEach items="${boardlist}" var="board" varStatus="loop">
 				<c:if test="${loop.index < 3}">
 					<div class="boardList">
 						<div class="titlerate">
 							<div class="titlenamediv">
 								<a class="titlename"
-									href="/sharepostdetail?boardId=${board.boardId }">${board.boardTitle}</a>
+									href="/brandpromodetail?entCrn=${brand.entCrn }">${brand.memNick}</a>
 							</div>
 						</div>
 						<hr style="margin-top: 3px; margin-bottom: 5px;">
-						<a href="/sharepostdetail?boardId=${board.boardId}"><img
-							class="boardImage" src="${board.filePath}"
+						<a href="/brandpromodetail?entCrn=${brand.entCrn}"><img
+							class="boardImage" src="${brand.entdMainPic}"
 							onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
+						<hr style="margin-bottom: 5px;">
+						<div class="entdShort">
+							<p class="boardCont" onclick="opendetail('${brand.entCrn}')">${brand.entdShort}</p>
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+
+		<div class="board_title">REVIEW</div>
+		<div class="boardMain">
+			<c:set var="previousBoardId" value="" />
+			<c:forEach items="${boardlist}" var="board">
+				<c:set var="currentBoardId" value="${board.boardId}" />
+				<c:if test="${currentBoardId ne previousBoardId}">
+					<div class="boardList">
+						<div class="titlerate">
+							<div class="titlenamediv">
+								<a class="titlename"
+									href="/sharepostdetail?boardId=${board.boardId}">${board.boardTitle}</a>
+							</div>
+						</div>
+						<hr style="margin-top: 3px; margin-bottom: 5px;">
+						<a href="/sharepostdetail?boardId=${board.boardId}"> <img
+							class="boardImage" src="${board.filePath}"
+							onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';">
+						</a>
 						<hr style="margin-bottom: 5px;">
 						<div class="entdShort">
 							<p class="boardCont" onclick="opendetail('${board.boardId}')">${board.boardContents}</p>
 						</div>
 					</div>
 				</c:if>
+				<c:set var="previousBoardId" value="${currentBoardId}" />
 			</c:forEach>
 		</div>
 	</div>
-		<script type="text/javascript">
-			function opendetail(e) {
-				location.href = "/brandpromodetail?entCrn=" + e;
-			}
-			function opendetail(b) {
-				location.href = "/sharepostdetail?boardId=" + b;
-			}
-		</script>
+	<script type="text/javascript">
+		function opendetail(e) {
+			location.href = "/brandpromodetail?entCrn=" + e;
+		}
+		function opendetail(b) {
+			location.href = "/sharepostdetail?boardId=" + b;
+		}
+	</script>
 
 
 
-		<%@ include file="footer.jsp"%>
+	<%@ include file="footer.jsp"%>
 </body>
 </html>
