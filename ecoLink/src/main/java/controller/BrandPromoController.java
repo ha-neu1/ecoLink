@@ -120,10 +120,11 @@ public class BrandPromoController {
 		clistmap.put("limitindex", limitindex);
 		clistmap.put("limitcount", limitcount);
 		List<BrandCommentDTO> clist = service.getAllBrandComment(clistmap);
+		List<BrandCommentDTO> clistall = service.getAllBrandComments(clistmap);
 		int bookmarked = 0;
 		if (dto != null) {
 			bookmarked = service.getBrandPromoBookmark(dto.getMemId(), entCrn);
-			List<String> nameList = clist.stream().map(BrandCommentDTO::getMemId).collect(Collectors.toList());
+			List<String> nameList = clistall.stream().map(BrandCommentDTO::getMemId).collect(Collectors.toList());
 			if (nameList.contains(dto.getMemId())) {
 				mv.addObject("commentinserted", "yes");
 			}
