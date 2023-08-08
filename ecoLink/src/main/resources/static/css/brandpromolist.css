@@ -145,6 +145,7 @@ body {
 
 .entdShort p {
 	width: 296px;
+	height: 16px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	word-break: break-all;
