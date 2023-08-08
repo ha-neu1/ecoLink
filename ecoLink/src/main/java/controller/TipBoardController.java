@@ -33,7 +33,7 @@ import jakarta.servlet.http.HttpSession;
 import service.TipBoardService;
 
 @Controller
-public class TipController {
+public class TipBoardController {
 	@Autowired
 	@Qualifier("tipBoardServiceImpl")
 	TipBoardService service;
@@ -643,9 +643,27 @@ public class TipController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
+		String savePath = "";
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			savePath = "c:/kdt";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir";
+		} else {
+			savePath = "c:";
+		}
 		if (dto != null) {
 			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
-				 service.deleteAllBoard(boardId);
+
+				List<FileDTO> files = service.getFilesByBoardId(boardId);
+				for (FileDTO fileDTO : files) {
+					File file = new File(savePath + fileDTO.getFilePath());
+					if (file.exists()) {
+						file.delete();
+					}
+				}
+
+				service.deleteAllBoard(boardId);
 				return "redirect:/tipboardlist";
 			} else {
 				return "/login";

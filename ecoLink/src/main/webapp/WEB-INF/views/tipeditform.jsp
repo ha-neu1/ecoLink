@@ -40,7 +40,7 @@
     <form id="post_form" action="tipeditform" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
          <label for="image_file" class="image_file_zone" id="image_file_zone">
-            <div class="image_fileholder" id="image_fileholder">사진추가</div>
+            <div class="image_fileholder" id="image_fileholder">클릭하거나 이미지를 드래그하세요.</div>
          </label>
          <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
     </div>
@@ -192,7 +192,7 @@
       }
 
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'infoeditform', true);
+      xhr.open('POST', 'tipeditform', true);
       xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
               if (xhr.status === 200) {

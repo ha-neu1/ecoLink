@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.ShareBoardDAO">
+<mapper namespace="dao.ReviewBoardDAO">
 
    
     <!-- <select id="getAllBoardList" resultType="dto.BoardDTO">
@@ -157,7 +157,7 @@
 		memId,
 		boardType)
 		values(#{boardTitle}, #{boardContents}, 0, now(), #{memId},
-		'share')
+		'review')
 	</insert>
 
 	<update id="updateBoard" parameterType="boarddto">
