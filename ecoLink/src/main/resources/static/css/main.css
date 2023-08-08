@@ -195,10 +195,10 @@ div.card {
 	background: white;
 	display: inline-block;
 	margin: 8px;
-	max-width: 300px;
+	max-width: 350px;
 	position: relative;
 	text-align: left;
-	width: 300px;
+	width: 350px;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 	z-index: 1;
 	border-radius: 5px;
@@ -206,7 +206,8 @@ div.card {
 }
 
 .card__image {
-	max-width: 300px;
+	max-width: 350px;
+	height: 150px;
 	object-fit: cover; /* 비율을 유지하면서 이미지를 표시 */
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -214,14 +215,13 @@ div.card {
 
 .card__image-holder {
 	background: rgba(0, 0, 0, 0.1);
-	height: 0;
-	padding-bottom: 75%;
+	height: 150px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
 
 div.card-title {
-	background: white;
+	background: #defff2;
 	padding: 6px 15px 10px;
 	position: relative;
 	border-bottom-left-radius: 5px;
