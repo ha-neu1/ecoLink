@@ -127,6 +127,9 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 				if (imagePath.startsWith("c:/kdt/upload/")) {
 					imagePath = imagePath.replaceFirst("c:/kdt/upload/", "/upload/");
 				}
+				else if(imagePath.startsWith("/usr/mydir/upload/")) {
+					imagePath = imagePath.replaceFirst("/usr/mydir/upload/", "/upload/");
+				}
 
 				//// 이미지 이름에서 "(UUID)" 부분을 제거합니다
 				int indexOfOpeningParenthesis = imageName.indexOf("(");

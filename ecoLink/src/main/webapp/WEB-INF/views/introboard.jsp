@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/intro.css">
 <title>Insert title here</title>
-<%@ include file="header.jsp" %>
+<%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
     <section id="intro_contents">
@@ -43,4 +44,7 @@
         </div>
     </section>
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>

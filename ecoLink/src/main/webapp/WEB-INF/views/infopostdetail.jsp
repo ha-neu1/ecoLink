@@ -14,6 +14,7 @@
 
 <script src="js/jquery-3.6.4.min.js"></script>
 <%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
 	<div class="head_wrap">
@@ -175,9 +176,13 @@
 						</c:choose>
 					</c:forEach>
 					 <c:if test="${hasReplies}">
-                <button onclick="onDisplay(${dto.bcRef})">답글 더 보기</button>
+					  <div class="replyOnDisplay">
+                	<button class="onDisplay"onclick="onDisplay(${dto.bcRef})">답글 더 보기</button>
+               		 </div>
                 	</c:if>
-					<button onclick="offDisplay(${dto.bcRef})" style="display: none;">답글 접기</button>
+                	<div class="replyOffDisplay">
+					<button class="offDisplay"onclick="offDisplay(${dto.bcRef})" style="display: none;">답글 접기</button>
+					</div>
 				</c:when>
 			</c:choose>
 		</c:forEach>
@@ -369,4 +374,7 @@ function offDisplay(bcRef) {
 
 
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>

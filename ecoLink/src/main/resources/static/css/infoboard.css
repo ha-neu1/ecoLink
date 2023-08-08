@@ -15,17 +15,30 @@
 	
 }
 
+.searchbar{
+	width: 200px;
+}
+.searchbtn{
+	border: none;
+	cursor: pointer;
+}
+.searchbtn:hover{
+	background-color:  #00D084;
+}
+.searchbtn i:hover{
+	color:#e6e6e6;
+}
 .info_title{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     width: 1200px;
-    height: 190px;
+    height: 150px;
     font-size: 44px;
     color: #212529;
-    
-    
+    border-bottom: 1px solid #212529
+ 
 }
 .info_cata{
     display: flex;
@@ -34,7 +47,10 @@
     height: 50px;
     margin: 0 auto;
     justify-content: space-between;
+    padding-top: 10px;
+    align-items: center;
 }
+
 .writingform{
 	 display: flex;
     justify-content: flex-end;
@@ -43,6 +59,16 @@
     margin: 0 auto;
 }
 
+.writing{
+	color:#282828;
+	font-weight: bold;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+.writing:hover{
+	background-color : #f5f5f5;
+}
 
 
 
@@ -89,17 +115,26 @@
 	display: flex;
 	justify-content: center;
 	padding:  10px;
+	
 }
 .pagination li{
 	padding: 10px;
+	
 }
+.pagination li a{
+	font-size: 18px;
+	border-radius: 5px;
+}
+
+	
+
 .page-item.disabled {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
 }
 .pagination .page-item.activeNumber .page-link {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
+  background-color: #00D084;
+  color:#e6e6e6;
+  border-color:#00D084;;
 }

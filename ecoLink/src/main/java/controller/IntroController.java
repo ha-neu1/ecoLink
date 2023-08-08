@@ -321,7 +321,7 @@ public class IntroController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
-		System.out.println(boardId);
+		
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
 		model.addAttribute("user", user);
 		model.addAttribute("boardId", boardId);// Model에 사용자 정보를 추가) {
@@ -491,7 +491,7 @@ public class IntroController {
 		}
 		if (dto != null) {
 			boolean hasLiked = service.hasUserLikedBoard(dto.getMemId(), boardId);
-			logger.info("Value of hasLiked: " + hasLiked);
+			
 			mv.addObject("hasLiked", hasLiked);
 		} else {
 			mv.addObject("hasLiked", false);
@@ -536,12 +536,9 @@ public class IntroController {
 				int insertedBcId = boarddto.getBcId(); // Assuming the bcId is set after insertion
 				int updateResult = service.updateBcRef(insertedBcId);
 				if (updateResult > 0) {
-					System.out.println("bcRef updated successfully");
 				} else {
-					System.out.println("Failed to update bcRef");
 				}
 			} else {
-				System.out.println("Failed to insert comment");
 			}
 			return ResponseEntity.ok().build();
 		} else {
@@ -573,7 +570,6 @@ public class IntroController {
 
 			return ResponseEntity.ok().build();
 		} else {
-			System.out.println("User is not logged in. Redirecting to /login.");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
 		}
 	}

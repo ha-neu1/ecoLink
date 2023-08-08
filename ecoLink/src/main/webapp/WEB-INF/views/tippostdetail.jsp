@@ -14,6 +14,7 @@
 
 <script src="js/jquery-3.6.4.min.js"></script>
 <%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
 	<div class="head_wrap">
@@ -369,4 +370,7 @@ function offDisplay(bcRef) {
 
 
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>
