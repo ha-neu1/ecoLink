@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ShareBoardDAO2">
+
+	<select id="getNormalBPList" parameterType="hashmap"
+		resultType="boardDto">
+		SELECT b.boardId, b.boardTitle, b.boardViewCount,
+		b.boardRegtime, b.boardUpdateTime, b.boardContents, b.memId,
+		b.boardType, m.memNick, f.fileIdx, f.filePath, f.fileName, f.fileType
+		FROM board AS b
+		JOIN member AS m ON m.memId = b.memId
+		LEFT JOIN (SELECT boardId, MAX(fileIdx) AS maxFileIdx FROM file GROUP BY
+		boardId) AS maxFiles ON b.boardId = maxFiles.boardId
+		LEFT JOIN file AS f ON maxFiles.maxFileIdx = f.fileIdx
+		WHERE b.boardType = 'share'
+		ORDER BY b.boardRegtime asc limit #{limitindex} , #{limitcount};
+	</select>
+
+	<select id="getviewcountBPList" parameterType="hashmap"
+		resultType="boardDto">
+		SELECT b.boardId, b.boardTitle, b.boardViewCount,
+		b.boardRegtime, b.boardUpdateTime, b.boardContents, b.memId,
+		b.boardType, m.memNick, f.fileIdx, f.filePath, f.fileName, f.fileType
+		FROM board AS b
+		JOIN member AS m ON m.memId = b.memId
+		LEFT JOIN (SELECT boardId, MAX(fileIdx) AS maxFileIdx FROM file GROUP BY
+		boardId) AS maxFiles ON b.boardId = maxFiles.boardId
+		LEFT JOIN file AS f ON maxFiles.maxFileIdx = f.fileIdx
+		WHERE b.boardType = 'share'
+		ORDER BY b.boardViewCount desc limit #{limitindex} , #{limitcount};
+	</select>
+
+	<select id="getoptionBPList" parameterType="hashmap"
+		resultType="boardDto">
+		SELECT b.boardId, b.boardTitle, b.boardViewCount,
+		b.boardRegtime, b.boardUpdateTime, b.boardContents, b.memId,
+		b.boardType, m.memNick, f.fileIdx, f.filePath, f.fileName, f.fileType
+		FROM board AS b
+		JOIN member AS m ON m.memId = b.memId
+		LEFT JOIN (SELECT boardId, MAX(fileIdx) AS maxFileIdx FROM file GROUP BY
+		boardId) AS maxFiles ON b.boardId = maxFiles.boardId
+		LEFT JOIN file AS f ON maxFiles.maxFileIdx = f.fileIdx
+		WHERE b.boardType = 'share'
+		and b.boardTitle like CONCAT('%',#{memNick},'%')
+		ORDER BY ${option} ${option2} limit #{limitindex} , #{limitcount};
+	</select>
+
+	<select id="getBPListCount" parameterType="string"
+		resultType="int">
+		select COUNT(*) from board where boardType = 'share';
+	</select>
+
+	<select id="getoptionBPListCount" parameterType="string"
+		resultType="int">
+		select COUNT(*) from board
+		where boardType = 'share' and boardTitle like CONCAT('%',#{memNick},'%');
+	</select>
+
+</mapper>
+
+
+
+
+
+
