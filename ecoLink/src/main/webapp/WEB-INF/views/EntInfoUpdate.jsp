@@ -32,6 +32,7 @@
 	         var pwValue = $('#memPw').val();
 	         if (pwValue !== '' && pwConfirmValue !== '' && pwConfirmValue !== pwValue) {
 	             alert("비밀번호가 일치하지 않습니다.");
+	             $("#memPw_confirm").focus();
 	         }
 	      });
 		
@@ -60,16 +61,22 @@
 							
 					if (memPw === "") {
 		                alert("비밀번호를 입력해 주세요.");
+		                $("#memPw").focus();
 		            } else if(memPw_confirm === ""){
-		            	alert("비밀번호를 확인해 주세요.");
+		            	alert("비밀번호 확인란을 입력해 주세요.");
+		            	$("#memPw_confirm").focus();
 		            } else if(memNick === ""){
 		            	alert("브랜드 이름을 입력해 주세요.");
+		            	$("#memNick").focus();
 		            } else if(entPhone === ""){
 		            	alert("연락처를 입력해 주세요.");
+		            	$("#entPhone").focus();
 		            } else if(entdExplain1 === ""){
 		            	alert("제품1 이름을 입력해 주세요.");
+		            	$("#entdExplain1").focus();
 		            } else if(memPw !== memPw_confirm) {
 		            	alert("비밀번호가 일치하지 않습니다.");
+		            	$("#memPw_confirm").focus();
 	            	} else {
 					
 							let param1 = {

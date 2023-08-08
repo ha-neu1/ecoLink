@@ -534,7 +534,6 @@ $(document).ready(function() {
                                             <td>
                                                 <input id="entdIntroPic" name="entdIntroPic" class="inputTypeImage" type="file" accept="image/*">
                                                 <div id="preview2"></div>
-                                                <p class="help">이미지 해상도 (680 x  280) 권장</p>
                                             </td>
                                         </tr>
                                         <tr id="entd_Intro" style="display: none">
@@ -549,11 +548,10 @@ $(document).ready(function() {
                                             <td>
                                                 <input id="entdPic1" name="entdPic1" class="inputTypeImage" type="file" accept="image/*" required>
                                                 <div id="preview3"></div>
-                                                <p class="help">이미지 해상도 (680 x  280) 권장</p>
                                             </td>
                                         </tr>
                                         <tr id="entd_Explain1" style="display: none">
-                                            <th>제품 이름1*</th>
+                                            <th>제품1 이름*</th>
                                             <td>
                                                 <input id="entdExplain1" name="entdExplain1" type="text" maxlength="15" required></input>
                                                 <div id="ExplaincharCount1">0/15</div>
@@ -564,11 +562,10 @@ $(document).ready(function() {
                                             <td>
                                                 <input id="entdPic2" name="entdPic2" class="inputTypeImage" type="file" accept="image/*">
                                                 <div id="preview4"></div>
-                                                <p class="help">이미지 해상도 (680 x  280) 권장</p>
                                             </td>
                                         </tr>
                                         <tr id="entd_Explain2" style="display: none">
-                                            <th>제품 이름2</th>
+                                            <th>제품2 이름</th>
                                             <td>
                                                 <input id="entdExplain2" name="entdExplain2" type="text" maxlength="15"></input>
                                                 <div id="ExplaincharCount2">0/15</div>
