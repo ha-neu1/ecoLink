@@ -6,9 +6,54 @@
     font-style: normal;
 }
 
-.searchbar{
-	width: 200px;
+select {
+	color: #333;
+	margin-right: 10px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 14px;
 }
+
+select option:checked {
+	background-color: #00D084;
+	color: #fff;
+}
+
+/* 검색 상자 스타일 */
+.searchBox {
+	display: flex;
+	align-items: center;
+}
+
+.searchbar select {
+	margin-right: 5px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.searchbar button {
+	margin-left: 5px;
+	padding: 5px 10px;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	background-color: #00D084; /* 추가적으로 포인트 컬러 적용 */
+}
+
+.searchbar {
+	width: 240px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+/* .searchbar{
+	width: 200px;
+} */
 .searchbtn{
 	border: none;
 	cursor: pointer;
