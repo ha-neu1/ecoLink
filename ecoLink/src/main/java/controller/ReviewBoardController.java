@@ -144,7 +144,7 @@ public class ReviewBoardController {
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", insertcount);
 
-		mv.setViewName("redirect:/main");
+		mv.setViewName("redirect:/reviewboardlist");
 		return mv;
 	}
 
@@ -299,7 +299,7 @@ public class ReviewBoardController {
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", updatecount);
 	
-		mv.setViewName("redirect:/main");
+		mv.setViewName("redirect:/reviewboardlist");
 		return mv;
 	}
 
@@ -508,7 +508,7 @@ ReviewBoardLike(@SessionAttribute(name = "logininfo", required = false) MemberDT
 
 				service.deleteAllBoard(boardId);
 				
-				return "redirect:/main";
+				return "redirect:/reviewboardlist";
 			} else {
 				return "/login";
 			}

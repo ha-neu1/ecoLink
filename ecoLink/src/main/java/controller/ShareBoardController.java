@@ -250,7 +250,7 @@ public class ShareBoardController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", insertcount);
-		mv.setViewName("redirect:/main");
+		mv.setViewName("redirect:/shareboardlist");
 		return mv;
 	}
 	
@@ -406,7 +406,7 @@ public class ShareBoardController {
 		mv.addObject("user", dto);
 		mv.addObject("insertcount", updatecount);
 		
-		mv.setViewName("redirect:/main");
+		mv.setViewName("redirect:/shareboardlist");
 		return mv;
 	}
 	
@@ -613,7 +613,7 @@ public class ShareBoardController {
 
 				shareBoardService.deleteAllBoard(boardId);
 				
-				return "redirect:/main";
+				return "redirect:/shareboardlist";
 			} else {
 				return "/login";
 			}
