@@ -48,16 +48,16 @@
 										<div class="title" id="title">
 											<c:choose>
 												<c:when test="${myboard.boardType eq 'share'}">
-													<a href="http://localhost:8070/boardRead?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
+													<a href="/sharepostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
 												</c:when>
 												<c:when test="${myboard.boardType eq 'review'}">
-													<a href="http://localhost:8070/reviewRead?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
+													<a href="/reviewpostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
 												</c:when>
 												<c:when test="${myboard.boardType eq 'news'}">
-													<a href="http://localhost:8070/infopostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
+													<a href="/infopostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
 												</c:when>
 												<c:when test="${myboard.boardType eq 'tip'}">
-													<a href="http://localhost:8070/infopostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
+													<a href="/tippostdetail?boardId=${myboard.boardId}">${myboard.boardTitle}</a>
 												</c:when>
 											</c:choose>
 										</div>

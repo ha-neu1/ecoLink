@@ -50,17 +50,22 @@
 											<c:choose>
 												<c:when test="${board.boardType eq 'share'}">
 													<a
-														href="http://localhost:8070/boardRead?boardId=${board.boardId}"
+														href="/sharepostdetail?boardId=${board.boardId}"
 														style="text-decoration: none; color: black">${board.boardTitle}</a>
 												</c:when>
 												<c:when test="${board.boardType eq 'review'}">
 													<a
-														href="http://localhost:8070/reviewRead?boardId=${board.boardId}"
+														href="/reviewpostdetail?boardId=${board.boardId}"
 														style="text-decoration: none; color: black">${board.boardTitle}</a>
 												</c:when>
 												<c:when test="${board.boardType eq 'tip'}">
 													<a
-														href="http://localhost:8070/reviewRead?boardId=${board.boardId}"
+														href="/tippostdetail?boardId=${board.boardId}"
+														style="text-decoration: none; color: black">${board.boardTitle}</a>
+												</c:when>
+												<c:when test="${board.boardType eq 'news'}">
+													<a
+														href="/infopostdetail?boardId=${board.boardId}"
 														style="text-decoration: none; color: black">${board.boardTitle}</a>
 												</c:when>
 											</c:choose>

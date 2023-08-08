@@ -27,10 +27,10 @@
 				<ul class="navbarSub">
 					<li><a href="/brandpromolist">브랜드 소개</a></li>
 				</ul></li>
-			<li><a href="/share/shareboard">커뮤니티</a>
+			<li><a href="/sharepostdetail">커뮤니티</a>
 				<ul class="navbarSub">
-					<li><a href="/share/shareboard">본인제품공유</a></li>
-					<li><a href="/reviewboard">후기</a></li>
+					<li><a href="/sharepostdetail">본인제품공유</a></li>
+					<li><a href="/reviewpostdetail">후기</a></li>
 				</ul></li>
 		</ul>
 		<ul class="navbarProfile">

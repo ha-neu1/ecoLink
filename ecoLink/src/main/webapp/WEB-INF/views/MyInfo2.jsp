@@ -40,7 +40,7 @@
 						<c:otherwise>
 							<c:forEach items="${Bookmark}" var="enterprise">
 								<a
-									href="http://localhost:8070/brandpromodetail?entCrn=${enterprise.entCrn}">
+									href="/brandpromodetail?entCrn=${enterprise.entCrn}">
 									<div class="likebrand">
 										<div class="brandTitle">
 											<div class='brandName'>${enterprise.memNick}</div>
