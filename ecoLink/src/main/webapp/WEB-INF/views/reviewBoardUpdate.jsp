@@ -5,20 +5,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/boardWrite.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="css/boardUpdate.css">
+    <title>게시글 수정</title>
     <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
     <%@ include file="header.jsp"%>
 <%@ include file="chatbot.jsp"%>
 </head>
 <body>
-<div class="info_title">게시글 작성하기</div>
+ <div class="info_title">게시글 수정하기</div>
 
+        <div class="writing">
+        
+            <div class="post_img">
+                
+                	<p>기존 이미지</p>
+                
+
+                <div class="post_image">
+                    <ul class="slides">
+                        <c:forEach var="imageUrl" items="${imageUrls}">
+                            <li><img src="${imageUrl}" alt=""></li>
+                        </c:forEach>
+                    </ul>
+                    <p class="controller">
+
+                        <!-- &lang: 왼쪽 방향 화살표 &rang: 오른쪽 방향 화살표 -->
+                        <span class="prev">&lang;</span> <span class="next">&rang;</span>
+                    </p>
+                </div>
+            </div>
+            <div class="post_img">
+                <p>수정할 이미지</p>
+            </div> 
     <form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
-    <div class="hasImages">
-    	
-    </div>
          <label for="image_file" class="image_file_zone" id="image_file_zone">
             <div class="image_fileholder" id="image_fileholder">사진추가</div>
          </label>
@@ -27,17 +47,18 @@
     <div class="post_tit">
                 <p>제목</p>
                 <input type="text" class="tit" name="boardTitle"
-                   placeholder="제목을 입력해주세요.">
+                    value="${detaildto.boardTitle}">
             </div>
             <div class="post_contents">
                 <p>본문 내용</p>
-                <textarea class="contents" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
+                <textarea class="contents" name="boardContents">${detaildto.boardContents}</textarea>
             </div>
             <div class="post_btn">
-                <button type="submit" id="submit_btn">작성하기</button>
+                <input type="hidden" name="boardId" value="${boardId}" />
+                <button type="submit" id="submit_btn">수정하기</button>
             </div> 
     </form>
-   
+   </div>
     <script>
     
         (function imageView(image_fileholder, image_file) {
@@ -171,7 +192,7 @@
       }
 
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'sharewriting', true);
+      xhr.open('POST', 'boardUpdate', true);
       xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
               if (xhr.status === 200) {
@@ -187,7 +208,42 @@
       xhr.send(formData);
   }
 })('image_fileholder', 'image_file');
+        const slides = document.querySelector('.slides'); //전체 슬라이드 컨테이너
+        const slideImg = document.querySelectorAll('.slides li'); //모든 슬라이드들
+        let currentIdx = 0; //현재 슬라이드 index
+        const slideCount = slideImg.length; // 슬라이드 개수
+        const prev = document.querySelector('.prev'); //이전 버튼
+        const next = document.querySelector('.next'); //다음 버튼
+        const slideWidth = 600; //한개의 슬라이드 넓이
+        const slideMargin = 100; //슬라이드간의 margin 값
+
+        //전체 슬라이드 컨테이너 넓이 설정
+        slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
+
+        function moveSlide(num) {
+          slides.style.left = -num * 700 + 'px';
+          currentIdx = num;
+        }
+
+        prev.addEventListener('click', function () {
+          /*첫 번째 슬라이드로 표시 됐을때는 
+          이전 버튼 눌러도 아무런 반응 없게 하기 위해 
+          currentIdx !==0일때만 moveSlide 함수 불러옴 */
+
+          if (currentIdx !== 0) moveSlide(currentIdx - 1);
+        });
+
+        next.addEventListener('click', function () {
+          /* 마지막 슬라이드로 표시 됐을때는 
+          다음 버튼 눌러도 아무런 반응 없게 하기 위해
+          currentIdx !==slideCount - 1 일때만 
+          moveSlide 함수 불러옴 */
+          if (currentIdx !== slideCount - 1) {
+            moveSlide(currentIdx + 1);
+          }
+        });
     </script>
+    
 </body>
 <footer>
 	<%@ include file="footer.jsp"%>

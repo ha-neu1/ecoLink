@@ -1,0 +1,378 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.head_wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 800px;
+	height: 60px;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+
+.left_wrap {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.date_views {
+	display: flex;
+	flex-direction: row;
+}
+
+.user_image {
+	font-size: 30px;
+	padding: 10px;
+}
+
+.nickname {
+	font-size: 15px;
+}
+
+.date_views {
+	font-size: 12px;
+}
+
+.date {
+	padding-right: 5px;
+}
+
+.like button {
+	border-style: none;
+	background-color: transparent;
+	cursor: pointer;
+	
+}
+.fa-regular.fa-heart {
+
+  color: #000000;
+}
+
+.fa-heart.fa-solid {
+
+  color: #FA383E;
+  
+}
+.right_wrap {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.post_image {
+	width: 800px;
+	height: 500px;
+	position: relative;
+	margin: 0px auto;
+	overflow: hidden;
+}
+
+.post_image img {
+	width: 800px;
+	height: 500px;
+	border-radius: 15px;
+}
+
+.slides {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 2500px; /* 슬라이드할 사진과 마진 총 넓이 */
+	transition: left 0.2s ease-out;
+}
+
+.slides li:not(:last-child) {
+	float: left;
+	margin-right: 100px;
+}
+
+.slides li {
+	float: left;
+}
+
+.controller span {
+	    width: auto;
+    position: absolute;
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px 20px;
+    top: 43%;
+    font-size: 1.5em;
+    cursor: pointer;
+   
+}
+
+/* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
+.controller span:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+	left: 10px;
+}
+
+/* 이전 화살표에 마우스 커서가 올라가 있을때 
+이전 화살표가 살짝 왼쪽으로 이동하는 효과*/
+.prev:hover {
+	transform: translateX(-10px);
+}
+
+.next {
+	right: 10px;
+}
+
+/* 다음 화살표에 마우스 커서가 올라가 있을때 
+이전 화살표가 살짝 오른쪽으로 이동하는 효과*/
+.next:hover {
+	transform: translateX(10px);
+}
+
+.post_tit {
+	width: 800px;
+	padding-bottom: 20px;
+	margin: 0 auto;
+	font-size: 25px;
+	font-weight: bold;
+	padding-left: 20px;
+	margin-top: 20px;
+}
+
+.post_contents {
+	width: 800px;
+	padding-bottom: 50px;
+	margin: 0 auto;
+	font-size: 15px;
+	padding-left: 20px;
+}
+.post_edit_delete{
+	display: flex;
+	width: 800px;
+	margin: 0 auto;
+	justify-content: flex-end;
+	padding-bottom: 20px;
+}
+.postEditBtn{
+	cursor: pointer;
+	margin : 5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	color: #221e20;
+	background-color: transparent;
+	border: none;
+	font-size: 15px;
+}
+.postEditBtn:hover{
+	background-color: #f5f5f5;
+}
+.postDeleteBtn{
+	cursor: pointer;
+	margin : 5px;
+	border-radius: 5px;
+	color: #221e20;
+	background-color: transparent;
+	border: none;
+	font-size: 15px;
+}
+.postDeleteBtn:hover{
+	background-color: #f5f5f5;
+}
+
+.post_comment_header {
+	width: 800px;
+	margin: 0 auto;
+	border-top: 10px solid #f5f5f5;
+	font-size: 18px;
+	padding: 10px;
+	padding-left: 30px;
+	border-bottom: 1px solid #f5f5f5;;
+}
+
+.post_comment {
+	display: flex;
+	width: 800px;
+	margin: 0 auto;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 10px;
+}
+.commentNickName{
+	display: flex;
+	justify-content: space-between;
+	width: 700px;
+}
+.deleteCommentBtn{
+	cursor:pointer;
+	font-size : 14px;
+	margin-right : 6.75px;
+	background-color: transparent;
+	border-style: none;
+	border-radius: 5px;
+}
+.deleteCommentBtn:hover{
+	background-color: #f5f5f5;
+}
+.deleteReplyBtn{
+	cursor:pointer;
+	font-size : 14px;
+	margin-right: 30px;
+	background-color: transparent;
+	border-style: none;
+	border-radius: 5px;
+}
+.deleteReplyBtn:hover{
+	background-color: #f5f5f5;
+	}
+
+.comment {
+	width: 690px;
+	max-height: 80px;
+	font-size: 14px;
+	color: #333;
+	background-color: transparent;
+	border-style: none;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 18px;
+}
+
+.commentbtn {
+	border: none;
+	background: none;
+	color: #999;
+	font-size: 14px;
+	cursor:pointer;
+	
+}
+
+
+
+.commentContentWrap {
+	display: flex;
+	padding: 10px 24px;
+	width: 750px;
+	margin: 0 auto;
+}
+
+.replyWrap {
+	display: flex;
+	padding: 10px 24px;
+	width: 750px;
+	margin: 0 auto;
+	padding-left: 70px;
+}
+
+.commentContentProfile {
+	padding-right: 8px;
+}
+
+.commentContents {
+	padding-top: 8px;
+}
+
+.dateReplyWrap {
+	display: flex;
+	flex-direction: row;
+	padding-top: 8px;
+}
+
+.replyContents {
+	display: flex;
+	flex-direction: row;
+	padding: 16px 24px;
+}
+
+.reply {
+	width: 620px;
+	max-height: 80px;
+	font-size: 14px;
+	color: #333;
+	background-color: transparent;
+	border-style: none;
+	padding: 10px; 
+	border-radius: 18px;
+	background-color: #f5f5f5;
+	
+	
+}
+
+.replyBtn {
+	border: none;
+	background: none;
+	color: #999;
+	font-size: 14px;
+	padding-left: 2px;
+	cursor:pointer;
+	
+}
+.replyOnDisplay{
+	display: flex;
+	width: 700px;
+	justify-content:flex-start;
+	margin: 0 auto;
+	
+}
+.onDisplay{
+	color:#282828;
+	font-weight: bold;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+.onDisplay:hover{
+	background-color : #f5f5f5;
+}
+.replyOffDisplay{
+	display: flex;
+	width: 700px;
+	justify-content:flex-start;
+	margin: 0 auto;
+}
+.offDisplay{
+	color:#282828;
+	font-weight: bold;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+.offDisplay:hover{
+	background-color : #f5f5f5;
+}
+.commentReply {
+	padding-left: 20px;
+}
+
+.commentReply button {
+	border: 0 none;
+	cursor: pointer;
+	background-color: transparent;
+}
+.pagination{
+	display: flex;
+	justify-content: center;
+	padding:  10px;
+}
+.pagination li{
+	padding: 10px;
+}
+.page-item.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.pagination .page-item.activeNumber .page-link {
+ background-color: #00D084;
+  color:#e6e6e6;
+  border-color:#00D084;;
+}

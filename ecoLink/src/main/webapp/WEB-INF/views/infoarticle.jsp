@@ -15,8 +15,6 @@
 <%@ include file="header.jsp"%>
 <%@ include file="chatbot.jsp"%>
 </head>
-
-
 <body>
 	<div class="info_title">NEWS</div>
 	<div class="info_cata">

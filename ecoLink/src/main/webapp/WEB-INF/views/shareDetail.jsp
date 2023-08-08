@@ -7,16 +7,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/infopostdetail.css">
-<title>Insert title here</title>
+<link rel="stylesheet" href="css/boardDetail.css">
+<title>본인제품공유 상세보기</title>
 <script src="https://kit.fontawesome.com/7aca531ae5.js"
 	crossorigin="anonymous"></script>
 
 <script src="js/jquery-3.6.4.min.js"></script>
-<%@ include file="header.jsp"%>
-<%@ include file="chatbot.jsp"%>
+
 </head>
 <body>
+<%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 	<div class="head_wrap">
 		<div class="left_wrap">
 			<div class="user_image">
@@ -70,14 +71,16 @@
 				<input type="hidden" name="boardId" value="${detaildto.boardId}" />
 				<button type="submit" class="postEditBtn">수정</button>
 				</form>
-				<button class="postDeleteBtn" onclick="deleteBoard(${detaildto.boardId }, '${detaildto.memId}');">삭제</button>
+				<button class="postDeleteBtn"
+					onclick="deleteBoard(${detaildto.boardId }, '${detaildto.memId}');">삭제</button>
 					</c:when>
 		</c:choose>
 	</div>
 	<div class="post_comment_header">댓글</div>
 	<div class="post_comment">
 		<form id="boardComment">
-			<input type="text" placeholder="댓글을 입력해 주세요." class="comment" name="comment" id="newComment">
+			<input type="text" placeholder="댓글을 입력해 주세요." class="comment"
+				name="comment" id="newComment">
 			<button class="commentbtn" >등록</button>
 			<input type="hidden" name="boardId" value="${detaildto.boardId}" />
 		</form>
@@ -93,8 +96,10 @@
 						<div class="commentContentRight">
 							<div class="commentNickName">${dto.memNick}
 								<c:choose>
-									<c:when test="${not dto.deleted && (logininfo.memId eq dto.memId || logininfo.memId eq 'admin')}">
-										<button class="deleteCommentBtn" onclick="deleteComment(${dto.bcId },${dto.boardId }, '${dto.memId}');">
+									<c:when
+										test="${not dto.deleted && (logininfo.memId eq dto.memId || logininfo.memId eq 'admin')}">
+										<button class="deleteCommentBtn"
+											onclick="deleteComment(${dto.bcId },${dto.boardId }, '${dto.memId}');">
 											<i class="fa-solid fa-xmark"></i>
 										</button>
 									</c:when>
@@ -125,13 +130,15 @@
 												<div class="commentReply">
 													<button type="button" class="replyWrite">답글쓰기</button>
 												</div>
-												<input type="hidden" name="boardId" value="${detaildto.boardId}" />
+												<input type="hidden" name="boardId"
+													value="${detaildto.boardId}" />
 												<input type="hidden" name="bcRef" value="${dto.bcRef}" />
 											</c:when>
 										</c:choose>
 								</div>
 								<div class="replyContents" style="display: none;">
-									<input type="text" placeholder="답글을 입력해 주세요." class="reply" name="reply">
+									<input type="text" placeholder="답글을 입력해 주세요." class="reply"
+										name="reply">
 									<button class="replyBtn">등록</button>
 								</div>
 								</form>
@@ -362,7 +369,7 @@ function offDisplay(bcRef) {
     $('[onclick="offDisplay(' + bcRef + ')"]').hide(); // Hide "Collapse Reply" button
 }
 </script>
-	<script src="js/infopostdetail.js"></script>
+	<script src="js/boardDetail.js"></script>
 
 
 

@@ -3,42 +3,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/infowritingform.css">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
-    <%@ include file="header.jsp"%>
-<%@ include file="chatbot.jsp"%>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/infowritingform.css">
+<title>Document</title>
+<script src="https://kit.fontawesome.com/7aca531ae5.js"
+	crossorigin="anonymous"></script>
+<%@ include file="header.jsp"%>
 </head>
 <body>
-<div class="info_title">게시글 작성하기</div>
+	<div class="info_title">게시글 작성하기</div>
 
-    <form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">
-    <div class="image_wrap">
-    <div class="hasImages">
-    	
-    </div>
-         <label for="image_file" class="image_file_zone" id="image_file_zone">
-            <div class="image_fileholder" id="image_fileholder">사진추가</div>
-         </label>
-         <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
-    </div>
-    <div class="post_tit">
-                <p>제목</p>
-                <input type="text" class="tit" name="boardTitle"
-                   placeholder="제목을 입력해주세요.">
-            </div>
-            <div class="post_contents">
-                <p>본문 내용</p>
-                <textarea class="contents" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
-            </div>
-            <div class="post_btn">
-                <button type="submit" id="submit_btn">작성하기</button>
-            </div> 
-    </form>
-   
-    <script>
+	<form id="post_form" action="infowriting" method="post" enctype="multipart/form-data">
+		<div class="image_wrap">
+			<div class="hasImages"></div>
+			<label for="image_file" class="image_file_zone" id="image_file_zone">
+				<div class="image_fileholder" id="image_fileholder">사진추가</div>
+			</label> <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
+		</div>
+		<div class="post_tit">
+			<p>제목</p>
+			<input type="text" class="tit" name="boardTitle" placeholder="제목을 입력해주세요.">
+		</div>
+		<div class="post_contents">
+			<p>본문 내용</p>
+			<textarea class="contents" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
+		</div>
+		<div class="post_btn">
+			<button type="submit" id="submit_btn">작성하기</button>
+		</div>
+	</form>
+
+	<script>
     
         (function imageView(image_fileholder, image_file) {
   var fileHolder = document.getElementById(image_fileholder);

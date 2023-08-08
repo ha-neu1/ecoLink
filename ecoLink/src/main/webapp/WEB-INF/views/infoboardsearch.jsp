@@ -14,7 +14,6 @@
 <%@ include file="header.jsp"%>
 <%@ include file="chatbot.jsp"%>
 </head>
-
 <body>
 	<div class="info_title">NEWS</div>
 	<div class="info_cata">
@@ -82,43 +81,30 @@
 					tabindex="-1" aria-disabled="true">이전</a></li>
 			</c:when>
 			<c:otherwise>
-				<li class="page-item active"><a class="page-link"
-					id="nextPageLink"
-					href="/infoboardsearch?page=${currentCpage - 1}&item=${param.item}&word=${param.word}">이전</a></li>
+				<li class="page-item active">
+				<a class="page-link" id="nextPageLink" href="/infoboardsearch?page=${currentCpage - 1}&item=${param.item}&word=${param.word}">이전</a></li>
 			</c:otherwise>
 		</c:choose>
 		<c:forEach var="i" begin="${startpage}" end="${endpage}">
 			<c:choose>
 				<c:when test="${i == currentCpage}">
-					<li class="page-item activeNumber"><a class="page-link"
-						id="nextPageLink"
-						href="/infoboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
+					<li class="page-item activeNumber"><a class="page-link" id="nextPageLink" href="/infoboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item"><a class="page-link" id="nextPageLink"
-						href="/infoboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
+					<li class="page-item"><a class="page-link" id="nextPageLink" href="/infoboardsearch?page=${i}&item=${param.item}&word=${param.word}">${i}</a></li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:choose>
 			<c:when test="${totalPage == currentCpage}">
-				<li class="page-item disabled" id="endNextPage"><a
-					class="page-link" id="nextPageLink"
-					href="/infoboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
+				<li class="page-item disabled" id="endNextPage"><a class="page-link" id="nextPageLink" href="/infoboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
 			</c:when>
 			<c:otherwise>
-				<li class="page-item active"><a class="page-link"
-					href="/infoboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
+				<li class="page-item active"><a class="page-link" href="/infoboardsearch?page=${currentCpage + 1}&item=${param.item}&word=${param.word}">다음</a></li>
 			</c:otherwise>
 		</c:choose>
 
 	</ul>
-
-
-
-
-
-
 
 <script src="js/infoarticle.js" ></script>
 </body>

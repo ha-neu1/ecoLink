@@ -6,10 +6,10 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/intro.css">
 <title>Insert title here</title>
-<%@ include file="header.jsp"%>
-<%@ include file="chatbot.jsp"%>
 </head>
 <body>
+<%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
     <section id="intro_contents">
         <div class="intro_title">
             <h3>업사이클링이란?</h3>
