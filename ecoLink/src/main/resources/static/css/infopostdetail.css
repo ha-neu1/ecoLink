@@ -1,25 +1,9 @@
 @charset "UTF-8";
-
 @font-face {
-	font-family: 'NanumSquareNeo';
-	font-weight: 300;
-	font-style: normal;
-	src:
-		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot');
-	src:
-		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot?#iefix')
-		format('embedded-opentype'),
-		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff2')
-		format('woff2'),
-		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff')
-		format('woff'),
-		url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.ttf')
-		format("truetype");
-	font-display: swap;
-}
-
-* {
-	font-family: 'NanumSquareNeo';
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .head_wrap {
@@ -157,6 +141,7 @@
 	font-size: 25px;
 	font-weight: bold;
 	padding-left: 20px;
+	margin-top: 20px;
 }
 
 .post_contents {
