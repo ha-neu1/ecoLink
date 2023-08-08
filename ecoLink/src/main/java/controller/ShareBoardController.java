@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 import dto.BoardDTO;
 import dto.FileDTO;
@@ -117,18 +119,54 @@ public class ShareBoardController {
 	}
 
 	@GetMapping("/boardUpdate/{boardId}")
-	public String showUpdateForm(@PathVariable int boardId, Model model) {
-		BoardDTO board = shareBoardService.getBoardUpdate(boardId); // 수정된 부분
-		model.addAttribute("board", board);
+    public String showUpdateForm(@PathVariable int boardId, Model model, HttpSession session) {
+		BoardDTO board = shareBoardService.getBoardById(boardId);
+        model.addAttribute("board", board);
+        
+        MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가)
+		
 		return "boardUpdate";
 	}
 
 	@PostMapping("/boardUpdate/{boardId}")
-	public String updateBoard(@PathVariable int boardId, @ModelAttribute BoardDTO boardDTO) {
-		boardDTO.setBoardId(boardId);
-		shareBoardService.updateBoard(boardDTO);
-		return "redirect:/share/boardRead?boardId=" + boardId;
-	}
+    public String updateBoard(@PathVariable int boardId, @ModelAttribute("boardDTO") @Validated BoardDTO boardDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            // 유효성 검사 오류가 있는 경우에 대한 처리
+            return "error";
+        }
+
+        // 파일 업로드 처리
+        List<MultipartFile> files = boardDTO.getFiles();
+        List<String> fileNames = new ArrayList<>();
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                String fileName = file.getOriginalFilename();
+                String uploadPath = "/your/upload/directory/path/"; // 파일 업로드 경로 설정
+                String fullPath = uploadPath + fileName;
+                
+                try {
+                    // 파일 저장 처리
+                    file.transferTo(new File(fullPath));
+                    fileNames.add(fileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // 파일 업로드 실패 처리
+                }
+            }
+        }
+
+        // 게시물 업데이트 처리
+        BoardDTO updatedBoard = shareBoardService.getBoardById(boardId); // 게시물 조회
+        updatedBoard.setBoardTitle(boardDTO.getBoardTitle());
+        updatedBoard.setBoardContents(boardDTO.getBoardContents());
+        updatedBoard.setFiles(files); // 업로드된 파일 이름 설정
+
+        shareBoardService.updateBoard(updatedBoard); // 게시물 업데이트
+
+        // 게시물 업데이트 후 리다이렉트
+        return "redirect:/share/boardRead?boardId=" + boardId;
+    }
 
 	@GetMapping("/confirmDelete/{boardId}")
 	public String showDeleteConfirm(@PathVariable int boardId, Model model) {

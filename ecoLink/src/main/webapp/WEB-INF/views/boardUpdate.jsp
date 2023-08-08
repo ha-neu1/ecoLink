@@ -36,6 +36,7 @@
 						<div class="image_fileholder" id="image_fileholder">사진추가</div>
 					</label> <input type="file" id="image_file" class="image_file" name="files"
 						multiple="multiple" accept="image/*" hidden>
+
 				</div>
 				<div class="post_tit">
 					<input type="text" class="tit" name="boardTitle"
@@ -52,6 +53,28 @@
 		</div>
 
 		<script>
+		
+		 $(document).ready(function() {
+		        $("#submit_btn").click(function() {
+		            var formData = $("#update_form").serialize(); // 폼 데이터 수집
+
+		            $.ajax({
+		                type: "POST",
+		                url: "/boardUpdate",
+		                data: formData,
+		                success: function(response) {
+		                    alert("게시물이 성공적으로 수정되었습니다.");
+		                    // 게시물 읽기 페이지로 이동
+		                    window.location.href = "/share/boardRead?boardId=" + response.boardId;
+		                },
+		                error: function(xhr, status, error) {
+		                    alert("게시물 수정 오류: " + error);
+		                }
+		            });
+		        });
+		    });
+		
+		
     // 이미지 미리보기 관련 스크립트
     (function imagePreview(image_fileholder, image_file) {
         var fileHolder = document.getElementById(image_fileholder);
