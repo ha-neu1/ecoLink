@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -259,7 +260,7 @@ public class IntroController {
 					String newFilename = beforeExt + "(" + UUID.randomUUID().toString() + ")" + ext;
 					File newFile = new File(savePath + newFilename);
 					file.transferTo(newFile);
-
+					
 					FileDTO fileDTO = new FileDTO();
 					fileDTO.setFileIdx(UUID.randomUUID().toString());
 					fileDTO.setFilePath(savePath + newFilename);
@@ -281,13 +282,13 @@ public class IntroController {
 					String newFilename = beforeExt + "(" + UUID.randomUUID().toString() + ")" + ext;
 					File newFile = new File(savePath + newFilename);
 					file.transferTo(newFile);
-
+					
 					FileDTO fileDTO = new FileDTO();
 					fileDTO.setFileIdx(UUID.randomUUID().toString());
 					fileDTO.setFilePath(savePath + newFilename);
 					fileDTO.setFileName(originalName);
 					fileDTO.setFileType(file.getContentType());
-
+					
 					fileDTO.setBoardId(boarddto.getBoardId());
 					fileDTOList.add(fileDTO);
 				}
@@ -390,6 +391,7 @@ public class IntroController {
 					fileDTO.setBoardId(boardId);
 					fileDTOList.add(fileDTO);
 				}
+				
 			}
 		}
 		if (draggedFiles != null && !draggedFiles.isEmpty()) {
@@ -617,12 +619,30 @@ public class IntroController {
 	}
 	@RequestMapping("/infodeleteBoard")
 	public String infodeleteBoard(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			int boardId, String memId , HttpServletResponse response) {
+			int boardId, String memId ,  HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setDateHeader("Expires", 0); // Proxies.
+		String savePath = "";
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			savePath = "c:/kdt";
+		} else if (os.contains("linux")) {
+			savePath = "/usr/mydir";
+		} else {
+			savePath = "c:";
+		}
 		if (dto != null) {
 			if (dto.getMemType().equals("admin") || dto.getMemId().equals(memId)) {
+				
+				List<FileDTO> files = service.getFilesByBoardId(boardId);
+				for (FileDTO fileDTO : files) {
+					File file = new File( savePath+ fileDTO.getFilePath());
+					if (file.exists()) {
+						file.delete();
+					}
+				}
+				
 				 service.deleteAllBoard(boardId);
 				return "redirect:/infoboardlist";
 			} else {

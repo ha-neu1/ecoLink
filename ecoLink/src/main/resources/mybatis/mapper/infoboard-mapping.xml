@@ -214,7 +214,7 @@
 
 	<delete id="deleteFile" parameterType="int">
 		DELETE FROM file WHERE
-		boardId = #{boardId}
+		boardId = #{boardId} 
 	</delete>
 
 	<delete id="deleteBoard" parameterType="int">

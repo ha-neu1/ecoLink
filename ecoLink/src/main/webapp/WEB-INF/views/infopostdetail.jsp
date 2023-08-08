@@ -17,6 +17,7 @@
 <%@ include file="chatbot.jsp"%>
 </head>
 <body>
+
 	<div class="head_wrap">
 		<div class="left_wrap">
 			<div class="user_image">
@@ -60,7 +61,8 @@
 			<span class="prev">&lang;</span> <span class="next">&rang;</span>
 		</p>
 	</div>
-	<div class="post_tit" name="boardTitle">${detaildto.boardTitle }</div>
+	
+	<div class="post_tit" name="boardTitle">${detaildto.boardTitle } </div>
 	<div class="post_contents" name="boardContents">${detaildto.boardContents }</div>
 	<div class="post_edit_delete">
 		<c:choose>
