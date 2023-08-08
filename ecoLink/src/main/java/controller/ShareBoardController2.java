@@ -36,18 +36,19 @@ public class ShareBoardController2 {
 		
 		String savePath = "";
 		if (os.contains("win")) {
-			savePath = "SUBSTRING_INDEX(filepath, 'c:/kdt', -1)";
+			savePath = "c:/kdt";
 		} else if (os.contains("linux")) {
 			savePath = "/usr/mydir";
 		} else {
-			savePath = "c:";
+			savePath = "c:/kdt";
 		}
+		
 		HashMap<String, Object> clistmap = new HashMap<String, Object>();
 		clistmap.put("limitindex", limitindex);
 		clistmap.put("limitcount", limitcount);
+		clistmap.put("savePath", savePath);
 		List<BoardDTO> list = null;
 		
-
 		if (search.equals("")) {
 			if (order != null) {
 				if (order.equals("latest")) {
@@ -85,7 +86,10 @@ public class ShareBoardController2 {
 			}
 			totalList = service.getoptionBPListCount(search);
 		}
-
+		
+		for (BoardDTO boardDTO : list) {
+			System.out.println(boardDTO);
+		}
 		int totalPage = 0;
 		if (totalList % 9 == 0) {
 			totalPage = totalList / 9;

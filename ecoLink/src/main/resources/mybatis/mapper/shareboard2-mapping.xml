@@ -7,7 +7,7 @@
 		resultType="boardDto">
 		SELECT b.boardId, b.boardTitle, b.boardViewCount,
 		b.boardRegtime, b.boardUpdateTime, b.boardContents, b.memId,
-		b.boardType, m.memNick, f.fileIdx, SUBSTRING_INDEX(filepath, 'c:/kdt', -1) as filepath, f.fileName, f.fileType
+		b.boardType, m.memNick, f.fileIdx, SUBSTRING_INDEX(f.filepath, #{savePath} , -1) as filepath, f.fileName, f.fileType
 		FROM board AS b
 		JOIN member AS m ON m.memId = b.memId
 		LEFT JOIN (SELECT boardId, MAX(fileIdx) AS maxFileIdx FROM file GROUP BY
@@ -21,7 +21,7 @@
 		resultType="boardDto">
 		SELECT b.boardId, b.boardTitle, b.boardViewCount,
 		b.boardRegtime, b.boardUpdateTime, b.boardContents, b.memId,
-		b.boardType, m.memNick, f.fileIdx, SUBSTRING_INDEX(filepath, 'c:/kdt', -1) as filepath, f.fileName, f.fileType
+		b.boardType, m.memNick, f.fileIdx, SUBSTRING_INDEX(f.filepath, #{savePath} , -1) as filepath, f.fileName, f.fileType
 		FROM board AS b
 		JOIN member AS m ON m.memId = b.memId
 		LEFT JOIN (SELECT boardId, MAX(fileIdx) AS maxFileIdx FROM file GROUP BY
@@ -35,7 +35,7 @@
 		resultType="boardDto">
 		SELECT b.boardId, b.boardTitle, b.boardViewCount,
 		b.boardRegtime, b.boardUpdateTime, b.boardContents, b.memId,
-		b.boardType, m.memNick, f.fileIdx, SUBSTRING_INDEX(filepath, 'c:/kdt', -1) as filepath, f.fileName, f.fileType
+		b.boardType, m.memNick, f.fileIdx, SUBSTRING_INDEX(f.filepath, #{savePath} , -1) as filepath, f.fileName, f.fileType
 		FROM board AS b
 		JOIN member AS m ON m.memId = b.memId
 		LEFT JOIN (SELECT boardId, MAX(fileIdx) AS maxFileIdx FROM file GROUP BY
