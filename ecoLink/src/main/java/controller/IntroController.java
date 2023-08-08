@@ -334,7 +334,7 @@ public class IntroController {
 	}
 	
 	@PostMapping("/infoeditform")
-	public ModelAndView infoeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,
+	public ModelAndView infoeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,String boardContents,
 			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -364,6 +364,8 @@ public class IntroController {
 
 		// Set the memId in the boarddto before inserting into the database
 		boarddto.setMemId(loggedInUserId);
+		
+		boarddto.setBoardContents(boardContents.replace("\r\n", "<br>"));
 		int updatecount = service.updateBoard(boarddto);
 
 		List<FileDTO> fileDTOList = new ArrayList<>();
