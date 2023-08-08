@@ -23,11 +23,11 @@
 		</div>
 		<div class="post_tit">
 			<p>제목</p>
-			<input type="text" class="tit" name="boardTitle" placeholder="제목을 입력해주세요.">
+			<input type="text" class="tit" name="boardTitle" placeholder="제목을 입력해주세요." maxlength="45">
 		</div>
 		<div class="post_contents">
 			<p>본문 내용</p>
-			<textarea class="contents" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
+			<textarea class="contents" name="boardContents" placeholder="내용을 입력해주세요." maxlength="9999"></textarea>
 		</div>
 		<div class="post_btn">
 			<button type="submit" id="submit_btn">작성하기</button>
