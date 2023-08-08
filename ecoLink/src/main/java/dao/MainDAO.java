@@ -14,7 +14,7 @@ import dto.MainDTO;
 public interface MainDAO {
 	public List<BannerDTO> getAllBanners();
 	public List<MainDTO> getBrandList();
-	public List<MainDTO> getShareBoardList();
+	public List<MainDTO> getShareBoardList(String savePath);
 	public int getMemberCount();
 	public int getEnterCount();
 	public int getBoardCount();

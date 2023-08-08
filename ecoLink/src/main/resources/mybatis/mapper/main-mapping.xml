@@ -15,9 +15,9 @@
 	</select>
 
 	<select id="getShareBoardList" resultType="maindto">
-		SELECT b.*, f.filePath FROM board b
+		SELECT b.*, SUBSTRING_INDEX(f.filepath, #{savePath} , -1) as filepath FROM board b
 		LEFT JOIN file f ON b.boardId = f.boardId
-		WHERE b.boardType = 'share'
+		WHERE b.boardType = 'review'
 		ORDER BY b.boardRegtime DESC;
 	</select>
 

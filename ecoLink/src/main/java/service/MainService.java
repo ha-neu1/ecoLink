@@ -11,7 +11,7 @@ public interface MainService {
 	
 	public List<MainDTO> getBrandList();
 
-	public List<MainDTO> getShareBoardList();
+	public List<MainDTO> getShareBoardList(String savePath);
 
 	public int getMemberCount();
 
