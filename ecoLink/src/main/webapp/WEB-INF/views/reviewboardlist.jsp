@@ -50,7 +50,7 @@
 					<div class="titlerate">
 						<div class="titlenamediv">
 							<a class="titlename"
-								href="/brandpromodetail?entCrn=#">${dto.boardTitle}</a>
+								href="/reviewpostdetail?boardId=${dto.boardId}">${dto.boardTitle}</a>
 								조회수 : ${dto.boardViewCount}
 						</div>
 						<div class="ratediv">
@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<hr style="margin-top: 3px; margin-bottom: 5px;">
-					<a href="/brandpromodetail?entCrn=#"><img
+					<a href="/reviewpostdetail?boardId=${dto.boardId}"><img
 						class="boardImage" src="${dto.filePath}"
 						onerror="this.onerror=null; this.src='https://buntingmagnetics.com/wp-content/uploads/2015/04/400x300.gif';"></a>
 					<hr style="margin-bottom: 5px;">
@@ -168,7 +168,7 @@
 	}
 
 	function opendetail(e) {
-		location.href = "/brandpromodetail?entCrn=" + e;
+		location.href = "/reviewpostdetail?boardId=" + e;
 	}
 </script>
 <footer>
