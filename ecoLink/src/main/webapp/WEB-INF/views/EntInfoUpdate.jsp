@@ -255,8 +255,8 @@
 
 				<div class='formindiv'>
 					<p>브랜드 이름*</p>
-					<input type="text" name="memNick" id="memNick" value="${loginUser.memNick}">
-					<a class="help">상호명 혹은 기업명을 입력해주세요.(최대 자)</a>
+					<input type="text" name="memNick" id="memNick" value="${loginUser.memNick}" maxlength="10">
+					<a class="help">상호명 혹은 기업명을 입력해주세요.(최대 10자)</a>
 				</div>
 
 				<div class='formindiv'>
@@ -298,20 +298,19 @@
 				</div>
 				
 				<div class='formindiv'>
-					<p>자세한 회사 설명</p>
-						<textarea id="entdIntro" name="entdIntro" class="inputTypeLong" maxlength="1000">${loginEnt.entdIntro}</textarea>
-                        <div id="IntrocharCount" class="numCount">0/1000</div>
-                        <a class="help">회사 설명에 대한 이미지가 없을 경우 작성해주세요.</a>
-				</div>
-				
-				<div class='formindiv'>
-					<p>회사 설명 이미지</p>
+					<p>회사 소개 이미지</p>
 					<c:if test="${loginEnt.entdIntroPic ne null}">
 					<input type="text" name="entdIntroPic" id="entdIntroPic" value="${loginEnt.entdIntroPic}" disabled>
 					</c:if>
 					<input type="file" name="introPic" id="introPic" accept="image/*" >
 					<div id="preview2"></div>
-					<a class="help">회사 설명 이미지 해상도 (680 x  280) 권장</a>
+				</div>
+				
+				<div class='formindiv'>
+					<p>자세한 회사 소개</p>
+						<textarea id="entdIntro" name="entdIntro" class="inputTypeLong" maxlength="1000">${loginEnt.entdIntro}</textarea>
+                        <div id="IntrocharCount" class="numCount">0/1000</div>
+                        <a class="help">회사 소개 이미지가 없을 경우 작성해주세요.</a>
 				</div>
 				
 				<div class='formindiv'>
@@ -321,7 +320,6 @@
 					</c:if>
 					<input type="file" name="dPic1" id="dPic1" accept="image/*" required>
 					<div id="preview3"></div>
-					<a class="help">제품1 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				<div class='formindiv'>
 					<p>제품1 이름*</p>
@@ -335,7 +333,6 @@
 					</c:if>
 					<input type="file" name="dPic2" id="dPic2" accept="image/*" >
 					<div id="preview4"></div>
-					<a class="help">제품2 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				<div class='formindiv'>
 					<p>제품2 이름</p>
@@ -349,7 +346,6 @@
 					</c:if>
 					<input type="file" name="dPic3" id="dPic3" accept="image/*" >
 					<div id="preview5"></div>
-					<a class="help">제품3 이미지 해상도 (680 x  280) 권장</a>
 				</div>
 				<div class='formindiv'>
 					<p>제품3 이름</p>

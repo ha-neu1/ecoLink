@@ -543,42 +543,42 @@ $(document).ready(function() {
                                             </td>
                                         </tr>
                                         <tr id="entd_Pic1" style="display: none">
-                                            <th>제품 이미지1*</th>
+                                            <th>제품1 이미지*</th>
                                             <td>
                                                 <input id="entdPic1" name="entdPic1" class="inputTypeImage" type="file" accept="image/*" required>
                                                 <div id="preview3"></div>
                                             </td>
                                         </tr>
                                         <tr id="entd_Pic2" style="display: none">
-                                            <th>제품 이미지2</th>
+                                            <th>제품2 이미지</th>
                                             <td>
                                                 <input id="entdPic2" name="entdPic2" class="inputTypeImage" type="file" accept="image/*">
                                                 <div id="preview4"></div>
                                             </td>
                                         </tr>
                                         <tr id="entd_Pic3" style="display: none">
-                                            <th>제품 이미지3</th>
+                                            <th>제품3 이미지</th>
                                             <td>
                                                 <input id="entdPic3" name="entdPic3" class="inputTypeImage" type="file" accept="image/*">
                                                 <div id="preview5"></div>
                                             </td>
                                         </tr>
                                         <tr id="entd_Explain1" style="display: none">
-                                            <th>제품 설명1*</th>
+                                            <th>제품1 이름*</th>
                                             <td>
                                                 <textarea id="entdExplain1" name="entdExplain1" class="inputTypeLong" maxlength="500" required></textarea>
                                                 <div id="ExplaincharCount1">0/500</div>
                                             </td>
                                         </tr>
                                         <tr id="entd_Explain2" style="display: none">
-                                            <th>제품 설명2</th>
+                                            <th>제품2 이름</th>
                                             <td>
                                                 <textarea id="entdExplain2" name="entdExplain2" class="inputTypeLong" maxlength="500"></textarea>
                                                 <div id="ExplaincharCount2">0/500</div>
                                             </td>
                                         </tr>
                                         <tr id="entd_Explain3" style="display: none">
-                                            <th>제품 설명3</th>
+                                            <th>제품3 이름</th>
                                             <td>
                                                 <textarea id="entdExplain3" name="entdExplain3" class="inputTypeLong" maxlength="500"></textarea>
                                                 <div id="ExplaincharCount3">0/500</div>

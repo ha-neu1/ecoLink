@@ -117,13 +117,12 @@
 
 				<div class='formindiv'>
 					<p>이름</p>
-					<input type="text" name="memName" id="memName" value="${loginUser.memName}" maxlength="30" disabled>
+					<input type="text" name="memName" id="memName" value="${loginUser.memName}" disabled>
 				</div>
 
 				<div class='formindiv'>
 					<p>닉네임*</p>
-					<input type="text" name="memNick" id="memNick" value="${loginUser.memNick}">
-					<a class="help">(최대 자)</a>
+					<input type="text" name="memNick" id="memNick" value="${loginUser.memNick}" maxlength="10">
 				</div>
 
 				<div class='formindiv'>
