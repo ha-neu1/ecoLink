@@ -302,22 +302,12 @@ public class IntroController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("insertcount", insertcount);
 
-		int totalBoard = service.getTotalBoard();
-		mv.addObject("totalBoard", totalBoard);
-
-		// 게시물 목록 조회 로직
-		int limitcount = 5;
-		int limitindex = (page - 1) * limitcount;
-		int limit[] = new int[2];
-		limit[0] = limitindex;
-		limit[1] = limitcount;
 		
-		List<BoardDTO> boardList = service.boardListRecent(limit);
 		
 		// 최신순으로 게시물 목록을 가져오는 로직
 		mv.addObject("user", dto);
-		mv.addObject("insertcount", insertcount);
-		mv.addObject("boardList", boardList);
+		
+		
 		mv.setViewName("redirect:/infoboardlist");
 		return mv;
 	}

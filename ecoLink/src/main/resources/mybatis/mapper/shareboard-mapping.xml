@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.BoardDAO">
+<mapper namespace="dao.ShareBoardDAO">
 
     <!-- 모든 게시물 조회 -->
     <select id="getAllBoardList" resultType="dto.BoardDTO">
@@ -122,9 +122,8 @@
 
     <!-- 게시물 삭제 -->
     <delete id="deleteBoard" parameterType="int">
-    DELETE FROM board
-    WHERE boardId = #{boardId}
-</delete>
+        DELETE FROM board WHERE boardId = #{boardId}
+    </delete>
 
     <!-- 게시물에 첨부된 파일 삭제 -->
     <delete id="deleteBoardImage" parameterType="int">
@@ -157,7 +156,7 @@
 		memId,
 		boardType)
 		values(#{boardTitle}, #{boardContents}, 0, now(), #{memId},
-		'review')
+		'share')
 	</insert>
 	
 	<insert id="insertFile" parameterType="filedto">
