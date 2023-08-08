@@ -1,6 +1,7 @@
 package dao;
 
 import dto.BoardDTO;
+import dto.BoardLikeDTO;
 import dto.FileDTO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -46,5 +47,12 @@ public interface BoardDAO {
 	public int getGeneratedBoardId();
 
 	public List<FileDTO> getFilesByBoardId(int boardId);
+	
+	// 좋아요
+	
+	int countLikes(int boardId);
+    void deleteLike(BoardLikeDTO likeDTO);
+    boolean hasLiked(BoardLikeDTO likeDTO);
+    void insertLike(BoardLikeDTO likeDTO);
 
 }

@@ -1,6 +1,7 @@
 package service;
 
 import dto.BoardDTO;
+import dto.BoardLikeDTO;
 import dto.FileDTO;
 
 import java.util.List;
@@ -11,8 +12,11 @@ public interface BoardService {
 
 	// 'share' 게시물 목록 조회
 	List<BoardDTO> getShareBoardList();
+
 	List<BoardDTO> getSortedBoardListByRecent();
+
 	List<BoardDTO> getSortedBoardListByViews();
+
 	List<BoardDTO> searchBoardsByKeyword(String keyword);
 
 	// 게시물 작성
@@ -23,6 +27,7 @@ public interface BoardService {
 
 	// 게시물 수정
 	BoardDTO getBoardUpdate(int boardId);
+
 	boolean updateBoard(BoardDTO boardDTO);
 
 	// 게시물 삭제
@@ -33,7 +38,7 @@ public interface BoardService {
 
 	// 조회수 조회
 	int getBoardViewCount(int boardId);
-	
+
 	public int insertBoard(BoardDTO boardDTO);
 
 	public int insertFile(FileDTO dto);
@@ -41,5 +46,15 @@ public interface BoardService {
 	public int getGeneratedBoardId();
 
 	public List<FileDTO> getFilesByBoardId(int boardId);
+
+	// 좋아요
+
+	int countLikes(int boardId);
+
+	void deleteLike(BoardLikeDTO likeDTO);
+
+	boolean hasLiked(BoardLikeDTO likeDTO);
+
+	void insertLike(BoardLikeDTO likeDTO);
 
 }

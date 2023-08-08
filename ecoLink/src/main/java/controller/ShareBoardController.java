@@ -38,9 +38,12 @@ public class ShareBoardController {
 	}
 
 	@GetMapping("/shareboard")
-	public String shareboard(Model model) {
+	public String shareboard(Model model,  HttpSession session) {
 		List<BoardDTO> boardlist = shareBoardService.getShareBoardList();
 		model.addAttribute("boardlist", boardlist);
+		
+		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가)
 		return "shareboard";
 	}
 
