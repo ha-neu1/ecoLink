@@ -82,7 +82,7 @@
 		brand_comment as bc on e.entCrn = bc.entCrn
 		where e.entdConfirm = true
 		group by e.entCrn
-		order by m.memRegtime desc limit #{limitindex} ,
+		order by m.memRegtime asc limit #{limitindex} ,
 		#{limitcount};
 	</select>
 
@@ -113,7 +113,7 @@
 		where e.entdConfirm = true
 		and m.memNick like CONCAT('%',#{memNick},'%')
 		group by e.entCrn
-		order by ${option} desc limit #{limitindex} , #{limitcount};
+		order by ${option} ${option2} limit #{limitindex} , #{limitcount};
 	</select>
 
 	<select id="getBPListCount" parameterType="string"

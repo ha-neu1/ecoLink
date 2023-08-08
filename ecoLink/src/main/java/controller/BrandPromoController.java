@@ -60,12 +60,14 @@ public class BrandPromoController {
 			if (order != null) {
 				if (order.equals("latest")) {
 					clistmap.put("option", "m.memRegtime");
+					clistmap.put("option2", "asc");
 					clistmap.put("memNick", search);
 					list = service.getoptionBPList(clistmap);
 					mv.addObject("order", "latest");
 					mv.addObject("search", search);
 				} else if (order.equals("rate")) {
 					clistmap.put("option", "avgRate");
+					clistmap.put("option2", "desc");
 					clistmap.put("memNick", search);
 					list = service.getoptionBPList(clistmap);
 					mv.addObject("order", "rate");
