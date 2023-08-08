@@ -201,7 +201,7 @@ public class TipController {
 
 	@PostMapping("/tipwriting")
 	public ModelAndView writeprocess(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,
-			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page,String boardContents,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
@@ -229,6 +229,7 @@ public class TipController {
 
 		// Set the memId in the boarddto before inserting into the database
 		boarddto.setMemId(loggedInUserId);
+		boarddto.setBoardContents(boardContents.replace("\r\n", "<br>"));
 		int insertcount = service.insertBoard(boarddto);
 
 		List<FileDTO> fileDTOList = new ArrayList<>();
@@ -314,7 +315,7 @@ public class TipController {
 	}
 	
 	@PostMapping("/tipeditform")
-	public ModelAndView tipeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,
+	public ModelAndView tipeditform(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,@RequestParam(name = "boardId") Integer boardId,String boardContents,
 			BoardDTO boarddto, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -344,6 +345,7 @@ public class TipController {
 
 		// Set the memId in the boarddto before inserting into the database
 		boarddto.setMemId(loggedInUserId);
+		boarddto.setBoardContents(boardContents.replace("\r\n", "<br>"));
 		int updatecount = service.updateBoard(boarddto);
 
 		List<FileDTO> fileDTOList = new ArrayList<>();

@@ -9,6 +9,7 @@
     <title>Document</title>
     <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
     <%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 <body>
     <form id="post_form" action="infoeditform" method="post" enctype="multipart/form-data">
@@ -19,10 +20,10 @@
          <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
     </div>
     <div class="post_tit">
-        <input type="text" class="tit" name="boardTitle" placeholder="제목을 입력하세요.">
+        <input type="text" class="tit" name="boardTitle" placeholder=" 제목을 입력하세요.">
     </div>
     <div class="post_contents">
-        <textarea class="contents" name="boardContents" placeholder="내용을 입력하세요."></textarea>
+        <textarea class="contents" name="boardContents" placeholder=" 내용을 입력하세요."></textarea>
     </div>
     <div class="post_btn">
     <input type="hidden" name="boardId" value="${boardId}" />
@@ -182,4 +183,7 @@
 })('image_fileholder', 'image_file');
     </script>
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>

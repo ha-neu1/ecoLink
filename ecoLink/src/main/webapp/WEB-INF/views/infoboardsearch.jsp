@@ -12,6 +12,7 @@
 	crossorigin="anonymous"></script>
 <script src="js/jquery-3.6.4.min.js"></script>
 <%@ include file="header.jsp"%>
+<%@ include file="chatbot.jsp"%>
 </head>
 
 <body>
@@ -41,7 +42,7 @@
 	<div class="writingform">
 		<c:choose>
 			<c:when test="${logininfo.memId eq 'admin'}">
-				<a href="infowriting"><input type="button" value="글쓰기"></a>
+				<a href="infowriting"><input class="writing"type="button" value="글쓰기"></a>
 			</c:when>
 			
 		</c:choose>
@@ -121,4 +122,7 @@
 
 <script src="js/infoarticle.js" ></script>
 </body>
+<footer>
+	<%@ include file="footer.jsp"%>
+</footer>
 </html>
