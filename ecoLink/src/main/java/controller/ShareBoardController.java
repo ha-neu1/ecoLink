@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -28,6 +29,7 @@ import service.BoardService;
 import service.ShareBoardService;
 
 @Controller
+@RequestMapping("/share")
 public class ShareBoardController {
 
 	private final ShareBoardService shareBoardService;
@@ -47,7 +49,7 @@ public class ShareBoardController {
 		return "shareboard";
 	}
 
-	/*@GetMapping("/boardSearch")
+	@GetMapping("/boardSearch")
 	public String boardSearch(@RequestParam("keyword") String keyword, Model model) {
 		List<BoardDTO> searchResults = shareBoardService.searchBoardsByKeyword(keyword);
 		model.addAttribute("searchResults", searchResults);
@@ -134,7 +136,7 @@ public class ShareBoardController {
 	public String deleteBoard(@PathVariable int boardId) {
 		shareBoardService.deleteBoard(boardId);
 		return "redirect:/board";
-	}*/
+	}
 
 	@GetMapping("/sharewriting")
 	public String sharewriting(@SessionAttribute(name = "logininfo", required = false) MemberDTO dto,

@@ -29,7 +29,7 @@
 				</ul></li>
 			<li><a href="/board">커뮤니티</a>
 				<ul class="navbarSub">
-					<li><a href="/shareboard">본인제품공유</a></li>
+					<li><a href="/share/shareboard">본인제품공유</a></li>
 					<li><a href="/reviewboard">후기</a></li>
 				</ul></li>
 		</ul>
