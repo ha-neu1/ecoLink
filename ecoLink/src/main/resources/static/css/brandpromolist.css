@@ -311,3 +311,7 @@ body {
 	color: #F9A825;
 	cursor: pointer;
 }
+
+.viewcount {
+	font-size : 10px;
+}
