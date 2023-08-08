@@ -1,4 +1,4 @@
-// 백엔드와의 통신을 위한 함수
+/*// 백엔드와의 통신을 위한 함수
 function sendRequest(url, method, body) {
     return fetch(url, {
         method: method,
@@ -60,3 +60,4 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", toggleLike);
     });
 });
+*/

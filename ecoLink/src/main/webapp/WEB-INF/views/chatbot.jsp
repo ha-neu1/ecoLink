@@ -6,18 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/chatbot.css">
-<script src="js/jquery-3.6.4.min.js"></script>
-<script src="js/chatbot.js"></script>
+<link rel="stylesheet" href="/css/chatbot.css">
+<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="/js/chatbot.js"></script>
 </head>
 <body>
 	<a href="#" class="chatIcon"> <img alt="챗봇"
-		src="images/chatbot.png">
+		src="/images/chatbot.png">
 	</a>
 
 	<div class="chatbox">
 		<div class="chatheader">
-			<img alt="챗로고" src="images/logo3.png">
+			<img alt="챗로고" src="/images/logo3.png">
 		</div>
 		<div class="chatlogs" id="response">
 			<div class="message bot">

@@ -178,4 +178,28 @@
 		resultType="dto.FileDTO">
 		select * from file where boardId = #{boardId};
 	</select>
+
+<!-- 좋아요 기능 추가 -->
+<insert id="insertLike" parameterType="dto.BoardLikeDTO">
+    INSERT INTO board_like (memId, boardId)
+    VALUES (#{memId}, #{boardId})
+</insert>
+
+<delete id="deleteLike" parameterType="dto.BoardLikeDTO">
+    DELETE FROM board_like
+    WHERE memId = #{memId} AND boardId = #{boardId}
+</delete>
+
+<select id="hasLiked" parameterType="dto.BoardLikeDTO" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM board_like
+    WHERE memId = #{memId} AND boardId = #{boardId}
+</select>
+
+<select id="countLikes" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM board_like
+    WHERE boardId = #{boardId}
+</select>
+
 </mapper>

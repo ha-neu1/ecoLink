@@ -50,7 +50,7 @@ public class IntroController {
 		response.setDateHeader("Expires", 0);
 
 		MemberDTO user = (MemberDTO) session.getAttribute("logininfo"); // 로그인 정보를 가져와서 MemberDTO로 캐스팅
-		model.addAttribute("user", user); // Model에 사용자 정보를 추가) {
+		model.addAttribute("user", user); // Model에 사용자 정보를 추가)
 		return "introboard";
 	}
 
