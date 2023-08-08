@@ -56,7 +56,21 @@
                                     	<c:forEach items="${boardlist}" var="dto">
                                     		<tr>
                                             	<td>${dto.boardId}</td>
-                                            	<td><a href="">${dto.boardTitle}</a></td>
+                                            	<td>
+                                            	<c:if test="${dto.boardType eq 'news'}">
+                                            		<a href="/infopostdetail?boardId=${dto.boardId}">${dto.boardTitle}</a>
+                                            	</c:if>
+                                            	<c:if test="${dto.boardType eq 'share'}">
+                                            		<a href="/boardRead?boardId=${dto.boardId}">${dto.boardTitle}</a>
+                                            	</c:if>
+                                            	<c:if test="${dto.boardType eq 'review'}">
+                                            		<a href="/boardRead?boardId=${dto.boardId}">${dto.boardTitle}</a>
+                                            	</c:if>
+                                            	<c:if test="${dto.boardType eq 'tip'}">
+                                            		<a href="/tippostdetail?boardId=${dto.boardId}">${dto.boardTitle}</a>
+                                            	</c:if>
+                                            	
+                                            	</td>
                                             	<td>${dto.memId}</td>
                                             	<td>${dto.boardViewCount}</td>
                                             	<td>${dto.boardRegtime}</td>
