@@ -409,7 +409,7 @@ $(document).ready(function() {
                                             <th scope="row">아이디*</th>
                                             <td>
                                                 <input id="memId" name="memId" class="inputTypeText" placeholder="" value="" type="text">
-                                                <p class="help">(영문 소문자/숫자, 4~16자)</p>
+                                                <!-- <p class="help">(영문 소문자/숫자, 4~16자)</p> -->
                                             </td>
                                         </tr>
                                         <tr>

@@ -63,7 +63,7 @@ window.addEventListener("DOMContentLoaded", function() {
 		            }
 		        },
 		        error: function(request, status, e) {
-		            alert("비밀번호를 찾을 수 없습니다. 다시 시도해주세요.");
+		            alert("비밀번호 찾기에 실패했습니다. 다음에 다시 시도해주세요.");
 		            console.log("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
 		        }
 		    });
