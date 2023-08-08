@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="/css/footer.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -13,17 +13,17 @@
 			<div class="fooIcon">
 				<ul>
 					<li><a href="/introboard"><img alt="정보"
-							src="images/information.png"> <span class="image-text">업사이클링
+							src="/images/information.png"> <span class="image-text">업사이클링
 								정보</span></a></li>
 					<li><a href="/brandpromolist"><img alt="브랜드소개"
-							src="images/promotion.png"><span class="image-text">브랜드
+							src="/images/promotion.png"><span class="image-text">브랜드
 								소개</span></a></li>
 					<li><a href="/board"><img alt="커뮤니티"
-							src="images/community.png"><span class="image-text">커뮤니티</span></a></li>
+							src="/images/community.png"><span class="image-text">커뮤니티</span></a></li>
 				</ul>
 			</div>
 			<div class="fooLogo">
-				<a href="/main"> <img alt="로고" src="images/logo1.png"></a>
+				<a href="/main"> <img alt="로고" src="/images/logo1.png"></a>
 			</div>
 			<div class="fooinfo">
 				<ul>

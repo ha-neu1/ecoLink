@@ -35,7 +35,9 @@
 			<div class="searchBox">
 				<input type="text" placeholder="검색어를 입력하세요">
 				<button class="button">검색</button>
+				<c:if test="${not empty user}">
 				<a href="/boardCreate"><button class="button">글쓰기</button></a>
+				</c:if>
 			</div>
 		</div>
 		<div class="boardMain">
