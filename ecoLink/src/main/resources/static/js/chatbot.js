@@ -77,7 +77,7 @@ $(document).ready(function() {
     }
 
     // 버튼의 클릭 이벤트를 등록합니다.
-    $("input:button").on("click", handleButtonClick);
+    $("#request").on("click", handleButtonClick);
 
     // 입력 필드의 키 다운 이벤트를 등록합니다.
     $("#request").keydown(function(event) {
