@@ -283,7 +283,7 @@ $('.replyBtn').click(function(e) {
     },
     error: function(xhr, status, error) {
       if (xhr.status === 401) {
-        alert("Please login");
+        alert("로그인을 해주세요");
         window.location.href = '/login'; // Redirect to the login page
       } else {
         alert("답글이 작성되지 않았습니다.: " + xhr.responseText);
