@@ -7,6 +7,7 @@
 <title>회원가입</title>
 <link rel="stylesheet" href="css/join.css">
 <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="/js/jquery-3.6.4.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -19,6 +20,7 @@ $(document).ready(function() {
 	  const join_name = document.getElementById("memName");
 	  const join_nick = document.getElementById("memNick");
 
+	  
     // memberPw 입력란 클릭 시 이벤트 처리
 	  $(document).on('click', '#memPw', function(e) {
 	    e.stopPropagation();
@@ -33,6 +35,15 @@ $(document).ready(function() {
 	    }
 	  });
 
+	  //아이디 유효성 검사
+	function isIdValid(id) {
+		// 조건 : 영문대소문자 + 숫자 조합
+		const regex = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+		
+		return regex.test(id);
+	}
+	
+	//비밀번호 유효성 검사
 	function isPasswordValid(password) {
 		// 조건 1: 영문대소문자 + 숫자 조합
 		const regex1 = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
@@ -45,15 +56,38 @@ $(document).ready(function() {
 		
 		return regex1.test(password) || regex2.test(password) || regex3.test(password);
 	}
+	
+	//이메일 유효성 검사
+    function isEmailValid(email) {
+        // 이메일 유효성 검사 정규식
+        const regex = /^[A-Za-z0-9+_.-]+@(.+)$/;
+        return regex.test(email);
+    }
+
+	 // 다른 곳 클릭 시 아이디 유효성 검사
+	$(join_id).on('blur', function() {
+	    var idValue = $(this).val();
+	    if (idValue.trim() !== "" && !isIdValid(idValue)) {
+	        alert("아이디 입력 조건을 만족해주세요.");
+	    }
+	});
      
 	 // 다른 곳 클릭 시 비밀번호 유효성 검사
 	$(join_pw).on('blur', function() {
 	    var pwValue = $(this).val();
-	    if (!isPasswordValid(pwValue)) {
+	    if (pwValue.trim() !== "" && !isPasswordValid(pwValue)) {
 	        alert("비밀번호 입력 조건을 만족해주세요.");
 	    }
 	});
-	  
+	 
+    // 다른 곳 클릭 시 이메일 유효성 검사
+    $(join_email).on('blur', function() {
+        var emailValue = $(this).val();
+        if (emailValue.trim() !== "" && !isEmailValid(emailValue)) {
+            alert("유효한 이메일 주소를 입력해주세요.");
+        }
+    });
+	    
 	 // 비밀번호 일치 여부 확인
      $(document).on('click', 'input:not(#memPw_confirm)', function(e) {
         var pwConfirmValue = $('#memPw_confirm').val();
@@ -108,8 +142,10 @@ $(document).ready(function() {
 	      event.preventDefault();
 	      var selected = $('#memType').val();
 	      var emptyFields = []; // 빈칸인 필드들을 저장하는 배열
+	      var idValue = $('#memId').val();
 	      var pwValue = $('#memPw').val();
           var pwConfirmValue = $('#memPw_confirm').val();
+	      var emailValue = $('#memEmail').val();
 
 	      // 아이디, 비밀번호, 이메일, 이름에 빈칸 입력 시 배열에 추가
 	      if (join_id.value.trim() === "") {
@@ -161,8 +197,12 @@ $(document).ready(function() {
 	      if (emptyFields.length > 0) {
 	          var fieldsMessage = emptyFields.join(", ");
 	          alert(fieldsMessage + "란을 입력해주세요.");
+	      } else if (!isIdValid(idValue)) {
+              alert("아이디 입력 조건을 만족해주세요.");
 	      } else if (!isPasswordValid(pwValue)) {
               alert("비밀번호 입력 조건을 만족해주세요.");
+	      } else if (!isEmailValid(emailValue)) {
+              alert("유효한 이메일 주소를 입력해주세요.");
           } else if (pwValue !== pwConfirmValue) {
               alert("비밀번호가 일치하지 않습니다.");
           } else {
@@ -225,15 +265,6 @@ $(document).ready(function() {
 	  }
  
 	  function addEnterprise() {
-/*			let param1 = {
-					'memId' : $("#memId").val(),
-					'memPw' : $("#memPw").val(),
-					'memEmail' : $("#memEmail").val(),
-					'memType' : $("#memType").val(),
-					'memName' : $("#memName").val(),
-					'memNick' : $("#memNick").val()
-			};
-			console.log(param1);*/
 			
 			let param2 = {
 					'entCrn' : $('#crn1').val() + '-' + $('#crn2').val() + '-' + $('#crn3').val(),
@@ -267,7 +298,6 @@ $(document).ready(function() {
 
 			let form = new FormData();
 
-			//form.append("member", new Blob([ JSON.stringify(param1) ], {type : "application/json"}))
 			form.append("enter", new Blob([ JSON.stringify(param2) ], {type : "application/json"}))
 			form.append("img1", fileImg);
 			form.append("img2", fileImg2);
@@ -281,7 +311,6 @@ $(document).ready(function() {
 		        data: form,
 		        processData: false,
 		        contentType: false,
-		        //enctype : 'multipart/form-data',
 		        success: function(response) {
 		            console.log('Enterprise added successfully');
 		        },
@@ -409,7 +438,7 @@ $(document).ready(function() {
                                             <th scope="row">아이디*</th>
                                             <td>
                                                 <input id="memId" name="memId" class="inputTypeText" placeholder="" value="" type="text">
-                                                <!-- <p class="help">(영문 소문자/숫자, 4~16자)</p> -->
+                                                <p class="help">(영문 대소문자/숫자 조합, 4~16자)</p>
                                             </td>
                                         </tr>
                                         <tr>
