@@ -43,7 +43,7 @@
     <form id="post_form" action="infoeditform" method="post" enctype="multipart/form-data">
     <div class="image_wrap">
          <label for="image_file" class="image_file_zone" id="image_file_zone">
-            <div class="image_fileholder" id="image_fileholder">클릭하거나 이미지를 드래그하세요.</div>
+            <div class="image_fileholder" id="image_fileholder">클릭하거나를 이미지를드래그하세요.</div>
          </label>
          <input type="file" id="image_file" class="image_file" name="files" multiple="multiple" accept="image/*" hidden>
     </div>
@@ -139,7 +139,7 @@
     let img = document.createElement('img');
     img.setAttribute('style', img_style);
     img.src = ee.target.result;
-    if (fileHolder.textContent == '사진추가') {
+    if (fileHolder.textContent == '클릭하거나를 이미지를드래그하세요.') {
       fileHolder.textContent = '';
     }
     fileHolder.appendChild(makeDiv(img, file));

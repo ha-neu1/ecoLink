@@ -137,7 +137,7 @@
     let img = document.createElement('img');
     img.setAttribute('style', img_style);
     img.src = ee.target.result;
-    if (fileHolder.textContent == '사진추가') {
+    if (fileHolder.textContent == '클릭하거나를 이미지를드래그하세요.') {
       fileHolder.textContent = '';
     }
     fileHolder.appendChild(makeDiv(img, file));

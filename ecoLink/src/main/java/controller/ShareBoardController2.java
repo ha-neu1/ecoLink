@@ -87,9 +87,7 @@ public class ShareBoardController2 {
 			totalList = service.getoptionBPListCount(search);
 		}
 		
-		for (BoardDTO boardDTO : list) {
-			System.out.println(boardDTO);
-		}
+		
 		int totalPage = 0;
 		if (totalList % 9 == 0) {
 			totalPage = totalList / 9;
