@@ -47,11 +47,11 @@
     <div class="post_tit">
                 <p>제목</p>
                 <input type="text" class="tit" name="boardTitle"
-                    value="${detaildto.boardTitle}">
+                    value="${detaildto.boardTitle}" maxlength="45">
             </div>
             <div class="post_contents">
                 <p>본문 내용</p>
-                <textarea class="contents" name="boardContents">${detaildto.boardContents}</textarea>
+                <textarea class="contents" name="boardContents" maxlength="9999">${detaildto.boardContents}</textarea>
             </div>
             <div class="post_btn">
                 <input type="hidden" name="boardId" value="${boardId}" />

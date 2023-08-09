@@ -62,8 +62,8 @@
 		</p>
 	</div>
 	
-	<div class="post_tit" name="boardTitle">${detaildto.boardTitle } </div>
-	<div class="post_contents" name="boardContents">${detaildto.boardContents }</div>
+	<div class="post_tit" name="boardTitle"><p>${detaildto.boardTitle }</p> </div>
+	<div class="post_contents" name="boardContents"><p>${detaildto.boardContents }</p></div>
 	<div class="post_edit_delete">
 		<c:choose>
 			<c:when test="${logininfo.memId eq detaildto.memId || logininfo.memId eq 'admin'}">

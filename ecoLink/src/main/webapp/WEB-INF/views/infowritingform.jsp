@@ -23,7 +23,7 @@
 		</div>
 		<div class="post_tit">
 			<p>제목</p>
-			<input type="text" class="tit" name="boardTitle" placeholder="제목을 입력해주세요." maxlength="45">
+			<input type="text" class="tit" name="boardTitle" placeholder="제목을 입력해주세요." maxlength="45" >
 		</div>
 		<div class="post_contents">
 			<p>본문 내용</p>
@@ -35,7 +35,7 @@
 	</form>
 
 	<script>
-    
+	
         (function imageView(image_fileholder, image_file) {
   var fileHolder = document.getElementById(image_fileholder);
   var imageFile = document.getElementById(image_file);

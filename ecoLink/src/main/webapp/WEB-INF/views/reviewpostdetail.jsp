@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/infopostdetail.css">
+<link rel="stylesheet" href="css/boardDetail.css">
 <title>Insert title here</title>
 <script src="https://kit.fontawesome.com/7aca531ae5.js"
 	crossorigin="anonymous"></script>
@@ -61,9 +61,9 @@
 			<span class="prev">&lang;</span> <span class="next">&rang;</span>
 		</p>
 	</div>
-	
-	<div class="post_tit" name="boardTitle">${detaildto.boardTitle } </div>
-	<div class="post_contents" name="boardContents">${detaildto.boardContents }</div>
+
+	<div class="post_tit" name="boardTitle"><p>${detaildto.boardTitle }</p> </div>
+	<div class="post_contents" name="boardContents"><p>${detaildto.boardContents }</p></div>
 	<div class="post_edit_delete">
 		<c:choose>
 			<c:when test="${logininfo.memId eq detaildto.memId || logininfo.memId eq 'admin'}">
