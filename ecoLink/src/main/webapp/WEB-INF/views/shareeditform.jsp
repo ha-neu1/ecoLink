@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/infoeditform.css">
+    <link rel="stylesheet" href="css/boardUpdate.css">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
     <%@ include file="header.jsp"%>
@@ -137,7 +137,7 @@
     let img = document.createElement('img');
     img.setAttribute('style', img_style);
     img.src = ee.target.result;
-    if (fileHolder.textContent == '사진추가') {
+    if (fileHolder.textContent == '클릭하거나를 이미지를드래그하세요.') {
       fileHolder.textContent = '';
     }
     fileHolder.appendChild(makeDiv(img, file));
