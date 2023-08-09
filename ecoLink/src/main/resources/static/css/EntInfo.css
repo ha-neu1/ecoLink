@@ -77,7 +77,7 @@ article p{
 	width: 400px;
 	height: 250px;
 	font-size: 15px;
-	margin: 0px 40px 30px 150px;/*위 우 아래 좌*/
+	margin: 0px 40px 30px 160px;/*위 우 아래 좌*/
 }
 
 table tr td:nth-child(1){

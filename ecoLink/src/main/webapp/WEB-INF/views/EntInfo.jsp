@@ -98,10 +98,10 @@
 					<tr>
 						<td>승인 여부</td>
 						<c:if test="${loginEnt.entdConfirm == true}">
-						<td>승인이 허가되었습니다.<br/>기업정보를 수정할 경우 승인을 다시 기다려 주세요.</td>
+						<td>승인이 허가되었습니다.</td>
 						</c:if>
 						<c:if test="${loginEnt.entdConfirm == false}">
-						<td>승인이 거부되었습니다.<br/>기업정보를 수정해 주세요.<br/>이미 수정했다면 승인을 기다려 주세요.</td>
+						<td>승인 검토 중입니다. <br/>이미 수정했다면 승인을 기다려 주세요.<br/>시간이 길어질 경우 문의주세요.</td>
 						</c:if>
 					</tr>
 				</table>
