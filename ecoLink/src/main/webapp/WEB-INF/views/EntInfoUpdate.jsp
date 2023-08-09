@@ -10,7 +10,35 @@
 <script src="js/jquery-3.6.4.min.js"></script>
 <script>
 	$(document).ready(function() {
+		const id = document.getElementById("memId");
 		const pw = document.getElementById("memPw");
+		
+		//아이디 유효성 검사
+		function isIdValid(id) {
+			// 조건 : 영문대소문자 + 숫자 조합
+			const regex = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+			
+			return regex.test(id);
+		}
+		
+		function isPasswordValid(password) {
+			// 조건 1: 영문대소문자 + 숫자 조합
+			const regex1 = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+			// 조건 2: 영문대소문자 + 특수문자 조합
+			const regex2 = /^(?=.*[a-zA-Z])(?=.*[\W_]).{8,16}$/;
+			// 조건 3: 숫자 + 특수문자 조합
+			const regex3 = /^(?=.*\d)(?=.*[\W_]).{8,16}$/;
+			
+			return regex1.test(password) || regex2.test(password) || regex3.test(password);
+		}
+		
+		// 다른 곳 클릭 시 아이디 유효성 검사
+		$(id).on('blur', function() {
+		    var idValue = $(this).val();
+		    if (idValue.trim() !== "" && !isIdValid(idValue)) {
+		        alert("아이디 입력 조건을 만족해주세요.");
+		    }
+		});
 		
 		function isPasswordValid(password) {
 			// 조건 1: 영문대소문자 + 숫자 조합
