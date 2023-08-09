@@ -40,7 +40,7 @@
 							class="image-text">브랜드 소개</span>
 					</div>
 			</a></li>
-			<li><a href="/sharepostdetail">
+			<li><a href="/shareboardlist">
 					<div class="image-container">
 						<img alt="커뮤니티" src="images/community.png"> <span
 							class="image-text">커뮤니티</span>

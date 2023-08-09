@@ -18,7 +18,7 @@
 					<li><a href="/brandpromolist"><img alt="브랜드소개"
 							src="/images/promotion.png"><span class="image-text">브랜드
 								소개</span></a></li>
-					<li><a href="/sharepostdetail"><img alt="커뮤니티"
+					<li><a href="/shareboardlist"><img alt="커뮤니티"
 							src="/images/community.png"><span class="image-text">커뮤니티</span></a></li>
 				</ul>
 			</div>
