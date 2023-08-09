@@ -101,8 +101,12 @@ select {
 }
 .post_tit{
 	width:650px;
-	
 	margin: 7px 0px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
 }
 .post_tit a{
     font-size: 22px;
@@ -119,15 +123,14 @@ select {
 }
 .post_contents{
 	width:690px;
-	height:100px;
     color: #363636;
     font-size: 16px;
     white-space: normal;
-   overflow: hidden;
+   	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
+  	-webkit-line-clamp: 5;
+  	-webkit-box-orient: vertical;
 }
 
 .pagination{
