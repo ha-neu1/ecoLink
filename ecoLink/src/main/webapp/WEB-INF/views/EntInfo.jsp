@@ -101,7 +101,7 @@
 						<td>승인이 허가되었습니다.</td>
 						</c:if>
 						<c:if test="${loginEnt.entdConfirm == false}">
-						<td>승인 검토 중입니다. <br/>이미 수정했다면 승인을 기다려 주세요.<br/>시간이 길어질 경우 문의주세요.</td>
+						<td>승인 검토 중입니다. <br/>시간이 길어질 경우 문의주세요.</td>
 						</c:if>
 					</tr>
 				</table>
