@@ -32,7 +32,6 @@ import dto.FileDTO;
 import dto.MemberDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import service.BoardService;
 import service.ShareBoardService;
 
 @Controller

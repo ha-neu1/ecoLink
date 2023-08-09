@@ -71,7 +71,7 @@ $(document).ready(function() {
                 $("#response").scrollTop($("#response")[0].scrollHeight);
             },
             error: function(e) {
-                alert(e);
+                alert(JSON.stringify(e));
             }
         });
     }

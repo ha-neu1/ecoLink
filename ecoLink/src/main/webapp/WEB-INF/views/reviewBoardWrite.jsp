@@ -9,7 +9,6 @@
     <title>Document</title>
     <script src="https://kit.fontawesome.com/7aca531ae5.js" crossorigin="anonymous"></script>
     <%@ include file="header.jsp"%>
-<%@ include file="chatbot.jsp"%>
 </head>
 <body>
 <div class="info_title">게시글 작성하기</div>
