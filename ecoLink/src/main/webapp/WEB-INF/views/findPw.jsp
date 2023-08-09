@@ -11,27 +11,28 @@
 <script>
 window.addEventListener("DOMContentLoaded", function() {
 	 var radiobox1 = document.getElementById("check_method1");
-	 var radiobox2 = document.getElementById("check_method2");
+	 //var radiobox2 = document.getElementById("check_method2");
 	 var backgroundUrlOff = "/images/icon_input_radio_off.svg";
 	 var backgroundUrlOn = "/images/icon_input_radio_on.svg";
 	
 	 // 기본적으로 check_method1의 radio 버튼이 클릭되어 있도록 설정
 	 radiobox1.checked = true;
 	 document.getElementById("email_view").style.display = "";
-	 document.getElementById("id_view").style.display = "none";
+	 //document.getElementById("id_view").style.display = "none";
 	 radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
-	 radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+	 //radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
 	 
 	 // check_method1의 radio 버튼 클릭 시 email_view 보이도록 설정
 	 radiobox1.addEventListener("click", function() {
 	// check_method2의 radio 버튼 클릭 해제
-	radiobox2.checked = false;
-	radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
+	//radiobox2.checked = false;
+	//radiobox2.style.backgroundImage = "url(" + backgroundUrlOff + ")";
 	radiobox1.style.backgroundImage = "url(" + backgroundUrlOn + ")";
 	   document.getElementById("email_view").style.display = "";
-	   document.getElementById("id_view").style.display = "none";
+	   //document.getElementById("id_view").style.display = "none";
 	 });
 	
+	 /*
 	 // check_method2의 radio 버튼 클릭 시 mobile_view 보이도록 설정
 	 radiobox2.addEventListener("click", function() {
 	   // check_method1의 radio 버튼 클릭 해제
@@ -40,7 +41,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	   radiobox2.style.backgroundImage = "url(" + backgroundUrlOn + ")";
 	   document.getElementById("id_view").style.display = "";
 	   document.getElementById("email_view").style.display = "none";
-	 });
+	 });*/
 	  
 	// 확인 버튼 클릭 시 처리
 	$("#btn_submit").click(function() {
@@ -131,11 +132,11 @@ window.addEventListener("DOMContentLoaded", function() {
                                                 <p class="check">
                                                     <input id="check_method1" name="check_method" value="1" type="radio" checked="checked" />
                                                     <label id="check_label1" for="check_method1">이메일로 찾기</label>
-                                                    <input id="check_method2" name="check_method" value="2" type="radio"/>
+                                                    <!-- <input id="check_method2" name="check_method" value="2" type="radio"/>
                                                     <label id="check_label2" for="check_method2">
                                                         <span id="search_type_mobile_lable">아이디로 찾기</span>
                                                     </label>
-                                                    
+                                                    -->
                                                 </p>
                                             </td>
                                         </tr>
@@ -153,12 +154,14 @@ window.addEventListener("DOMContentLoaded", function() {
                                                 <input id="memEmail" name="memEmail" class="lostInput" placeholder="" value="" type="text" />
                                             </td>
                                         </tr>
+                                        <!-- 
                                         <tr id="id_view" class="email">
                                             <th>아이디로 찾기</th>
                                             <td>
                                                 <input id="memId" name="memId" class="lostInput" placeholder="" value="" type="text" />
                                             </td>
                                         </tr> 
+                                        -->
                                     </tbody>
                                 </table>
                                 <div class="ec-base-button gColumn">
