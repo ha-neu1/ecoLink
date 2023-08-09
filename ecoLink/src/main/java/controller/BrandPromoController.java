@@ -60,7 +60,7 @@ public class BrandPromoController {
 			if (order != null) {
 				if (order.equals("latest")) {
 					clistmap.put("option", "m.memRegtime");
-					clistmap.put("option2", "asc");
+					clistmap.put("option2", "desc");
 					clistmap.put("memNick", search);
 					list = service.getoptionBPList(clistmap);
 					mv.addObject("order", "latest");

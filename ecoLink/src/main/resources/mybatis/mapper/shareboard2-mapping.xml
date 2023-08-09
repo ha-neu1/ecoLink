@@ -14,7 +14,7 @@
 		boardId) AS maxFiles ON b.boardId = maxFiles.boardId
 		LEFT JOIN file AS f ON maxFiles.maxFileIdx = f.fileIdx
 		WHERE b.boardType = 'share'
-		ORDER BY b.boardRegtime asc limit #{limitindex} , #{limitcount};
+		ORDER BY b.boardRegtime desc limit #{limitindex} , #{limitcount};
 	</select>
 
 	<select id="getviewcountBPList" parameterType="hashmap"

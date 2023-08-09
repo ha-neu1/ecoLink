@@ -82,7 +82,7 @@
 		brand_comment as bc on e.entCrn = bc.entCrn
 		where e.entdConfirm = true
 		group by e.entCrn
-		order by m.memRegtime asc limit #{limitindex} ,
+		order by m.memRegtime desc limit #{limitindex} ,
 		#{limitcount};
 	</select>
 
